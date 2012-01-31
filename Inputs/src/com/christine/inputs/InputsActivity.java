@@ -1,13 +1,19 @@
 package com.christine.inputs;
 
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class InputsActivity extends Activity {
 	
@@ -16,6 +22,8 @@ public class InputsActivity extends Activity {
 	Button scanBarcode;
 	TextView test;
 	InputMethodManager manager;
+	Context inputsContext;
+	String contents;
 	
 	
     /** Called when the activity is first created. */
@@ -29,29 +37,64 @@ public class InputsActivity extends Activity {
         enterPLU=(EditText) findViewById(R.id.enterPLU);
         test=(TextView) findViewById(R.id.test);
         manager=(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        
+        inputsContext=getApplicationContext();
+
         submitPLU.setOnClickListener(new View.OnClickListener() {
-        	//when the user presses submitPLU
             public void onClick(View v) {
-            	
             	//get the PLU code
             	String testString=enterPLU.getText().toString();
             	
             	//check to see if the PLU code is at least 5 characters long
-            	if(testString.length()<=5){
+            	if(testString.length()<=5 && testString.length()>=4){
 	            	//hide the keyboard if the submitPLU button is pressed
 	            	manager.hideSoftInputFromWindow(enterPLU.getWindowToken(), 0);
 	            	//set the test string to the entered PLU code
 	                test.setText(testString);
+	                
             	} else{
             		//if the testString is not at least 5 characters long,
-            		//start a dialog that tells the user that it must be that length
-
+            		//start a Toast that tells the user that it must be that length
+            		String incorrectText="A PLU code MUST be 4 to 5 numbers";
+            		Toast incorrectLength=Toast.makeText(inputsContext, 
+            				incorrectText,Toast.LENGTH_SHORT);
+            		incorrectLength.setGravity(Gravity.TOP|Gravity.LEFT,0,150);
+            		incorrectLength.show();
             	}
             }
-        });
+        }); //end submitPLU onClickListener
         
         
-        
+        //Handles the Barcode Scanning activity
+	    scanBarcode=(Button) findViewById(R.id.scanBarcode);
+	    
+	    scanBarcode.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Intent scanner = new Intent("com.google.zxing.client.android.SCAN");
+	    		scanner.putExtra("SCAN_MODE", "QR_CODE_MODE");
+	    		scanner.putExtra("SCAN_MODE", "PRODUCT_MODE");
+	    		startActivityForResult(scanner, 0);
+			}
+		});//end scanBarcode onClickListener
     }
+        
+    public void onActivityResult(int requestCode, int resultCode, Intent scanner) {
+		if (requestCode == 0) {
+			if (resultCode == RESULT_OK) {
+				contents = scanner.getStringExtra("SCAN_RESULT");
+				String format = scanner.getStringExtra("SCAN_RESULT_FORMAT");
+				
+				// Handle successful scan
+				Toast toast = Toast.makeText(this, "Content:" + contents + " Format:" + format , Toast.LENGTH_LONG);
+				toast.setGravity(Gravity.TOP, 25, 400);
+				toast.show();
+				test.setText(contents);
+				Log.d("Set text","contents");
+			}
+		} else if (resultCode == RESULT_CANCELED) {
+			// Handle cancel
+			Toast toast = Toast.makeText(this, "Scan was Cancelled!", Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.TOP, 25, 400);
+			toast.show();
+		}
+	}
 }
