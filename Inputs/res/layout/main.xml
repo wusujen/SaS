@@ -24,7 +24,7 @@
         android:id="@+id/submitPLU"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search PLU Codes" android:layout_gravity="center_vertical|center_horizontal" android:layout_marginLeft="20dp" android:layout_marginRight="20dp"/>
+        android:text="Search PLU Codes" android:layout_gravity="center_vertical|center_horizontal" android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:layout_marginTop="10dp"/>
 
     <TextView
         android:id="@+id/barcodeHeading"
@@ -32,25 +32,29 @@
         android:layout_height="wrap_content"
         android:text="Scan Barcodes"
         android:textAppearance="?android:attr/textAppearanceLarge" android:layout_marginTop="60dp" android:layout_marginLeft="20dp"/>
-
-    <Button
-        android:id="@+id/scanBarcode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Scan Barcode" android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:layout_marginTop="10dp"/>
-
-    <TextView
-        android:id="@+id/testHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Test Output"
-        android:textAppearance="?android:attr/textAppearanceLarge" android:layout_marginRight="20dp" android:layout_marginLeft="20dp" android:layout_marginTop="40dp"/>
 
     <TextView
         android:id="@+id/test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
         android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:layout_marginTop="10dp"/>
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/scanBarcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Scan Barcode" android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:layout_marginTop="20dp"/>
+
+    <Button
+        android:id="@+id/submitBarcode"
+        android:layout_width="278dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="Search for Barcode" android:layout_marginTop="10dp"/>
 
 </LinearLayout>

@@ -18,10 +18,13 @@ public class InputsActivity extends Activity {
 	EditText enterPLU;
 	Button submitPLU;
 	Button scanBarcode;
+	Button submitBarcode;
 	TextView test;
 	InputMethodManager manager;
 	Context inputsContext;
 	String contents;
+	
+	boolean onUPCResult=false;
 	
     /** Called when the activity is first created. */
     @Override
@@ -69,7 +72,6 @@ public class InputsActivity extends Activity {
         
         //Handles the Barcode Scanning activity
 	    scanBarcode=(Button) findViewById(R.id.scanBarcode);
-	    
 	    scanBarcode.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				//start a scanner intent, using zxing library
@@ -79,26 +81,37 @@ public class InputsActivity extends Activity {
 	    		startActivityForResult(scanner, 0);
 			}
 		});//end scanBarcode onClickListener
+	    
+	    
+	    //Handles the Barcode search activity
+	    submitBarcode=(Button) findViewById(R.id.submitBarcode);
+	    submitBarcode.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				String scanResult=test.getText().toString();
+				Intent searchForBarcode=new Intent(inputsContext,InputsBarcodeSearchActivity.class);
+				searchForBarcode.setType("text/plain");
+				searchForBarcode.putExtra("value1",scanResult);
+                startActivity(searchForBarcode);
+			}
+		});
+	    
+	    
     }//end onCreate()
-        
+   
+    
     public void onActivityResult(int requestCode, int resultCode, Intent scanner) {
 		if (requestCode == 0) {
 			if (resultCode == RESULT_OK) {
 				contents = scanner.getStringExtra("SCAN_RESULT");
 				String format = scanner.getStringExtra("SCAN_RESULT_FORMAT");
-				
-				//Handle successful scan by showing a toast with the info
-				Toast toast = Toast.makeText(this, "Content:" + contents + " Format:" + format , Toast.LENGTH_LONG);
+                
+				Toast toast = Toast.makeText(this, "Content:" + contents + 
+						" Format:" + format , Toast.LENGTH_LONG);
 				toast.setGravity(Gravity.TOP, 25, 400);
 				toast.show();
-				test.setText(contents);
-				Log.d("Set text","contents");
 				
-				//try another intent
-				Intent barcodeInput=new Intent(inputsContext,InputsBarcodeActivity.class);
-				barcodeInput.setType("text/plain");
-                barcodeInput.putExtra("value1",contents);
-                startActivity(barcodeInput);
+				test.setText(contents);
 			}
 		} else if (resultCode == RESULT_CANCELED) {
 			//Handle cancel
@@ -106,5 +119,6 @@ public class InputsActivity extends Activity {
 			toast.setGravity(Gravity.TOP, 25, 400);
 			toast.show();
 		}
-	}
+		
+	}//end onActivityResult
 }
