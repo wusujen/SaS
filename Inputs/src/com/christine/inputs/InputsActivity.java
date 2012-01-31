@@ -1,5 +1,20 @@
 package com.christine.inputs;
 
+import java.net.URI;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.http.conn.HttpHostConnectException;
+import org.xmlrpc.android.XMLRPCClient;
+import org.xmlrpc.android.XMLRPCException;
+import org.xmlrpc.android.XMLRPCFault;
+import org.xmlrpc.android.XMLRPCSerializable;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +38,16 @@ public class InputsActivity extends Activity {
 	InputMethodManager manager;
 	Context inputsContext;
 	String contents;
+    String upcResults;
+	String resultValue;
+	String resultSize;
+	String resultMessage;
+	String resultDesc;
+	
+	// XMLRPC library request arguments for upcdatabase.com
+	private URI uri=URI.create("http://www.upcdatabase.com/xmlrpc");
+	private String rpc_key="2cec7a0d6ee7bcdec8a3a12f48eda85052dfc0ab";
+	private XMLRPCClient client= new XMLRPCClient(uri);
 	
 	boolean onUPCResult=false;
 	
@@ -83,16 +108,51 @@ public class InputsActivity extends Activity {
 		});//end scanBarcode onClickListener
 	    
 	    
+	    
 	    //Handles the Barcode search activity
 	    submitBarcode=(Button) findViewById(R.id.submitBarcode);
 	    submitBarcode.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
+				//store the results of the scan & display them on the screen
 				String scanResult=test.getText().toString();
-				Intent searchForBarcode=new Intent(inputsContext,InputsBarcodeSearchActivity.class);
+				
+				//search for the barcode's item in the XMLRPC library
+				try {
+	    			//for the XML-RPC, upcdatabase.com client
+	    			HashMap<String, String> params = new HashMap<String, String>();
+	    			params.put("rpc_key", rpc_key);
+	    			params.put("upc", scanResult);
+	    			HashMap result = (HashMap) client.call("lookup", params);
+	    			System.out.println("This is contents " + scanResult);
+	    			
+	    			//store these values
+	    			upcResults = result.toString();
+	    			resultSize = result.get("size").toString();
+	    			resultDesc = result.get("description").toString();
+	    			resultMessage=result.get("message").toString();
+	    			resultValue=result.get("value").toString();
+				}
+	        	catch (NullPointerException nl) {
+		    			nl.printStackTrace();
+		    			Log.d("It's returning null", "This");
+	    			} 
+	        	catch (XMLRPCException e) {
+						e.printStackTrace();
+						Log.d("It's failed", "This");
+	    			}
+				
+				//start a new Intent to pass these values onto
+    			//the next screen to display: InputsBarcodeSearchActivity
+    			Intent searchForBarcode=new Intent(inputsContext,InputsBarcodeSearchActivity.class);
 				searchForBarcode.setType("text/plain");
-				searchForBarcode.putExtra("value1",scanResult);
+				searchForBarcode.putExtra("scanResult",scanResult);
+				searchForBarcode.putExtra("resultSize", resultSize);
+				searchForBarcode.putExtra("resultDesc", resultDesc);
+				searchForBarcode.putExtra("resultMessage",resultMessage);
+				searchForBarcode.putExtra("resultValue", resultValue);
                 startActivity(searchForBarcode);
+	
 			}
 		});
 	    
@@ -106,12 +166,13 @@ public class InputsActivity extends Activity {
 				contents = scanner.getStringExtra("SCAN_RESULT");
 				String format = scanner.getStringExtra("SCAN_RESULT_FORMAT");
                 
+				test.setText(contents);
+				
 				Toast toast = Toast.makeText(this, "Content:" + contents + 
 						" Format:" + format , Toast.LENGTH_LONG);
 				toast.setGravity(Gravity.TOP, 25, 400);
 				toast.show();
 				
-				test.setText(contents);
 			}
 		} else if (resultCode == RESULT_CANCELED) {
 			//Handle cancel

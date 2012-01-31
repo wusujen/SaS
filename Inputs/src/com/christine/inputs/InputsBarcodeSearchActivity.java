@@ -8,6 +8,10 @@ public class InputsBarcodeSearchActivity extends Activity {
 	Bundle extras; //get the code of interest from the previous Activity
 	TextView outputText;
 	String upcCode;
+	String resultValue;
+	String resultSize;
+	String resultMessage;
+	String resultDesc;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -24,11 +28,20 @@ public class InputsBarcodeSearchActivity extends Activity {
         if (extras == null) {
         		return;
         }
-        String value1 = extras.getString("value1");
-        if (value1 != null) {
-        	outputText.setText("Code Searched: " + value1 + "\n");
-        	upcCode=value1;
+        
+        String scanResult = extras.getString("scanResult");
+        resultDesc = extras.getString("resultDesc");
+        resultSize = extras.getString("resultSize");
+        resultMessage = extras.getString("resultMessage");
+        resultValue = extras.getString("resultValue");
+        
+        if (scanResult != null) {
+        	outputText.setText("Code Searched: " + scanResult + "\n");
+        	upcCode=scanResult;
+        	outputText.append("result description: " + resultDesc + "\nresult size: " + resultSize 
+    				+ "\nresultMessage: " + resultMessage + "\nresultValue: " + resultValue);
         }
 	}
-
 }
+
+
