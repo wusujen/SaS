@@ -1,7 +1,5 @@
 package com.christine.inputs;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +22,6 @@ public class InputsActivity extends Activity {
 	InputMethodManager manager;
 	Context inputsContext;
 	String contents;
-	
 	
     /** Called when the activity is first created. */
     @Override
@@ -51,6 +48,12 @@ public class InputsActivity extends Activity {
 	            	//set the test string to the entered PLU code
 	                test.setText(testString);
 	                
+	                //start the intent to pen the pluInput screen
+	                Intent pluInput = new Intent(inputsContext, InputsPLUActivity.class);
+	                pluInput.setType("text/plain");
+	                pluInput.putExtra("value1",testString);
+	                startActivity(pluInput);
+	                
             	} else{
             		//if the testString is not at least 5 characters long,
             		//start a Toast that tells the user that it must be that length
@@ -69,13 +72,14 @@ public class InputsActivity extends Activity {
 	    
 	    scanBarcode.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				//start a scanner intent, using zxing library
 				Intent scanner = new Intent("com.google.zxing.client.android.SCAN");
 	    		scanner.putExtra("SCAN_MODE", "QR_CODE_MODE");
 	    		scanner.putExtra("SCAN_MODE", "PRODUCT_MODE");
 	    		startActivityForResult(scanner, 0);
 			}
 		});//end scanBarcode onClickListener
-    }
+    }//end onCreate()
         
     public void onActivityResult(int requestCode, int resultCode, Intent scanner) {
 		if (requestCode == 0) {
@@ -83,15 +87,21 @@ public class InputsActivity extends Activity {
 				contents = scanner.getStringExtra("SCAN_RESULT");
 				String format = scanner.getStringExtra("SCAN_RESULT_FORMAT");
 				
-				// Handle successful scan
+				//Handle successful scan by showing a toast with the info
 				Toast toast = Toast.makeText(this, "Content:" + contents + " Format:" + format , Toast.LENGTH_LONG);
 				toast.setGravity(Gravity.TOP, 25, 400);
 				toast.show();
 				test.setText(contents);
 				Log.d("Set text","contents");
+				
+				//try another intent
+				Intent barcodeInput=new Intent(inputsContext,InputsBarcodeActivity.class);
+				barcodeInput.setType("text/plain");
+                barcodeInput.putExtra("value1",contents);
+                startActivity(barcodeInput);
 			}
 		} else if (resultCode == RESULT_CANCELED) {
-			// Handle cancel
+			//Handle cancel
 			Toast toast = Toast.makeText(this, "Scan was Cancelled!", Toast.LENGTH_LONG);
 			toast.setGravity(Gravity.TOP, 25, 400);
 			toast.show();

@@ -19,8 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ScannerActivity"></activity>
-        <activity android:name="ResultsActivity"></activity>
+        <activity android:name="InputsPLUActivity"></activity>
+        <activity android:name="InputsBarcodeActivity"></activity>
     </application>
 
 </manifest>
