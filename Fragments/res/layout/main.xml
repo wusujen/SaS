@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+    
+     <fragment
+        android:id="@+id/menuFragment"
+        android:layout_width="150dip"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?android:attr/actionBarSize"
+        class="com.christine.fragments.MenuFragment" ></fragment>
+
+    <fragment
+        android:id="@+id/visualizationFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.christine.fragments.VisualizationFragment" >
+        <!-- Preview: layout=@layout/details -->
+    </fragment>
+    
+
+
+</LinearLayout>
