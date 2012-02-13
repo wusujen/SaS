@@ -1,0 +1,24 @@
+/****************
+ ** SaS README **
+ ****************/
+ SaS is a series of iterations on a barcode scanning program
+ for a nutrition app that runs on Android platform.
+
+== PROJECTS ==
+/**Inputs
+ Written for Gingerbread, Android version 2.2, API Level 8
+ Includes barcode scanning and plu input. Databases consist of 
+ internal sqlite db containing nutrition information from USDA, and PLU barcode db
+ 
+/**Fragments
+ Written for IceCreamSandwich, Android version 3.2, API Level 13
+ Consists of simple fragment test
+
+== LIBRARIES ==
+/**ZXING Scanning: http://code.google.com/p/zxing/
+/**Android XML-RPC: http://code.google.com/p/android-xmlrpc/
+
+== DATASOURCES ==
+/**USDA nutrition info: http://www.ars.usda.gov/Services/docs.htm?docid=22113
+/**PLU Codes: http://www.plucodes.com/
+
