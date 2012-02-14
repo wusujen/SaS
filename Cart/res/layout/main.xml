@@ -11,7 +11,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="100dp"
-        android:text="Welcome to Cart"
+        android:text="@string/main_welcome"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="15dp"
-        android:text="Join Cart" />
+        android:text="@string/main_btn_join" />
 
     <Button
         android:id="@+id/btn_guest"
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="15dp"
-        android:text="Start guest Cart" />
+        android:text="@string/main_btn_guest" />
 
     <Button
         android:id="@+id/btn_login"
@@ -36,6 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="15dp"
-        android:text="Login to your Cart" />
+        android:text="@string/main_btn_login" />
 
 </LinearLayout>

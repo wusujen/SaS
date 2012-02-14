@@ -27,9 +27,13 @@ public class LoginActivity extends Activity {
 			public void onClick(View v) {
 				Intent startSetupPeople=new Intent(v.getContext(),SetupPeopleActivity.class);
 				
-				//pass the username & password to the next activity
-				startSetupPeople.putExtra("username",username.getText());
-				startSetupPeople.putExtra("password",password.getText());
+				//bundle up the information
+				Bundle userInfo = new Bundle();
+				userInfo.putString("username",username.getText().toString());
+				userInfo.putString("password",password.getText().toString());
+				
+				//give the bundle to the intent
+				startSetupPeople.putExtras(userInfo);
 				
 				startActivity(startSetupPeople);
 			}

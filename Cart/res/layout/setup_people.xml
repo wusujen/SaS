@@ -3,29 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/user_properties"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/setupp_header" />
 
     <TextView
         android:id="@+id/prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:text="How many people are you shopping for?"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/user_properties"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:text="User Properties"
-        />
+        android:layout_marginTop="125dp"
+        android:text="@string/setupp_prompt"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
     <TableRow
         android:id="@+id/tableRow1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp" >
+        android:layout_marginTop="75dp" >
 
         <Button
             android:id="@+id/btn_man"
@@ -33,42 +31,42 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:text="Man" />
-
+            android:text="@string/setupp_btn_man" />
+
         <Button
             android:id="@+id/btn_woman"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:text="Woman" />
-
+            android:text="@string/setupp_btn_woman" />
+
         <Button
             android:id="@+id/btn_boy"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:text="Boy" />
-
+            android:text="@string/setupp_btn_boy" />
+
         <Button
             android:id="@+id/btn_girl"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:text="Girl" />
+            android:text="@string/setupp_btn_girl" />
 
     </TableRow>
-
+
     <Button
         android:id="@+id/btn_next"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:text="Next" />
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="265dp"
+        android:layout_marginTop="75dp"
+        android:text="@string/setupp_btn_next" />
 
 </LinearLayout>
