@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Generic Strings -->
+    <string name="no_activities"></string>
 
     <!-- MAIN Text -->
     <string name="main_welcome">Welcome to Cart!</string>
@@ -26,4 +28,11 @@
 	<!-- Setup Days Text -->
 	<string name="setupd_prompt">How many Days are you shopping for?</string>
 	<string name="setupd_btn_start">Start Cart</string>
+	
+	<!-- ItemListFragment Text-->
+	<string name="itemlist_header">Items in Cart</string>
+	
+	<!-- AddItemFragment Text -->
+	<string name="additem_btn_scan">Scan Item</string>
+	<string name="additem_btn_search">Search Item</string>
 </resources>
