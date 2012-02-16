@@ -5,13 +5,21 @@
  for a nutrition app that runs on Android platform.
 
 == PROJECTS ==
+/**Cart
+ Written for Froyo, Android version 2.2, API Level 8
+ Wireframe in progress.
+
+/**TabletCart
+ Written for ICS, Android v 4.03, API Level 14. 
+ Incomplete Wireframe for project.
+
 /**Inputs
- Written for Gingerbread, Android version 2.2, API Level 8
+ Written for Froyo, Android version 2.2, API Level 8
  Includes barcode scanning and plu input. Databases consist of 
  internal sqlite db containing nutrition information from USDA, and PLU barcode db
  
 /**Fragments
- Written for IceCreamSandwich, Android version 3.2, API Level 13
+ Written for Honeycomb, Android version 3.2, API Level 13
  Consists of simple fragment test
 
 == LIBRARIES ==
