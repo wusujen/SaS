@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class SetupPeopleActivity extends Activity {
-	
+
 	Button man;
 	Button woman;
 	Button boy;

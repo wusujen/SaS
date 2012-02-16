@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 public class LoginActivity extends Activity {
 	
 	Button btn_login;
@@ -18,8 +19,8 @@ public class LoginActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 		
-		username = (EditText) findViewById(R.id.username);
-		password = (EditText) findViewById(R.id.password);
+		username = (EditText) findViewById(R.id.textedit_username);
+		password = (EditText) findViewById(R.id.textedit_password);
 		
 		btn_login = (Button) findViewById(R.id.btn_login);
 		btn_login.setOnClickListener(new View.OnClickListener() {
@@ -40,5 +41,4 @@ public class LoginActivity extends Activity {
 		});
 		
 	}
-
 }

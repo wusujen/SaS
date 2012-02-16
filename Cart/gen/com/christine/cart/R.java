@@ -13,11 +13,86 @@ public final class R {
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
     }
+    public static final class id {
+        public static final int barcodeHeading=0x7f050003;
+        public static final int btn_boy=0x7f050012;
+        public static final int btn_girl=0x7f050013;
+        public static final int btn_guest=0x7f050017;
+        public static final int btn_join=0x7f050016;
+        public static final int btn_login=0x7f050009;
+        public static final int btn_man=0x7f050010;
+        public static final int btn_next=0x7f050014;
+        public static final int btn_woman=0x7f050011;
+        public static final int enterPLU=0x7f050001;
+        public static final int linearLayout1=0x7f05000d;
+        public static final int outputText=0x7f05000b;
+        public static final int pluHeading=0x7f050000;
+        public static final int scanBarcode=0x7f050005;
+        public static final int scrollView1=0x7f05000c;
+        public static final int submitBarcode=0x7f050006;
+        public static final int submitPLU=0x7f050002;
+        public static final int tableRow1=0x7f05000f;
+        public static final int test=0x7f050004;
+        public static final int textView2=0x7f05000e;
+        public static final int textedit_password=0x7f050008;
+        public static final int textedit_username=0x7f050007;
+        public static final int title=0x7f05000a;
+        public static final int user_properties=0x7f050015;
+    }
     public static final class layout {
-        public static final int main=0x7f030000;
+        public static final int inputs=0x7f030000;
+        public static final int login=0x7f030001;
+        public static final int main=0x7f030002;
+        public static final int search_barcode=0x7f030003;
+        public static final int search_plu=0x7f030004;
+        public static final int setup_days=0x7f030005;
+        public static final int setup_people=0x7f030006;
+        public static final int start=0x7f030007;
     }
     public static final class string {
-        public static final int app_name=0x7f040001;
-        public static final int hello=0x7f040000;
+        /**  AddItemFragment 
+         */
+        public static final int additem_btn_scan=0x7f040014;
+        public static final int additem_btn_search=0x7f040015;
+        public static final int app_name=0x7f040002;
+        /**  ItemListFragment Text
+         */
+        public static final int itemlist_header=0x7f040013;
+        public static final int login_btn_login=0x7f040009;
+        /**  Login 
+         */
+        public static final int login_header=0x7f040006;
+        public static final int login_textedit_password=0x7f040008;
+        public static final int login_textedit_username=0x7f040007;
+        /**  Generic 
+         */
+        public static final int no_activities=0x7f040000;
+        public static final int sb_outputtext=0x7f040017;
+        /**  SearchBarcode 
+         */
+        public static final int sb_title=0x7f040016;
+        public static final int setupd_btn_start=0x7f040012;
+        /**  Setup Days 
+         */
+        public static final int setupd_prompt=0x7f040011;
+        public static final int setupp_btn_boy=0x7f04000e;
+        public static final int setupp_btn_girl=0x7f04000f;
+        public static final int setupp_btn_man=0x7f04000c;
+        public static final int setupp_btn_next=0x7f040010;
+        public static final int setupp_btn_woman=0x7f04000d;
+        /**  Setup People 
+         */
+        public static final int setupp_header=0x7f04000a;
+        public static final int setupp_prompt=0x7f04000b;
+        public static final int sp_outputtext=0x7f040019;
+        /**  SearchPLU 
+         */
+        public static final int sp_title=0x7f040018;
+        public static final int start_btn_guest=0x7f040005;
+        public static final int start_btn_join=0x7f040003;
+        public static final int start_btn_login=0x7f040004;
+        /**  START 
+         */
+        public static final int start_welcome=0x7f040001;
     }
 }
