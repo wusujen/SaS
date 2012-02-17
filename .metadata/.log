@@ -424,3 +424,12 @@ android.view.InflateException: <include /> can only be used inside of a ViewGrou
 	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:622)
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:577)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1410)
+!SESSION 2012-02-17 18:47:38.508 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_02
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86 -data C:\Users\Christine\Thesis\SaS
+
+!ENTRY org.eclipse.ui 4 4 2012-02-17 18:55:51.993
+!MESSAGE Invalid preference page path: XML Syntax
