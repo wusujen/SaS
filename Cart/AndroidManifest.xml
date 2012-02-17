@@ -26,6 +26,9 @@
         <activity android:name=".inputs.InputsBarcodeActivity"></activity>
         <activity android:name=".inputs.InputsBarcodeSearchActivity"></activity>
         <activity android:name=".inputs.InputsPLUActivity"></activity>
+        <activity android:name="FooterActivity"></activity>
+        <activity android:name="InputSearch"></activity>
+        <activity android:name="InputScan"></activity>
     </application>
 
 </manifest>

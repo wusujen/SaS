@@ -14,15 +14,38 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="30dp"
-                android:text="@string/sp_title"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+              <TextView
+		        android:id="@+id/pluHeading"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="20dp"
+		        android:layout_marginTop="50dp"
+		        android:text="Input PLU Code"
+		        android:textAppearance="?android:attr/textAppearanceLarge" />
+		
+		
+		    <EditText
+		        android:id="@+id/enterPLU"
+		        android:layout_width="match_parent"
+		        android:layout_height="50dp"
+		        android:inputType="number" 
+		        android:layout_gravity="center_vertical|center_horizontal"
+		        android:layout_marginTop="10dp"
+		        android:layout_marginLeft="20dp"
+		        android:layout_marginRight="20dp"
+		        android:clickable="false"/>
+		
+		
+		    <Button
+		        android:id="@+id/submitPLU"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:text="Search PLU Codes" 
+		        android:layout_gravity="center_vertical|center_horizontal" 
+		        android:layout_marginLeft="20dp" 
+		        android:layout_marginRight="20dp" 
+		        android:layout_marginTop="10dp"/>
+		
 
             <TextView
                 android:id="@+id/outputText"
