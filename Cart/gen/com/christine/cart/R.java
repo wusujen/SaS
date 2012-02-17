@@ -22,14 +22,14 @@ public final class R {
         public static final int btn_login=0x7f05000f;
         public static final int btn_man=0x7f05001a;
         public static final int btn_next=0x7f05001e;
-        public static final int btn_scan=0x7f050004;
-        public static final int btn_search=0x7f050005;
+        public static final int btn_scan=0x7f050001;
+        public static final int btn_search=0x7f050002;
         public static final int btn_start=0x7f050017;
         public static final int btn_woman=0x7f05001b;
-        public static final int button1=0x7f050001;
-        public static final int data=0x7f050002;
+        public static final int button1=0x7f050003;
+        public static final int data=0x7f050004;
         public static final int enterPLU=0x7f050007;
-        public static final int footer=0x7f050003;
+        public static final int footer=0x7f050005;
         public static final int linearLayout1=0x7f050013;
         public static final int outputText=0x7f050011;
         public static final int pluHeading=0x7f050006;
@@ -45,21 +45,25 @@ public final class R {
         public static final int textedit_password=0x7f05000e;
         public static final int textedit_username=0x7f05000d;
         public static final int title=0x7f050010;
+        public static final int tv_days=0x7f050022;
         public static final int tv_peopleinfo=0x7f050018;
         public static final int tv_printdays=0x7f050015;
         public static final int user_properties=0x7f05001f;
     }
     public static final class layout {
-        public static final int cart=0x7f030000;
-        public static final int footer=0x7f030001;
-        public static final int inputs=0x7f030002;
-        public static final int login=0x7f030003;
-        public static final int main=0x7f030004;
-        public static final int search_barcode=0x7f030005;
-        public static final int search_plu=0x7f030006;
-        public static final int setup_days=0x7f030007;
-        public static final int setup_people=0x7f030008;
-        public static final int start=0x7f030009;
+        public static final int add_item=0x7f030000;
+        public static final int cart=0x7f030001;
+        public static final int footer=0x7f030002;
+        public static final int inputs=0x7f030003;
+        public static final int item_list=0x7f030004;
+        public static final int login=0x7f030005;
+        public static final int main=0x7f030006;
+        public static final int search_barcode=0x7f030007;
+        public static final int search_plu=0x7f030008;
+        public static final int setup_days=0x7f030009;
+        public static final int setup_people=0x7f03000a;
+        public static final int start=0x7f03000b;
+        public static final int visualization=0x7f03000c;
     }
     public static final class string {
         /**  AddItemFragment 
