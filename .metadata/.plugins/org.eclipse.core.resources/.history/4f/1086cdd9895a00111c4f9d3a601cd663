@@ -18,16 +18,13 @@ public class InputSearchActivity extends Activity {
 	    setContentView(R.layout.search_plu);
 	    
 	    enterPLU = (EditText) findViewById(R.id.enterPLU);
-	    submitPLU = (Button) findViewById(R.id.submitPLU);
+	    submitPLU = (Button) findViewById(R.id.submitBarcode);
 	    submitPLU.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				String pluCode = enterPLU.getText().toString();
 				
 				Intent searchForPLUCode = new Intent(InputSearchActivity.this, InputDatabaseSearchActivity.class);
-				searchForPLUCode.setType("text/plain");
-				searchForPLUCode.putExtra("plu",pluCode);
 				
-				startActivity(searchForPLUCode);
 			}
 		});
 	    

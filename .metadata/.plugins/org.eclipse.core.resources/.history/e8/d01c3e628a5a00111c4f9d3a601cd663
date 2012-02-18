@@ -80,7 +80,7 @@ public class InputDatabaseSearchActivity extends Activity {
 	        
 	        ArrayList results = searchNutritionDatabase(itemName);
 		 	if(results != null){
-		 		for(int i=0; i<=results.size()-1; i++){
+		 		for(int i=0; i<=results.size(); i++){
 		 			outputText.append((String) results.get(i));
 		 		}
 		 	} else{
@@ -116,7 +116,7 @@ public class InputDatabaseSearchActivity extends Activity {
 	 	while(!getNutritionInfoCursor.isAfterLast()){
 	 		String name = getNutritionInfoCursor.getString(0);
 	 		String kcal = getNutritionInfoCursor.getString(1);
-	 		String itemDesc = "Name: " + name + "\n calories:" + kcal + "\n";
+	 		String itemDesc = "Name: " + name + "calories:" + kcal + "\n";
 	 		output.add(itemDesc);
 	 		getNutritionInfoCursor.moveToNext();
 	 		
