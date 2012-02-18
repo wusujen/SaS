@@ -1,0 +1,46 @@
+package com.christine.cart;
+
+import com.christine.cart.intentResult.DataBaseHelper;
+
+import android.app.Activity;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.widget.TextView;
+
+
+public class InputDatabaseSearchActivity extends Activity {
+	Context inputsContext;
+	TextView outputText;
+	
+	String plu=null;
+	
+	DataBaseHelper myDbHelper;
+	SQLiteDatabase myDatabase;
+	
+	public static String PLU_TABLE_NAME="plu_code";
+    public static String NUTRITION_TABLE_NAME="nutrition_data";
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+	    super.onCreate(savedInstanceState);
+	    setContentView(R.layout.search_barcode);
+	    
+	    Bundle itemInfo = getIntent().getExtras();
+	    if(itemInfo == null){
+	    	return;
+	    }
+	    
+	    plu=itemInfo.getString("plu");
+	    //query the PLU database first if plu is not null
+	    if(plu == null){
+	    	return;
+	    }
+	    else{
+	    	
+	    }
+	    
+	    
+	}
+
+}

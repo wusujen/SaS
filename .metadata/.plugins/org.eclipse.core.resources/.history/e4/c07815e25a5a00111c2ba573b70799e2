@@ -1,0 +1,105 @@
+package com.christine.cart;
+
+import com.christine.cart.intentResult.IntentResult;
+
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.Toast;
+
+public class FooterActivity extends Activity {
+
+	
+	Button searchItem;
+	Button scanItem;
+	
+	InputMethodManager manager;
+	Context inputsContext;
+	String contents;
+    String upcResults;
+	String resultValue;
+	String resultSize;
+	String resultMessage;
+	String resultDesc;
+	
+	//information required to start the scan
+	private static final String PACKAGE = "com.christine.cart";
+	private static final String SCANNER= "com.google.zxing.client.android.SCAN";
+	private static final String SCAN_FORMATS = "UPC_A,UPC_E,EAN_8,EAN_13,CODE_39,CODE_93,CODE_128";
+	private static final String SCAN_MODE = "SCAN_MODE";
+	public static final int REQUEST_CODE = 1;
+	
+	boolean onUPCResult=false;
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+	    super.onCreate(savedInstanceState);
+	    setContentView(R.layout.footer);
+	  //Handles the PLU code
+        searchItem=(Button) findViewById(R.id.btn_scan);
+
+        manager=(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputsContext=getApplicationContext();
+
+        searchItem.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	//opens up activity with a text entry and numpad
+            	Intent openSearchItemScreen = new Intent(FooterActivity.this,InputSearch.class);
+            	startActivity(openSearchItemScreen);
+            }
+        }); //end searchItem
+        
+        
+        //Handles the Barcode Scanning activity
+	    scanItem=(Button) findViewById(R.id.btn_search);
+	    scanItem.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				//start a scanner intent, using zxing library
+				//refer back to PACKAGE settings
+				Intent scanIntent = new Intent(SCANNER);
+				scanIntent.setPackage(PACKAGE);
+	    		scanIntent.putExtra("SCAN_FORMATS", SCAN_FORMATS);
+	    		scanIntent.putExtra("SCAN_MODE", SCAN_MODE);
+	    		try{
+	    			startActivityForResult(scanIntent, REQUEST_CODE);
+	    		}
+	    		catch(ActivityNotFoundException e){
+	    			Toast eToast = Toast.makeText(FooterActivity.this, "Activity Not Found!", Toast.LENGTH_LONG);
+	    			eToast.setGravity(Gravity.TOP, 25, 400);
+	    			eToast.show();
+	    		}
+			}
+		});//end scanBarcode onClickListener   
+	}
+	
+	public static IntentResult parseActivityResult(int requestCode, int resultCode, Intent intent) {
+		if (requestCode == REQUEST_CODE) {
+			if (resultCode == RESULT_OK) {
+				String contents = intent.getStringExtra("SCAN_RESULT");
+				String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+				
+				Toast toast = Toast.makeText(this, "Content:" + contents + 
+						" Format:" + format , Toast.LENGTH_LONG);
+				toast.setGravity(Gravity.TOP, 25, 400);
+				toast.show();
+				
+				Intent getItemName = new Intent(inputsContext,InputScanActivity.class);
+				getItemName.putExtra("upc", contents);
+				startActivity(getItemName);
+				
+			}
+		} else if (resultCode == RESULT_CANCELED) {
+			//Handle cancel
+			Toast toast = Toast.makeText(this, "Scan was Cancelled!", Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.TOP, 25, 400);
+			toast.show();
+		}
+		
+	}//end onActivityResult
+
+}

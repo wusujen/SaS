@@ -2,15 +2,20 @@ package com.christine.cart;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class InputSearchActivity extends Activity {
 
-	/** Called when the activity is first created. */
+	EditText enterPLU;
+	Button submitPLU;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	
-	    // TODO Auto-generated method stub
+	    setContentView(R.layout.search_plu);
+	    
+	    
 	}
 
 }

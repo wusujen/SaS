@@ -1,0 +1,31 @@
+/*
+ * InputScanActivity 
+ * 
+ * Is an invisible activity that receives the contents of
+ * the ZXING scan and searches for it in a UPC database 
+ * in order to pass the name onto a database search.
+ * 
+ */
+package com.christine.cart;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class InputScanActivity extends Activity {
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+	    super.onCreate(savedInstanceState);
+	    //setContentView(R.layout.search_barcode);
+	    
+	    Bundle scanResults = getIntent().getExtras();
+	    if(scanResults == null){
+	    	return;
+	    }
+	    String contents = scanResults.getString("contents");
+	    
+	    
+	}
+
+}

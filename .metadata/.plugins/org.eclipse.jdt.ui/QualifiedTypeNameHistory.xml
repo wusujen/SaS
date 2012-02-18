@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.christine.cart.R.layout"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="android.content.ActivityNotFoundException"/>
+<fullyQualifiedTypeName name="com.christine.cart.intentResult.IntentResult"/>
+</qualifiedTypeNameHistroy>
