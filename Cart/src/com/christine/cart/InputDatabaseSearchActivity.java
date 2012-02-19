@@ -7,16 +7,17 @@ import com.christine.cart.intentResult.DataBaseHelper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.widget.TextView;
+//import android.widget.TextView; //for debugging purposes
 
 
 public class InputDatabaseSearchActivity extends Activity {
 	Context inputsContext;
-	TextView outputText;
+	//TextView outputText; //for debugging purposes
 	
 	String pluCode=null;
 	String barcodeItem=null;
@@ -30,7 +31,7 @@ public class InputDatabaseSearchActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.search_barcode);
+	    // setContentView(R.layout.search_barcode); //for debugging purposes
 	    
 	    Bundle itemInfo = getIntent().getExtras();
 	    if(itemInfo == null){
@@ -65,47 +66,48 @@ public class InputDatabaseSearchActivity extends Activity {
 	 	}
 	    
 	 	
-	 	outputText = (TextView) findViewById(R.id.outputText);
+	 	//outputText = (TextView) findViewById(R.id.outputText);  //for debugging purposes
 	 	if(pluCode != null){ 
 	 		//search for the PLU code in the database
 		 	myDatabase=myDbHelper.getDatabase();
+		 	String itemName;
 		 	
 		 	Cursor getPLUCursor=myDatabase.query(PLU_TABLE_NAME,new String[]{"Commodity"},
 		 			"PLU='"+ pluCode +"'",null,null,null,null);
 		 	
-		 	getPLUCursor.moveToFirst();
-	        String itemName = getPLUCursor.getString(0);
-	        outputText.append("PLU Name: " + itemName +"\n");
-	        getPLUCursor.close();
-	        
-	        ArrayList results = searchNutritionDatabase(itemName);
-		 	if(results != null){
-		 		for(int i=0; i<=results.size()-1; i++){
-		 			outputText.append((String) results.get(i));
-		 		}
-		 	} else{
-		 		outputText.setText("There is no matching item in the Nutrition database");
-		 	}
+	 		getPLUCursor.moveToFirst();
+		    itemName = getPLUCursor.getString(0);
+		    // outputText.append("PLU Name: " + itemName +"\n"); //for debugging purposes
+	 		// myDbHelper.close();
+	 		
+	 		/* This was meant to catch the error if the cursor returned a null value..but not sure
+	 		 * how to implement it yet...
+	 		Intent noSuchPLUCode= new Intent(this,CartActivity.class);
+	 		noSuchPLUCode.setType("text/plain");
+	 		noSuchPLUCode.putExtra("alert", "Sorry, this PLU code doesn't exist!");
+	 		startActivity(noSuchPLUCode);
+			*/
+	 		
+	        ArrayList<String> results = searchNutritionDatabase(itemName);
+	        startShowResultsIntent(results);
 	 	}
 	 	else{
-	 		//if PLU is null, then search for the barcodeItem in
-	 		//the nutrition database
+	 		//if PLU is null, then search for the barcodeItem in the nutrition database
 		 	myDatabase=myDbHelper.getDatabase();
 		 	
-		 	ArrayList results = searchNutritionDatabase(barcodeItem);
-		 	if(results != null){
-		 		for(int i=0; i<=results.size(); i++){
-		 			outputText.append((String) results.get(i));
-		 		}
-		 	} else{
-		 		outputText.setText("There is no matching item in the Nutrition database");
-		 	}
+		 	ArrayList<String> results = searchNutritionDatabase(barcodeItem);
+		 	startShowResultsIntent(results);
 	 	}
 	}
 
-	private ArrayList searchNutritionDatabase(String itemName){
+	
+	/***
+	 * Retrieve nutrition information from the nutrition data table 
+	 * based on the (String) name of the item that is passed in
+	 ***/
+	private ArrayList<String> searchNutritionDatabase(String itemName){
 		//if there are any results, it will be stored in arraylist
-		ArrayList output=new ArrayList();
+		ArrayList<String> output=new ArrayList<String>();
 		
 		//search for the item in the nutrition database
        Cursor getNutritionInfoCursor=myDatabase.query(NUTRITION_TABLE_NAME,new String[]{"Shrt_Desc","Energ_Kcal"},
@@ -124,5 +126,25 @@ public class InputDatabaseSearchActivity extends Activity {
 	 	}
 	 	getNutritionInfoCursor.close();
 	 	return null;
+	}
+	
+	
+	/***
+	 * This function starts an intent to return to the main Cart
+	 * Activity, and stores any results that may have been returned
+	 * from the nurtrition database search
+	 **/
+	void startShowResultsIntent(ArrayList<String> results){
+		Intent showResults = new Intent(this,CartActivity.class);
+		showResults.putStringArrayListExtra("results", results);
+		startActivity(showResults);
+		//This is for debugging
+		/*if(results != null){
+			for(int i=0; i<=results.size(); i++){
+	 			outputText.append((String) results.get(i)); 
+	 		}
+	 	} else{
+	 		outputText.setText("There is no matching item in the Nutrition database");
+	 	}*/
 	}
 }
