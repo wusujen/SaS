@@ -63,13 +63,13 @@ public class SetupPeopleActivity extends Activity {
 	    if(userInfo==null){
 	    	return;
 	    }
-	    
-	    String username = userInfo.getString("username");
-	    String password = userInfo.getString("password");
-	    
-	    user_properties=(TextView) findViewById(R.id.user_properties);
-	    if(username!=null && password!=null){
-	    	user_properties.setText("username: " + username + "\n password: " + password);
+	    else{
+		    String username = userInfo.getString("username");
+		    String password = userInfo.getString("password");
+		    
+		    user_properties=(TextView) findViewById(R.id.user_properties);
+		    if(username!=null && password!=null){
+		    	user_properties.setText("username: " + username + "\n password: " + password);
 	    }
 	    
 	    
@@ -93,6 +93,6 @@ public class SetupPeopleActivity extends Activity {
 			}
 		});
 	    
+	    }
 	}
-
 }

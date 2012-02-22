@@ -16,6 +16,7 @@ public class CartActivity extends FooterActivity {
 	ArrayList<String> results;
 	TextView outputText;
 	Button viewItemList;
+	Button checkout;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,14 @@ public class CartActivity extends FooterActivity {
 				Intent showItemList = new Intent(CartActivity.this, ItemListActivity.class);
 				startActivity(showItemList);
 			}
-		});   
+		});  
+        
+        checkout = (Button) findViewById(R.id.btn_checkout);
+        checkout.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Intent goCheckout = new Intent(CartActivity.this, CheckoutActivity.class);
+				startActivity(goCheckout);
+			}
+		});
     }
 }

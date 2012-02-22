@@ -71,6 +71,7 @@
 	    </activity>
 	    <!-- END ZXING LIBRARY -->
 	    <activity android:name="ItemListActivity"></activity>
+	    <activity android:name="CheckoutActivity"></activity>
 	    
 	    
     </application>
