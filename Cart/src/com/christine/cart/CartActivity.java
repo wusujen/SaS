@@ -5,13 +5,17 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class CartActivity extends FooterActivity {
 	ArrayList<String> results;
 	TextView outputText;
+	Button viewItemList;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,5 +40,14 @@ public class CartActivity extends FooterActivity {
         		noMatch.show();
         	}
         }
+        
+        viewItemList = (Button) findViewById(R.id.btn_itemlist);
+        viewItemList.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				Intent showItemList = new Intent(CartActivity.this, ItemListActivity.class);
+				startActivity(showItemList);
+			}
+		});   
     }
 }

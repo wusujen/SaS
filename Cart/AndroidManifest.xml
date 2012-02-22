@@ -70,6 +70,7 @@
 	      </intent-filter>
 	    </activity>
 	    <!-- END ZXING LIBRARY -->
+	    <activity android:name="ItemListActivity"></activity>
 	    
 	    
     </application>

@@ -16,11 +16,11 @@
             android:layout_height="wrap_content" >
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/btn_itemlist"
                 android:layout_width="125dp"
                 android:layout_height="35dp"
                 android:layout_marginLeft="-10dp"
-                android:text="Button"
+                android:text="Item List"
                 android:textSize="9dp" />
         </TableRow>
 
