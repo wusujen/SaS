@@ -7678,3 +7678,12 @@ Caused by: org.eclipse.core.internal.resources.ResourceException: Resource is ou
 
 !ENTRY org.eclipse.ui 4 4 2012-02-26 10:18:07.544
 !MESSAGE Invalid preference page path: XML Syntax
+!SESSION 2012-02-26 10:22:50.004 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_02
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.ui 4 4 2012-02-26 10:34:11.831
+!MESSAGE Invalid preference page path: XML Syntax
