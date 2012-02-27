@@ -3,7 +3,7 @@ package com.christine.cart;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.christine.cart.intentResult.DataBaseHelper;
+import com.christine.cart.sqlite.NutritionDatabaseHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,7 +22,7 @@ public class InputDatabaseSearchActivity extends Activity {
 	String pluCode=null;
 	String barcodeItem=null;
 	
-	DataBaseHelper myDbHelper;
+	NutritionDatabaseHelper myDbHelper;
 	SQLiteDatabase myDatabase;
 	
 	public static String PLU_TABLE_NAME="plu_data";
@@ -50,7 +50,7 @@ public class InputDatabaseSearchActivity extends Activity {
 	    }
 	    
 
-        myDbHelper = new DataBaseHelper(this);
+        myDbHelper = new NutritionDatabaseHelper(this);
 	    //CREATE THE DATABASE
 	    try {
         	myDbHelper.createDataBase();

@@ -1,0 +1,16 @@
+package com.christine.cart.sqlite;
+
+public class Account {
+	
+	String name;
+	String pwd;
+
+	public Account(){
+		
+	}
+	
+	public Account(String username, String password){
+		name = username;
+		pwd = password;
+	}
+}

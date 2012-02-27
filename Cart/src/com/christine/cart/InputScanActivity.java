@@ -13,7 +13,6 @@ import java.util.HashMap;
 
 import org.xmlrpc.android.XMLRPCClient;
 import org.xmlrpc.android.XMLRPCException;
-import com.christine.cart.inputs.InputsBarcodeSearchActivity;
 
 import android.app.Activity;
 import android.content.Context;
