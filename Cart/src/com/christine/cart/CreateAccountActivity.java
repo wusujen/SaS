@@ -62,12 +62,12 @@ public class CreateAccountActivity extends Activity {
 					// start setup people activity
 					// Get the user name from the intent
 					String name = data.getStringExtra("username");
-				    if(name==null){
+				    if(name.equals(null)){
 				    	// log the error
 				    	Log.d("Error with UserName:", "username returned null");
-				    	errorText.setText("Sorry, that username has already been taken. Please enter a new username.");
+				    	errorText.setText("Sorry, this username is invalid. Please try another.");
 				    	return;
-				    } else if(name=="0"){
+				    } else if(name.equals("0")){
 				    	Log.d("Error with UserName:", "username has been taken");
 				    	errorText.setText("Sorry, that username has already been taken. Please enter a new username.");
 				    	return;

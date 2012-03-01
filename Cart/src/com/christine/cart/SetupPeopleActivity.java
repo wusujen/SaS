@@ -68,8 +68,7 @@ public class SetupPeopleActivity extends Activity {
 	    if(username==null){
 	    	Log.d("Error with UserName:", "username returned null");
 	    	return;
-	    }
-	    else{
+	    } else{
 	    	Log.d("UserName:", username);
 	    	AccountDatabaseHelper db = new AccountDatabaseHelper(getApplicationContext());
 	    	Account act = db.getAccount(username);

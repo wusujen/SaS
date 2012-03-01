@@ -1,10 +1,13 @@
 package com.christine.cart.sqlite;
 
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -29,7 +32,7 @@ public class AddAccountActivity extends Activity {
   				//fetch the account that was created
   				String name= createAccount(username,password);
   				
-  				Log.d("userName:", "username is" + name);
+  				Log.d("userName:", "username is " + name);
   				
   				//start an intent to return to create account activity
   				Intent accountCreated = new Intent();
@@ -46,46 +49,44 @@ public class AddAccountActivity extends Activity {
 	
 	
 	/**
-	 * Creates the database if it does not exist
-	 * Opens the database to store user information
-	 * Returns the int ID
+	 * Queries the database for the requested account
+	 * If the name doesn't exist then write the account 
+	 * into the database. If name matches another name,
+	 * then return "0";
 	 * 
 	 * @param username
 	 * @param password
 	 */
 	public String createAccount(String username, String password){
         AccountDatabaseHelper db = new AccountDatabaseHelper(this);
-        int id=0;
-        String n=null;
-        String p=null;
+        final String NAME_EXISTS = "0";
+        String name = null;
 	 	
-        /**
-         * CRUD Operations
-         * */
-        // Reading all account
-        Log.d("Reading: ", "Reading all accounts..");
-        List<Account> accounts = db.getAllAccounts();       
-        
-        for (Account act : accounts) {
-        	id = act.getId();
-            n = act.getName();
-            p = act.getPassword();
-            
-            String log = "Id: "+ id +" ,Name: " + n + " ,Password: " + p;
-            // Writing Contacts to log
-            Log.d("User fetched: ",log);
-            
-            if(username == n){
-            	n="0";
-            	break;
-            } else{
-            	//Inserting User Information
-                Log.d("Insert: ", "Inserting ..");
-                db.addAccount(new Account(username, password));
-            }
-        }
-        
-        db.close();
-        return n;
+        try {
+        	db.createDataBase();
+	 	} catch (IOException ioe) {
+	 		throw new Error("Unable to create database, or db has been created already");
+	 	}
+        //OPEN THE DATABASE
+	 	try {
+	 		//myDbHelper.close();
+	 		db.openDataBase();
+	 	} catch(SQLException sqle){
+	 		throw sqle;
+	 	}
+	 
+		 	Account accountExists = db.getAccount(username);
+		 	
+		    if(accountExists.getName()!=null){
+		    	Log.d("Name is : ",NAME_EXISTS);	
+		    	return NAME_EXISTS;
+	        } else {
+	        	name = username;
+	        	Log.d("Insert: ", "Inserting ..");
+	    	    db.addAccount(new Account(name, password));
+	    	    db.close();
+	        }
+
+	    return name;
 	}
 }

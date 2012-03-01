@@ -158,16 +158,20 @@ public class AccountDatabaseHelper extends SQLiteOpenHelper{
 	// Getting single Account via username
 	public Account getAccount(String username){
 		SQLiteDatabase db = this.getReadableDatabase();
-		
+		Account account = new Account();
 		Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] { ACCOUNT_ID, ACCOUNT_NAME, ACCOUNT_PASSWORD}, ACCOUNT_NAME + "=?", 
 				new String []{ String.valueOf(username) }, null, null, null);
-		if(cursor != null){
-			cursor.moveToFirst();
+		if(cursor.moveToFirst()){
+			account = new Account(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
+		} else {
+			account.setId(0);
+			account.setName(null);
+			account.setPassword(null);
 		}
 		
-		Account account = new Account(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
 		//return account
-		
+		cursor.close();
+		db.close();
 		return account;
 	}
 	
@@ -194,6 +198,7 @@ public class AccountDatabaseHelper extends SQLiteOpenHelper{
 		}
 		
 		//return account list
+		cursor.close();
 		db.close();
 		return accountList;
 	}
