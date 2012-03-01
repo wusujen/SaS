@@ -1,8 +1,13 @@
 package com.christine.cart;
 
+
+import com.christine.cart.sqlite.Account;
+import com.christine.cart.sqlite.AccountDatabaseHelper;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,11 +32,12 @@ public class SetupPeopleActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.setup_people);
 	    
-	    //set up buttons
+	    //set up gui elements
 	    man = (Button) findViewById(R.id.btn_man);
 	    woman = (Button) findViewById(R.id.btn_woman);
 	    boy = (Button) findViewById(R.id.btn_boy);
 	    girl = (Button) findViewById(R.id.btn_girl);
+	    user_properties = (TextView) findViewById(R.id.user_properties);
 	    
 	    man.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -57,19 +63,25 @@ public class SetupPeopleActivity extends Activity {
 			}
 		});
 	    
-		//Retrieve information from the passed Bundle to 
-		//get user information and display it
-		Bundle userInfo = getIntent().getExtras();
-	    if(userInfo==null){
+		// Get the username from the intent
+		String username = getIntent().getStringExtra("username");
+	    if(username==null){
+	    	Log.d("Error with UserName:", "username returned null");
 	    	return;
 	    }
 	    else{
-		    String username = userInfo.getString("username");
-		    String password = userInfo.getString("password");
-		    
-		    user_properties=(TextView) findViewById(R.id.user_properties);
-		    if(username!=null && password!=null){
-		    	user_properties.setText("username: " + username + "\n password: " + password);
+	    	Log.d("UserName:", username);
+	    	AccountDatabaseHelper db = new AccountDatabaseHelper(getApplicationContext());
+	    	Account act = db.getAccount(username);
+	    	if(act != null){
+	    		String n = act.getName();
+	    		String p = act.getPassword();
+		    	Log.d("Account Info: ", "username: " + n + "password: " + p);
+		    	user_properties.setText("username: " + n + "\n password: " + p);
+	    	} else{
+	    		Log.d("Fail: ", "unsuccessful retrieval");
+	    	}
+	    	db.close();
 	    }
 	    
 	    
@@ -93,6 +105,5 @@ public class SetupPeopleActivity extends Activity {
 			}
 		});
 	    
-	    }
 	}
 }

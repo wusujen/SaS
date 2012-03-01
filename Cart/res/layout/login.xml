@@ -12,7 +12,15 @@
         android:layout_marginTop="100dp"
         android:text="@string/login_header"
         android:textSize="24dp"
-        android:textStyle="bold" />
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textview_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <EditText
         android:id="@+id/textedit_username"
         android:layout_width="250dp"
