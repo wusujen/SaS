@@ -2,7 +2,7 @@ package com.christine.cart;
 
 
 import com.christine.cart.sqlite.Account;
-import com.christine.cart.sqlite.AccountTableHelper;
+import com.christine.cart.sqlite.AccountDatabaseHelper;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -70,7 +70,7 @@ public class SetupPeopleActivity extends Activity {
 	    	return;
 	    } else{
 	    	Log.d("UserName:", username);
-	    	AccountTableHelper db = new AccountTableHelper(getApplicationContext());
+	    	AccountDatabaseHelper db = new AccountDatabaseHelper(this.getApplicationContext(), username);
 	    	Account act = db.getAccount(username);
 	    	if(act != null){
 	    		String n = act.getName();

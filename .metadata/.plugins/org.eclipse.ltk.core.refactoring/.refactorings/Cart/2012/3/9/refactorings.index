@@ -1,3 +1,5 @@
 1330647892727	Rename type 'AddAccountActivity'
 1330650212480	Rename local variable 'usernameExists'
 1330657258010	Rename type 'AccountDatabaseHelper'
+1330660188945	Rename type 'AccountTableHelper'
+1330660553209	Delete element

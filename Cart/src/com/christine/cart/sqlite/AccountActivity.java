@@ -112,7 +112,7 @@ public class AccountActivity extends Activity {
 	 * @return String username
 	 */
 	public String createAccount(String username, String password) {
-		AccountTableHelper db = startAccountDB();
+		AccountDatabaseHelper db = startAccountDB(username);
 		final String NAME_EXISTS = "0";
 		String name = null;
 
@@ -145,7 +145,7 @@ public class AccountActivity extends Activity {
 	 * @return Account
 	 */
 	public Account checkAndFetchAccount(String username, String password){
-		AccountTableHelper db = startAccountDB();
+		AccountDatabaseHelper db = startAccountDB(username);
 		
 		Account userExists = db.getAccount(username);
 		String n = userExists.getName();
@@ -175,8 +175,8 @@ public class AccountActivity extends Activity {
 	 * 
 	 * @return AccountDatabaseHelper
 	 */
-	public AccountTableHelper startAccountDB(){
-		AccountTableHelper db = new AccountTableHelper(this);
+	public AccountDatabaseHelper startAccountDB(String username){
+		AccountDatabaseHelper db = new AccountDatabaseHelper(this, username);
 		
 		try {
 			db.createDataBase();
