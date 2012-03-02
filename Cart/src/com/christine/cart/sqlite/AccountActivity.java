@@ -10,6 +10,20 @@ import android.database.SQLException;
 import android.os.Bundle;
 import android.util.Log;
 
+/**
+ * 
+ * AccountActivity
+ * 
+ * Handles all of the interactions between the
+ * account_info table, and CreateAccountActivity/LoginActivity
+ * 
+ * Should be called from startActionForResponse()
+ * Accepts request code parameters, and based upon that parameter
+ * determines whether to Add Account or checkAndFetchAccount
+ * 
+ * @author Christine
+ *
+ */
 public class AccountActivity extends Activity {
 	
 	private static int ADD_ACCOUNT = 1;
@@ -95,10 +109,10 @@ public class AccountActivity extends Activity {
 	 * 
 	 * @param username
 	 * @param password
-	 * @return String valid username
+	 * @return String username
 	 */
 	public String createAccount(String username, String password) {
-		AccountDatabaseHelper db = startAccountDB();
+		AccountTableHelper db = startAccountDB();
 		final String NAME_EXISTS = "0";
 		String name = null;
 
@@ -128,10 +142,10 @@ public class AccountActivity extends Activity {
 	 * 
 	 * @param username
 	 * @param password
-	 * @return
+	 * @return Account
 	 */
 	public Account checkAndFetchAccount(String username, String password){
-		AccountDatabaseHelper db = startAccountDB();
+		AccountTableHelper db = startAccountDB();
 		
 		Account userExists = db.getAccount(username);
 		String n = userExists.getName();
@@ -159,10 +173,10 @@ public class AccountActivity extends Activity {
 	 * Convenience method for creating a database helper
 	 * or initializing the database
 	 * 
-	 * @return database helper
+	 * @return AccountDatabaseHelper
 	 */
-	public AccountDatabaseHelper startAccountDB(){
-		AccountDatabaseHelper db = new AccountDatabaseHelper(this);
+	public AccountTableHelper startAccountDB(){
+		AccountTableHelper db = new AccountTableHelper(this);
 		
 		try {
 			db.createDataBase();

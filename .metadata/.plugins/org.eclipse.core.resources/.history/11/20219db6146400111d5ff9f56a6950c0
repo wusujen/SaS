@@ -1,0 +1,23 @@
+package com.christine.cart.sqlite;
+
+
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
+
+public class NutritionDatabaseHelper extends DatabaseHelper {
+	
+    private static String DB_NAME = "nutrition_db";
+ 
+    private SQLiteDatabase myDataBase; 
+ 
+    private final Context myContext;
+
+	public NutritionDatabaseHelper(Context context) {
+    	super(context, DB_NAME, 1);
+        this.myContext = context;
+	}
+	
+}
+	
