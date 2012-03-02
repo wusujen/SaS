@@ -70,7 +70,7 @@ public class SetupPeopleActivity extends Activity {
 	    	return;
 	    } else{
 	    	Log.d("UserName:", username);
-	    	AccountDatabaseHelper db = new AccountDatabaseHelper(this.getApplicationContext(), username);
+	    	AccountDatabaseHelper db = new AccountDatabaseHelper(this.getApplicationContext());
 	    	Account act = db.getAccount(username);
 	    	if(act != null){
 	    		String n = act.getName();

@@ -176,7 +176,7 @@ public class AccountActivity extends Activity {
 	 * @return AccountDatabaseHelper
 	 */
 	public AccountDatabaseHelper startAccountDB(String username){
-		AccountDatabaseHelper db = new AccountDatabaseHelper(this, username);
+		AccountDatabaseHelper db = new AccountDatabaseHelper(this);
 		
 		try {
 			db.createDataBase();

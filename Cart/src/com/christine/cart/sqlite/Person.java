@@ -13,6 +13,17 @@ public class Person {
 		
 	}
 	
+	// general default constructor
+	public Person(String def){
+		if(def.equals("default")){
+			_name = "default";
+			_age = 30;
+			_gender = "male";
+			_height = 70;
+			_weight = 150;
+		}
+	}
+	
 	// constructor with default NAME
 	// for default implementations of people
 	public Person(int age, String gender, int height, int weight){

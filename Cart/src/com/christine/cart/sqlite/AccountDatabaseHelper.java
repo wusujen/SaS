@@ -17,6 +17,7 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
+import android.util.Log;
 
 /**
  * 
@@ -40,8 +41,8 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		private static final String ACCOUNT_PASSWORD = "password";
 	
 	//People Table info
-	private final String name;
-	private final String TABLE_PEOPLE;
+	private static final String TABLE_P = "_people";
+	private static String TABLE_PEOPLE = null;
 		//column names
 		private static final String PEOPLE_ID = "_id";
 		private static final String PEOPLE_NAME = "username";
@@ -57,19 +58,13 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	
 	// When an AccountDatabaseHelper is created, use
 	// the generic DatabaseHelper class
-	public AccountDatabaseHelper(Context context, String username) {
+	public AccountDatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, DATABASE_VERSION);
-		
-        name = username;
 		this.myContext = context;
-        this.TABLE_PEOPLE = username + "_people";
 	}
 	
 	// Create the table
 	public void onCreate(SQLiteDatabase db){
-		// check if database contains table
-		// if not, then execute. Otherwise, don't
-		// do anything
 		String CREATE_PEOPLE_TABLE = "CREATE TABLE " + TABLE_PEOPLE + "("
                 + PEOPLE_ID + " INTEGER PRIMARY KEY," + PEOPLE_NAME + " TEXT,"
                 + PEOPLE_GENDER + " TEXT," + PEOPLE_AGE + " NUMERIC," 
@@ -177,5 +172,117 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		db.delete(TABLE_ACCOUNTS, ACCOUNT_ID + " = ?", new String[] { String.valueOf(account.getId())});
 		db.close();
 	}
-
+	
+	/**
+	 * PEOPLE TABLE
+	 * All CRUD operations, including creation of table
+	 */
+	
+	//Create a table based upon the input username, so that it is user-specific
+	public void createPeopleTable(String username){
+		SQLiteDatabase db = this.getWritableDatabase();
+		if(username!=null){
+			TABLE_PEOPLE= username + TABLE_P;
+			
+			String CREATE_PEOPLE_TABLE = "CREATE TABLE " + TABLE_PEOPLE + "("
+	                + PEOPLE_ID + " INTEGER PRIMARY KEY," + PEOPLE_NAME + " TEXT,"
+	                + PEOPLE_AGE + " NUMERIC," + PEOPLE_GENDER + " TEXT,"
+	                + PEOPLE_HEIGHT + " NUMERIC," + PEOPLE_WEIGHT + " NUMERIC" 
+	                + ")";
+	        db.execSQL(CREATE_PEOPLE_TABLE);
+	        db.close();
+		}
+	}
+	
+	public void addPerson(Person person){
+		SQLiteDatabase db = this.getWritableDatabase();
+		 
+	    ContentValues values = new ContentValues();
+	    values.put(PEOPLE_NAME, person.getName()); // Name
+	    values.put(PEOPLE_AGE, person.getAge()); // Age
+	    values.put(PEOPLE_GENDER, person.getGender()); // Gender
+	    values.put(PEOPLE_HEIGHT, person.getHeight()); // Height
+	    values.put(PEOPLE_WEIGHT, person.getWeight()); // Weight
+	 
+	    // Inserting Row
+	    Log.d("Inserting...", "Inserting into" + TABLE_PEOPLE);
+	    db.insert(TABLE_PEOPLE, null, values);
+	    db.close(); // Closing database connection
+	}
+	
+	public Person getPerson(int id){
+		SQLiteDatabase db = this.getReadableDatabase();
+		 
+	    Cursor cursor = db.query(TABLE_PEOPLE, new String[] { PEOPLE_ID,
+	            PEOPLE_NAME, PEOPLE_AGE, PEOPLE_GENDER, PEOPLE_HEIGHT, PEOPLE_WEIGHT }, PEOPLE_ID + "=?",
+	            new String[] { String.valueOf(id) }, null, null, null, null);
+	    if (cursor != null)
+	        cursor.moveToFirst();
+	 
+	    Person person = new Person(Integer.parseInt(cursor.getString(0)),
+	            cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), 
+	            Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)));
+	    // return person
+	    return person;
+	}
+	
+	public List<Person> getAllPeople(){
+		 List<Person> personList = new ArrayList<Person>();
+		    // Select All Query
+		    String selectQuery = "SELECT  * FROM " + TABLE_PEOPLE;
+		 
+		    SQLiteDatabase db = this.getReadableDatabase();
+		    Cursor cursor = db.rawQuery(selectQuery, null);
+		 
+		    // looping through all rows and adding to list
+		    if (cursor.moveToFirst()) {
+		        do {
+		            Person person = new Person();
+		            person.setId(Integer.parseInt(cursor.getString(0)));
+		            person.setName(cursor.getString(1));
+		            person.setAge(Integer.parseInt(cursor.getString(2)));
+		            person.setGender(cursor.getString(3));
+		            person.setWeight(Integer.parseInt(cursor.getString(4)));
+		            person.setHeight(Integer.parseInt(cursor.getString(5)));
+		            // Adding person to list
+		            personList.add(person);
+		        } while (cursor.moveToNext());
+		    }
+		 
+		    // return person list
+		    return personList;
+	}
+	
+	public int getPersonCount(){
+		String countQuery = "SELECT  * FROM " + TABLE_PEOPLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        cursor.close();
+ 
+        // return count
+        return cursor.getCount();
+	}
+	
+	public int updatePerson(Person person){
+		SQLiteDatabase db = this.getWritableDatabase();
+		 
+	    ContentValues values = new ContentValues();
+	    values.put(PEOPLE_NAME, person.getName()); // Name
+	    values.put(PEOPLE_AGE, person.getAge()); // Age
+	    values.put(PEOPLE_GENDER, person.getGender()); // Gender
+	    values.put(PEOPLE_HEIGHT, person.getHeight()); // Height
+	    values.put(PEOPLE_WEIGHT, person.getWeight()); // Weight
+	 
+	    // updating row
+	    return db.update(TABLE_PEOPLE, values, PEOPLE_ID + " = ?",
+	            new String[] { String.valueOf(person.getId()) });
+	}
+	
+	public void deletePerson(Person person){
+		SQLiteDatabase db = this.getWritableDatabase();
+	    db.delete(TABLE_PEOPLE, PEOPLE_ID + " = ?",
+	            new String[] { String.valueOf(person.getId()) });
+	    Log.d("Delete Person: ",person.getName() + "deleted from database");
+	    db.close();
+	}
 }
