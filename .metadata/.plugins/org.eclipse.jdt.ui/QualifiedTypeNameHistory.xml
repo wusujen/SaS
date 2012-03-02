@@ -24,4 +24,5 @@
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="android.database.SQLException"/>
+<fullyQualifiedTypeName name="com.christine.cart.CreateAccountActivity"/>
 </qualifiedTypeNameHistroy>

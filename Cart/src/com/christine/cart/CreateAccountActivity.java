@@ -1,6 +1,6 @@
 package com.christine.cart;
 
-import com.christine.cart.sqlite.AddAccountActivity;
+import com.christine.cart.sqlite.AccountActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -38,10 +38,11 @@ public class CreateAccountActivity extends Activity {
 				
 				// first check if there are illegal characters in
 				// the entered information
-				Intent startAddAccount = new Intent(v.getContext(),AddAccountActivity.class);
+				Intent startAddAccount = new Intent(v.getContext(),AccountActivity.class);
 				
 				//bundle up the information
 				Bundle userInfo = new Bundle();
+				userInfo.putInt("requestCode", ADD_ACCOUNT);
 				userInfo.putString("username",enteredName);
 				userInfo.putString("password",enteredPwd);
 				
@@ -55,6 +56,13 @@ public class CreateAccountActivity extends Activity {
 	} // end onCreate
 	
 	
+	/**
+	 * Starts SetupPeople activity if the username and password were
+	 * successfully saved into the database. 
+	 * 
+	 * Otherwise, if username is a duplicate or if the result was cancelled,
+	 * put an error into the fail.
+	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data){
 		if(requestCode==ADD_ACCOUNT){
 			switch(resultCode){
@@ -85,6 +93,9 @@ public class CreateAccountActivity extends Activity {
 					String fail = failInfo.getString("fail");
 					errorText.setText(fail);
 					break;
+				default:
+					errorText.setText("Couldn't save your information. Please try again!");
+					
 			} //end switch
 		} // end if requestCode
 	} // end onActivityResult
