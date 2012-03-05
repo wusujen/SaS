@@ -1,7 +1,10 @@
 package com.christine.cart.sqlite;
 
+import com.christine.cart.SetupPeopleActivity;
+
 public class Person {
-	int _id;
+	Integer _id;
+	String _username;
 	String _name;
 	int _age;
 	String _gender;
@@ -13,30 +16,24 @@ public class Person {
 		
 	}
 	
-	// general default constructor
-	public Person(String def){
-		if(def.equals("default")){
-			_name = "default";
-			_age = 30;
-			_gender = "male";
-			_height = 70;
-			_weight = 150;
+	// general default constructor: user added new person
+	public static Person createPerson(int requestCode, String username){
+		if(requestCode==SetupPeopleActivity.MAN){
+			return new Person(username, 30, "male", 70, 150);
 		}
+		return null;
 	}
 	
 	// constructor with default NAME
 	// for default implementations of people
-	public Person(int age, String gender, int height, int weight){
-		_name = "default";
-		_age = age;
-		_gender = gender;
-		_height = height;
-		_weight = weight;
+	public Person(String username, int age, String gender, int height, int weight){
+		this(null, username, "default", age, gender, height, weight);
 	}
 	
-	// constructor with id
-	public Person(int id, String name, int age, String gender, int height, int weight){
+	// constructor with id: generally use this when reading from DB
+	public Person(Integer id, String username, String name, int age, String gender, int height, int weight){
 		_id = id;
+		_username = username;
 		_name = name;
 		_age = age;
 		_gender = gender;
@@ -54,6 +51,16 @@ public class Person {
 		this._id = id;
 	}
 	
+	// get username
+	public String getUsername(){
+		return this._username;
+	}
+	
+	// set username
+	public void setUsername(String username){
+		this._username = username;
+	}
+
 	// get name
 	public String getName(){
 		return this._name;

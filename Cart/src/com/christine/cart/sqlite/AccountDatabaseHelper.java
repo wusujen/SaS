@@ -41,11 +41,11 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		private static final String ACCOUNT_PASSWORD = "password";
 	
 	//People Table info
-	private static final String TABLE_P = "_people";
-	private static String TABLE_PEOPLE = null;
+	private static final String TABLE_PEOPLE = "people";
 		//column names
 		private static final String PEOPLE_ID = "_id";
-		private static final String PEOPLE_NAME = "username";
+		private static final String PEOPLE_USER = "_username";
+		private static final String PEOPLE_NAME = "name";
 		private static final String PEOPLE_AGE = "age";
 		private static final String PEOPLE_GENDER = "gender";
 		private static final String PEOPLE_HEIGHT = "height";
@@ -63,16 +63,19 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		this.myContext = context;
 	}
 	
-	// Create the table
-	public void onCreate(SQLiteDatabase db){
-		String CREATE_PEOPLE_TABLE = "CREATE TABLE " + TABLE_PEOPLE + "("
-                + PEOPLE_ID + " INTEGER PRIMARY KEY," + PEOPLE_NAME + " TEXT,"
-                + PEOPLE_GENDER + " TEXT," + PEOPLE_AGE + " NUMERIC," 
-                + PEOPLE_HEIGHT + " NUMERIC," + PEOPLE_WEIGHT + " NUMERIC" 
-                + ")";
-        db.execSQL(CREATE_PEOPLE_TABLE);
+	
+	public boolean tableExists(String TABLE_NAME){
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		Cursor cursor = db.rawQuery("SELECT * FROM " + DATABASE_NAME + " WHERE type='table' AND name='" + TABLE_NAME + "'", null);
+		if(cursor!=null){
+			return true;
+		} else{
+			Log.d("Fetch Table: ", "Table does not exist");
+		}
+		return false;
 	}
-			
+	
 	/**
 	 * 
 	 * ACCOUNT TABLE
@@ -178,26 +181,11 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	 * All CRUD operations, including creation of table
 	 */
 	
-	//Create a table based upon the input username, so that it is user-specific
-	public void createPeopleTable(String username){
-		SQLiteDatabase db = this.getWritableDatabase();
-		if(username!=null){
-			TABLE_PEOPLE= username + TABLE_P;
-			
-			String CREATE_PEOPLE_TABLE = "CREATE TABLE " + TABLE_PEOPLE + "("
-	                + PEOPLE_ID + " INTEGER PRIMARY KEY," + PEOPLE_NAME + " TEXT,"
-	                + PEOPLE_AGE + " NUMERIC," + PEOPLE_GENDER + " TEXT,"
-	                + PEOPLE_HEIGHT + " NUMERIC," + PEOPLE_WEIGHT + " NUMERIC" 
-	                + ")";
-	        db.execSQL(CREATE_PEOPLE_TABLE);
-	        db.close();
-		}
-	}
-	
 	public void addPerson(Person person){
 		SQLiteDatabase db = this.getWritableDatabase();
 		 
 	    ContentValues values = new ContentValues();
+	    values.put(PEOPLE_USER, person.getUsername()); //username
 	    values.put(PEOPLE_NAME, person.getName()); // Name
 	    values.put(PEOPLE_AGE, person.getAge()); // Age
 	    values.put(PEOPLE_GENDER, person.getGender()); // Gender
@@ -210,20 +198,33 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	    db.close(); // Closing database connection
 	}
 	
-	public Person getPerson(int id){
+	public List<Person> getAllPeopleFor(String username){
 		SQLiteDatabase db = this.getReadableDatabase();
-		 
-	    Cursor cursor = db.query(TABLE_PEOPLE, new String[] { PEOPLE_ID,
-	            PEOPLE_NAME, PEOPLE_AGE, PEOPLE_GENDER, PEOPLE_HEIGHT, PEOPLE_WEIGHT }, PEOPLE_ID + "=?",
-	            new String[] { String.valueOf(id) }, null, null, null, null);
-	    if (cursor != null)
+		List<Person> personList = new ArrayList<Person>();
+	    Cursor cursor = db.query(TABLE_PEOPLE, new String[] { PEOPLE_ID, PEOPLE_USER,
+	            PEOPLE_NAME, PEOPLE_AGE, PEOPLE_GENDER, PEOPLE_HEIGHT, PEOPLE_WEIGHT }, PEOPLE_USER + "=?",
+	            new String[] { username.toString() }, null, null, null, null);
+	    if (cursor != null){
 	        cursor.moveToFirst();
+	    }
 	 
-	    Person person = new Person(Integer.parseInt(cursor.getString(0)),
-	            cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getString(3), 
-	            Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)));
-	    // return person
-	    return person;
+	    // looping through all rows and adding to list
+	    if (cursor.moveToFirst()) {
+	        do {
+	            Person person = new Person();
+	            person.setId(Integer.parseInt(cursor.getString(0)));
+	            person.setName(cursor.getString(1));
+	            person.setName(cursor.getString(2));
+	            person.setAge(Integer.parseInt(cursor.getString(3)));
+	            person.setGender(cursor.getString(4));
+	            person.setWeight(Integer.parseInt(cursor.getString(5)));
+	            person.setHeight(Integer.parseInt(cursor.getString(6)));
+	            // Adding person to list
+	            personList.add(person);
+	        } while (cursor.moveToNext());
+	    }
+	    
+	    return personList;
 	}
 	
 	public List<Person> getAllPeople(){
@@ -240,10 +241,11 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		            Person person = new Person();
 		            person.setId(Integer.parseInt(cursor.getString(0)));
 		            person.setName(cursor.getString(1));
-		            person.setAge(Integer.parseInt(cursor.getString(2)));
-		            person.setGender(cursor.getString(3));
-		            person.setWeight(Integer.parseInt(cursor.getString(4)));
-		            person.setHeight(Integer.parseInt(cursor.getString(5)));
+		            person.setName(cursor.getString(2));
+		            person.setAge(Integer.parseInt(cursor.getString(3)));
+		            person.setGender(cursor.getString(4));
+		            person.setWeight(Integer.parseInt(cursor.getString(5)));
+		            person.setHeight(Integer.parseInt(cursor.getString(6)));
 		            // Adding person to list
 		            personList.add(person);
 		        } while (cursor.moveToNext());
@@ -267,6 +269,7 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		SQLiteDatabase db = this.getWritableDatabase();
 		 
 	    ContentValues values = new ContentValues();
+	    values.put(PEOPLE_USER, person.getUsername()); //username
 	    values.put(PEOPLE_NAME, person.getName()); // Name
 	    values.put(PEOPLE_AGE, person.getAge()); // Age
 	    values.put(PEOPLE_GENDER, person.getGender()); // Gender
@@ -274,14 +277,14 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	    values.put(PEOPLE_WEIGHT, person.getWeight()); // Weight
 	 
 	    // updating row
-	    return db.update(TABLE_PEOPLE, values, PEOPLE_ID + " = ?",
-	            new String[] { String.valueOf(person.getId()) });
+	    return db.update(TABLE_PEOPLE, values, PEOPLE_USER + " = ?",
+	            new String[] { String.valueOf(person.getUsername()) });
 	}
 	
 	public void deletePerson(Person person){
 		SQLiteDatabase db = this.getWritableDatabase();
-	    db.delete(TABLE_PEOPLE, PEOPLE_ID + " = ?",
-	            new String[] { String.valueOf(person.getId()) });
+	    db.delete(TABLE_PEOPLE, PEOPLE_USER + " = ?",
+	            new String[] { person.getUsername() });
 	    Log.d("Delete Person: ",person.getName() + "deleted from database");
 	    db.close();
 	}

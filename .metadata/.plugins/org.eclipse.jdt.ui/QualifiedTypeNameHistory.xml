@@ -4,18 +4,12 @@
 <fullyQualifiedTypeName name="com.christine.cart.intentResult.IntentResult"/>
 <fullyQualifiedTypeName name="com.christine.cart.InputDatabaseSearchActivity"/>
 <fullyQualifiedTypeName name="android.view.View.OnTouchListener"/>
-<fullyQualifiedTypeName name="com.christine.cart.R.layout"/>
-<fullyQualifiedTypeName name="android.widget.Button"/>
-<fullyQualifiedTypeName name="com.christine.cart.R.id"/>
-<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="android.database.sqlite.SQLiteOpenHelper"/>
 <fullyQualifiedTypeName name="android.content.ContentValues"/>
 <fullyQualifiedTypeName name="android.database.Cursor"/>
 <fullyQualifiedTypeName name="android.os.Environment"/>
 <fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.AddAccountActivity"/>
-<fullyQualifiedTypeName name="android.content.Intent"/>
-<fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Account"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.AccountDatabaseHelper"/>
 <fullyQualifiedTypeName name="java.util.List"/>
@@ -24,5 +18,15 @@
 <fullyQualifiedTypeName name="android.database.SQLException"/>
 <fullyQualifiedTypeName name="com.christine.cart.CreateAccountActivity"/>
 <fullyQualifiedTypeName name="android.database.sqlite.SQLiteDatabase"/>
+<fullyQualifiedTypeName name="com.christine.cart.R"/>
+<fullyQualifiedTypeName name="com.christine.cart.R.layout"/>
+<fullyQualifiedTypeName name="android.widget.Button"/>
+<fullyQualifiedTypeName name="android.widget.EditText"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="com.christine.cart.R.id"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="com.christine.cart.sqlite.PersonActivity"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="com.christine.cart.SetupPeopleActivity"/>
 </qualifiedTypeNameHistroy>

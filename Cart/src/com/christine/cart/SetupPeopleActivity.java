@@ -3,6 +3,7 @@ package com.christine.cart;
 
 import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountDatabaseHelper;
+import com.christine.cart.sqlite.PersonActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,10 +22,17 @@ public class SetupPeopleActivity extends Activity {
 	Button next;
 	TextView user_properties;
 	
+	private static String USERNAME = null;
+    private static String PASSWORD = null;
+    
+    public static int MAN = 1001;
+    
 	static int countMan=0;
 	static int countWoman=0;
 	static int countBoy=0;
 	static int countGirl=0;
+	
+	AccountDatabaseHelper db;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -39,9 +47,18 @@ public class SetupPeopleActivity extends Activity {
 	    girl = (Button) findViewById(R.id.btn_girl);
 	    user_properties = (TextView) findViewById(R.id.user_properties);
 	    
+	    
 	    man.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				countMan++;
+				Intent addMan = new Intent(v.getContext(), PersonActivity.class);
+				
+				Bundle userInfo = new Bundle();
+				userInfo.putInt("requestCode", MAN);
+				userInfo.putString("username", USERNAME);
+				
+				addMan.putExtras(userInfo);
+				startActivityForResult(addMan,MAN);
 			}
 		});
 	    
@@ -62,26 +79,6 @@ public class SetupPeopleActivity extends Activity {
 				countGirl++;
 			}
 		});
-	    
-		// Get the username from the intent
-		String username = getIntent().getStringExtra("username");
-	    if(username==null){
-	    	Log.d("Error with UserName:", "username returned null");
-	    	return;
-	    } else{
-	    	Log.d("UserName:", username);
-	    	AccountDatabaseHelper db = new AccountDatabaseHelper(this.getApplicationContext());
-	    	Account act = db.getAccount(username);
-	    	if(act != null){
-	    		String n = act.getName();
-	    		String p = act.getPassword();
-		    	Log.d("Account Info: ", "username: " + n + "password: " + p);
-		    	user_properties.setText("username: " + n + "\n password: " + p);
-	    	} else{
-	    		Log.d("Fail: ", "unsuccessful retrieval");
-	    	}
-	    	db.close();
-	    }
 	    
 	    
 	    //start SetupDays and pass the user information along
@@ -105,4 +102,38 @@ public class SetupPeopleActivity extends Activity {
 		});
 	    
 	}
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
+		//setup database helper
+	    db = new AccountDatabaseHelper(this);
+	    
+	    // Get the username from the intent
+ 		USERNAME = getIntent().getStringExtra("username");
+ 	    if(USERNAME==null){
+ 	    	Log.d("Error with UserName:", "username returned null");
+ 	    	return;
+ 	    } else{
+ 	    	Log.d("UserName:", USERNAME);
+ 	    	Account act = db.getAccount(USERNAME);
+ 	    	if(act != null){
+ 	    		USERNAME = act.getName();
+ 	    		PASSWORD = act.getPassword();
+ 		    	Log.d("Account Info: ", "username: " + USERNAME + "password: " + PASSWORD);
+ 		    	user_properties.setText("username: " + USERNAME + "\n password: " + PASSWORD);
+ 	    	} else{
+ 	    		Log.d("Fail: ", "unsuccessful retrieval");
+ 	    	}
+ 	    }
+ 	    
+ 	    user_properties.append(String.valueOf(db.getAllPeopleFor(USERNAME).size()));
+	}
+	
+	@Override
+	protected void onPause(){
+		super.onPause();
+		db.close();
+	}
+	
 }
