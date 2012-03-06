@@ -1,0 +1,26 @@
+package sqlite;
+
+import com.christine.cart.sqlite.AccountDatabaseHelper;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+public class DaysActivity extends Activity {
+	
+	AccountDatabaseHelper db;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+	    super.onCreate(savedInstanceState);
+	    
+	    db = new AccountDatabaseHelper(this);
+	    Bundle dayInfo = getIntent().getExtras();
+	    
+	    int dayNumber = dayInfo.getInt("days");
+	    String username = dayInfo.getString("username");
+	    
+	    db.updateAccountDays(username, dayNumber);
+	    
+	}
+
+}

@@ -165,16 +165,16 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		
 	}
 	
-	public int updateAccountDays(Account account){
+	public int updateAccountDays(Account account, int days){
 		SQLiteDatabase db = this.getWritableDatabase();
 		
 		ContentValues values = new ContentValues();
 		values.put(ACCOUNT_NAME, account.getName());
 		values.put(ACCOUNT_PASSWORD, account.getPassword());
-		values.put(ACCOUNT_DAYS, account.getDays());
+		values.put(ACCOUNT_DAYS, String.valueOf(days));
 		
 		//update row
-		return db.update(TABLE_ACCOUNTS, values, ACCOUNT_ID + " = ?", new String[] { String.valueOf(account.getId())});	
+		return db.update(TABLE_ACCOUNTS, values, ACCOUNT_NAME + " = ?", new String[] { String.valueOf(account.getName())});	
 	}
 	
 	//Delete single Account
@@ -231,7 +231,7 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	            personList.add(person);
 	        } while (cursor.moveToNext());
 	    }
-	    
+	    cursor.close();
 	    return personList;
 	}
 	

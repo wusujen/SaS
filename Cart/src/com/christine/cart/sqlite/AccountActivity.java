@@ -30,6 +30,8 @@ public class AccountActivity extends Activity {
 	private static int GET_ACCOUNT = 2;
 	private static String BAD_PASSWORD = "bad";
 	
+	AccountDatabaseHelper db;
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -112,7 +114,7 @@ public class AccountActivity extends Activity {
 	 * @return String username
 	 */
 	public String createAccount(String username, String password) {
-		AccountDatabaseHelper db = startAccountDB(username);
+		db = startAccountDB(username);
 		final String NAME_EXISTS = "0";
 		String name = null;
 
@@ -145,7 +147,7 @@ public class AccountActivity extends Activity {
 	 * @return Account
 	 */
 	public Account checkAndFetchAccount(String username, String password){
-		AccountDatabaseHelper db = startAccountDB(username);
+		db = startAccountDB(username);
 		
 		Account userExists = db.getAccount(username);
 		String n = userExists.getName();
@@ -166,6 +168,8 @@ public class AccountActivity extends Activity {
 				return userExists;
 			}
 		} 
+		
+		db.close();
 		return userExists=null;
 	}
 	
@@ -193,5 +197,10 @@ public class AccountActivity extends Activity {
 		}
 		
 		return db;
+	}
+	
+	protected void onPause(){
+		super.onPause();
+		db.close();
 	}
 }

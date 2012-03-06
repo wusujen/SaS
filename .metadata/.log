@@ -8310,3 +8310,9 @@ java.io.IOException: http://marketplace.eclipse.org/marketplace-client-intro?mpc
 	at org.eclipse.equinox.internal.p2.ui.model.RemoteQueriedElement.fetchDeferredChildren(RemoteQueriedElement.java:34)
 	at org.eclipse.ui.progress.DeferredTreeContentManager$1.run(DeferredTreeContentManager.java:235)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.ui 4 4 2012-03-05 23:09:42.296
+!MESSAGE Invalid preference page path: XML Syntax
+
+!ENTRY org.eclipse.core.resources 4 380 2012-03-05 23:26:39.839
+!MESSAGE The resource tree is locked for modifications.
