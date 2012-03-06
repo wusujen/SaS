@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="20" version="2.0">
+<workbench progressCount="17" version="2.0">
 <workbenchAdvisor/>
 <window height="768" maximized="true" width="1024" x="810" y="164">
 <fastViewData fastViewLocation="1024"/>
@@ -13,52 +13,59 @@
 <coolItem id="adt.actionSet.avdManager" itemType="typeToolBarContribution" x="61" y="22"/>
 <coolItem id="adt.actionSet.lint" itemType="typeToolBarContribution" x="38" y="22"/>
 <coolItem id="adt.actionSet.wizards" itemType="typeToolBarContribution" x="84" y="22"/>
+<coolItem id="com.android.ide.eclipse.editors.layout.LayoutEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="com.example.helloworld.actionSet" itemType="typeToolBarContribution" x="48" y="32"/>
 <coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="129" y="22"/>
+<coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="76" y="22"/>
 <coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="76" y="22"/>
+<coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="107" y="22"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="com.aptana.ui.globalActionSet" itemType="typeToolBarContribution" x="53" y="22"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="190" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="com.android.ide.eclipse.editors.layout.LayoutEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
 <page aggregateWorkingSetId="Aggregate for window 1329521721393" focus="true" label="Workspace - Java">
 <editors>
-<editorArea activeWorkbook="DefaultEditorWorkbook">
-<info part="DefaultEditorWorkbook">
+<editorArea activeWorkbook="org.eclipse.ui.internal.EditorStack@781af2">
+<info part="org.eclipse.ui.internal.EditorStack@788965">
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
-<part id="1"/>
-<part id="3"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.ui.internal.EditorStack@781af2" ratio="0.4996321" ratioLeft="679" ratioRight="680" relationship="2" relative="org.eclipse.ui.internal.EditorStack@788965">
+<folder appearance="1" expanded="2">
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 <part id="2"/>
+<part id="1"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Account.java" partName="Account.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/sqlite/Account.java" title="Account.java" tooltip="Cart/src/com/christine/cart/sqlite/Account.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/sqlite/Account.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+<editor focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Person.java" partName="Person.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/sqlite/Person.java" title="Person.java" tooltip="Cart/src/com/christine/cart/sqlite/Person.java" workbook="org.eclipse.ui.internal.EditorStack@788965">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/sqlite/Person.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="36" selectionTopPixel="0"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AccountActivity.java" partName="AccountActivity.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/sqlite/AccountActivity.java" title="AccountActivity.java" tooltip="Cart/src/com/christine/cart/sqlite/AccountActivity.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/sqlite/AccountActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="2259"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SetupPeopleActivity.java" partName="SetupPeopleActivity.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/SetupPeopleActivity.java" title="SetupPeopleActivity.java" tooltip="Cart/src/com/christine/cart/SetupPeopleActivity.java" workbook="org.eclipse.ui.internal.EditorStack@781af2">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/SetupPeopleActivity.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2484" selectionTopPixel="840"/>
 </editor>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LoginActivity.java" partName="LoginActivity.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/LoginActivity.java" title="LoginActivity.java" tooltip="Cart/src/com/christine/cart/LoginActivity.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/LoginActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="399"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AccountDatabaseHelper.java" partName="AccountDatabaseHelper.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/sqlite/AccountDatabaseHelper.java" title="AccountDatabaseHelper.java" tooltip="Cart/src/com/christine/cart/sqlite/AccountDatabaseHelper.java" workbook="org.eclipse.ui.internal.EditorStack@781af2">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/sqlite/AccountDatabaseHelper.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="950" selectionTopPixel="210"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CreateAccountActivity.java" partName="CreateAccountActivity.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/CreateAccountActivity.java" title="CreateAccountActivity.java" tooltip="Cart/src/com/christine/cart/CreateAccountActivity.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/CreateAccountActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="1074"/>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PersonActivity.java" partName="PersonActivity.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/sqlite/PersonActivity.java" title="PersonActivity.java" tooltip="Cart/src/com/christine/cart/sqlite/PersonActivity.java" workbook="org.eclipse.ui.internal.EditorStack@781af2">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/sqlite/PersonActivity.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="823" selectionTopPixel="181"/>
 </editor>
 </editors>
 <views>
@@ -77,7 +84,8 @@
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
-<category IMemento.internal.id="Warnings (22 items)"/>
+<category IMemento.internal.id="Warnings (45 items)"/>
+<category IMemento.internal.id="Errors"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="745"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
@@ -151,6 +159,8 @@
 <alwaysOnActionSet id="org.eclipse.jdt.debug.ui.JDTDebugActionSet"/>
 <alwaysOnActionSet id="org.eclipse.jdt.junit.JUnitActionSet"/>
 <alwaysOnActionSet id="adt.actionSet.lint"/>
+<alwaysOnActionSet id="com.aptana.browser.actionSet"/>
+<alwaysOnActionSet id="com.aptana.ruby.debug.ui.RubyDebugActionSet"/>
 <show_view_action id="org.eclipse.jdt.ui.PackageExplorer"/>
 <show_view_action id="org.eclipse.jdt.ui.TypeHierarchy"/>
 <show_view_action id="org.eclipse.jdt.ui.SourceView"/>
@@ -221,8 +231,8 @@
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.1608013" ratioLeft="297" ratioRight="1550" relationship="2" relative="left"/>
-<info folder="true" part="bottom" ratio="0.50091577" ratioLeft="547" ratioRight="545" relationship="4" relative="org.eclipse.ui.editorss">
-<folder activePageID="com.android.ide.eclipse.ddms.views.LogCatView" appearance="2" expanded="2">
+<info folder="true" part="bottom" ratio="0.6785714" ratioLeft="741" ratioRight="351" relationship="4" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
 <page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
@@ -261,163 +271,162 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/CreateAccountActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/LoginActivity.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/AccountActivity.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/AccountDatabaseHelper.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/Account.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/CreateAccountActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/AccountActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/Account.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/Person.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/PersonActivity.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/SetupPeopleActivity.java"/>
 </editors>
-<item historyLabel="AccountActivity.java" index="2">
-<position info="not_deleted" x="2213" y="0"/>
+<item historyLabel="Account.java" index="2">
+<position info="not_deleted" x="430" y="0"/>
 </item>
-<item historyLabel="AccountActivity.java" index="2">
-<position info="not_deleted" x="2211" y="0"/>
-</item>
-<item historyLabel="AccountActivity.java" index="2">
-<position info="not_deleted" x="2147" y="0"/>
-</item>
-<item historyLabel="Account.java" index="3">
+<item historyLabel="Person.java" index="3">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="AccountActivity.java" index="2">
-<position info="not_deleted" x="2049" y="0"/>
+<item historyLabel="Account.java" index="2">
+<position info="not_deleted" x="115" y="0"/>
 </item>
-<item historyLabel="LoginActivity.java" index="1">
-<position info="not_deleted" x="470" y="0"/>
+<item historyLabel="AccountDatabaseHelper.java" index="1">
+<position info="not_deleted" x="5254" y="0"/>
 </item>
-<item historyLabel="CreateAccountActivity.java" index="0">
-<position info="not_deleted" x="2564" y="68"/>
+<item historyLabel="Account.java" index="2">
+<position info="not_deleted" x="115" y="0"/>
 </item>
-<item historyLabel="LoginActivity.java" index="1">
-<position info="not_deleted" x="470" y="0"/>
+<item historyLabel="AccountDatabaseHelper.java" index="1">
+<position info="not_deleted" x="5254" y="0"/>
 </item>
-<item historyLabel="CreateAccountActivity.java" index="0">
-<position info="not_deleted" x="1976" y="0"/>
+<item historyLabel="AccountDatabaseHelper.java" index="1">
+<position info="not_deleted" x="5704" y="0"/>
 </item>
-<item historyLabel="LoginActivity.java" index="1">
-<position info="not_deleted" x="470" y="0"/>
+<item historyLabel="AccountDatabaseHelper.java" index="1">
+<position info="not_deleted" x="5564" y="0"/>
 </item>
-<item historyLabel="CreateAccountActivity.java" index="0">
-<position info="not_deleted" x="1979" y="1354"/>
+<item historyLabel="AccountDatabaseHelper.java" index="1">
+<position info="not_deleted" x="5564" y="0"/>
 </item>
-<item historyLabel="LoginActivity.java" index="1">
-<position info="not_deleted" x="1892" y="0"/>
+<item historyLabel="Account.java" index="2">
+<position info="not_deleted" x="115" y="0"/>
 </item>
-<item historyLabel="CreateAccountActivity.java" index="0">
-<position info="not_deleted" x="2088" y="0"/>
+<item historyLabel="AccountDatabaseHelper.java" index="1">
+<position info="not_deleted" x="5704" y="0"/>
 </item>
-<item historyLabel="LoginActivity.java" index="1">
-<position info="not_deleted" x="1961" y="0"/>
+<item historyLabel="Account.java" index="2">
+<position info="not_deleted" x="115" y="0"/>
 </item>
-<item historyLabel="CreateAccountActivity.java" index="0">
-<position info="not_deleted" x="2088" y="0"/>
+<item historyLabel="AccountDatabaseHelper.java" index="1">
+<position info="not_deleted" x="5704" y="0"/>
 </item>
-<item historyLabel="AccountActivity.java" index="2">
-<position info="not_deleted" x="2049" y="0"/>
-</item>
-<item historyLabel="LoginActivity.java" index="1">
-<position info="not_deleted" x="1961" y="0"/>
-</item>
-<item historyLabel="AccountActivity.java" index="2">
-<position info="not_deleted" x="2049" y="0"/>
-</item>
-<item historyLabel="LoginActivity.java" index="1">
-<position info="not_deleted" x="2543" y="0"/>
-</item>
-<item historyLabel="CreateAccountActivity.java" index="0">
-<position info="not_deleted" x="2088" y="0"/>
-</item>
-<item historyLabel="LoginActivity.java" index="1">
-<position info="not_deleted" x="2735" y="0"/>
-</item>
-<item historyLabel="CreateAccountActivity.java" index="0">
-<position info="not_deleted" x="1696" y="0"/>
-</item>
-<item historyLabel="LoginActivity.java" index="1">
-<position info="not_deleted" x="2735" y="0"/>
-</item>
-<item historyLabel="CreateAccountActivity.java" index="0">
-<position info="not_deleted" x="1696" y="0"/>
-</item>
-<item historyLabel="AccountActivity.java" index="2">
-<position info="not_deleted" x="1725" y="0"/>
-</item>
-<item historyLabel="CreateAccountActivity.java" index="0">
-<position info="not_deleted" x="1696" y="0"/>
-</item>
-<item historyLabel="LoginActivity.java" index="1">
-<position info="not_deleted" x="2019" y="0"/>
-</item>
-<item historyLabel="AccountActivity.java" index="2">
-<position info="not_deleted" x="1725" y="0"/>
-</item>
-<item historyLabel="LoginActivity.java" index="1">
-<position/>
-</item>
-<item historyLabel="CreateAccountActivity.java" index="0">
-<position info="not_deleted" x="1406" y="44"/>
-</item>
-<item historyLabel="LoginActivity.java" index="1">
-<position info="not_deleted" x="1631" y="0"/>
-</item>
-<item historyLabel="AccountActivity.java" index="2">
-<position info="not_deleted" x="1725" y="0"/>
-</item>
-<item historyLabel="AccountActivity.java" index="2">
-<position info="not_deleted" x="1781" y="65"/>
-</item>
-<item historyLabel="AccountActivity.java" index="2">
-<position info="not_deleted" x="4336" y="0"/>
-</item>
-<item historyLabel="LoginActivity.java" index="1">
-<position/>
-</item>
-<item historyLabel="CreateAccountActivity.java" index="0">
-<position info="not_deleted" x="843" y="0"/>
-</item>
-<item historyLabel="AccountActivity.java" index="2">
-<position info="not_deleted" x="4336" y="0"/>
-</item>
-<item historyLabel="Account.java" index="3">
+<item historyLabel="AccountActivity.java" index="0">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="AccountActivity.java" index="2">
-<position info="not_deleted" x="4336" y="0"/>
+<item historyLabel="AccountDatabaseHelper.java" index="1">
+<position info="not_deleted" x="5704" y="0"/>
 </item>
-<item historyLabel="LoginActivity.java" index="1">
-<position/>
-</item>
-<item historyLabel="LoginActivity.java" index="1">
+<item historyLabel="Person.java" index="3">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="CreateAccountActivity.java" index="4">
+<item historyLabel="PersonActivity.java" index="4">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="CreateAccountActivity.java" index="4">
+<item historyLabel="AccountDatabaseHelper.java" index="1">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="AccountActivity.java" index="5">
+<item historyLabel="PersonActivity.java" index="4">
+<position info="not_deleted" x="767" y="0"/>
+</item>
+<item historyLabel="SetupPeopleActivity.java" index="5">
+<position info="not_deleted" x="952" y="0"/>
+</item>
+<item historyLabel="PersonActivity.java" index="4">
+<position info="not_deleted" x="767" y="0"/>
+</item>
+<item historyLabel="SetupPeopleActivity.java" index="5">
+<position info="not_deleted" x="952" y="0"/>
+</item>
+<item historyLabel="AccountDatabaseHelper.java" index="1">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="AccountActivity.java" index="5">
+<item historyLabel="SetupPeopleActivity.java" index="5">
+<position info="not_deleted" x="952" y="0"/>
+</item>
+<item historyLabel="PersonActivity.java" index="4">
+<position info="not_deleted" x="767" y="0"/>
+</item>
+<item historyLabel="SetupPeopleActivity.java" index="5">
+<position info="not_deleted" x="952" y="0"/>
+</item>
+<item historyLabel="AccountDatabaseHelper.java" index="1">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="Account.java" index="6">
+<item historyLabel="Person.java" index="3">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="Account.java" index="6">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="PersonActivity.java" index="4">
+<position info="not_deleted" x="2345" y="0"/>
 </item>
-<item historyLabel="AccountActivity.java" index="5">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="AccountDatabaseHelper.java" index="1">
+<position info="not_deleted" x="1136" y="0"/>
 </item>
-<item historyLabel="CreateAccountActivity.java" index="4">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="SetupPeopleActivity.java" index="5">
+<position info="not_deleted" x="952" y="0"/>
 </item>
-<item active="true" historyLabel="LoginActivity.java" index="1">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="PersonActivity.java" index="4">
+<position info="not_deleted" x="1146" y="0"/>
+</item>
+<item historyLabel="SetupPeopleActivity.java" index="5">
+<position info="not_deleted" x="3844" y="0"/>
+</item>
+<item historyLabel="AccountDatabaseHelper.java" index="1">
+<position info="not_deleted" x="2087" y="0"/>
+</item>
+<item historyLabel="PersonActivity.java" index="4">
+<position info="not_deleted" x="1146" y="0"/>
+</item>
+<item historyLabel="AccountDatabaseHelper.java" index="1">
+<position info="not_deleted" x="2615" y="0"/>
+</item>
+<item historyLabel="Person.java" index="3">
+<position info="not_deleted" x="436" y="0"/>
+</item>
+<item historyLabel="AccountDatabaseHelper.java" index="1">
+<position info="not_deleted" x="1531" y="0"/>
+</item>
+<item historyLabel="Person.java" index="3">
+<position info="not_deleted" x="456" y="0"/>
+</item>
+<item historyLabel="AccountDatabaseHelper.java" index="1">
+<position info="not_deleted" x="950" y="0"/>
+</item>
+<item historyLabel="SetupPeopleActivity.java" index="5">
+<position info="not_deleted" x="793" y="0"/>
+</item>
+<item historyLabel="Person.java" index="3">
+<position info="not_deleted" x="769" y="0"/>
+</item>
+<item historyLabel="Person.java" index="3">
+<position info="not_deleted" x="682" y="0"/>
+</item>
+<item historyLabel="Person.java" index="3">
+<position info="not_deleted" x="809" y="0"/>
+</item>
+<item historyLabel="SetupPeopleActivity.java" index="5">
+<position info="not_deleted" x="1341" y="0"/>
+</item>
+<item historyLabel="Person.java" index="3">
+<position info="not_deleted" x="719" y="0"/>
+</item>
+<item historyLabel="SetupPeopleActivity.java" index="5">
+<position info="not_deleted" x="2484" y="0"/>
+</item>
+<item historyLabel="PersonActivity.java" index="4">
+<position info="not_deleted" x="1757" y="0"/>
+</item>
+<item historyLabel="Person.java" index="3">
+<position info="not_deleted" x="36" y="0"/>
+</item>
+<item active="true" historyLabel="PersonActivity.java" index="4">
+<position info="not_deleted" x="823" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -425,6 +434,12 @@
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
+<trimArea IMemento.internal.id="16384">
+<trimItem IMemento.internal.id="left"/>
+</trimArea>
+<trimArea IMemento.internal.id="131072">
+<trimItem IMemento.internal.id="right"/>
+</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
 </trimArea>
@@ -432,54 +447,52 @@
 <trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
 <trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
+<trimItem IMemento.internal.id="bottom"/>
 </trimArea>
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CreateAccountActivity.java" tooltip="Cart/src/com/christine/cart/CreateAccountActivity.java">
-<persistable path="/Cart/src/com/christine/cart/CreateAccountActivity.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LoginActivity.java" tooltip="Cart/src/com/christine/cart/LoginActivity.java">
-<persistable path="/Cart/src/com/christine/cart/LoginActivity.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AddAccountActivity.java" tooltip="Cart/src/com/christine/cart/sqlite/AddAccountActivity.java">
-<persistable path="/Cart/src/com/christine/cart/sqlite/AddAccountActivity.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Account.java" tooltip="Cart/src/com/christine/cart/sqlite/Account.java">
-<persistable path="/Cart/src/com/christine/cart/sqlite/Account.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="C:\Program Files (x86)\sqlitebrowser\SQLite Database Browser 2.0 b1.exe" name="accounts_db" tooltip="Cart/assets/accounts_db">
-<persistable path="/Cart/assets/accounts_db"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SetupPeopleActivity.java" tooltip="Cart/src/com/christine/cart/SetupPeopleActivity.java">
+<persistable path="/Cart/src/com/christine/cart/SetupPeopleActivity.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AccountDatabaseHelper.java" tooltip="Cart/src/com/christine/cart/sqlite/AccountDatabaseHelper.java">
 <persistable path="/Cart/src/com/christine/cart/sqlite/AccountDatabaseHelper.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="login.xml" tooltip="Cart/res/layout/login.xml">
-<persistable path="/Cart/res/layout/login.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PersonActivity.java" tooltip="Cart/src/com/christine/cart/sqlite/PersonActivity.java">
+<persistable path="/Cart/src/com/christine/cart/sqlite/PersonActivity.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SetupPeopleActivity.java" tooltip="Cart/src/com/christine/cart/SetupPeopleActivity.java">
-<persistable path="/Cart/src/com/christine/cart/SetupPeopleActivity.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Person.java" tooltip="Cart/src/com/christine/cart/sqlite/Person.java">
+<persistable path="/Cart/src/com/christine/cart/sqlite/Person.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Account.java" tooltip="Cart/src/com/christine/cart/sqlite/Account.java">
+<persistable path="/Cart/src/com/christine/cart/sqlite/Account.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AccountActivity.java" tooltip="Cart/src/com/christine/cart/sqlite/AccountActivity.java">
+<persistable path="/Cart/src/com/christine/cart/sqlite/AccountActivity.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="C:\Program Files (x86)\sqlitebrowser\SQLite Database Browser 2.0 b1.exe" name="accounts_db" tooltip="Cart/assets/accounts_db">
+<persistable path="/Cart/assets/accounts_db"/>
+</file>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="SQLiteDatabase.class" tooltip="android.database.sqlite.SQLiteDatabase">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=Cart/C:\/Program Files \(x86)\/Android\/android-sdk\/platforms\/android-8\/android.jar&lt;android.database.sqlite(SQLiteDatabase.class"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DatabaseHelper.java" tooltip="Cart/src/com/christine/cart/sqlite/DatabaseHelper.java">
+<persistable path="/Cart/src/com/christine/cart/sqlite/DatabaseHelper.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CreateAccountActivity.java" tooltip="Cart/src/com/christine/cart/CreateAccountActivity.java">
+<persistable path="/Cart/src/com/christine/cart/CreateAccountActivity.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SetupDaysActivity.java" tooltip="Cart/src/com/christine/cart/SetupDaysActivity.java">
+<persistable path="/Cart/src/com/christine/cart/SetupDaysActivity.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LoginActivity.java" tooltip="Cart/src/com/christine/cart/LoginActivity.java">
+<persistable path="/Cart/src/com/christine/cart/LoginActivity.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="Cart/AndroidManifest.xml">
 <persistable path="/Cart/AndroidManifest.xml"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="InputDatabaseSearchActivity.java" tooltip="Cart/src/com/christine/cart/InputDatabaseSearchActivity.java">
-<persistable path="/Cart/src/com/christine/cart/InputDatabaseSearchActivity.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="InputSearchActivity.java" tooltip="Cart/src/com/christine/cart/InputSearchActivity.java">
-<persistable path="/Cart/src/com/christine/cart/InputSearchActivity.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="StartActivity.java" tooltip="Cart/src/com/christine/cart/StartActivity.java">
-<persistable path="/Cart/src/com/christine/cart/StartActivity.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CartActivity.java" tooltip="Cart/src/com/christine/cart/CartActivity.java">
-<persistable path="/Cart/src/com/christine/cart/CartActivity.java"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NutritionDatabaseHelper.java" tooltip="Cart/src/com/christine/cart/sqlite/NutritionDatabaseHelper.java">
 <persistable path="/Cart/src/com/christine/cart/sqlite/NutritionDatabaseHelper.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="InputScanActivity.java" tooltip="Cart/src/com/christine/cart/InputScanActivity.java">
-<persistable path="/Cart/src/com/christine/cart/InputScanActivity.java"/>
 </file>
 </mruList>
 </workbench>

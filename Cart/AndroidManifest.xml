@@ -73,6 +73,7 @@
 	    <activity android:name="ItemListActivity"></activity>
 	    <activity android:name="CheckoutActivity"></activity>
 	    <activity android:name=".sqlite.AccountActivity"></activity>
+	    <activity android:name=".sqlite.PersonActivity"></activity>
 	    
 	    
     </application>

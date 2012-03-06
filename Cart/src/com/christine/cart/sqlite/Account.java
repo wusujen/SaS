@@ -5,6 +5,7 @@ public class Account {
 	int _id;
 	String _name;
 	String _pwd;
+	Integer _days;
 
 	// blank constructor
 	public Account(){
@@ -17,11 +18,27 @@ public class Account {
 		_pwd = password;
 	}
 	
-	// constructor
 	public Account(int id, String username, String password){
 		_id = id;
 		_name = username;
 		_pwd = password;
+		_days = null;
+	}
+	
+	// constructor
+	public Account(int id, String username, String password, int days){
+		_id = id;
+		_name = username;
+		_pwd = password;
+		_days = days;
+	}
+	
+	public int getDays(){
+		return this._days;
+	}
+	
+	public void setDays(int days){
+		this._days = days;
 	}
 	
 	// get Id

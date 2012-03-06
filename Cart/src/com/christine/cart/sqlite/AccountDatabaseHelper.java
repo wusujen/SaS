@@ -17,128 +17,66 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
+import android.util.Log;
 
-public class AccountDatabaseHelper extends SQLiteOpenHelper{
-
+/**
+ * 
+ * Handles all interactions with Table account_info in Database accounts_db
+ * 
+ * @see sqlite database tutorial by Ravi Tamada:
+ * 		http://www.androidhive.info/2011/11/android-sqlite-database-tutorial/
+ *
+ */
+public class AccountDatabaseHelper extends DatabaseHelper{
+	
 	// All static variables
-	private static final String DATABASE_PATH = "/data/data/com.christine.cart/databases/";
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME = "accounts_db";
 	
-	// Accounts table name
-	private static final String TABLE_ACCOUNTS= "account_info";
+	// Accounts Table info
+	private static final String TABLE_ACCOUNTS = "account_info";
+		//column names
+		private static final String ACCOUNT_ID = "_id";
+		private static final String ACCOUNT_NAME = "username";
+		private static final String ACCOUNT_PASSWORD = "password";
+		private static final String ACCOUNT_DAYS = "days";
 	
-	// Table account_info column names
-	private static final String ACCOUNT_ID = "_id";
-	private static final String ACCOUNT_NAME = "username";
-	private static final String ACCOUNT_PASSWORD = "password";
+	//People Table info
+	private static final String TABLE_PEOPLE = "people";
+		//column names
+		private static final  String PEOPLE_ID = "_id";
+		private static final String PEOPLE_USER = "_username";
+		private static final String PEOPLE_NAME = "name";
+		private static final String PEOPLE_AGE = "age";
+		private static final String PEOPLE_GENDER = "gender";
+		private static final String PEOPLE_HEIGHT = "height";
+		private static final String PEOPLE_WEIGHT = "weight";
 	
-	// Private variables
-	private SQLiteDatabase myDataBase; 
-	private Context myContext;
 	
-	// Constructor
+	// When an AccountDatabaseHelper is created, use
+	// the generic DatabaseHelper class
 	public AccountDatabaseHelper(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		this.myContext = context;
+		super(context, DATABASE_NAME, DATABASE_VERSION);
 	}
 	
 	
-	/**
-     * Creates a empty database on the system and rewrites it with your own database.
-     * */
-    public void createDataBase() throws IOException{
- 
-    	boolean dbExist = checkDataBase();
-    	SQLiteDatabase db_Read = null;
-    	
-    	if(dbExist){
-    		//do nothing - database already exist
-    	}else{
- 
-    		//By calling this method and empty database will
-    		//be created into the default system path
-            //of your application so we are gonna be able to
-    		//overwrite that database with our database.
-        	db_Read = this.getReadableDatabase();
-        	db_Read.close();
-        	
-        	try {
-        		
-    			copyDataBase();
- 
-    		} catch (IOException e) {
- 
-        		throw new Error("Error copying database");
- 
-        	}
-    	}
-    }
-    
-    /**
-     * Check if the database already exist to avoid re-copying the file each time you open the application.
-     * @return true if it exists, false if it doesn't
-     */
-    private boolean checkDataBase(){
-
-    	File dbFile = new File(DATABASE_PATH + DATABASE_NAME);
-    	return dbFile.exists();
-    }
- 
-    /**
-     * Copies your database from your local assets-folder to the just created empty database in the
-     * system folder, from where it can be accessed and handled.
-     * This is done by transfering bytestream.
-     * */
-    private void copyDataBase() throws IOException{
- 
-    	//Open your local db as the input stream
-    	InputStream myInput = myContext.getAssets().open(DATABASE_NAME);
- 
-    	// Path to the just created empty db
-    	String outFileName = DATABASE_PATH + DATABASE_NAME;
- 
-    	//Open the empty db as the output stream
-    	OutputStream myOutput = new FileOutputStream(outFileName);
- 
-    	//transfer bytes from the inputfile to the outputfile
-    	byte[] buffer = new byte[1024];
-    	int length;
-    	while ((length = myInput.read(buffer))>0){
-    		myOutput.write(buffer, 0, length);
-    	}
- 
-    	//Close the streams
-    	myOutput.flush();
-    	myOutput.close();
-    	myInput.close();
- 
-    }
- 
-    public void openDataBase() throws SQLException{
- 
-    	//Open the database
-        String myPath = DATABASE_PATH + DATABASE_NAME;
-    	myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
- 
-    }
-    
-    public SQLiteDatabase getDatabase(){
-    	return myDataBase;
-    }
- 
-    @Override
-	public synchronized void close() {
-    	    if(myDataBase != null){
-    		    myDataBase.close();
-    	    }
-    	    super.close();
+	public boolean tableExists(String TABLE_NAME){
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		Cursor cursor = db.rawQuery("SELECT * FROM " + DATABASE_NAME + " WHERE type='table' AND name='" + TABLE_NAME + "'", null);
+		if(cursor!=null){
+			return true;
+		} else{
+			Log.d("Fetch Table: ", "Table does not exist");
+		}
+		return false;
 	}
- 
-	
 	
 	/**
-	 * All CRUD Operations
+	 * 
+	 * ACCOUNT TABLE
+	 * all account CRUD operations
+	 * 
 	 */
 	
 	// Adding new account
@@ -227,6 +165,18 @@ public class AccountDatabaseHelper extends SQLiteOpenHelper{
 		
 	}
 	
+	public int updateAccountDays(Account account){
+		SQLiteDatabase db = this.getWritableDatabase();
+		
+		ContentValues values = new ContentValues();
+		values.put(ACCOUNT_NAME, account.getName());
+		values.put(ACCOUNT_PASSWORD, account.getPassword());
+		values.put(ACCOUNT_DAYS, account.getDays());
+		
+		//update row
+		return db.update(TABLE_ACCOUNTS, values, ACCOUNT_ID + " = ?", new String[] { String.valueOf(account.getId())});	
+	}
+	
 	//Delete single Account
 	public void deleteAccount(Account account){
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -235,16 +185,115 @@ public class AccountDatabaseHelper extends SQLiteOpenHelper{
 	}
 	
 	/**
-	 * Set methods of SQLiteHelper
+	 * PEOPLE TABLE
+	 * All CRUD operations, including creation of table
 	 */
-	@Override
-	public void onCreate(SQLiteDatabase db) {
-		// table pre-created
+	
+	public void addPerson(Person person){
+		SQLiteDatabase db = this.getWritableDatabase();
+		 
+	    ContentValues values = new ContentValues();
+	    values.put(PEOPLE_USER, person.getUsername()); //username
+	    values.put(PEOPLE_NAME, person.getName()); // Name
+	    values.put(PEOPLE_AGE, person.getAge()); // Age
+	    values.put(PEOPLE_GENDER, person.getGender()); // Gender
+	    values.put(PEOPLE_HEIGHT, person.getHeight()); // Height
+	    values.put(PEOPLE_WEIGHT, person.getWeight()); // Weight
+	 
+	    // Inserting Row
+	    Log.d("Inserting...", "Inserting into" + TABLE_PEOPLE);
+	    db.insert(TABLE_PEOPLE, null, values);
+	    db.close(); // Closing database connection
 	}
-
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// table 
+	
+	public List<Person> getAllPeopleFor(String username){
+		SQLiteDatabase db = this.getReadableDatabase();
+		List<Person> personList = new ArrayList<Person>();
+	    Cursor cursor = db.query(TABLE_PEOPLE, new String[] { PEOPLE_ID, PEOPLE_USER,
+	            PEOPLE_NAME, PEOPLE_AGE, PEOPLE_GENDER, PEOPLE_HEIGHT, PEOPLE_WEIGHT }, PEOPLE_USER + "=?",
+	            new String[] { username.toString() }, null, null, null, null);
+	    if (cursor != null){
+	        cursor.moveToFirst();
+	    }
+	 
+	    // looping through all rows and adding to list
+	    if (cursor.moveToFirst()) {
+	        do {
+	            Person person = new Person();
+	            person.setId(Integer.parseInt(cursor.getString(0)));
+	            person.setName(cursor.getString(1));
+	            person.setName(cursor.getString(2));
+	            person.setAge(Integer.parseInt(cursor.getString(3)));
+	            person.setGender(cursor.getString(4));
+	            person.setWeight(Integer.parseInt(cursor.getString(5)));
+	            person.setHeight(Integer.parseInt(cursor.getString(6)));
+	            // Adding person to list
+	            personList.add(person);
+	        } while (cursor.moveToNext());
+	    }
+	    
+	    return personList;
 	}
-
+	
+	public List<Person> getAllPeople(){
+		 List<Person> personList = new ArrayList<Person>();
+		    // Select All Query
+		    String selectQuery = "SELECT  * FROM " + TABLE_PEOPLE;
+		 
+		    SQLiteDatabase db = this.getReadableDatabase();
+		    Cursor cursor = db.rawQuery(selectQuery, null);
+		 
+		    // looping through all rows and adding to list
+		    if (cursor.moveToFirst()) {
+		        do {
+		            Person person = new Person();
+		            person.setId(Integer.parseInt(cursor.getString(0)));
+		            person.setName(cursor.getString(1));
+		            person.setName(cursor.getString(2));
+		            person.setAge(Integer.parseInt(cursor.getString(3)));
+		            person.setGender(cursor.getString(4));
+		            person.setWeight(Integer.parseInt(cursor.getString(5)));
+		            person.setHeight(Integer.parseInt(cursor.getString(6)));
+		            // Adding person to list
+		            personList.add(person);
+		        } while (cursor.moveToNext());
+		    }
+		 
+		    // return person list
+		    return personList;
+	}
+	
+	public int getPersonCount(){
+		String countQuery = "SELECT  * FROM " + TABLE_PEOPLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        cursor.close();
+ 
+        // return count
+        return cursor.getCount();
+	}
+	
+	public int updatePerson(Person person){
+		SQLiteDatabase db = this.getWritableDatabase();
+		 
+	    ContentValues values = new ContentValues();
+	    values.put(PEOPLE_USER, person.getUsername()); //username
+	    values.put(PEOPLE_NAME, person.getName()); // Name
+	    values.put(PEOPLE_AGE, person.getAge()); // Age
+	    values.put(PEOPLE_GENDER, person.getGender()); // Gender
+	    values.put(PEOPLE_HEIGHT, person.getHeight()); // Height
+	    values.put(PEOPLE_WEIGHT, person.getWeight()); // Weight
+	 
+	    // updating row
+	    return db.update(TABLE_PEOPLE, values, PEOPLE_USER + " = ?",
+	            new String[] { String.valueOf(person.getUsername()) });
+	}
+	
+	public void deletePerson(Person person){
+		SQLiteDatabase db = this.getWritableDatabase();
+	    db.delete(TABLE_PEOPLE, PEOPLE_USER + " = ?",
+	            new String[] { person.getUsername() });
+	    Log.d("Delete Person: ",person.getName() + "deleted from database");
+	    db.close();
+	}
 }
