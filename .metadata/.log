@@ -8177,3 +8177,136 @@ Binding(CTRL+SHIFT+U,
 
 !ENTRY org.eclipse.core.jobs 2 2 2012-03-05 22:35:58.588
 !MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: com.aptana.usage.StudioAnalytics$1
+!SESSION 2012-03-05 22:39:40.790 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.7.0_02
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.jface 2 0 2012-03-05 22:39:48.401
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2012-03-05 22:39:48.401
+!MESSAGE A conflict occurred for CTRL+SHIFT+D:
+Binding(CTRL+SHIFT+D,
+	ParameterizedCommand(Command(org.eclipse.jdt.debug.ui.commands.Display,Display,
+		Display result of evaluating selected text,
+		Category(org.eclipse.debug.ui.category.run,Run/Debug,Run/Debug command category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.dialogAndWindow,,,system)
+Binding(CTRL+SHIFT+D,
+	ParameterizedCommand(Command(com.aptana.ide.syncing.ui.commands.download,Download...,
+		,
+		Category(com.aptana.ide.syncing.ui.commands.category,File Transfer,File Transfer Commands,true),
+		com.aptana.ide.syncing.ui.handlers.DownloadHandler,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+D,
+	ParameterizedCommand(Command(org.radrails.rails.ui.command.debug.server,Debug Server,
+		,
+		Category(org.radrails.rails.ui.category,Rails,null,true),
+		org.radrails.rails.internal.ui.commands.DebugServerHandler,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2012-03-05 22:39:48.401
+!MESSAGE A conflict occurred for CTRL+SHIFT+U:
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.search.occurrences.in.file.quickMenu,Show Occurrences in File Quick Menu,
+		Shows the Occurrences in File quick menu,
+		Category(org.eclipse.search.ui.category.search,Search,Search command category,true),
+		,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+U,
+	ParameterizedCommand(Command(com.aptana.ide.syncing.ui.commands.upload,Upload...,
+		,
+		Category(com.aptana.ide.syncing.ui.commands.category,File Transfer,File Transfer Commands,true),
+		com.aptana.ide.syncing.ui.handlers.UploadHandler,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.equinox.p2.ui 4 0 2012-03-05 22:40:25.792
+!MESSAGE Unable to read repository at http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=1336.
+!STACK 1
+org.eclipse.equinox.p2.core.ProvisionException: Unable to read repository at http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=1336.
+	at org.eclipse.equinox.internal.p2.metadata.repository.SimpleMetadataRepositoryFactory.load(SimpleMetadataRepositoryFactory.java:128)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.factoryLoad(MetadataRepositoryManager.java:57)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:749)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:651)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:96)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.p2.ui.ProvisioningUI.loadMetadataRepository(ProvisioningUI.java:402)
+	at org.eclipse.equinox.internal.p2.ui.model.MetadataRepositoryElement.getMetadataRepository(MetadataRepositoryElement.java:120)
+	at org.eclipse.equinox.internal.p2.ui.model.MetadataRepositoryElement.fetchChildren(MetadataRepositoryElement.java:70)
+	at org.eclipse.equinox.internal.p2.ui.model.RemoteQueriedElement.fetchDeferredChildren(RemoteQueriedElement.java:34)
+	at org.eclipse.ui.progress.DeferredTreeContentManager$1.run(DeferredTreeContentManager.java:235)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: java.io.IOException: http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=1336 is not a valid repository location.
+	at org.eclipse.equinox.internal.p2.metadata.repository.SimpleMetadataRepositoryFactory.load(SimpleMetadataRepositoryFactory.java:102)
+	... 11 more
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1002 2012-03-05 22:40:25.793
+!MESSAGE Unable to read repository at http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=1336.
+!STACK 0
+java.io.IOException: http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=1336 is not a valid repository location.
+	at org.eclipse.equinox.internal.p2.metadata.repository.SimpleMetadataRepositoryFactory.load(SimpleMetadataRepositoryFactory.java:102)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.factoryLoad(MetadataRepositoryManager.java:57)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:749)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:651)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:96)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.p2.ui.ProvisioningUI.loadMetadataRepository(ProvisioningUI.java:402)
+	at org.eclipse.equinox.internal.p2.ui.model.MetadataRepositoryElement.getMetadataRepository(MetadataRepositoryElement.java:120)
+	at org.eclipse.equinox.internal.p2.ui.model.MetadataRepositoryElement.fetchChildren(MetadataRepositoryElement.java:70)
+	at org.eclipse.equinox.internal.p2.ui.model.RemoteQueriedElement.fetchDeferredChildren(RemoteQueriedElement.java:34)
+	at org.eclipse.ui.progress.DeferredTreeContentManager$1.run(DeferredTreeContentManager.java:235)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.equinox.p2.ui 4 0 2012-03-05 22:40:27.887
+!MESSAGE Unable to read repository at http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=1336.
+!STACK 1
+org.eclipse.equinox.p2.core.ProvisionException: Unable to read repository at http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=1336.
+	at org.eclipse.equinox.internal.p2.metadata.repository.SimpleMetadataRepositoryFactory.load(SimpleMetadataRepositoryFactory.java:128)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.factoryLoad(MetadataRepositoryManager.java:57)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:749)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:651)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:96)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.p2.ui.ProvisioningUI.loadMetadataRepository(ProvisioningUI.java:402)
+	at org.eclipse.equinox.internal.p2.ui.model.MetadataRepositoryElement.getMetadataRepository(MetadataRepositoryElement.java:120)
+	at org.eclipse.equinox.internal.p2.ui.model.MetadataRepositoryElement.getRepository(MetadataRepositoryElement.java:109)
+	at org.eclipse.equinox.internal.p2.ui.model.MetadataRepositoryElement.getQueryable(MetadataRepositoryElement.java:103)
+	at org.eclipse.equinox.internal.p2.ui.QueryProvider.getQueryDescriptor(QueryProvider.java:88)
+	at org.eclipse.equinox.internal.p2.ui.model.QueriedElement.fetchChildren(QueriedElement.java:101)
+	at org.eclipse.equinox.internal.p2.ui.model.MetadataRepositoryElement.fetchChildren(MetadataRepositoryElement.java:72)
+	at org.eclipse.equinox.internal.p2.ui.model.RemoteQueriedElement.fetchDeferredChildren(RemoteQueriedElement.java:34)
+	at org.eclipse.ui.progress.DeferredTreeContentManager$1.run(DeferredTreeContentManager.java:235)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: java.io.IOException: http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=1336 is not a valid repository location.
+	at org.eclipse.equinox.internal.p2.metadata.repository.SimpleMetadataRepositoryFactory.load(SimpleMetadataRepositoryFactory.java:102)
+	... 15 more
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1002 2012-03-05 22:40:27.888
+!MESSAGE Unable to read repository at http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=1336.
+!STACK 0
+java.io.IOException: http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=1336 is not a valid repository location.
+	at org.eclipse.equinox.internal.p2.metadata.repository.SimpleMetadataRepositoryFactory.load(SimpleMetadataRepositoryFactory.java:102)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.factoryLoad(MetadataRepositoryManager.java:57)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:749)
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.loadRepository(AbstractRepositoryManager.java:651)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:96)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:92)
+	at org.eclipse.equinox.p2.ui.ProvisioningUI.loadMetadataRepository(ProvisioningUI.java:402)
+	at org.eclipse.equinox.internal.p2.ui.model.MetadataRepositoryElement.getMetadataRepository(MetadataRepositoryElement.java:120)
+	at org.eclipse.equinox.internal.p2.ui.model.MetadataRepositoryElement.getRepository(MetadataRepositoryElement.java:109)
+	at org.eclipse.equinox.internal.p2.ui.model.MetadataRepositoryElement.getQueryable(MetadataRepositoryElement.java:103)
+	at org.eclipse.equinox.internal.p2.ui.QueryProvider.getQueryDescriptor(QueryProvider.java:88)
+	at org.eclipse.equinox.internal.p2.ui.model.QueriedElement.fetchChildren(QueriedElement.java:101)
+	at org.eclipse.equinox.internal.p2.ui.model.MetadataRepositoryElement.fetchChildren(MetadataRepositoryElement.java:72)
+	at org.eclipse.equinox.internal.p2.ui.model.RemoteQueriedElement.fetchDeferredChildren(RemoteQueriedElement.java:34)
+	at org.eclipse.ui.progress.DeferredTreeContentManager$1.run(DeferredTreeContentManager.java:235)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)

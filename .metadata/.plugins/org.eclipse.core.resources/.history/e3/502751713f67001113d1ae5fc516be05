@@ -119,7 +119,7 @@ public class SetupPeopleActivity extends Activity {
  	    		USERNAME = act.getName();
  	    		PASSWORD = act.getPassword();
  		    	Log.d("Account Info: ", "username: " + USERNAME + "password: " + PASSWORD);
- 		    	user_properties.setText("username: " + USERNAME + "/n password: " + PASSWORD);
+ 		    	user_properties.setText("username: " + USERNAME + "\n password: " + PASSWORD);
  	    	} else{
  	    		Log.d("Fail: ", "unsuccessful retrieval");
  	    	}
