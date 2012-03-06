@@ -25,7 +25,10 @@ public class SetupPeopleActivity extends Activity {
 	private static String USERNAME = null;
     private static String PASSWORD = null;
     
-    public static int MAN = 1001;
+    public static final int MAN = 1001;
+    public static final int WOMAN = 1002;
+    public static final int BOY = 1003;
+    public static final int GIRL = 1004;
     
 	static int countMan=0;
 	static int countWoman=0;
@@ -51,32 +54,28 @@ public class SetupPeopleActivity extends Activity {
 	    man.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				countMan++;
-				Intent addMan = new Intent(v.getContext(), PersonActivity.class);
-				
-				Bundle userInfo = new Bundle();
-				userInfo.putInt("requestCode", MAN);
-				userInfo.putString("username", USERNAME);
-				
-				addMan.putExtras(userInfo);
-				startActivityForResult(addMan,MAN);
+				addPersonIntent(v, MAN);
 			}
 		});
 	    
 	    woman.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				countWoman++;
+				addPersonIntent(v, WOMAN);
 			}
 		});
 	    
 	    boy.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				countBoy++;
+				addPersonIntent(v, BOY);
 			}
 		});
 	    
 	    girl.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				countGirl++;
+				addPersonIntent(v, GIRL);
 			}
 		});
 	    
@@ -100,7 +99,6 @@ public class SetupPeopleActivity extends Activity {
 				startActivity(startSetupDays);
 			}
 		});
-	    
 	}
 	
 	@Override
@@ -134,6 +132,20 @@ public class SetupPeopleActivity extends Activity {
 	protected void onPause(){
 		super.onPause();
 		db.close();
+	}
+	
+	
+	// Convenience method to start an intent request
+	// to person activity.
+	void addPersonIntent(View v, int requestCode){
+		Intent addPerson = new Intent(v.getContext(), PersonActivity.class);
+		
+		Bundle userInfo = new Bundle();
+		userInfo.putInt("requestCode", requestCode);
+		userInfo.putString("username", USERNAME);
+		
+		addPerson.putExtras(userInfo);
+		startActivityForResult(addPerson, requestCode);
 	}
 	
 }

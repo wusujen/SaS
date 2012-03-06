@@ -18,10 +18,18 @@ public class Person {
 	
 	// general default constructor: user added new person
 	public static Person createPerson(int requestCode, String username){
-		if(requestCode==SetupPeopleActivity.MAN){
-			return new Person(username, 30, "male", 70, 150);
+		switch(requestCode){
+			case SetupPeopleActivity.MAN:
+				return new Person(username, 47, "m", 69, 194);
+			case SetupPeopleActivity.WOMAN:
+				return new Person(username, 50, "f", 64, 164);
+			case SetupPeopleActivity.BOY:
+				return new Person(username, 9, "m", 65, 53);
+			case SetupPeopleActivity.GIRL:
+				return new Person(username, 9, "f", 64, 53);
+			default:
+				return null;
 		}
-		return null;
 	}
 	
 	// constructor with default NAME

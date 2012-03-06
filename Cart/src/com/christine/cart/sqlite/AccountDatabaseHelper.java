@@ -39,11 +39,12 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		private static final String ACCOUNT_ID = "_id";
 		private static final String ACCOUNT_NAME = "username";
 		private static final String ACCOUNT_PASSWORD = "password";
+		private static final String ACCOUNT_DAYS = "days";
 	
 	//People Table info
 	private static final String TABLE_PEOPLE = "people";
 		//column names
-		private static final String PEOPLE_ID = "_id";
+		private static final  String PEOPLE_ID = "_id";
 		private static final String PEOPLE_USER = "_username";
 		private static final String PEOPLE_NAME = "name";
 		private static final String PEOPLE_AGE = "age";
@@ -51,16 +52,11 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		private static final String PEOPLE_HEIGHT = "height";
 		private static final String PEOPLE_WEIGHT = "weight";
 	
-	// Private variables
-	private SQLiteDatabase myDataBase; 
-	private Context myContext;
-	
 	
 	// When an AccountDatabaseHelper is created, use
 	// the generic DatabaseHelper class
 	public AccountDatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, DATABASE_VERSION);
-		this.myContext = context;
 	}
 	
 	
@@ -167,6 +163,18 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		//update row
 		return db.update(TABLE_ACCOUNTS, values, ACCOUNT_ID + " = ?", new String[] { String.valueOf(account.getId())});
 		
+	}
+	
+	public int updateAccountDays(Account account){
+		SQLiteDatabase db = this.getWritableDatabase();
+		
+		ContentValues values = new ContentValues();
+		values.put(ACCOUNT_NAME, account.getName());
+		values.put(ACCOUNT_PASSWORD, account.getPassword());
+		values.put(ACCOUNT_DAYS, account.getDays());
+		
+		//update row
+		return db.update(TABLE_ACCOUNTS, values, ACCOUNT_ID + " = ?", new String[] { String.valueOf(account.getId())});	
 	}
 	
 	//Delete single Account

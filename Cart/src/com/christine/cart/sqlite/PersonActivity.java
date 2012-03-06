@@ -48,11 +48,21 @@ public class PersonActivity extends Activity {
 	    int requestCode = extras.getInt("requestCode");
 	    username = extras.getString("username");
 	    
-	    if(requestCode==SetupPeopleActivity.MAN){
-	    	p = Person.createPerson(requestCode, username);
-	    } else {
-	    	// cannot add person
-	    	throw new RuntimeException("Not implemented");
+	    switch(requestCode){
+	    	case SetupPeopleActivity.MAN:
+	    		p = Person.createPerson(requestCode, username);
+	    		break;
+	    	case SetupPeopleActivity.WOMAN:
+	    		p = Person.createPerson(requestCode, username);
+	    		break;
+	    	case SetupPeopleActivity.BOY:
+	    		p = Person.createPerson(requestCode, username);
+	    		break;
+	    	case SetupPeopleActivity.GIRL:
+	    		p = Person.createPerson(requestCode, username);
+	    		break;
+	    	default:
+	    		throw new RuntimeException("Not implemented");
 	    }
 	    
 	    //db.addPerson(p);
