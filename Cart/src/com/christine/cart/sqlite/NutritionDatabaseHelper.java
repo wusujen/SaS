@@ -25,38 +25,13 @@ public class NutritionDatabaseHelper extends DatabaseHelper {
     public static final String TABLE_NUTRITION = "nutrition_data";
 		private static final String N_ID = "_id";
 		private static final String N_NAME = "Shrt_Desc";
-		private static final String N_CALORIES = "Energ_Kcal";
-		private static final String N_PROTEIN = "Protein_g";
-		private static final String N_TOTALFATS = "Lipid_Tot_g";
-		private static final String N_CARBS = "Carbohydrt_g";
-		private static final String N_FIBER = "Fiber_TD_g";
-		private static final String N_SUGAR = "Sugar_Tot_g";
-		private static final String N_CALCIUM = "Calcium_mg";
-		private static final String N_IRON = "Iron_mg";
-		private static final String N_MAGNESIUM = "Magnesium_mg";
-		private static final String N_POTASSIUM = "Potassium_mg";
-		private static final String N_SODIUM = "Sodium_mg";
-		private static final String N_ZINC = "Zinc_mg";
-		private static final String N_VITC = "Vit_C_mg";
-		private static final String N_VITB6 = "Vit_B6_mg";
-		private static final String N_VITB12 = "Vit_B12_mg";
-		private static final String N_VITA = "Vit_A_RAE";
-		private static final String N_VITE = "Vit_E_mg";
-		private static final String N_VITD = "Vit_D_μg";
-		private static final String N_VITK = "Vit_K_μg";
-		private static final String N_FATSAT = "FA_Sat_g";
-		private static final String N_FATMONO = "FA_Mono_g";
-		private static final String N_FATPOLY = "FA_Poly_g";
-		private static final String N_CHOLESTEROL = "Cholestrl_mg";
+
 		private static final String N_SERVINGWEIGHT = "GmWt_1";
 		private static final String N_SERVING = "GmWt_Desc1";
 	
 	private static final String TABLE_PLU = "plu_data";
-		private static final String P_ID = "_id";
 		private static final String P_PLU = "PLU";
 		private static final String P_COMMODITY = "Commodity";
-		private static final String P_VARIETY = "Variety";
-		private static final String P_SIZE = "Size";
 		
     
 	public NutritionDatabaseHelper(Context context) {
@@ -77,15 +52,13 @@ public class NutritionDatabaseHelper extends DatabaseHelper {
 		Cursor cursor = db.query(TABLE_NUTRITION, null , N_NAME + "=?", 
 				new String []{ String.valueOf(itemname) }, null, null, null);
 		if(cursor.moveToFirst()){
-			item = new Item(Integer.parseInt(cursor.getString(0)), cursor.getString(1), Float.parseFloat(cursor.getString(2)),
-					Float.parseFloat(cursor.getString(3)), Float.parseFloat(cursor.getString(4)), Float.parseFloat(cursor.getString(5)),
-					Float.parseFloat(cursor.getString(6)), Float.parseFloat(cursor.getString(7)), Float.parseFloat(cursor.getString(8)),
-					Float.parseFloat(cursor.getString(9)), Float.parseFloat(cursor.getString(10)), Float.parseFloat(cursor.getString(11)),
-					Float.parseFloat(cursor.getString(12)), Float.parseFloat(cursor.getString(13)), Float.parseFloat(cursor.getString(14)),
-					Float.parseFloat(cursor.getString(15)), Float.parseFloat(cursor.getString(16)), Float.parseFloat(cursor.getString(17)),
-					Float.parseFloat(cursor.getString(18)), Float.parseFloat(cursor.getString(19)), Float.parseFloat(cursor.getString(20)),
-					Float.parseFloat(cursor.getString(21)), Float.parseFloat(cursor.getString(22)), Float.parseFloat(cursor.getString(23)),
-					Float.parseFloat(cursor.getString(24)), Float.parseFloat(cursor.getString(25)), cursor.getString(28));
+			item = new Item(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getFloat(2),
+					cursor.getFloat(3), cursor.getFloat(4), cursor.getFloat(5), cursor.getFloat(6), 
+					cursor.getFloat(7), cursor.getFloat(8), cursor.getFloat(9), cursor.getFloat(10), 
+					cursor.getFloat(11), cursor.getFloat(12), cursor.getFloat(13), cursor.getFloat(14),
+					cursor.getFloat(15), cursor.getFloat(16), cursor.getFloat(17), cursor.getFloat(18),  
+					cursor.getFloat(19), cursor.getFloat(20), cursor.getFloat(21), cursor.getFloat(22),
+					cursor.getFloat(23), cursor.getFloat(24), cursor.getFloat(25), cursor.getString(26));
 		} else {
 			return null;
 		}
@@ -100,12 +73,14 @@ public class NutritionDatabaseHelper extends DatabaseHelper {
 	public GroceryItem getGroceryItem(String itemname, String username){
 		SQLiteDatabase db = this.getReadableDatabase();
 		GroceryItem gItem = new GroceryItem();
-		Cursor cursor = db.query(TABLE_NUTRITION, new String []{ N_ID, N_NAME, N_SERVINGWEIGHT, N_SERVING} , N_NAME + "=?", 
-				new String []{ String.valueOf(itemname) }, null, null, null);
+		Cursor cursor = db.query(TABLE_NUTRITION, new String []{ N_ID, N_NAME, N_SERVINGWEIGHT, N_SERVING} , N_NAME + " LIKE ? ", 
+				new String []{ "%" + itemname + "%" }, null, null, null);
 		if(cursor.moveToFirst()){
 			gItem = new GroceryItem(Integer.parseInt(cursor.getString(0)), username, cursor.getString(1), cursor.getString(3),
-					cursor.getString(2), 0.0f);
+					cursor.getFloat(2), 0.0f, null);
 		} else {
+			cursor.close();
+			db.close();
 			return null;
 		}
 		
@@ -125,15 +100,13 @@ public class NutritionDatabaseHelper extends DatabaseHelper {
 		
 		if(cursor.moveToFirst()){
 			do{
-				Item item = new Item(Integer.parseInt(cursor.getString(0)), cursor.getString(1), Float.parseFloat(cursor.getString(2)),
-						Float.parseFloat(cursor.getString(3)), Float.parseFloat(cursor.getString(4)), Float.parseFloat(cursor.getString(5)),
-						Float.parseFloat(cursor.getString(6)), Float.parseFloat(cursor.getString(7)), Float.parseFloat(cursor.getString(8)),
-						Float.parseFloat(cursor.getString(9)), Float.parseFloat(cursor.getString(10)), Float.parseFloat(cursor.getString(11)),
-						Float.parseFloat(cursor.getString(12)), Float.parseFloat(cursor.getString(13)), Float.parseFloat(cursor.getString(14)),
-						Float.parseFloat(cursor.getString(15)), Float.parseFloat(cursor.getString(16)), Float.parseFloat(cursor.getString(17)),
-						Float.parseFloat(cursor.getString(18)), Float.parseFloat(cursor.getString(19)), Float.parseFloat(cursor.getString(20)),
-						Float.parseFloat(cursor.getString(21)), Float.parseFloat(cursor.getString(22)), Float.parseFloat(cursor.getString(23)),
-						Float.parseFloat(cursor.getString(24)), Float.parseFloat(cursor.getString(25)), cursor.getString(28));
+				Item item = new Item(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getFloat(2),
+						cursor.getFloat(3), cursor.getFloat(4), cursor.getFloat(5), cursor.getFloat(6), 
+						cursor.getFloat(7), cursor.getFloat(8), cursor.getFloat(9), cursor.getFloat(10), 
+						cursor.getFloat(11), cursor.getFloat(12), cursor.getFloat(13), cursor.getFloat(14),
+						cursor.getFloat(15), cursor.getFloat(16), cursor.getFloat(17), cursor.getFloat(18),  
+						cursor.getFloat(19), cursor.getFloat(20), cursor.getFloat(21), cursor.getFloat(22),
+						cursor.getFloat(23), cursor.getFloat(24), cursor.getFloat(25), cursor.getString(26));
 				
 				// Adding item to List
 				itemList.add(item);
@@ -147,7 +120,7 @@ public class NutritionDatabaseHelper extends DatabaseHelper {
 	}
 	
 	// Get All Matching Grocery Items
-	public List<GroceryItem> getAllMatchingItems(String itemname, String username){
+	public List<GroceryItem> getAllMatchingGroceryItems(String itemname, String username){
 		List<GroceryItem> gItemList = new ArrayList<GroceryItem>();
 		
 		GroceryItem gItem;
@@ -159,7 +132,7 @@ public class NutritionDatabaseHelper extends DatabaseHelper {
 		if(cursor.moveToFirst()){
 			do{
 				gItem = new GroceryItem(Integer.parseInt(cursor.getString(0)), username, cursor.getString(1), cursor.getString(3),
-						cursor.getString(2), 0.0f);
+						cursor.getFloat(2), 0.0f, null);
 				// Adding item to List
 				gItemList.add(gItem);
 			} while (cursor.moveToNext());

@@ -2,3 +2,6 @@
 1331009222186	Delete element
 1331092048161	Delete element
 1331092077139	Rename resource 'nutrition_db_02'
+1331142838389	Delete element
+1331143733997	Rename method 'getAllMatchingItems'
+1331149581477	Rename field 'myDbHelper'

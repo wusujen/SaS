@@ -4,22 +4,24 @@ public class GroceryItem {
 	Integer _id;
 	String _userName;
 	String _itemName;
-	String _servingWeight;
 	String _serving;
+	Float _servingWeight;
 	Float _servingRatio;
+	Integer _quantity;
 	
 	//constructor
 	public GroceryItem(){
 		
 	}
 	
-	public GroceryItem(int id, String userName, String itemName, String serving, String servingWeight, Float servingRatio){
+	public GroceryItem(int id, String userName, String itemName, String serving, Float servingWeight, Float servingRatio, Integer quantity){
 		_id = id;
 		_userName = userName;
 		_itemName = itemName;
-		_servingWeight = servingWeight;
 		_serving = serving;
+		_servingWeight = servingWeight;
 		_servingRatio = servingRatio;
+		_quantity = quantity;
 	}
 	
 	// get Id
@@ -33,12 +35,12 @@ public class GroceryItem {
 	}
 	
 	// get username
-	public String getUserName(){
+	public String getUsername(){
 		return this._userName;
 	}
 	
 	// set username
-	public void setUserName(String username){
+	public void setUsername(String username){
 		this._userName = username;
 	}
 
@@ -53,12 +55,12 @@ public class GroceryItem {
 	}
 	
 	// get serving weight
-	public String getServingWeight(){
+	public Float getServingWeight(){
 		return this._servingWeight;
 	}
 	
 	// set serving
-	public void setServingWeight(String servingWeight){
+	public void setServingWeight(Float servingWeight){
 		this._servingWeight = servingWeight;
 	}
 	
@@ -80,5 +82,15 @@ public class GroceryItem {
 	// set servingRatio
 	public void setServingRatio(float servingRatio){
 		this._servingRatio = servingRatio;
+	}
+	
+	// get Quantity
+	public Integer getQuantity(){
+		return this._quantity;
+	}
+	
+	// set quantity
+	public void setQuantity(int quantity){
+		this._quantity = quantity;
 	}
 }

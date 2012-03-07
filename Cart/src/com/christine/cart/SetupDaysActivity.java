@@ -1,7 +1,6 @@
 package com.christine.cart;
 
 
-import com.christine.cart.sqlite.AccountDatabaseHelper;
 import com.christine.cart.sqlite.DaysActivity;
 
 import android.app.Activity;

@@ -2,24 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="257" key="DIALOG_WIDTH"/>
-		<item value="355" key="DIALOG_Y_ORIGIN"/>
+		<item value="361" key="DIALOG_Y_ORIGIN"/>
 		<item value="380" key="DIALOG_HEIGHT"/>
-		<item value="809" key="DIALOG_X_ORIGIN"/>
+		<item value="1023" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
 		<item value="false" key="isRegEx"/>
-		<item value="false" key="casesensitive"/>
+		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="tableExists" key="selection"/>
+		<item value="" key="selection"/>
 		<list key="findhistory">
-			<item value="TableExists"/>
-			<item value="user_properties"/>
-			<item value="getAccount"/>
+			<item value=")"/>
+			<item value="Float.parseFloat(cursor.getString"/>
+			<item value="startAccountDB"/>
+			<item value="Integer.parseInt"/>
+			<item value="int"/>
+			<item value="GroceryItem"/>
+			<item value="_username"/>
+			<item value="String _username"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
+			<item value="cursor.getFloat"/>
+			<item value="Float.parseFloat"/>
+			<item value="float"/>
+			<item value="Item"/>
+			<item value="Serving"/>
+			<item value="serving"/>
+			<item value="servingWeight"/>
 		</list>
 	</section>
 </section>

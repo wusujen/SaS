@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.christine.cart.sqlite.AccountDatabaseHelper;
 import com.christine.cart.sqlite.GroceryItem;
 import com.christine.cart.sqlite.NutritionDatabaseHelper;
 
@@ -25,7 +26,8 @@ public class InputDatabaseSearchActivity extends Activity {
 	String pluCode=null;
 	String barcodeItem=null;
 	
-	NutritionDatabaseHelper myDbHelper;
+	NutritionDatabaseHelper ndb;
+	AccountDatabaseHelper adb;
 	
 	
 	@Override
@@ -50,36 +52,56 @@ public class InputDatabaseSearchActivity extends Activity {
 	    	barcodeItem = ifBarcode;
 	    	Log.d("Barcode Code: ", "Barcode :" + barcodeItem);
 	    }
-	    
 
-        myDbHelper = startNutritionDB();
-	    
+        ndb = startNutritionDB();
+        adb = startAccountDB();
 	 	
 	 	if(pluCode != null){ 
 	 		Log.d("PLU Code: ", "Plu code: " + pluCode);
-	 	    String itemName = myDbHelper.getPLUItem(Integer.parseInt(pluCode));
-	 	   Log.d("Item Name from PLU : ", "Item Name " + itemName);
-	       List<GroceryItem> resultGroceryItems = myDbHelper.getAllMatchingItems(itemName, "e");
-	       ArrayList<String> results = new ArrayList<String>();
-	       for(int i=0; i<resultGroceryItems.size(); i++){
-	    	  GroceryItem item = resultGroceryItems.get(i);
-	    	  String name = item.getItemName();
-	    	  Log.d("Item fetched: ", name);
-	    	  results.add(name);
-	       }
-	       	myDbHelper.close();
-	        startShowResultsIntent(results);
+	 	    String itemName = ndb.getPLUItem(Integer.parseInt(pluCode));
+	 	    Log.d("Item Name from PLU : ", "Item Name " + itemName);
+	 	    GroceryItem resultItem = ndb.getGroceryItem(itemName, "e");
+	 	    
+	 	    if(resultItem!=null){
+	 	    	String result = resultItem.getItemName();
+	 	    	
+		        //add that item to the user's current cart
+	 	    	GroceryItem gItem = adb.getGroceryItemOf("e", result);
+	 	    	if(gItem!=null){
+	 	    		int q = gItem.getQuantity();
+	 	    		resultItem.setQuantity(q+1);
+	 	    		
+	 	    		adb.updateGroceryItem(resultItem);
+	 	    		Log.d("Result Item: ", "Result Item: " + resultItem.getItemName() + 
+	 	    				"Result Quantity: " + resultItem.getQuantity());
+			        adb.close();
+			        ndb.close();
+			        startShowResultsIntent(result);
+	 	    	}  else {
+	 	    		resultItem.setQuantity(1);
+	 	    		
+	 	    		adb.addGroceryItem(resultItem);
+	 	    		Log.d("Result Item: ", "Result Item: " + resultItem.getItemName() + 
+	 	    				"Result Quantity: " + resultItem.getQuantity());
+	 	    		adb.close();
+			        ndb.close();
+			        startShowResultsIntent(result);
+	 	    	}
+
+	 	    } else {
+	 	    	throw new RuntimeException("Item was null");
+	 	    }
 	 	}
 	 	else{
 	 		//if PLU is null, then search for the barcodeItem in the nutrition database
-	 		List<GroceryItem> resultGroceryItems = myDbHelper.getAllMatchingItems(barcodeItem, "e");
+	 		List<GroceryItem> resultGroceryItems = ndb.getAllMatchingGroceryItems(barcodeItem, "e");
 	 		
 		 	ArrayList<String> results = new ArrayList<String>();
 		       for(int i=0; i<resultGroceryItems.size(); i++){
 		    	  GroceryItem item = resultGroceryItems.get(i);
 		    	  results.add(item.getItemName());
 		       }
-		       myDbHelper.close();
+		       ndb.close();
 		       startShowResultsIntent(results);
 	 	}
 	}
@@ -95,21 +117,19 @@ public class InputDatabaseSearchActivity extends Activity {
 		Intent showResults = new Intent(this,CartActivity.class);
 		showResults.putStringArrayListExtra("results", results);
 		startActivity(showResults);
-		//This is for debugging
-		/*if(results != null){
-			for(int i=0; i<=results.size(); i++){
-	 			outputText.append((String) results.get(i)); 
-	 		}
-	 	} else{
-	 		outputText.setText("There is no matching item in the Nutrition database");
-	 	}*/
+	}
+	
+	void startShowResultsIntent(String results){
+		Intent showResults = new Intent(this,CartActivity.class);
+		showResults.putExtra("results", results);
+		startActivity(showResults);
 	}
 	
 	/**
 	 * Convenience method for creating a database helper
 	 * or initializing the database
 	 * 
-	 * @return AccountDatabaseHelper
+	 * @return NutritionDatabaseHelper
 	 */
 	public NutritionDatabaseHelper startNutritionDB(){
 		NutritionDatabaseHelper db = new NutritionDatabaseHelper(this);
@@ -133,8 +153,34 @@ public class InputDatabaseSearchActivity extends Activity {
 		return db;
 	}
 	
+	/**
+	 * Convenience method for creating a database helper
+	 * or initializing the database
+	 * 
+	 * @return AccountDatabaseHelper
+	 */
+	public AccountDatabaseHelper startAccountDB(){
+		AccountDatabaseHelper db = new AccountDatabaseHelper(this);
+		
+		try {
+			db.createDataBase();
+		} catch (IOException ioe) {
+			throw new Error(
+					"Unable to create database, or db has been created already");
+		}
+		// OPEN THE DATABASE
+		try {
+			db.openDataBase();
+		} catch (SQLException sqle) {
+			throw sqle;
+		}
+		
+		return db;
+	}
+	
 	protected void onPause(){
 		super.onPause();
-		myDbHelper.close();
+		adb.close();
+		ndb.close();
 	}
 }

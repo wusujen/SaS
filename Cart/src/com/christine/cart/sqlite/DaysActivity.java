@@ -1,8 +1,5 @@
 package com.christine.cart.sqlite;
 
-import com.christine.cart.CartActivity;
-import com.christine.cart.SetupDaysActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

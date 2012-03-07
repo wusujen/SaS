@@ -1,11 +1,18 @@
 package com.christine.cart;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import com.christine.cart.sqlite.AccountDatabaseHelper;
+import com.christine.cart.sqlite.GroceryItem;
+import com.christine.cart.sqlite.Item;
+import com.christine.cart.sqlite.NutritionDatabaseHelper;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -13,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class CartActivity extends FooterActivity {
-	ArrayList<String> results;
+	String results;
 	TextView outputText;
 	Button viewItemList;
 	Button checkout;
@@ -28,12 +35,10 @@ public class CartActivity extends FooterActivity {
         
         Intent dbReturnResults = getIntent();
         if(dbReturnResults != null){
-        	results = dbReturnResults.getStringArrayListExtra("results");
+        	results = dbReturnResults.getStringExtra("results");
         	if(results != null){
-        		for(int i=0; i<results.size(); i++){
-        			String temp = (String) results.get(i);
-        			outputText.append("\n" + temp);
-        		}
+        		String temp = results;
+        		outputText.append("\n" + temp);
         	}
         	else{
         		Toast noMatch=Toast.makeText(inputsContext, "There was no match in the DB",Toast.LENGTH_SHORT);
@@ -55,8 +60,31 @@ public class CartActivity extends FooterActivity {
         checkout.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent goCheckout = new Intent(CartActivity.this, CheckoutActivity.class);
+				ArrayList<Item> cTotals = getCartTotalsFor("e");
+				goCheckout.putParcelableArrayListExtra("cartTotals", cTotals);
 				startActivity(goCheckout);
 			}
 		});
+    }
+    
+    
+    /**
+     * TOTAL VALUES
+     * Add up all of the values of the
+     * current_cart items!
+     */
+    public ArrayList<Item> getCartTotalsFor(String username){
+    	NutritionDatabaseHelper ndb = new NutritionDatabaseHelper(this);
+    	AccountDatabaseHelper adb = new AccountDatabaseHelper(this);
+    	
+    	List<GroceryItem> allGItems = adb.getAllGroceryItemsOf(username);
+    	ArrayList<Item> items = new ArrayList<Item>();
+    	for(int i=0; i<allGItems.size(); i++){
+    		GroceryItem tempItem = allGItems.get(i);
+    		items.add(ndb.getItem(tempItem.getItemName()));
+    		Log.d("Added: ", "Item: " + tempItem.getItemName());
+    	}
+    	
+    	return items;
     }
 }

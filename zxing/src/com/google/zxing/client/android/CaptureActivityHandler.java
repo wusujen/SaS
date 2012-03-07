@@ -20,7 +20,6 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.google.zxing.client.android.camera.CameraManager;
 
-import android.R.*;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;

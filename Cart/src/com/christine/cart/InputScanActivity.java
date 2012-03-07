@@ -19,7 +19,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 
 public class InputScanActivity extends Activity {
 	
@@ -63,7 +62,7 @@ public class InputScanActivity extends Activity {
 			HashMap<String, String> params = new HashMap<String, String>();
 			params.put("rpc_key", rpc_key);
 			params.put("upc", contents);
-			HashMap result = (HashMap) client.call("lookup", params);
+			HashMap<String, String> result = (HashMap<String, String>) client.call("lookup", params);
 			System.out.println("This is contents " + contents);
 			
 			//store these values
