@@ -1,0 +1,347 @@
+package com.christine.cart.sqlite;
+
+public class GroceryItem {
+	Integer _id;
+	String _itemname;
+	int _calories;
+	int _protein;
+	int _totalfats;
+	int _carbs;
+	int _fiber;
+	int _sugar;
+	int _calcium;
+	int _iron;
+	int _magnesium;
+	int _potassium;
+	int _sodium;
+	int _zinc;
+	int _vitC;
+	int _vitD;
+	int _vitB6;
+	int _vitB12;
+	int _vitA;
+	int _vitE;
+	int _vitK;
+	int _fatSat;
+	int _fatMono;
+	int _fatPoly;
+	int _cholesterol;
+	int _servingWeight;
+	int _serving;
+	
+	public GroceryItem(){
+		
+	}
+	
+	public GroceryItem(String itemname, int calories, int protein, 
+			int totalfats, int carbs, int fiber, int sugar, int calcium, int iron, int magnesium, int potassium, int sodium,
+			int zinc, int vitC, int vitB6, int vitB12, int vitA, int vitD, int vitE, int vitK, int fatSat,
+			int fatMono, int fatPoly, int cholesterol, int servingWeight, int serving){
+		this(null, itemname, calories, protein, totalfats, carbs, fiber, sugar, calcium, iron, magnesium, potassium, sodium, zinc, vitC, vitB6, vitB12, vitA, vitD, vitE, 
+					vitK, fatSat, fatMono, fatPoly, cholesterol, servingWeight, serving);
+	}
+	public GroceryItem(Integer id, String itemname, int calories, int protein, 
+						int totalfats, int carbs, int fiber, int sugar, int calcium, int iron, int magnesium, int potassium, int sodium,
+						int zinc, int vitC, int vitB6, int vitB12, int vitA, int vitD, int vitE, int vitK, int fatSat,
+						int fatMono, int fatPoly, int cholesterol, int servingWeight, int serving){
+		_id = id;
+		_itemname = itemname;
+		_calories = calories;
+		_protein = protein;
+		_totalfats = totalfats;
+		_carbs = carbs;
+		_fiber = fiber;
+		_sugar = sugar;
+		_calcium = calcium;
+		_iron = iron;
+		_magnesium = magnesium;
+		_potassium = potassium;
+		_sodium = sodium;
+		_zinc = zinc;
+		_vitC = vitC;
+		_vitB6 = vitB6;
+		_vitB12 = vitB12;
+		_vitA = vitA;
+		_vitD = vitD;
+		_vitE = vitE;
+		_vitK = vitK;
+		_fatSat = fatSat;
+		_fatMono = fatMono;
+		_fatPoly = fatPoly;
+		_cholesterol = cholesterol;
+		_servingWeight = servingWeight;
+		_serving = serving;
+	}
+	
+	// get Id
+	public int getId(){
+		return this._id;
+	}
+	
+	// set Id
+	public void setId(int id){
+		this._id = id;
+	}
+
+	// get name
+	public String getItemName(){
+		return this._itemname;
+	}
+	
+	// set name
+	public void setItemName(String itemname){
+		this._itemname = itemname;
+	}
+	
+	// get calories
+	public int getCalories(){
+		return this._calories;
+	}
+	
+	// set calories
+	public void setCalories(int calories){
+		this._calories = calories;
+	}
+	
+	// get protein
+	public int getProtein(){
+		return this._protein;
+	}
+	
+	// set protein
+	public void setProtein(int protein){
+		this._protein = protein;
+	}
+	
+	// get fat
+	public int getFat(){
+		return this._totalfats;
+	}
+	
+	// set fat
+	public void setFat(int totalfat){
+		this._totalfats = totalfat;
+	}
+	
+	// get carbohydrate
+	public int getCarbohydrate(){
+		return this._carbs;
+	}
+	
+	// set carbohydrate
+	public void setCarbohydrate(int carbohydrate){
+		this._carbs = carbohydrate;
+	}
+	
+	// get fiber
+	public int getFiber(){
+		return this._fiber;
+	}
+	
+	// set fiber
+	public void setFiber(int fiber){
+		this._fiber = fiber;
+	}
+	
+	// get sugar
+	public int getSugar(){
+		return this._sugar;
+	}
+	
+	// set sugar
+	public void setSugar(int sugar){
+		this._sugar = sugar;
+	}
+	
+	// get calcium
+	public int getCalcium(){
+		return this._calcium;
+	}
+	
+	// set calcium
+	public void setCalcium(int calcium){
+		this._calcium = calcium;
+	}
+	
+	// get iron
+	public int getIron(){
+		return this._iron;
+	}
+	
+	// set iron
+	public void setIron(int iron){
+		this._iron = iron;
+	}
+	
+	// get magnesium
+	public int getMagnesium(){
+		return this._magnesium;
+	}
+	
+	// set magnesium
+	public void setMagnesium(int magnesium){
+		this._magnesium = magnesium;
+	}
+	
+	// get potassium
+	public int getPotassium(){
+		return this._potassium;
+	}
+	
+	// set potassium
+	public void setPotassium(int potassium){
+		this._potassium = potassium;
+	}
+	
+	// get sodium
+	public int getSodium(){
+		return this._sodium;
+	}
+	
+	// set sodium
+	public void setSodium(int sodium){
+		this._sodium = sodium;
+	}
+	
+	// get zinc
+	public int getZinc(){
+		return this._zinc;
+	}
+		
+	// set zinc
+	public void setZinc(int zinc){
+		this._zinc = zinc;
+	}
+	
+	// get vitC
+	public int getVitC(){
+		return this._vitC;
+	}
+	
+	// set vitC
+	public void setVitC(int vitC){
+		this._vitC = vitC;
+	}
+	
+	// get vitB6
+	public int getVitB6(){
+		return this._vitB6;
+	}
+	
+	// set vitB6
+	public void setVitB6(int vitB6){
+		this._vitB6 = vitB6;
+	}
+	
+	// get vitB12
+	public int getVitB12(){
+		return this._vitB12;
+	}
+	
+	// set vitB12
+	public void setVitB12(int vitB12){
+		this._vitB12 = vitB12;
+	}
+	
+	// get vitA
+	public int getVitA(){
+		return this._vitA;
+	}
+	
+	// set vitA
+	public void setVitA(int vitA){
+		this._vitA = vitA;
+	}
+	
+	// get vitE
+	public int getVitE(){
+		return this._vitE;
+	}
+	
+	// set vitE
+	public void setVitE(int vitE){
+		this._vitE = vitE;
+	}
+	
+	// get vitD
+	public int getVitD(){
+		return this._vitD;
+	}
+	
+	// set vitD
+	public void setVitD(int vitD){
+		this._vitD = vitD;
+	}
+	
+	// get vitK
+	public int getVitK(){
+		return this._vitK;
+	}
+	
+	// set vitK
+	public void setVitK(int vitK){
+		this._vitK = vitK;
+	}
+	
+	// get fatSat
+	public int getFatSat(){
+		return this._fatSat;
+	}
+	
+	// set fatSat
+	public void setFatSat(int fatSat){
+		this._fatSat = fatSat;
+	}
+	
+	// get fatMono
+	public int getFatMono(){
+		return this._fatMono;
+	}
+	
+	// set fatMono
+	public void setFatMono(int fatMono){
+		this._fatMono = fatMono;
+	}
+	
+	// get fatPoly
+	public int getFatPoly(){
+		return this._fatPoly;
+	}
+	
+	// set fatPoly
+	public void setFatPoly(int fatPoly){
+		this._fatPoly = fatPoly;
+	}
+	
+	// get cholesterol
+	public int getCholesterol(){
+		return this._cholesterol;
+	}
+	
+	// set cholesterol
+	public void setCholesterol(int cholesterol){
+		this._cholesterol = cholesterol;
+	}
+	
+	// get servingWeight
+	public int getServingWeight(){
+		return this._servingWeight;
+	}
+	
+	// set servingWeight
+	public void setServingWeight(int servingWeight){
+		this._servingWeight = servingWeight;
+	}
+	
+	// get serving
+	public int getServing(){
+		return this._serving;
+	}
+	
+	// set serving
+	public void setServing(int serving){
+		this._serving = serving;
+	}
+	
+
+}

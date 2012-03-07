@@ -10,7 +10,6 @@
 <fullyQualifiedTypeName name="android.os.Environment"/>
 <fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.AddAccountActivity"/>
-<fullyQualifiedTypeName name="com.christine.cart.sqlite.Account"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.AccountDatabaseHelper"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
@@ -26,7 +25,12 @@
 <fullyQualifiedTypeName name="com.christine.cart.R.id"/>
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.PersonActivity"/>
+<fullyQualifiedTypeName name="sqlite.DaysActivity"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
-<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="com.christine.cart.CartActivity"/>
 <fullyQualifiedTypeName name="com.christine.cart.SetupPeopleActivity"/>
+<fullyQualifiedTypeName name="android.accounts.Account"/>
+<fullyQualifiedTypeName name="com.christine.cart.sqlite.Account"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="com.christine.cart.SetupDaysActivity"/>
 </qualifiedTypeNameHistroy>

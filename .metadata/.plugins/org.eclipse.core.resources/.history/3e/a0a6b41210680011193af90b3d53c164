@@ -1,0 +1,216 @@
+package com.christine.cart.sqlite;
+
+public class GroceryItem {
+	Integer _id;
+	String _username;
+	String _itemname;
+	int _calories;
+	int _protein;
+	int _totalfats;
+	int _carbs;
+	int _fiber;
+	int _sugar;
+	int _calcium;
+	int _iron;
+	int _magnesium;
+	int _potassium;
+	int _sodium;
+	int _zinc;
+	int _vitC;
+	int _vitB6;
+	int _vitB12;
+	int _vitA;
+	int _vitE;
+	int _vitK;
+	int _fatSat;
+	int _fatMono;
+	int _fatPoly;
+	int _cholesterol;
+	int _servingWeight;
+	int _serving;
+	
+	public GroceryItem(){
+		
+	}
+	
+	public GroceryItem(String username, String itemname, int calories, int protein, 
+			int totalfats, int carbs, int fiber, int sugar, int calcium, int iron, int magnesium, int potassium, int sodium,
+			int zinc, int vitC, int vitB6, int vitB12, int vitA, int vitE, int vitK, int fatSat,
+			int fatMono, int fatPoly, int cholesterol, int servingWeight, int serving){
+		this(null, username, itemname, calories, protein, totalfats, carbs, fiber, sugar, calcium, iron, magnesium, potassium, sodium, zinc, vitC, vitB6, vitB12, vitA, vitE, 
+					vitK, fatSat, fatMono, fatPoly, cholesterol, servingWeight, serving);
+	}
+	public GroceryItem(Integer id, String username, String itemname, int calories, int protein, 
+						int totalfats, int carbs, int fiber, int sugar, int calcium, int iron, int magnesium, int potassium, int sodium,
+						int zinc, int vitC, int vitB6, int vitB12, int vitA, int vitE, int vitK, int fatSat,
+						int fatMono, int fatPoly, int cholesterol, int servingWeight, int serving){
+		_id = id;
+		_username = username;
+		_itemname = itemname;
+		_calories = calories;
+		_protein = protein;
+		_totalfats = totalfats;
+		_carbs = carbs;
+		_fiber = fiber;
+		_sugar = sugar;
+		_calcium = calcium;
+		_iron = iron;
+		_magnesium = magnesium;
+		_potassium = potassium;
+		_sodium = sodium;
+		_zinc = zinc;
+		_vitC = vitC;
+		_vitB6 = vitB6;
+		_vitB12 = vitB12;
+		_vitA = vitA;
+		_vitE = vitE;
+		_vitK = vitK;
+		_fatSat = fatSat;
+		_fatMono = fatMono;
+		_fatPoly = fatPoly;
+		_cholesterol = cholesterol;
+		_servingWeight = servingWeight;
+		_serving = serving;
+	}
+	
+	// get Id
+	public int getId(){
+		return this._id;
+	}
+	
+	// set Id
+	public void setId(int id){
+		this._id = id;
+	}
+	
+	// get username
+	public String getUsername(){
+		return this._username;
+	}
+	
+	// set username
+	public void setUsername(String username){
+		this._username = username;
+	}
+
+	// get name
+	public String getItemName(){
+		return this._itemname;
+	}
+	
+	// set name
+	public void setItemName(String itemname){
+		this._itemname = itemname;
+	}
+	
+	// get calories
+	public int getCalories(){
+		return this._calories;
+	}
+	
+	// set calories
+	public void setCalories(int calories){
+		this._calories = calories;
+	}
+	
+	// get protein
+	public int getProtein(){
+		return this._protein;
+	}
+	
+	// set protein
+	public void setProtein(int protein){
+		this._protein = protein;
+	}
+	
+	// get fat
+	public int getFat(){
+		return this._totalfats;
+	}
+	
+	// set fat
+	public void setFat(int totalfat){
+		this._totalfats = totalfat;
+	}
+	
+	// get carbohydrate
+	public int getCarbohydrate(){
+		return this._carbs;
+	}
+	
+	// set carbohydrate
+	public void setCarbohydrate(int carbohydrate){
+		this._carbs = carbohydrate;
+	}
+	
+	// get fiber
+	public int getFiber(){
+		return this._fiber;
+	}
+	
+	// set fiber
+	public void setFiber(int fiber){
+		this._fiber = fiber;
+	}
+	
+	// get sugar
+	public int getSugar(){
+		return this._sugar;
+	}
+	
+	// set sugar
+	public void setSugar(int sugar){
+		this._sugar = sugar;
+	}
+	
+	// get calcium
+	public int getCalcium(){
+		return this._calcium;
+	}
+	
+	// set calcium
+	public void setCalcium(int calcium){
+		this._calcium = calcium;
+	}
+	
+	// get iron
+	public int getIron(){
+		return this._iron;
+	}
+	
+	// set iron
+	public void setIron(int iron){
+		this._iron = iron;
+	}
+	
+	// get magnesium
+	public int getMagnesium(){
+		return this._magnesium;
+	}
+	
+	// set magnesium
+	public void setMagnesium(int magnesium){
+		this._magnesium = magnesium;
+	}
+	
+	// get potassium
+	public int getPotassium(){
+		return this._potassium;
+	}
+	
+	// set potassium
+	public void setPotassium(int potassium){
+		this._potassium = potassium;
+	}
+	
+	// get calories
+		public int getCalories(){
+			return this._calories;
+		}
+		
+		// set calories
+		public void setCalories(int calories){
+			this._calories = calories;
+		}
+
+}

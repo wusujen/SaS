@@ -1,0 +1,21 @@
+package com.christine.cart.sqlite;
+
+public class GroceryItem {
+	Integer _id;
+	String _userName;
+	String _itemName;
+	String _servingRatio;
+	
+	//constructor
+	public GroceryItem(){
+		
+	}
+	
+	public GroceryItem(id, userName, itemName, servingRatio){
+		_id;
+		_userName;
+		_itemName;
+		_servingRatio;
+	}
+	
+}

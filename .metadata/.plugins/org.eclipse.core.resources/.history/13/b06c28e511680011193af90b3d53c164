@@ -1,0 +1,60 @@
+package com.christine.cart.sqlite;
+
+public class GroceryItem {
+	Integer _id;
+	String _userName;
+	String _itemName;
+	Integer _servingRatio;
+	
+	//constructor
+	public GroceryItem(){
+		
+	}
+	
+	public GroceryItem(Integer id, String userName, String itemName, Integer servingRatio){
+		_id = id;
+		_userName = userName;
+		_itemName = itemName;
+		_servingRatio = servingRatio;
+	}
+	
+	// get Id
+	public int getId(){
+		return this._id;
+	}
+	
+	// set Id
+	public void setId(int id){
+		this._id = id;
+	}
+	
+	// get name
+	public String getUserName(){
+		return this._userName;
+	}
+	
+	// set name
+	public void setUserName(String username){
+		this._userName = username;
+	}
+
+	// get name
+	public String getItemName(){
+		return this._itemName;
+	}
+	
+	// set name
+	public void setItemName(String itemname){
+		this._itemName = itemname;
+	}
+	
+	// get Id
+	public int getServingRatio(){
+		return this._servingRatio;
+	}
+	
+	// set Id
+	public void setServingRatio(int servingRatio){
+		this._servingRatio = servingRatio;
+	}
+}

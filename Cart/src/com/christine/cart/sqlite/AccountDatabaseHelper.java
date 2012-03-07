@@ -60,18 +60,6 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	}
 	
 	
-	public boolean tableExists(String TABLE_NAME){
-		SQLiteDatabase db = this.getReadableDatabase();
-		
-		Cursor cursor = db.rawQuery("SELECT * FROM " + DATABASE_NAME + " WHERE type='table' AND name='" + TABLE_NAME + "'", null);
-		if(cursor!=null){
-			return true;
-		} else{
-			Log.d("Fetch Table: ", "Table does not exist");
-		}
-		return false;
-	}
-	
 	/**
 	 * 
 	 * ACCOUNT TABLE

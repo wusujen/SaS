@@ -1,11 +1,11 @@
-#Mon Mar 05 22:34:28 EST 2012
+#Wed Mar 07 00:01:50 EST 2012
 htmlTagPairOccurrenceIndicationHighlighting=false
-xmlTagPairOccurrenceIndicationColor=94,94,94
+xmlTagPairOccurrenceIndicationColor=127,127,127
 rubyBlockPairOccurrenceIndication=true
 eclipse.preferences.version=1
 pydevOccurrenceIndication=true
 pydevOccurrenceIndicationTextStyle=BOX
-rubyBlockPairOccurrenceIndicationColor=94,94,94
+rubyBlockPairOccurrenceIndicationColor=127,127,127
 overviewRuler_migration=migrated_3.1
 htmlTagPairOccurrenceIndication=true
 htmlTagPairOccurrenceIndicationTextStyle=BOX
@@ -13,10 +13,10 @@ lineNumberRuler=true
 rubyBlockPairOccurrenceIndicationHighlighting=false
 xmlTagPairOccurrenceIndicationTextStyle=BOX
 xmlTagPairOccurrenceIndicationHighlighting=false
-searchResultIndicationColor=94,101,105
+searchResultIndicationColor=153,181,217
 OccurrenceIndicationColor=94,101,105
 pydevOccurrenceHighlighting=false
 rubyBlockPairOccurrenceIndicationTextStyle=BOX
 xmlTagPairOccurrenceIndication=true
-pydevOccurrenceIndicationColor=94,94,94
-htmlTagPairOccurrenceIndicationColor=94,94,94
+pydevOccurrenceIndicationColor=127,127,127
+htmlTagPairOccurrenceIndicationColor=127,127,127

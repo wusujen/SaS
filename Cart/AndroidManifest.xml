@@ -75,6 +75,7 @@
 	    <activity android:name=".sqlite.AccountActivity"></activity>
 	    <activity android:name=".sqlite.PersonActivity"></activity>
 	    <activity android:name=".sqlite.DaysActivity"></activity>
+	    <activity android:name=".sqlite.GroceryActivity"></activity>
 	    
 	    
     </application>

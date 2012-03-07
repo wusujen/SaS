@@ -1,0 +1,84 @@
+package com.christine.cart.sqlite;
+
+public class GroceryItem {
+	Integer _id;
+	String _username;
+	String _itemname;
+	int _calories;
+	int _protein;
+	int _totalfats;
+	int _carbs;
+	int _fiber;
+	int _sugar;
+	int _calcium;
+	int _potassium;
+	int _sodium;
+	int _zinc;
+	int _vitC;
+	int _vitB6;
+	int _folicAcid;
+	int _vitB12;
+	int _vitA;
+	int _vitE;
+	int _vitK;
+	int _fatSat;
+	int _fatMono;
+	int _fatPoly;
+	int _Cholesterol;
+	
+	public GroceryItem(){
+		
+	}
+	
+	public GroceryItem(String username, String itemname, int calories){
+		this(null, username, itemname, calories);
+	}
+	public GroceryItem(Integer id, String username, String itemname, int calories){
+		_id = id;
+		_username = username;
+		_itemname = itemname;
+		_calories = calories;
+	}
+	
+	// get Id
+	public int getId(){
+		return this._id;
+	}
+	
+	// set Id
+	public void setId(int id){
+		this._id = id;
+	}
+	
+	// get username
+	public String getUsername(){
+		return this._username;
+	}
+	
+	// set username
+	public void setUsername(String username){
+		this._username = username;
+	}
+
+	// get name
+	public String getItemName(){
+		return this._itemname;
+	}
+	
+	// set name
+	public void setItemName(String itemname){
+		this._itemname = itemname;
+	}
+	
+	// get calories
+	public int getCalories(){
+		return this._calories;
+	}
+	
+	// set Id
+	public void setCalories(int calories){
+		this._calories = calories;
+	}
+	
+	
+}
