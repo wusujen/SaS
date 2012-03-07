@@ -4,7 +4,7 @@ public class GroceryItem {
 	Integer _id;
 	String _userName;
 	String _itemName;
-	Float _servingWeight;
+	String _servingWeight;
 	String _serving;
 	Float _servingRatio;
 	
@@ -13,7 +13,7 @@ public class GroceryItem {
 		
 	}
 	
-	public GroceryItem(int id, String userName, String itemName, String serving, Float servingWeight, Float servingRatio){
+	public GroceryItem(int id, String userName, String itemName, String serving, String servingWeight, Float servingRatio){
 		_id = id;
 		_userName = userName;
 		_itemName = itemName;
@@ -53,12 +53,12 @@ public class GroceryItem {
 	}
 	
 	// get serving weight
-	public float getServingWeight(){
+	public String getServingWeight(){
 		return this._servingWeight;
 	}
 	
 	// set serving
-	public void setServingWeight(float servingWeight){
+	public void setServingWeight(String servingWeight){
 		this._servingWeight = servingWeight;
 	}
 	

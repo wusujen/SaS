@@ -2,7 +2,9 @@ package com.christine.cart;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
+import com.christine.cart.sqlite.GroceryItem;
 import com.christine.cart.sqlite.NutritionDatabaseHelper;
 
 import android.app.Activity;
@@ -13,6 +15,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 //import android.widget.TextView; //for debugging purposes
+import android.util.Log;
 
 
 public class InputDatabaseSearchActivity extends Activity {
@@ -23,10 +26,7 @@ public class InputDatabaseSearchActivity extends Activity {
 	String barcodeItem=null;
 	
 	NutritionDatabaseHelper myDbHelper;
-	SQLiteDatabase myDatabase;
 	
-	public static String PLU_TABLE_NAME="plu_data";
-    public static String NUTRITION_TABLE_NAME="nutrition_data";
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,91 +42,48 @@ public class InputDatabaseSearchActivity extends Activity {
 	    String ifPLU=itemInfo.getString("plu");
 	    if(ifPLU != null){
 	    	pluCode = ifPLU;
+	    	Log.d("PLU Code: ", pluCode);
 	    }
 	    
 	    String ifBarcode=itemInfo.getString("resultDesc");
 	    if(ifBarcode != null){
 	    	barcodeItem = ifBarcode;
+	    	Log.d("Barcode Code: ", "Barcode :" + barcodeItem);
 	    }
 	    
 
-        myDbHelper = new NutritionDatabaseHelper(this);
-	    //CREATE THE DATABASE
-	    try {
-        	myDbHelper.createDataBase();
-	 	} catch (IOException ioe) {
-	 		throw new Error("Unable to create database");
-	 	}
-        //OPEN THE DATABASE
-	 	try {
-	 		//myDbHelper.close();
-	 		myDbHelper.openDataBase();
-	 	} catch(SQLException sqle){
-	 		throw sqle;
-	 	}
+        myDbHelper = startNutritionDB();
 	    
 	 	
-	 	//outputText = (TextView) findViewById(R.id.outputText);  //for debugging purposes
 	 	if(pluCode != null){ 
-	 		//search for the PLU code in the database
-		 	myDatabase=myDbHelper.getDatabase();
-		 	String itemName;
-		 	
-		 	Cursor getPLUCursor=myDatabase.query(PLU_TABLE_NAME,new String[]{"Commodity"},
-		 			"PLU='"+ pluCode +"'",null,null,null,null);
-		 	
-	 		getPLUCursor.moveToFirst();
-		    itemName = getPLUCursor.getString(0);
-		    // outputText.append("PLU Name: " + itemName +"\n"); //for debugging purposes
-	 		// myDbHelper.close();
-	 		
-	 		/* This was meant to catch the error if the cursor returned a null value..but not sure
-	 		 * how to implement it yet...
-	 		Intent noSuchPLUCode= new Intent(this,CartActivity.class);
-	 		noSuchPLUCode.setType("text/plain");
-	 		noSuchPLUCode.putExtra("alert", "Sorry, this PLU code doesn't exist!");
-	 		startActivity(noSuchPLUCode);
-			*/
-	 		
-	        ArrayList<String> results = searchNutritionDatabase(itemName);
+	 		Log.d("PLU Code: ", "Plu code: " + pluCode);
+	 	    String itemName = myDbHelper.getPLUItem(Integer.parseInt(pluCode));
+	 	   Log.d("Item Name from PLU : ", "Item Name " + itemName);
+	       List<GroceryItem> resultGroceryItems = myDbHelper.getAllMatchingItems(itemName, "e");
+	       ArrayList<String> results = new ArrayList<String>();
+	       for(int i=0; i<resultGroceryItems.size(); i++){
+	    	  GroceryItem item = resultGroceryItems.get(i);
+	    	  String name = item.getItemName();
+	    	  Log.d("Item fetched: ", name);
+	    	  results.add(name);
+	       }
+	       	myDbHelper.close();
 	        startShowResultsIntent(results);
 	 	}
 	 	else{
 	 		//if PLU is null, then search for the barcodeItem in the nutrition database
-		 	myDatabase=myDbHelper.getDatabase();
-		 	
-		 	ArrayList<String> results = searchNutritionDatabase(barcodeItem);
-		 	startShowResultsIntent(results);
+	 		List<GroceryItem> resultGroceryItems = myDbHelper.getAllMatchingItems(barcodeItem, "e");
+	 		
+		 	ArrayList<String> results = new ArrayList<String>();
+		       for(int i=0; i<resultGroceryItems.size(); i++){
+		    	  GroceryItem item = resultGroceryItems.get(i);
+		    	  results.add(item.getItemName());
+		       }
+		       myDbHelper.close();
+		       startShowResultsIntent(results);
 	 	}
 	}
 
-	
-	/***
-	 * Retrieve nutrition information from the nutrition data table 
-	 * based on the (String) name of the item that is passed in
-	 ***/
-	private ArrayList<String> searchNutritionDatabase(String itemName){
-		//if there are any results, it will be stored in arraylist
-		ArrayList<String> output=new ArrayList<String>();
-		
-		//search for the item in the nutrition database
-       Cursor getNutritionInfoCursor=myDatabase.query(NUTRITION_TABLE_NAME,new String[]{"Shrt_Desc","Energ_Kcal"},
-       		"Shrt_Desc like'"+itemName+"%'",null,null,null,null);
-	 	//Cursor cursor2=myDatabase.rawQuery("SELECT name FROM sqlite_master WHERE type='table'",null);
-	 	
-	 	getNutritionInfoCursor.moveToFirst();
-	 	while(!getNutritionInfoCursor.isAfterLast()){
-	 		String name = getNutritionInfoCursor.getString(0);
-	 		String kcal = getNutritionInfoCursor.getString(1);
-	 		String itemDesc = "Name: " + name + "\n calories:" + kcal + "\n";
-	 		output.add(itemDesc);
-	 		getNutritionInfoCursor.moveToNext();
-	 		
-	 		return output;
-	 	}
-	 	getNutritionInfoCursor.close();
-	 	return null;
-	}
 	
 	
 	/***
@@ -146,5 +103,38 @@ public class InputDatabaseSearchActivity extends Activity {
 	 	} else{
 	 		outputText.setText("There is no matching item in the Nutrition database");
 	 	}*/
+	}
+	
+	/**
+	 * Convenience method for creating a database helper
+	 * or initializing the database
+	 * 
+	 * @return AccountDatabaseHelper
+	 */
+	public NutritionDatabaseHelper startNutritionDB(){
+		NutritionDatabaseHelper db = new NutritionDatabaseHelper(this);
+		
+		try {
+			db.createDataBase();
+			db.close();
+		} catch (IOException ioe) {
+			throw new Error(
+					"Unable to create database, or db has been created already");
+		}
+		// OPEN THE DATABASE
+		try {
+			// myDbHelper.close();
+			db.openDataBase();
+			db.close();
+		} catch (SQLException sqle) {
+			throw sqle;
+		}
+		
+		return db;
+	}
+	
+	protected void onPause(){
+		super.onPause();
+		myDbHelper.close();
 	}
 }

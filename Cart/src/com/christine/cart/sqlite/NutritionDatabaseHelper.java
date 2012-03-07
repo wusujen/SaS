@@ -22,7 +22,7 @@ public class NutritionDatabaseHelper extends DatabaseHelper {
     private static final String DATABASE_NAME = "nutrition_db";
     private static final int DATABASE_VERSION = 1;
     
-    private static final String TABLE_NUTRITION = "nutrition_data";
+    public static final String TABLE_NUTRITION = "nutrition_data";
 		private static final String N_ID = "_id";
 		private static final String N_NAME = "Shrt_Desc";
 		private static final String N_CALORIES = "Energ_Kcal";
@@ -103,8 +103,8 @@ public class NutritionDatabaseHelper extends DatabaseHelper {
 		Cursor cursor = db.query(TABLE_NUTRITION, new String []{ N_ID, N_NAME, N_SERVINGWEIGHT, N_SERVING} , N_NAME + "=?", 
 				new String []{ String.valueOf(itemname) }, null, null, null);
 		if(cursor.moveToFirst()){
-			gItem = new GroceryItem(Integer.parseInt(cursor.getString(0)), username, cursor.getString(1), cursor.getString(2),
-					Float.parseFloat(cursor.getString(3)), 0.0f);
+			gItem = new GroceryItem(Integer.parseInt(cursor.getString(0)), username, cursor.getString(1), cursor.getString(3),
+					cursor.getString(2), 0.0f);
 		} else {
 			return null;
 		}
@@ -153,13 +153,13 @@ public class NutritionDatabaseHelper extends DatabaseHelper {
 		GroceryItem gItem;
 		
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.query(TABLE_NUTRITION, null , N_NAME + "=?", 
-				new String []{ String.valueOf(itemname) }, null, null, null);
+		Cursor cursor = db.rawQuery("SELECT " +  N_ID + ", " + N_NAME + ", " + N_SERVINGWEIGHT + ", " +  N_SERVING + 
+								" FROM " + TABLE_NUTRITION + " WHERE " + N_NAME + " LIKE ? ", new String[] { "%" + itemname + "%" });
 		
 		if(cursor.moveToFirst()){
 			do{
-				gItem = new GroceryItem(Integer.parseInt(cursor.getString(0)), username, cursor.getString(1), cursor.getString(2),
-						Float.parseFloat(cursor.getString(3)), 0.0f);
+				gItem = new GroceryItem(Integer.parseInt(cursor.getString(0)), username, cursor.getString(1), cursor.getString(3),
+						cursor.getString(2), 0.0f);
 				// Adding item to List
 				gItemList.add(gItem);
 			} while (cursor.moveToNext());
@@ -180,11 +180,13 @@ public class NutritionDatabaseHelper extends DatabaseHelper {
 	public String getPLUItem(int pluCode){
 		SQLiteDatabase db = this.getReadableDatabase();
 		String itemName;
-		Cursor cursor = db.query(TABLE_PLU, new String[]{P_COMMODITY}, P_COMMODITY + "=?", 
+		Cursor cursor = db.query(TABLE_PLU, new String[]{P_COMMODITY}, P_PLU + "=?", 
 				new String []{ String.valueOf(pluCode)}, null, null, null);
 		if(cursor.moveToFirst()){
 			itemName = cursor.getString(0);
 		} else {
+			cursor.close();
+			db.close();
 			return null;
 		}
 		
