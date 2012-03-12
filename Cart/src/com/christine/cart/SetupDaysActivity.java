@@ -1,6 +1,8 @@
 package com.christine.cart;
 
 
+import com.christine.cart.sqlite.Account;
+import com.christine.cart.sqlite.AccountDatabaseHelper;
 import com.christine.cart.sqlite.DaysActivity;
 
 import android.app.Activity;
@@ -18,8 +20,11 @@ public class SetupDaysActivity extends Activity {
 	Button start;
 			
 	int days;
-	private static String USERNAME;
 	private static final int SAVE_PEOPLE = 2;
+	private static String USERNAME;
+	private Account act;
+	
+	AccountDatabaseHelper db;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -36,7 +41,13 @@ public class SetupDaysActivity extends Activity {
 	    int woman=people.getInt("woman");
 	    int boy=people.getInt("boy");
 	    int girl=people.getInt("girl");
-	    USERNAME=people.getString("username");
+	    
+	    act = people.getParcelable("account");
+	    if(act!=null){
+	    	USERNAME = act.getName();
+	    } else{
+	    	throw new RuntimeException("SetupDaysActivity: Passed account is null");
+	    }
 	    
 	    peopleInfo = (TextView) findViewById(R.id.tv_peopleinfo);
 		peopleInfo.setText("men: " + man + "\n woman: " + woman + "\n boy: " + boy + "\n girl: " + girl);
@@ -45,7 +56,7 @@ public class SetupDaysActivity extends Activity {
 		daySetter = (SeekBar) findViewById(R.id.seekbar_days);
 		daySetter.setMax(31);
 		daySetter.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-			
+	
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				//nada
 			}
@@ -82,7 +93,8 @@ public class SetupDaysActivity extends Activity {
 		if(requestCode==SAVE_PEOPLE){
 			if(resultCode==RESULT_OK){
 				Intent startCart = new Intent(this, CartActivity.class);
-				startCart.putExtra("username", USERNAME);
+				startCart.putExtra("account", act);
+				startCart.putExtra("code", 0);
 				startActivity(startCart);
 			} else {
 				throw new RuntimeException("Could not save day. Please try again.");

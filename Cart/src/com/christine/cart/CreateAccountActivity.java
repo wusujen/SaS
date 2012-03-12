@@ -1,5 +1,6 @@
 package com.christine.cart;
 
+import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountActivity;
 
 import android.app.Activity;
@@ -70,13 +71,15 @@ public class CreateAccountActivity extends Activity {
 					// start setup people activity
 					// Get the user name from the intent
 					String name = data.getStringExtra("username");
+					Account act = data.getParcelableExtra("account");
+					Log.d("CreateAccountActivity", "Account name created: " + act.getName());
 				    if(name.equals(null)){
 				    	// log the error
-				    	Log.d("Error with UserName:", "username returned null");
+				    	Log.d("CreateAccountActivity:", "username returned null");
 				    	errorText.setText("Sorry, this username is invalid. Please try another.");
 				    	return;
 				    } else if(name.equals("0")){
-				    	Log.d("Error with UserName:", "username has been taken");
+				    	Log.d("CreateAccountActivity:", "username has been taken");
 				    	errorText.setText("Sorry, that username has already been taken. Please enter a new username.");
 				    	return;
 				    }
@@ -84,6 +87,7 @@ public class CreateAccountActivity extends Activity {
 				    	// 
 				    	Intent startSetupPeople = new Intent(this,SetupPeopleActivity.class);
 				    	startSetupPeople.putExtra("username", name);
+				    	startSetupPeople.putExtra("account", act);
 				    	startActivity(startSetupPeople);
 				    }
 					break;

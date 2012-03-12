@@ -14,6 +14,8 @@ import java.util.HashMap;
 import org.xmlrpc.android.XMLRPCClient;
 import org.xmlrpc.android.XMLRPCException;
 
+import com.christine.cart.sqlite.Account;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -38,6 +40,8 @@ public class InputScanActivity extends Activity {
 	private static String rpc_key="2cec7a0d6ee7bcdec8a3a12f48eda85052dfc0ab";
 	private static XMLRPCClient client= new XMLRPCClient(uri);
 	
+	Account act;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -52,6 +56,12 @@ public class InputScanActivity extends Activity {
 	    	return;
 	    }
 	    contents = scanResults.getString("contents");
+	    Account temp= scanResults.getParcelable("account");
+	    if(temp!=null){
+	    	act = temp;
+	    } else{
+	    	throw new RuntimeException("InputSearchActivity, account is null");
+	    }
 	}
 	
 	public void onStart(){
@@ -91,6 +101,7 @@ public class InputScanActivity extends Activity {
 		databaseSearch.putExtra("scanResult",contents); //This is the barcode reading
 		databaseSearch.putExtra("resultSize", resultSize); //This is the size of the item
 		databaseSearch.putExtra("resultDesc", resultDesc); //This is the name of the item
+		databaseSearch.putExtra("account", act); //This is the account associated!
         startActivity(databaseSearch);
 	}
 

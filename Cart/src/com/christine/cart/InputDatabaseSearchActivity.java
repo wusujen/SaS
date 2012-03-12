@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountDatabaseHelper;
 import com.christine.cart.sqlite.GroceryItem;
 import com.christine.cart.sqlite.NutritionDatabaseHelper;
@@ -29,6 +30,8 @@ public class InputDatabaseSearchActivity extends Activity {
 	NutritionDatabaseHelper ndb;
 	AccountDatabaseHelper adb;
 	
+	Account act;
+	String username;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,13 @@ public class InputDatabaseSearchActivity extends Activity {
 	    Bundle itemInfo = getIntent().getExtras();
 	    if(itemInfo == null){
 	    	return;
+	    }
+	    
+	    act = itemInfo.getParcelable("account");
+	    if(act!=null){
+	    	username = act.getName();
+	    } else{
+	    	throw new RuntimeException("InputDBSearchActivity account is blank");
 	    }
 	    
 	    //See if it is a BARCODE or PLU intent
@@ -60,13 +70,14 @@ public class InputDatabaseSearchActivity extends Activity {
 	 		Log.d("PLU Code: ", "Plu code: " + pluCode);
 	 	    String itemName = ndb.getPLUItem(Integer.parseInt(pluCode));
 	 	    Log.d("Item Name from PLU : ", "Item Name " + itemName);
-	 	    GroceryItem resultItem = ndb.getGroceryItem(itemName, "e");
+	 	    
+	 	    GroceryItem resultItem = ndb.getGroceryItem(itemName, username);
 	 	    
 	 	    if(resultItem!=null){
 	 	    	String result = resultItem.getItemName();
 	 	    	
 		        //add that item to the user's current cart
-	 	    	GroceryItem gItem = adb.getGroceryItemOf("e", result);
+	 	    	GroceryItem gItem = adb.getGroceryItemOf(username, result);
 	 	    	if(gItem!=null){
 	 	    		int q = gItem.getQuantity();
 	 	    		resultItem.setQuantity(q+1);
@@ -93,10 +104,10 @@ public class InputDatabaseSearchActivity extends Activity {
 	 	    }
 	 	}
 	 	else if(barcodeItem!=null){
-	 	    GroceryItem resultItem = ndb.getGroceryItem(barcodeItem, "e");
+	 	    GroceryItem resultItem = ndb.getGroceryItem(barcodeItem, username);
 	 	    
 	 		//add that item to the user's current cart
- 	    	GroceryItem gItem = adb.getGroceryItemOf("e", barcodeItem);
+ 	    	GroceryItem gItem = adb.getGroceryItemOf(username, barcodeItem);
  	    	if(gItem!=null){
  	    		int q = gItem.getQuantity();
  	    		resultItem.setQuantity(q+1);
@@ -129,17 +140,19 @@ public class InputDatabaseSearchActivity extends Activity {
 	/***
 	 * This function starts an intent to return to the main Cart
 	 * Activity, and stores any results that may have been returned
-	 * from the nurtrition database search
+	 * from the nutrition database search
 	 **/
 	void startShowResultsIntent(ArrayList<String> results){
 		Intent showResults = new Intent(this,CartActivity.class);
 		showResults.putStringArrayListExtra("results", results);
+		showResults.putExtra("account", act);
 		startActivity(showResults);
 	}
 	
 	void startShowResultsIntent(String results){
 		Intent showResults = new Intent(this,CartActivity.class);
 		showResults.putExtra("results", results);
+		showResults.putExtra("account", act);
 		startActivity(showResults);
 	}
 	

@@ -105,6 +105,7 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		ContentValues values = new ContentValues();
 		values.put(ACCOUNT_NAME, account.getName()); // username
 		values.put(ACCOUNT_PASSWORD, account.getPassword()); // password
+		values.put(ACCOUNT_DAYS, -1);
 		
 		// insert a new row
 		db.insert(TABLE_ACCOUNTS, null, values);
@@ -116,14 +117,15 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	public Account getAccount(String username){
 		SQLiteDatabase db = this.getReadableDatabase();
 		Account account = new Account();
-		Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] { ACCOUNT_ID, ACCOUNT_NAME, ACCOUNT_PASSWORD}, ACCOUNT_NAME + "=?", 
+		Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] { ACCOUNT_ID, ACCOUNT_NAME, ACCOUNT_PASSWORD, ACCOUNT_DAYS}, ACCOUNT_NAME + "=?", 
 				new String []{ String.valueOf(username) }, null, null, null);
 		if(cursor.moveToFirst()){
-			account = new Account(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
+			account = new Account(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getInt(3));
 		} else {
 			account.setId(0);
 			account.setName(null);
 			account.setPassword(null);
+			account.setDays(0);
 		}
 		
 		//return account
@@ -148,6 +150,7 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 				account.setId(Integer.parseInt(cursor.getString(0)));
 				account.setName(cursor.getString(1));
 				account.setPassword(cursor.getString(2));
+				account.setDays(cursor.getInt(3));
 				
 				// Adding account to list
 				accountList.add(account);
@@ -178,6 +181,7 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		ContentValues values = new ContentValues();
 		values.put(ACCOUNT_NAME, account.getName());
 		values.put(ACCOUNT_PASSWORD, account.getPassword());
+		values.put(ACCOUNT_DAYS, account.getDays());
 		
 		//update row
 		return db.update(TABLE_ACCOUNTS, values, ACCOUNT_ID + " = ?", new String[] { String.valueOf(account.getId())});

@@ -1,5 +1,6 @@
 package com.christine.cart;
 
+import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountActivity;
 
 import android.app.Activity;
@@ -64,14 +65,18 @@ public class LoginActivity extends Activity {
 					// start setup people activity
 					// Get the user name from the intent
 					String name = data.getStringExtra("username");
+					
+					Account act = data.getParcelableExtra("account");
 				    if(name.equals(null)){
 				    	// log the error
-				    	Log.d("Error with UserName:", "username returned null");
+				    	Log.d("LoginActivity:", "username returned null");
 				    	errorText.setText("Sorry, we couldn't log you in! Please try again.");
-				    	return;
 				    } else{
+				    	Log.d("LoginActivity: ", "This is name: " + name);
 				    	Intent startSetupPeople = new Intent(this,SetupPeopleActivity.class);
+				    	// add the account object
 				    	startSetupPeople.putExtra("username", name);
+				    	startSetupPeople.putExtra("account", act);
 				    	startActivity(startSetupPeople);
 				    }
 					break;

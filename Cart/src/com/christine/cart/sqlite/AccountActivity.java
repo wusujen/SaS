@@ -51,15 +51,17 @@ public class AccountActivity extends Activity {
 				if (username != null && password != null) {
 					// fetch the account that was created
 					String name = createAccount(username, password);
-	
-					Log.d("userName:", "username is " + name);
-	
+					
 					// start an intent to return to create account activity
 					Intent accountCreated = new Intent();
-	
+					
+					//pass the account back to the original activity
+					Account justCreated = checkAndFetchAccount(username,password);
+					
 					// attach integer to intent
 					accountCreated.putExtra("username", name);
-	
+					accountCreated.putExtra("account", justCreated);
+					
 					// return to original activity
 					setResult(RESULT_OK, accountCreated);
 					finish();
@@ -72,13 +74,17 @@ public class AccountActivity extends Activity {
 				if (username !=null && password !=null){
 					//check if the user/password combo exists in db
 					Account userCheck = checkAndFetchAccount(username,password);
-					
 					if(userCheck != null){
+						Log.d("AccountActivity", "fetched name: " + userCheck.getName());
 						if(userCheck.getPassword() != BAD_PASSWORD){
 							// if the password is correct, and username is correct
 							// start activity with the correct password
+							
+							Log.d("AccountActivity" , "UserCheck's username: " + userCheck.getName());
+							
 							Intent accountFetched = new Intent();
-							accountFetched.putExtra("username",username);
+							accountFetched.putExtra("username", userCheck.getName());
+							accountFetched.putExtra("account", userCheck);
 							setResult(RESULT_OK, accountFetched);
 							finish();
 						} else{

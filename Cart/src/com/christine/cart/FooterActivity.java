@@ -1,12 +1,14 @@
 package com.christine.cart;
 
 import com.christine.cart.intentResult.IntentResult;
+import com.christine.cart.sqlite.Account;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -29,18 +31,35 @@ public class FooterActivity extends Activity {
 	String resultDesc;
 	
 	//information required to start the scan intent
-	private static final String PACKAGE = "com.christine.cart";
-	private static final String SCANNER= "com.google.zxing.client.android.SCAN";
-	private static final String SCAN_FORMATS = "UPC_A,UPC_E,EAN_8,EAN_13,CODE_39,CODE_93,CODE_128";
-	private static final String SCAN_MODE = "SCAN_MODE";
+	public static final String PACKAGE = "com.christine.cart";
+	public static final String SCANNER= "com.google.zxing.client.android.SCAN";
+	public static final String SCAN_FORMATS = "UPC_A,UPC_E,EAN_8,EAN_13,CODE_39,CODE_93,CODE_128";
+	public static final String SCAN_MODE = "SCAN_MODE";
 	public static final int REQUEST_CODE = 1;
+	
+	public static String NAME;
+	Account act;
 	
 	boolean onUPCResult=false;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.footer);
-	  //Handles the PLU code
+        
+	    Intent passedIntent = getIntent();
+	    
+        if(passedIntent != null){
+    		Account tempAccount = passedIntent.getParcelableExtra("account");
+	        if(tempAccount!=null){
+	        	act = tempAccount;
+	        	Log.d("FooterActivity: ", "This is act name " + act.getName());
+	        	NAME = act.getName();
+	        } else{
+	        	throw new RuntimeException("CartActivity: account passed was null");
+	        }
+        } 	    
+	    
+	    //Handles the PLU code
         searchItem=(Button) findViewById(R.id.btn_search);
 
         manager=(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -50,12 +69,12 @@ public class FooterActivity extends Activity {
             public void onClick(View v) {
             	//opens up activity with a text entry and numpad
             	Intent openSearchItemScreen = new Intent(FooterActivity.this,InputSearchActivity.class);
+            	openSearchItemScreen.putExtra("account", act);
             	startActivity(openSearchItemScreen);
             }
         }); //end searchItem
         
-        
-        //Handles the Barcode Scanning activity
+      //Handles the Barcode Scanning activity
 	    scanItem=(Button) findViewById(R.id.btn_scan);
 	    scanItem.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -66,6 +85,7 @@ public class FooterActivity extends Activity {
 				scanIntent.addCategory(Intent.CATEGORY_DEFAULT);
 	    		scanIntent.putExtra("SCAN_FORMATS", SCAN_FORMATS);
 	    		scanIntent.putExtra("SCAN_MODE", SCAN_MODE);
+	    		scanIntent.putExtra("account", act);
 	    		try{
 	    			startActivityForResult(scanIntent, REQUEST_CODE);
 	    		}
@@ -75,7 +95,8 @@ public class FooterActivity extends Activity {
 	    			eToast.show();
 	    		}
 			}
-		});//end scanBarcode onClickListener   
+		});//end scanBarcode onClickListener  
+        
 	}
 	
 	

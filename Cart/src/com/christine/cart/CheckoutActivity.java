@@ -2,6 +2,7 @@ package com.christine.cart;
 
 import java.util.ArrayList;
 
+import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountDatabaseHelper;
 import com.christine.cart.sqlite.Item;
 import com.christine.cart.sqlite.PreviousHistory;
@@ -20,6 +21,7 @@ public class CheckoutActivity extends Activity {
 	TextView cartTotals;
 	
 	AccountDatabaseHelper adb;
+	Account act;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,8 +31,9 @@ public class CheckoutActivity extends Activity {
 	    cartTotals = (TextView) findViewById(R.id.tv_cartTotal);
 	    Intent cartContents = getIntent();
 	    if(cartContents!=null){
+	    	act = cartContents.getParcelableExtra("account");
 	    	PreviousHistory pH = cartContents.getParcelableExtra("cartTotals");
-	    	
+
 	    	pH.setId(null);
 	    	pH.setDays(-1);
 	    	
@@ -60,6 +63,8 @@ public class CheckoutActivity extends Activity {
 	    newCart.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent startNewCart = new Intent(CheckoutActivity.this, SetupPeopleActivity.class);
+				startNewCart.putExtra("account", act);
+				startNewCart.putExtra("username", act.getName());
 				startActivity(startNewCart);
 			}
 		});

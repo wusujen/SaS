@@ -1,5 +1,7 @@
 package com.christine.cart;
 
+import com.christine.cart.sqlite.Account;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +14,20 @@ public class InputSearchActivity extends Activity {
 	EditText enterPLU;
 	Button submitPLU;
 	
+	Account act;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.search_plu);
+	    
+	    Account temp= getIntent().getParcelableExtra("account");
+	    if(temp!=null){
+	    	act = temp;
+	    } else{
+	    	throw new RuntimeException("InputSearchActivity, account is null");
+	    }
+	    	
 	    
 	    enterPLU = (EditText) findViewById(R.id.enterPLU);
 	    submitPLU = (Button) findViewById(R.id.submitPLU);
@@ -26,6 +38,7 @@ public class InputSearchActivity extends Activity {
 				Intent searchForPLUCode = new Intent(InputSearchActivity.this, InputDatabaseSearchActivity.class);
 				searchForPLUCode.setType("text/plain");
 				searchForPLUCode.putExtra("plu",pluCode);
+				searchForPLUCode.putExtra("account", act);
 				
 				startActivity(searchForPLUCode);
 			}

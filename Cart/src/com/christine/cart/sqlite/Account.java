@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-public class Account {
+public class Account implements Parcelable{
 	
 	int _id;
 	String _name;

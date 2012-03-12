@@ -24,6 +24,7 @@ public class SetupPeopleActivity extends Activity {
 	
 	private static String USERNAME = null;
     private static String PASSWORD = null;
+    private Account act;
     
     public static final int MAN = 1001;
     public static final int WOMAN = 1002;
@@ -89,11 +90,11 @@ public class SetupPeopleActivity extends Activity {
 				Intent startSetupDays=new Intent(v.getContext(),SetupDaysActivity.class);
 				
 				Bundle people = new Bundle();
-				people.putString("username", USERNAME);
 				people.putInt("man", countMan);
 				people.putInt("woman", countWoman);
 				people.putInt("boy", countBoy);
 				people.putInt("girl", countGirl);
+				people.putParcelable("account", act);
 				
 				startSetupDays.putExtras(people);
 				
@@ -110,12 +111,13 @@ public class SetupPeopleActivity extends Activity {
 	    
 	    // Get the username from the intent
  		USERNAME = getIntent().getStringExtra("username");
+ 		act = getIntent().getParcelableExtra("account");
+ 		
  	    if(USERNAME==null){
- 	    	Log.d("Error with UserName:", "username returned null");
+ 	    	Log.d("SetupPeopleActivity:", "username returned null");
  	    	return;
  	    } else{
  	    	Log.d("UserName:", USERNAME);
- 	    	Account act = db.getAccount(USERNAME);
  	    	if(act != null){
  	    		USERNAME = act.getName();
  	    		PASSWORD = act.getPassword();

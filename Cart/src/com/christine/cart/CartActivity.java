@@ -1,9 +1,8 @@
 package com.christine.cart;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
+import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountDatabaseHelper;
 import com.christine.cart.sqlite.GroceryItem;
 import com.christine.cart.sqlite.Item;
@@ -26,6 +25,11 @@ public class CartActivity extends FooterActivity {
 	Button viewItemList;
 	Button checkout;
 	
+	Button searchItem;
+	Button scanItem;
+
+	Intent passedIntent;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,20 +37,11 @@ public class CartActivity extends FooterActivity {
         ViewGroup.inflate(CartActivity.this, R.layout.cart, vg);
         
         outputText = (TextView) findViewById(R.id.outputText);
+        passedIntent = getIntent();
+        if(passedIntent != null){
+	        outputText.setText(NAME);
+	    }
         
-        Intent dbReturnResults = getIntent();
-        if(dbReturnResults != null){
-        	results = dbReturnResults.getStringExtra("results");
-        	if(results != null){
-        		String temp = results;
-        		outputText.append("\n" + temp);
-        	}
-        	else{
-        		Toast noMatch=Toast.makeText(inputsContext, "There was no match in the DB",Toast.LENGTH_SHORT);
-        		noMatch.setGravity(Gravity.TOP|Gravity.LEFT,0,150);
-        		noMatch.show();
-        	}
-        }
         
         viewItemList = (Button) findViewById(R.id.btn_itemlist);
         viewItemList.setOnClickListener(new View.OnClickListener() {
@@ -61,8 +56,9 @@ public class CartActivity extends FooterActivity {
         checkout.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent goCheckout = new Intent(CartActivity.this, CheckoutActivity.class);
-				PreviousHistory cTotals = getCartTotalsFor("e");
+				PreviousHistory cTotals = getCartTotalsFor(NAME);
 				goCheckout.putExtra("cartTotals", cTotals); //pass the parceable!
+				goCheckout.putExtra("account", act);
 				startActivity(goCheckout);
 			}
 		});
@@ -126,5 +122,21 @@ public class CartActivity extends FooterActivity {
     	adb.close();
     	ndb.close();
     	return cartTotals;
+    }
+    
+    protected void onResume(){
+    	super.onResume();
+    	
+    	passedIntent = getIntent();
+    	
+    	results = passedIntent.getStringExtra("results");
+    	if(results != null){
+    		String temp = results;
+    		outputText.append("\n" + temp);
+    	} else{
+    		Toast noMatch=Toast.makeText(inputsContext, "There was no match in the DB",Toast.LENGTH_SHORT);
+    		noMatch.setGravity(Gravity.TOP|Gravity.LEFT,0,150);
+    		noMatch.show();
+    	}
     }
 }
