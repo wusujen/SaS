@@ -92,17 +92,35 @@ public class InputDatabaseSearchActivity extends Activity {
 	 	    	throw new RuntimeException("Item was null");
 	 	    }
 	 	}
-	 	else{
-	 		//if PLU is null, then search for the barcodeItem in the nutrition database
-	 		List<GroceryItem> resultGroceryItems = ndb.getAllMatchingGroceryItems(barcodeItem, "e");
-	 		
-		 	ArrayList<String> results = new ArrayList<String>();
-		       for(int i=0; i<resultGroceryItems.size(); i++){
-		    	  GroceryItem item = resultGroceryItems.get(i);
-		    	  results.add(item.getItemName());
-		       }
-		       ndb.close();
-		       startShowResultsIntent(results);
+	 	else if(barcodeItem!=null){
+	 	    GroceryItem resultItem = ndb.getGroceryItem(barcodeItem, "e");
+	 	    
+	 		//add that item to the user's current cart
+ 	    	GroceryItem gItem = adb.getGroceryItemOf("e", barcodeItem);
+ 	    	if(gItem!=null){
+ 	    		int q = gItem.getQuantity();
+ 	    		resultItem.setQuantity(q+1);
+ 	    		
+ 	    		adb.updateGroceryItem(resultItem);
+ 	    		Log.d("Result Item: ", "Result Item: " + resultItem.getItemName() + 
+ 	    				"Result Quantity: " + resultItem.getQuantity());
+		        adb.close();
+		        ndb.close();
+		        startShowResultsIntent(barcodeItem);
+ 	    	}  else {
+ 	    		resultItem.setQuantity(1);
+ 	    		
+ 	    		adb.addGroceryItem(resultItem);
+ 	    		Log.d("Result Item: ", "Result Item: " + resultItem.getItemName() + 
+ 	    				"Result Quantity: " + resultItem.getQuantity());
+ 	    		adb.close();
+		        ndb.close();
+		        startShowResultsIntent(barcodeItem);
+ 	    	}
+	 	} else{
+	 		adb.close();
+	 		ndb.close();
+	 		throw new RuntimeException ("All inputs were null.");
 	 	}
 	}
 

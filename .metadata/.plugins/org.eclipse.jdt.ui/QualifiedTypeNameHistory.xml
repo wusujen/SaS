@@ -10,7 +10,6 @@
 <fullyQualifiedTypeName name="android.os.Environment"/>
 <fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.AddAccountActivity"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="android.database.SQLException"/>
 <fullyQualifiedTypeName name="com.christine.cart.CreateAccountActivity"/>
@@ -19,7 +18,6 @@
 <fullyQualifiedTypeName name="com.christine.cart.R.layout"/>
 <fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="android.widget.EditText"/>
-<fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="com.christine.cart.R.id"/>
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.PersonActivity"/>
@@ -30,8 +28,15 @@
 <fullyQualifiedTypeName name="android.accounts.Account"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Account"/>
 <fullyQualifiedTypeName name="com.christine.cart.SetupDaysActivity"/>
-<fullyQualifiedTypeName name="com.christine.cart.sqlite.AccountDatabaseHelper"/>
+<fullyQualifiedTypeName name="com.christine.cart.sqlite.NutritionDatabaseHelper"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.GroceryItem"/>
 <fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="com.christine.cart.sqlite.Item"/>
+<fullyQualifiedTypeName name="android.os.Parcelable"/>
+<fullyQualifiedTypeName name="com.christine.cart.sqlite.PreviousHistory"/>
+<fullyQualifiedTypeName name="com.christine.cart.sqlite.AccountDatabaseHelper"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 </qualifiedTypeNameHistroy>

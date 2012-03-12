@@ -8,6 +8,7 @@ import com.christine.cart.sqlite.AccountDatabaseHelper;
 import com.christine.cart.sqlite.GroceryItem;
 import com.christine.cart.sqlite.Item;
 import com.christine.cart.sqlite.NutritionDatabaseHelper;
+import com.christine.cart.sqlite.PreviousHistory;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -60,8 +61,8 @@ public class CartActivity extends FooterActivity {
         checkout.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent goCheckout = new Intent(CartActivity.this, CheckoutActivity.class);
-				ArrayList<Item> cTotals = getCartTotalsFor("e");
-				goCheckout.putParcelableArrayListExtra("cartTotals", cTotals);
+				PreviousHistory cTotals = getCartTotalsFor("e");
+				goCheckout.putExtra("cartTotals", cTotals); //pass the parceable!
 				startActivity(goCheckout);
 			}
 		});
@@ -73,18 +74,57 @@ public class CartActivity extends FooterActivity {
      * Add up all of the values of the
      * current_cart items!
      */
-    public ArrayList<Item> getCartTotalsFor(String username){
+    public PreviousHistory getCartTotalsFor(String username){
     	NutritionDatabaseHelper ndb = new NutritionDatabaseHelper(this);
     	AccountDatabaseHelper adb = new AccountDatabaseHelper(this);
     	
     	List<GroceryItem> allGItems = adb.getAllGroceryItemsOf(username);
-    	ArrayList<Item> items = new ArrayList<Item>();
+    	PreviousHistory cartTotals = new PreviousHistory();
+    	cartTotals.setId(-1);
+    	cartTotals.setUsername(username);
+    	
     	for(int i=0; i<allGItems.size(); i++){
-    		GroceryItem tempItem = allGItems.get(i);
-    		items.add(ndb.getItem(tempItem.getItemName()));
-    		Log.d("Added: ", "Item: " + tempItem.getItemName());
+    		// retrieve the grocery item from the array
+    		GroceryItem tempGrocery = allGItems.get(i);
+    		
+    		// get the Quantity of the item
+    		int quantity = tempGrocery.getQuantity();
+    		
+    		// locate the item in the nutrition database
+    		Item tempItem = ndb.getItem(tempGrocery.getItemName());
+    		
+    		// add the totals to the current cartTotal, remembering
+    		// to multiply by the quantity!
+    		cartTotals.setCalories((cartTotals.getCalories() + tempItem.getCalories())*quantity);
+    		cartTotals.setProtein((cartTotals.getProtein() + tempItem.getProtein())*quantity);
+    		cartTotals.setFat((cartTotals.getFat() + tempItem.getFat())*quantity);
+    		cartTotals.setCarbohydrate((cartTotals.getCarbohydrate() + tempItem.getCarbohydrate())*quantity);
+    		cartTotals.setFiber((cartTotals.getFiber() + tempItem.getFiber())*quantity);
+    		cartTotals.setSugar((cartTotals.getSugar() + tempItem.getSugar())*quantity);
+    		cartTotals.setCalcium((cartTotals.getCalcium() + tempItem.getCalcium())*quantity);
+    		cartTotals.setIron((cartTotals.getIron() + tempItem.getIron())*quantity);
+    		cartTotals.setMagnesium((cartTotals.getMagnesium() + tempItem.getMagnesium())*quantity);
+    		cartTotals.setPotassium((cartTotals.getPotassium() + tempItem.getPotassium())*quantity);
+    		cartTotals.setSodium((cartTotals.getSodium() + tempItem.getSodium())*quantity);
+    		cartTotals.setZinc((cartTotals.getZinc() + tempItem.getZinc())*quantity);
+    		cartTotals.setVitC((cartTotals.getVitC() + tempItem.getVitC())*quantity);
+    		cartTotals.setVitB6((cartTotals.getVitB6() + tempItem.getVitB6())*quantity);
+    		cartTotals.setVitB12((cartTotals.getVitB12() + tempItem.getVitB12())*quantity);
+    		cartTotals.setVitA((cartTotals.getVitA() + tempItem.getVitA())*quantity);
+    		cartTotals.setVitE((cartTotals.getVitE() + tempItem.getVitE())*quantity);
+    		cartTotals.setVitD((cartTotals.getVitD() + tempItem.getVitD())*quantity);
+    		cartTotals.setVitK((cartTotals.getVitK() + tempItem.getVitK())*quantity);
+    		cartTotals.setFatSat((cartTotals.getFatSat() + tempItem.getFatSat())*quantity);
+    		cartTotals.setFatMono((cartTotals.getFatMono() + tempItem.getFatMono())*quantity);
+    		cartTotals.setFatPoly((cartTotals.getFatPoly() + tempItem.getFatPoly())*quantity);
+    		cartTotals.setCholesterol((cartTotals.getCholesterol() + tempItem.getCholesterol())*quantity);
+    		cartTotals.setDays(-1);
     	}
     	
-    	return items;
+    	Log.d("Created: ", "Cart Total for : " + cartTotals.getUsername() 
+    			+ "Total Calories: " + cartTotals.getCalories());
+    	adb.close();
+    	ndb.close();
+    	return cartTotals;
     }
 }

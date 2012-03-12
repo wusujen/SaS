@@ -2,11 +2,14 @@ package com.christine.cart;
 
 import java.util.ArrayList;
 
+import com.christine.cart.sqlite.AccountDatabaseHelper;
 import com.christine.cart.sqlite.Item;
+import com.christine.cart.sqlite.PreviousHistory;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +19,8 @@ public class CheckoutActivity extends Activity {
 	Button logout;
 	TextView cartTotals;
 	
+	AccountDatabaseHelper adb;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -24,15 +29,29 @@ public class CheckoutActivity extends Activity {
 	    cartTotals = (TextView) findViewById(R.id.tv_cartTotal);
 	    Intent cartContents = getIntent();
 	    if(cartContents!=null){
-	    	ArrayList<Item> cTotals = cartContents.getParcelableArrayListExtra("cartTotals");
-	    	float sum = 0;
-	    	for(int i=0; i<cTotals.size(); i++){
-	    		Item item= cTotals.get(i);
-	    		sum = sum + item.getCalories();
-	    		cartTotals.append("Item Name: " + item.getItemName() + "\n" );
+	    	PreviousHistory pH = cartContents.getParcelableExtra("cartTotals");
+	    	
+	    	pH.setId(null);
+	    	pH.setDays(-1);
+	    	
+	    	// write to the previous history database, if the user doesn't
+	    	// already exist in the db
+	    	adb = new AccountDatabaseHelper(this);
+	    	
+	    	PreviousHistory existingHistory = adb.getPreviousHistoryFor(pH.getUsername());
+	    	if(existingHistory != null){
+	    		cartTotals.setText("The user: " + existingHistory.getUsername() + "\n Total Calories: " + existingHistory.getCalories()
+		    			+ "\n Total Protein: " + existingHistory.getProtein());
+	    		
+	    		adb.updatePreviousHistoryFor(pH);
+	    		
+	    		Log.d("PH update: ", "Previous History updated for " + pH.getUsername());
+	    	} else{
+	    		adb.addPreviousHistoryFor(pH);
+	    		Log.d("PH added: ", "Previous History added " + pH.getUsername());
 	    	}
 	    	
-	    	cartTotals.append("Caloric Total: " + sum);
+	    	adb.close();
 	    } else{
     		cartTotals.setText("No Items in Cart");
     	}

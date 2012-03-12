@@ -1,5 +1,9 @@
 package com.christine.cart.sqlite;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
+
 public class Account {
 	
 	int _id;
@@ -70,5 +74,52 @@ public class Account {
 	public void setPassword(String pwd){
 		this._pwd = pwd;
 	}
+	
+	/**
+	 * 
+	 * AS A PARCELLABLE ITEM
+	 * @see http://techdroid.kbeanie.com/2010/06/parcelable-how-to-do-that-in-android.html
+	 * @see http://shri.blog.kraya.co.uk/2010/04/26/android-parcel-data-to-pass-between-activities-using-parcelable-classes/
+	 *
+	 *
+	 */
+	
+	public Account(Parcel in){
+		readFromParcel(in);
+	}
+	
+	public int describeContents() {
+		return 0;
+	}
+
+	public void writeToParcel(Parcel dest, int flags) {
+		Log.v("Writing to Parcel", "writeToParcel..."+flags);
+		dest.writeInt(_id);
+		dest.writeString(_name);
+		dest.writeString(_pwd);
+		dest.writeInt(_days);
+	}
+	
+	private void readFromParcel(Parcel in) {
+		// We just need to read back each
+		// field in the order that it was
+		// written to the parcel
+		_id = in.readInt();
+		_name = in.readString();
+		_pwd = in.readString();
+		_days = in.readInt();
+
+	}
+	
+	 public static final Parcelable.Creator<Account> CREATOR =
+    	new Parcelable.Creator<Account>() {
+            public Account createFromParcel(Parcel in) {
+                return new Account(in);
+            }
+ 
+            public Account[] newArray(int size) {
+                return new Account[size];
+            }
+        };
 	
 }

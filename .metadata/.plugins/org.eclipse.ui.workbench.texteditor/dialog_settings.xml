@@ -2,9 +2,9 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="257" key="DIALOG_WIDTH"/>
-		<item value="361" key="DIALOG_Y_ORIGIN"/>
+		<item value="65" key="DIALOG_Y_ORIGIN"/>
 		<item value="380" key="DIALOG_HEIGHT"/>
-		<item value="1023" key="DIALOG_X_ORIGIN"/>
+		<item value="1281" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
@@ -13,26 +13,26 @@
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="" key="selection"/>
+		<item value="Cholesterol" key="selection"/>
 		<list key="findhistory">
-			<item value=")"/>
-			<item value="Float.parseFloat(cursor.getString"/>
-			<item value="startAccountDB"/>
-			<item value="Integer.parseInt"/>
-			<item value="int"/>
-			<item value="GroceryItem"/>
-			<item value="_username"/>
-			<item value="String _username"/>
+			<item value="Calories"/>
+			<item value="Item"/>
+			<item value="private static final String"/>
+			<item value="PHISTORY"/>
+			<item value="N_"/>
+			<item value="_t"/>
+			<item value="_itemname = itemname;"/>
+			<item value="_"/>
 		</list>
 		<list key="replacehistory">
-			<item value=""/>
-			<item value="cursor.getFloat"/>
-			<item value="Float.parseFloat"/>
-			<item value="float"/>
-			<item value="Item"/>
-			<item value="Serving"/>
-			<item value="serving"/>
-			<item value="servingWeight"/>
+			<item value="Cholesterol"/>
+			<item value="FatPoly"/>
+			<item value="FatMono"/>
+			<item value="FatSat"/>
+			<item value="VitK"/>
+			<item value="VitD"/>
+			<item value="VitE"/>
+			<item value="VitA"/>
 		</list>
 	</section>
 </section>

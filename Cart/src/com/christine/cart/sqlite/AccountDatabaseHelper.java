@@ -58,7 +58,30 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		//column names
 		private static final String PHISTORY_ID = "_id";
 		private static final String PHISTORY_USER = "_username";
-		
+		private static final String PHISTORY_CALORIES = "total_calories";
+		private static final String PHISTORY_PROTEIN = "total_protein";
+		private static final String PHISTORY_TOTALFATS = "total_fat";
+		private static final String PHISTORY_CARBS = "total_carbohydrate";
+		private static final String PHISTORY_FIBER = "total_fiber";
+		private static final String PHISTORY_SUGAR = "total_sugar";
+		private static final String PHISTORY_CALCIUM = "total_calcium";
+		private static final String PHISTORY_IRON = "total_iron";
+		private static final String PHISTORY_MAGNESIUM = "total_magnesium";
+		private static final String PHISTORY_POTASSIUM = "total_potassium";
+		private static final String PHISTORY_SODIUM = "total_sodium";
+		private static final String PHISTORY_ZINC = "total_zinc";
+		private static final String PHISTORY_VITC = "total_vitc";
+		private static final String PHISTORY_VITB6 = "total_vitb6";
+		private static final String PHISTORY_VITB12 = "total_vitb12";
+		private static final String PHISTORY_VITA = "total_vita";
+		private static final String PHISTORY_VITE = "total_vite";
+		private static final String PHISTORY_VITD = "total_vitd";
+		private static final String PHISTORY_VITK = "total_vitk";
+		private static final String PHISTORY_FATSAT = "total_fatsat";
+		private static final String PHISTORY_FATMONO = "total_fatmono";
+		private static final String PHISTORY_FATPOLY = "total_fatpoly";
+		private static final String PHISTORY_CHOLESTEROL = "total_cholesterol";
+		private static final String PHISTORY_DAYS = "days";
 		
 	
 	// When an AccountDatabaseHelper is created, use
@@ -411,5 +434,110 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	    Log.d("Delete Person: ","Row Number removed: " + numDeleted + " from User: " 
 	            + gItem.getUsername() + "Item: " + gItem.getItemName() + " deleted from database");
 	    db.close();
+	}
+	
+	/**
+	 * PREVIOUS_HISTORY
+	 */
+	
+	// Adding new history
+	public void addPreviousHistoryFor(PreviousHistory pHistory){
+		SQLiteDatabase db = this.getWritableDatabase();
+		
+		ContentValues values = new ContentValues();
+		values.put(PHISTORY_USER, pHistory.getUsername());
+		values.put(PHISTORY_CALORIES, pHistory.getCalories());
+		values.put(PHISTORY_PROTEIN, pHistory.getProtein());
+		values.put(PHISTORY_TOTALFATS, pHistory.getFat());
+		values.put(PHISTORY_CARBS, pHistory.getCarbohydrate());
+		values.put(PHISTORY_FIBER, pHistory.getFiber());
+		values.put(PHISTORY_SUGAR, pHistory.getSugar());
+		values.put(PHISTORY_CALCIUM, pHistory.getCalcium());
+		values.put(PHISTORY_IRON, pHistory.getIron());
+		values.put(PHISTORY_MAGNESIUM, pHistory.getMagnesium());
+		values.put(PHISTORY_POTASSIUM, pHistory.getPotassium());
+		values.put(PHISTORY_SODIUM, pHistory.getSodium());
+		values.put(PHISTORY_ZINC, pHistory.getZinc());
+		values.put(PHISTORY_VITC, pHistory.getVitC());
+		values.put(PHISTORY_VITB6, pHistory.getVitB6());
+		values.put(PHISTORY_VITB12, pHistory.getVitB12());
+		values.put(PHISTORY_VITA, pHistory.getVitA());
+		values.put(PHISTORY_VITE, pHistory.getVitE());
+		values.put(PHISTORY_VITD, pHistory.getVitD());
+		values.put(PHISTORY_VITK, pHistory.getVitK());
+		values.put(PHISTORY_FATSAT, pHistory.getFatSat());
+		values.put(PHISTORY_FATMONO, pHistory.getFatMono());
+		values.put(PHISTORY_FATPOLY, pHistory.getFatPoly());
+		values.put(PHISTORY_CHOLESTEROL, pHistory.getCholesterol());
+		values.put(PHISTORY_DAYS, pHistory.getDays());
+		
+		// insert a new row
+		db.insert(TABLE_PHISTORY, null, values);
+		db.close(); //close database connection
+	}
+	
+	
+	// Getting single history with username
+	public PreviousHistory getPreviousHistoryFor(String username){
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		PreviousHistory pH;
+		Cursor cursor = db.query(TABLE_PHISTORY, null, PHISTORY_USER + "=?", new String[]{username}, null, null, null);
+		if(cursor.moveToFirst()){
+			pH = new PreviousHistory(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getFloat(2),
+					cursor.getFloat(3), cursor.getFloat(4), cursor.getFloat(5), cursor.getFloat(6), 
+					cursor.getFloat(7), cursor.getFloat(8), cursor.getFloat(9), cursor.getFloat(10), 
+					cursor.getFloat(11), cursor.getFloat(12), cursor.getFloat(13), cursor.getFloat(14),
+					cursor.getFloat(15), cursor.getFloat(16), cursor.getFloat(17), cursor.getFloat(18),  
+					cursor.getFloat(19), cursor.getFloat(20), cursor.getFloat(21), cursor.getFloat(22),
+					cursor.getFloat(23), cursor.getFloat(24), cursor.getInt(25));
+			Log.d("Previous History Fetched: ", "Previous History User: " + pH.getUsername() + " Calories: " + pH.getCalories());
+		} else {
+			cursor.close();
+			db.close();
+			return null;
+		}
+		
+		//return account
+		cursor.close();
+		db.close();
+		return pH;
+	}
+	
+	
+	// update the user's previous history
+	public void updatePreviousHistoryFor(PreviousHistory pHistory){
+		SQLiteDatabase db = this.getWritableDatabase();
+		
+		ContentValues values = new ContentValues();
+		values.put(PHISTORY_USER, pHistory.getUsername());
+		values.put(PHISTORY_CALORIES, pHistory.getCalories());
+		values.put(PHISTORY_PROTEIN, pHistory.getProtein());
+		values.put(PHISTORY_TOTALFATS, pHistory.getFat());
+		values.put(PHISTORY_CARBS, pHistory.getCarbohydrate());
+		values.put(PHISTORY_FIBER, pHistory.getFiber());
+		values.put(PHISTORY_SUGAR, pHistory.getSugar());
+		values.put(PHISTORY_CALCIUM, pHistory.getCalcium());
+		values.put(PHISTORY_IRON, pHistory.getIron());
+		values.put(PHISTORY_MAGNESIUM, pHistory.getMagnesium());
+		values.put(PHISTORY_POTASSIUM, pHistory.getPotassium());
+		values.put(PHISTORY_SODIUM, pHistory.getSodium());
+		values.put(PHISTORY_ZINC, pHistory.getZinc());
+		values.put(PHISTORY_VITC, pHistory.getVitC());
+		values.put(PHISTORY_VITB6, pHistory.getVitB6());
+		values.put(PHISTORY_VITB12, pHistory.getVitB12());
+		values.put(PHISTORY_VITA, pHistory.getVitA());
+		values.put(PHISTORY_VITE, pHistory.getVitE());
+		values.put(PHISTORY_VITD, pHistory.getVitD());
+		values.put(PHISTORY_VITK, pHistory.getVitK());
+		values.put(PHISTORY_FATSAT, pHistory.getFatSat());
+		values.put(PHISTORY_FATMONO, pHistory.getFatMono());
+		values.put(PHISTORY_FATPOLY, pHistory.getFatPoly());
+		values.put(PHISTORY_CHOLESTEROL, pHistory.getCholesterol());
+		values.put(PHISTORY_DAYS, pHistory.getDays());
+		
+		//update row
+		db.update(TABLE_PHISTORY, values, PHISTORY_USER + " = ?", 
+				new String[] { String.valueOf(pHistory.getUsername())});	
 	}
 }

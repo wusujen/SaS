@@ -1,7 +1,0 @@
-package com.christine.cart.sqlite;
-
-import android.app.Activity;
-
-public class PersonActivity extends Activity {
-
-}
