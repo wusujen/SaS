@@ -9302,3 +9302,6 @@ org.eclipse.core.runtime.AssertionFailedException: assertion failed:
 	at org.eclipse.core.internal.resources.Project.build(Project.java:114)
 	at com.android.ide.eclipse.adt.internal.sdk.Sdk$3$1.run(Sdk.java:1104)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.ui 4 4 2012-03-12 01:37:05.508
+!MESSAGE Invalid preference page path: XML Syntax
