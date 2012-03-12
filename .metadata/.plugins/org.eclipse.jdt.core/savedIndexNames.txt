@@ -6,4 +6,3 @@ INDEX VERSION 1.126+C:\Users\Christine\Thesis\SaS\.metadata\.plugins\org.eclipse
 2181556241.index
 722536484.index
 465462433.index
-2970889538.index
