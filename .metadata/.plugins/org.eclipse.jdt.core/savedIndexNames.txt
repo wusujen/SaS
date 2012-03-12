@@ -1,7 +1,0 @@
-INDEX VERSION 1.126+C:\Users\Christine\Thesis\SaS\.metadata\.plugins\org.eclipse.jdt.core
-2355546362.index
-1397815891.index
-465462433.index
-383545601.index
-2181556241.index
-722536484.index
