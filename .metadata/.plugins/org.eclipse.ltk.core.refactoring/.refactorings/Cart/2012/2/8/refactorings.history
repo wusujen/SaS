@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;incorrectLength&apos; in &apos;com.christine.cart.CartActivity.onCreate(...)&apos; to &apos;noMatch&apos;&#x0D;&#x0A;- Original project: &apos;Cart&apos;&#x0D;&#x0A;- Original element: &apos;com.christine.cart.CartActivity.onCreate(Bundle).incorrectLength&apos;&#x0D;&#x0A;- Renamed element: &apos;incorrectLength&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;incorrectLength&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;com.christine.cart{CartActivity.java[CartActivity~onCreate~QBundle;@incorrectLength!1063!1162!1069!1083!QToast;!0!false" name="noMatch" references="true" stamp="1329620034902" version="1.0"/>
+</session>

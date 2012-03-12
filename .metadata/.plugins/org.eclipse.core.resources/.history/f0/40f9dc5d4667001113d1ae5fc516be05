@@ -1,0 +1,44 @@
+package sqlite;
+
+import com.christine.cart.CartActivity;
+import com.christine.cart.SetupDaysActivity;
+import com.christine.cart.sqlite.Account;
+import com.christine.cart.sqlite.AccountDatabaseHelper;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+
+public class DaysActivity extends Activity {
+	
+	AccountDatabaseHelper db;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+	    super.onCreate(savedInstanceState);
+	    
+	    db = new AccountDatabaseHelper(this);
+	    Bundle dayInfo = getIntent().getExtras();
+	    
+	    int dayNumber = dayInfo.getInt("days");
+	    String username = dayInfo.getString("username");
+	    
+	    Account act = db.getAccount(username);
+	    
+	    int updateDB = db.updateAccountDays(act, dayNumber);
+	    db.close();
+	    
+	    if(updateDB!=0){
+	    	Intent startCart = new Intent(this, CartActivity.class);
+	    	startCart.putExtra("username", username);
+	    	startActivity(startCart);
+	    } else {
+	    	throw new RuntimeException("Update failed");
+	    	/*
+	    	Intent updateFailed = new Intent(this, SetupDaysActivity.class);
+	    	updateFailed.putExtra("failed", "Days failed to Add. Please try again!");
+	    	startActivity(updateFailed);
+	    	*/
+	    }  
+	}
+}
