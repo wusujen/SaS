@@ -2,23 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="257" key="DIALOG_WIDTH"/>
-		<item value="355" key="DIALOG_Y_ORIGIN"/>
-		<item value="809" key="DIALOG_X_ORIGIN"/>
+		<item value="478" key="DIALOG_Y_ORIGIN"/>
+		<item value="1414" key="DIALOG_X_ORIGIN"/>
 		<item value="380" key="DIALOG_HEIGHT"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="casesensitive"/>
+		<item value="true" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="user_properties" key="selection"/>
+		<item value="" key="selection"/>
 		<list key="findhistory">
-			<item value="user_properties"/>
-			<item value="getAccount"/>
+			<item value="&quot;e&quot;"/>
+			<item value="inputsContext"/>
+			<item value="InputDatabaseSearchActivity"/>
+			<item value="inputDatabaseSearchActivity"/>
+			<item value="Item"/>
+			<item value="Calories"/>
+			<item value="private static final String"/>
+			<item value="PHISTORY"/>
 		</list>
 		<list key="replacehistory">
+			<item value="Cholesterol"/>
+			<item value="FatPoly"/>
+			<item value="FatMono"/>
+			<item value="FatSat"/>
+			<item value="VitK"/>
+			<item value="VitD"/>
+			<item value="VitE"/>
+			<item value="VitA"/>
 		</list>
 	</section>
 </section>
