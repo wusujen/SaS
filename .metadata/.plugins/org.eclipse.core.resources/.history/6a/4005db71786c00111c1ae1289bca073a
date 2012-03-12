@@ -223,7 +223,6 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	    values.put(PEOPLE_GENDER, person.getGender()); // Gender
 	    values.put(PEOPLE_HEIGHT, person.getHeight()); // Height
 	    values.put(PEOPLE_WEIGHT, person.getWeight()); // Weight
-	    values.put(PEOPLE_ACTIVITY, person.getActivity()); //Activity
 	 
 	    // Inserting Row
 	    Log.d("Inserting...", "Inserting into" + TABLE_PEOPLE);
@@ -235,7 +234,7 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		SQLiteDatabase db = this.getReadableDatabase();
 		List<Person> personList = new ArrayList<Person>();
 	    Cursor cursor = db.query(TABLE_PEOPLE, new String[] { PEOPLE_ID, PEOPLE_USER,
-	            PEOPLE_NAME, PEOPLE_AGE, PEOPLE_GENDER, PEOPLE_HEIGHT, PEOPLE_WEIGHT, PEOPLE_ACTIVITY }, PEOPLE_USER + "=?",
+	            PEOPLE_NAME, PEOPLE_AGE, PEOPLE_GENDER, PEOPLE_HEIGHT, PEOPLE_WEIGHT }, PEOPLE_USER + "=?",
 	            new String[] { username.toString() }, null, null, null, null);
 	    if (cursor != null){
 	        cursor.moveToFirst();
@@ -252,7 +251,6 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	            person.setGender(cursor.getString(4));
 	            person.setWeight(Integer.parseInt(cursor.getString(5)));
 	            person.setHeight(Integer.parseInt(cursor.getString(6)));
-	            person.setActivity(Integer.parseInt(cursor.getString(7)));
 	            // Adding person to list
 	            personList.add(person);
 	        } while (cursor.moveToNext());
@@ -280,7 +278,6 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		            person.setGender(cursor.getString(4));
 		            person.setWeight(Integer.parseInt(cursor.getString(5)));
 		            person.setHeight(Integer.parseInt(cursor.getString(6)));
-		            person.setActivity(Integer.parseInt(cursor.getString(7)));
 		            // Adding person to list
 		            personList.add(person);
 		        } while (cursor.moveToNext());
@@ -310,7 +307,6 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	    values.put(PEOPLE_GENDER, person.getGender()); // Gender
 	    values.put(PEOPLE_HEIGHT, person.getHeight()); // Height
 	    values.put(PEOPLE_WEIGHT, person.getWeight()); // Weight
-	    values.put(PEOPLE_ACTIVITY, person.getActivity()); //Activity
 	 
 	    // updating row
 	    return db.update(TABLE_PEOPLE, values, PEOPLE_USER + " = ?",

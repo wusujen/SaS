@@ -8,9 +8,9 @@ public class Person {
 	String _name;
 	int _age;
 	String _gender;
-	int _height; //in inches
-	int _weight; //in pounds
-	int _activity; //0=>sedentary, 1=>moderately active, 2=>very active
+	int _height;
+	int _weight;
+	int _activity;
 
 	// blank constructor
 	public Person(){
@@ -21,13 +21,13 @@ public class Person {
 	public static Person createPerson(int requestCode, String username){
 		switch(requestCode){
 			case SetupPeopleActivity.MAN:
-				return new Person(username, 47, "m", 69, 194, 0);
+				return new Person(username, 47, "m", 69, 194);
 			case SetupPeopleActivity.WOMAN:
-				return new Person(username, 50, "f", 64, 164, 0);
+				return new Person(username, 50, "f", 64, 164);
 			case SetupPeopleActivity.BOY:
-				return new Person(username, 9, "m", 65, 53, 0);
+				return new Person(username, 9, "m", 65, 53);
 			case SetupPeopleActivity.GIRL:
-				return new Person(username, 9, "f", 64, 53, 0);
+				return new Person(username, 9, "f", 64, 53);
 			default:
 				return null;
 		}

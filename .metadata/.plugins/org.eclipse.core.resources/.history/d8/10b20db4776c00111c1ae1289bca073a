@@ -77,32 +77,7 @@ public class PersonActivity extends Activity {
 	    btn_submit.setOnClickListener( new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				//get the person and store it into the db
-				Person newP = p;
-				String n = et_name.getText().toString();
-				int a = Integer.valueOf(et_age.getText().toString());
-				String g = et_gender.getText().toString();
-				int h = Integer.valueOf(et_height.getText().toString());
-				int w = Integer.valueOf(et_weight.getText().toString());
-				
-				if(n!=null || n!=p.getName()){
-					newP.setName(n);
-				} 
-				if(a!=0 || a!=p.getAge()){
-					newP.setAge(a);
-				}
-				if(g!=null || g!=p.getGender()){
-					newP.setGender(g);
-				}
-				if(h!=0 || h!=p.getHeight()){
-					newP.setHeight(h);
-				}
-				if(w!=0 || w!=p.getWeight()){
-					newP.setWeight(w);
-				}
-				p.setActivity(0);
-				
-				db.addPerson(newP);
+				db.addPerson(p);
 				Log.d("Insert..","Person Added");
 				Intent personSaved = new Intent();
 				personSaved.putExtra("username", username);
