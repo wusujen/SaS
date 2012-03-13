@@ -33,8 +33,8 @@
 	<string name="itemlist_header">Items in Cart</string>
 	
 	<!-- AddItemFragment -->
-	<string name="additem_btn_scan">Scan Item</string>
-	<string name="additem_btn_search">Search Item</string>
+	<string name="additem_btn_scan">Scan</string>
+	<string name="additem_btn_search">Search</string>
 	
 	<!-- SearchBarcode -->
 	<string name="sb_title">Barcode Results</string>

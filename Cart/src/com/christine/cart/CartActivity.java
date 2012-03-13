@@ -42,16 +42,7 @@ public class CartActivity extends FooterActivity {
 	        outputText.setText(NAME);
 	    }
         
-        
-        viewItemList = (Button) findViewById(R.id.btn_itemlist);
-        viewItemList.setOnClickListener(new View.OnClickListener() {
 
-			public void onClick(View v) {
-				Intent showItemList = new Intent(CartActivity.this, ItemListActivity.class);
-				startActivity(showItemList);
-			}
-		});  
-        
         checkout = (Button) findViewById(R.id.btn_checkout);
         checkout.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
