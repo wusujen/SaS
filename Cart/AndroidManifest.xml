@@ -101,6 +101,8 @@
 	    </activity>
 	    
 	    <!-- END ZXING LIBRARY -->
+	    
+	    
 	    <activity android:name="CheckoutActivity" 
 	        android:screenOrientation="portrait"></activity>
 	    
