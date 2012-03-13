@@ -284,9 +284,15 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		            // Adding person to list
 		            personList.add(person);
 		        } while (cursor.moveToNext());
+		    } else {
+		    	cursor.close();
+		    	db.close();
+		    	return null;
 		    }
 		 
 		    // return person list
+		    cursor.close();
+		    db.close();
 		    return personList;
 	}
 	

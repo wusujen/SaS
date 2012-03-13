@@ -1,8 +1,11 @@
 package com.christine.cart;
 
 
+import java.util.List;
+
 import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountDatabaseHelper;
+import com.christine.cart.sqlite.Person;
 import com.christine.cart.sqlite.PersonActivity;
 
 import android.app.Activity;
@@ -21,6 +24,8 @@ public class SetupPeopleActivity extends Activity {
 	Button girl;
 	Button next;
 	TextView user_properties;
+	TextView tv_plist;
+	TextView tv_added;
 	
 	private static String USERNAME = null;
     private static String PASSWORD = null;
@@ -50,7 +55,8 @@ public class SetupPeopleActivity extends Activity {
 	    boy = (Button) findViewById(R.id.btn_boy);
 	    girl = (Button) findViewById(R.id.btn_girl);
 	    user_properties = (TextView) findViewById(R.id.user_properties);
-	    
+	    tv_added = (TextView) findViewById(R.id.tv_added);
+	    tv_plist = (TextView) findViewById(R.id.tv_plist);
 	    
 	    man.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -127,7 +133,18 @@ public class SetupPeopleActivity extends Activity {
  	    		Log.d("Fail: ", "unsuccessful retrieval");
  	    	}
  	    }
- 	    user_properties.append("\n" + String.valueOf(db.getAllPeopleFor(USERNAME).size()));
+ 	    
+ 	    List<Person> pList = db.getAllPeopleFor(USERNAME);
+ 	    if(pList!=null){
+ 	    	tv_plist.setText("");
+ 	    	for(int i=0; i<pList.size(); i++){
+ 	    		Person temp = pList.get(i);
+ 	    		tv_plist.append("Name: " + temp.getName() + " Age: " + temp.getAge() + "\n");
+ 	    	}
+ 	    } else {
+ 	    	tv_plist.setText("nobody added yet");
+ 	    }
+ 	    
  	    db.close();
 	}
 	

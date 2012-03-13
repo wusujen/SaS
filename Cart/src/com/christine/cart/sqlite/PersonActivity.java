@@ -1,5 +1,8 @@
 package com.christine.cart.sqlite;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.christine.cart.R;
 import com.christine.cart.SetupPeopleActivity;
 
@@ -8,23 +11,41 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PersonActivity extends Activity {
 
 	Button btn_submit;
+	Button btn_cancel;
 	TextView tv_title;
+	TextView tv_age;
+	TextView tv_weight;
+	TextView tv_height;
 	EditText et_name;
-	EditText et_age;
-	EditText et_gender;
-	EditText et_height;
-	EditText et_weight;
+	SeekBar sb_age;
+	SeekBar sb_weight;
+	Spinner sp_feet;
+	Spinner sp_inches;
+	Spinner sp_activity;
+	
 	
 	AccountDatabaseHelper db;
 	Person p;
 	String username;
+	int totalHeight;
+	int inHeight;
+	int ftHeight;
+	int activityLevel;
+	int age;
+	int weight;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -35,13 +56,19 @@ public class PersonActivity extends Activity {
 	    db = new AccountDatabaseHelper(this);
 	    
 	    tv_title = (TextView) findViewById(R.id.tv_title);
+	    tv_age = (TextView) findViewById(R.id.tv_age);
+	    tv_weight = (TextView) findViewById(R.id.tv_weight);
+	    tv_height = (TextView) findViewById(R.id.tv_height);
+	    
 	    et_name = (EditText) findViewById(R.id.et_name);
-	    et_age = (EditText) findViewById(R.id.et_age);
-	    et_gender = (EditText) findViewById(R.id.et_gender);
-	    et_height = (EditText) findViewById(R.id.et_height);
-	    et_weight = (EditText) findViewById(R.id.et_weight);
+	    sb_age = (SeekBar) findViewById(R.id.sb_age);
+	    sb_weight = (SeekBar) findViewById(R.id.sb_weight);
+	    sp_feet = (Spinner) findViewById(R.id.sp_feet);
+	    sp_inches = (Spinner) findViewById(R.id.sp_inches);
+	    sp_activity = (Spinner) findViewById(R.id.sp_activity);
 	    
 	    btn_submit = (Button) findViewById(R.id.btn_submit);
+	    btn_cancel = (Button) findViewById(R.id.btn_cancel);
 	    
 	    
 	    Bundle extras = getIntent().getExtras();
@@ -51,28 +78,157 @@ public class PersonActivity extends Activity {
 	    switch(requestCode){
 	    	case SetupPeopleActivity.MAN:
 	    		p = Person.createPerson(requestCode, username);
+	    		tv_title.append(" him:");
 	    		break;
 	    	case SetupPeopleActivity.WOMAN:
 	    		p = Person.createPerson(requestCode, username);
+	    		tv_title.append(" her:");
 	    		break;
 	    	case SetupPeopleActivity.BOY:
 	    		p = Person.createPerson(requestCode, username);
+	    		tv_title.append(" him:");
 	    		break;
 	    	case SetupPeopleActivity.GIRL:
 	    		p = Person.createPerson(requestCode, username);
+	    		tv_title.append(" her:");
 	    		break;
 	    	default:
 	    		throw new RuntimeException("Not implemented");
 	    }
 	    
-	    //db.addPerson(p);
+	    //setup the default values for each of the UI elements
+	    //based upon what was passed via the previous intent
+	    et_name.setHint(p.getName());
 	    
-	    et_name.setText(p.getName());
-	    et_age.setText(Integer.toString(p.getAge()));
-	    et_gender.setText(p.getGender());
-	    et_height.setText(Integer.toString(p.getHeight()));
-	    et_weight.setText(Integer.toString(p.getWeight()));
+	    //get the height and divide it
+	    totalHeight = p.getHeight();
+	    inHeight = totalHeight%12;
+	    ftHeight = (totalHeight-inHeight)/12;
 	    
+	    //setup the Feet spinner
+	    List<String> ft = new ArrayList<String>();
+	    for(int i=2; i<10; i++){
+	    	ft.add(String.valueOf(i) + " feet");
+	    }
+	    ArrayAdapter<String> feet = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ft);
+	    feet.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    sp_feet.setAdapter(feet);
+	    sp_feet.setSelection(ftHeight-2); 	//the starting selection
+	    sp_feet.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				ftHeight = arg2+2;
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				return;
+			}
+	    });
+	    
+	    //setup the inches spinner
+	    List<String> in = new ArrayList<String>();
+	    for(int i=0; i<13; i++){
+	    	if(i == 1){
+	    		in.add(i + " inch");
+	    	} else {
+	    		in.add(i + " inches");
+	    	}
+	    }
+	    ArrayAdapter<String> inch = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, in);
+	    inch.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    sp_inches.setAdapter(inch);
+	    sp_inches.setSelection(inHeight);	//the starting selection
+	    sp_inches.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				inHeight = arg2;
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				return;
+			}
+	    });
+	    
+	    //setup the Activity Level spinner
+	    ArrayAdapter<String> aLevel = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, 
+	    		new String[]{"Sedentary", "Lightly Active", "Moderately Active", "Very Active"});
+	    aLevel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    sp_activity.setAdapter(aLevel);
+	    sp_activity.setSelection(0);
+	    sp_activity.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				activityLevel = arg2;
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				return;
+			}
+	    	
+	    });
+	    
+	    //to setup the age slider
+	    age = p.getAge();
+	    if(age<19){
+	    	sb_age.setMax(17);
+	    	sb_age.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+				public void onStopTrackingTouch(SeekBar seekBar) {
+					return;
+				}
+				
+				public void onStartTrackingTouch(SeekBar seekBar) {
+					return;
+				}
+				
+				public void onProgressChanged(SeekBar seekBar, int progress,
+						boolean fromUser) {
+					age = progress+1;
+					tv_age.setText("age: " + Integer.toString(age) + " years");
+				}
+			});
+	    } else {
+	    	sb_age.setMax(100);
+	    	sb_age.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+				public void onStopTrackingTouch(SeekBar seekBar) {
+					return;
+				}
+				
+				public void onStartTrackingTouch(SeekBar seekBar) {
+					return;
+				}
+				
+				public void onProgressChanged(SeekBar seekBar, int progress,
+						boolean fromUser) {
+					age = progress+19;
+					tv_age.setText("age: " + Integer.toString(age) + " years");
+				}
+			});
+	    }
+	    
+	    
+	    //setup Weight slider
+	    sb_weight.setMax(800);
+	    sb_weight.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				return;
+			}
+			
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				return;
+			}
+			
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				weight = progress;
+				tv_weight.setText("weight: " + Integer.toString(weight) + " pounds");
+			}
+		});
 	    
 	    btn_submit.setOnClickListener( new View.OnClickListener() {
 			
@@ -80,33 +236,40 @@ public class PersonActivity extends Activity {
 				//get the person and store it into the db
 				Person newP = p;
 				String n = et_name.getText().toString();
-				int a = Integer.valueOf(et_age.getText().toString());
-				String g = et_gender.getText().toString();
-				int h = Integer.valueOf(et_height.getText().toString());
-				int w = Integer.valueOf(et_weight.getText().toString());
+				int h = inHeight + (ftHeight*12);
 				
 				if(n!=null || n!=p.getName()){
 					newP.setName(n);
 				} 
-				if(a!=0 || a!=p.getAge()){
-					newP.setAge(a);
-				}
-				if(g!=null || g!=p.getGender()){
-					newP.setGender(g);
+				if(age!=0 || age!=p.getAge()){
+					newP.setAge(age);
+				} else {
+					Toast.makeText(v.getContext(), "Please enter a valid age!", Toast.LENGTH_LONG);
 				}
 				if(h!=0 || h!=p.getHeight()){
 					newP.setHeight(h);
 				}
-				if(w!=0 || w!=p.getWeight()){
-					newP.setWeight(w);
+				if(weight!=0 || weight!=p.getWeight()){
+					newP.setWeight(weight);
+				} else{
+					Toast.makeText(v.getContext(), "Please enter a valid weight!",  Toast.LENGTH_LONG);
 				}
-				p.setActivity(0);
+				p.setActivity(activityLevel);
 				
 				db.addPerson(newP);
-				Log.d("Insert..","Person Added");
+				Log.d("Insert..","Person Added: ");
 				Intent personSaved = new Intent();
 				personSaved.putExtra("username", username);
 				setResult(RESULT_OK, personSaved);
+				finish();
+			}
+		});
+	    
+	    btn_cancel.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				Intent cancel = new Intent();
+				setResult(RESULT_CANCELED, cancel);
 				finish();
 			}
 		});

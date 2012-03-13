@@ -7,7 +7,7 @@ public class Person {
 	String _username;
 	String _name;
 	int _age;
-	String _gender;
+	String _gender; //m or f
 	int _height; //in inches
 	int _weight; //in pounds
 	int _activity; //0=>sedentary, 1=>moderately active, 2=>very active
@@ -25,9 +25,9 @@ public class Person {
 			case SetupPeopleActivity.WOMAN:
 				return new Person(username, 50, "f", 64, 164, 0);
 			case SetupPeopleActivity.BOY:
-				return new Person(username, 9, "m", 65, 53, 0);
+				return new Person(username, 9, "m", 55, 53, 0);
 			case SetupPeopleActivity.GIRL:
-				return new Person(username, 9, "f", 64, 53, 0);
+				return new Person(username, 9, "f", 54, 53, 0);
 			default:
 				return null;
 		}
