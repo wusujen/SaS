@@ -1,26 +1,41 @@
 package com.christine.cart;
 
+
+import java.util.List;
+
 import com.christine.cart.intentResult.IntentResult;
 import com.christine.cart.sqlite.Account;
+import com.christine.cart.sqlite.AccountDatabaseHelper;
+import com.christine.cart.sqlite.GroceryItem;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.SlidingDrawer;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.SlidingDrawer.OnDrawerCloseListener;
+import android.widget.SlidingDrawer.OnDrawerOpenListener;
 
 public class FooterActivity extends Activity {
 
 	
 	Button searchItem;
 	Button scanItem;
-	
+	TextView outputText;
+	SlidingDrawer sd_itemlist;
+	ListView sd_list;
+
 	InputMethodManager manager;
 	Context inputsContext;
 
@@ -40,7 +55,10 @@ public class FooterActivity extends Activity {
 	public static String NAME;
 	Account act;
 	
+	private static AccountDatabaseHelper db;
+	
 	boolean onUPCResult=false;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -59,6 +77,39 @@ public class FooterActivity extends Activity {
 	        }
         } 	    
 	    
+        //start the db
+        db = new AccountDatabaseHelper(this);
+        
+        //initiates the listview
+        sd_list = (ListView) findViewById(R.id.sd_list);
+        
+        //get the information for listView--all of the items that are in currentcart for that user
+        List<GroceryItem> ccart = db.getAllGroceryItemsOf(NAME);
+        ArrayAdapter<String> ccartList = new ArrayAdapter<String>(this, 
+        		android.R.layout.simple_list_item_checked);
+        for(int i=0; i<ccart.size(); i++){
+        	GroceryItem temp = ccart.get(i);
+        	ccartList.add(temp.getItemName());
+        }
+        sd_list.setAdapter(ccartList);
+        sd_list.setBackgroundColor(Color.WHITE);
+        
+        
+        
+        //populates controls the sliding drawer
+        sd_itemlist = (SlidingDrawer) findViewById(R.id.sd_itemlist);
+        sd_itemlist.setOnDrawerOpenListener( new OnDrawerOpenListener(){
+        	public void onDrawerOpened(){
+        		Log.d("FooterActivity", "Drawer Opened");
+        	}
+        });
+        sd_itemlist.setOnDrawerCloseListener(new OnDrawerCloseListener(){
+        	public void onDrawerClosed(){
+        		Log.d("FooterActivity", "Drawer Closed");
+        	}
+        });
+        
+        
 	    //Handles the PLU code
         searchItem=(Button) findViewById(R.id.btn_search);
 

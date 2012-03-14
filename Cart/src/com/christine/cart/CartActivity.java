@@ -2,7 +2,6 @@ package com.christine.cart;
 
 import java.util.List;
 
-import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountDatabaseHelper;
 import com.christine.cart.sqlite.GroceryItem;
 import com.christine.cart.sqlite.Item;
@@ -29,6 +28,7 @@ public class CartActivity extends FooterActivity {
 	Button scanItem;
 
 	Intent passedIntent;
+
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,6 @@ public class CartActivity extends FooterActivity {
         if(passedIntent != null){
 	        outputText.setText(NAME);
 	    }
-        
 
         checkout = (Button) findViewById(R.id.btn_checkout);
         checkout.setOnClickListener(new View.OnClickListener() {
