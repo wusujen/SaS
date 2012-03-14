@@ -23,11 +23,14 @@ public class DaysActivity extends Activity {
 	    
 	    int updateDB = db.updateAccountDays(act, dayNumber);
 	    Log.d("Updated: ", "Update successful, inserted " + updateDB + " into row");
+	    
+	    Account newAct = db.getAccount(username);
 	    db.close();
 	    
 	    if(updateDB!=0){
 	    	Intent startCart = new Intent();
 	    	startCart.putExtra("username", username);
+	    	startCart.putExtra("account", newAct);
 	    	setResult(RESULT_OK, startCart);
 	    	finish();
 	    } else {

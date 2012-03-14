@@ -93,7 +93,8 @@ public class SetupDaysActivity extends Activity {
 		if(requestCode==SAVE_PEOPLE){
 			if(resultCode==RESULT_OK){
 				Intent startCart = new Intent(this, CartActivity.class);
-				startCart.putExtra("account", act);
+				startCart.putExtra("account", data.getParcelableExtra("account"));
+				startCart.putExtra("days", days);
 				startCart.putExtra("code", 0);
 				startActivity(startCart);
 			} else {

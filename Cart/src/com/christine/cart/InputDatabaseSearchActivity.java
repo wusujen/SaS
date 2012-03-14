@@ -151,6 +151,7 @@ public class InputDatabaseSearchActivity extends Activity {
 	
 	void startShowResultsIntent(String results){
 		Intent showResults = new Intent(this,CartActivity.class);
+		showResults.putExtra("check", 1);
 		showResults.putExtra("results", results);
 		showResults.putExtra("account", act);
 		startActivity(showResults);

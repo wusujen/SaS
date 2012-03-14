@@ -33,13 +33,17 @@ public class CartActivity extends FooterActivity {
 	Button scanItem;
 
 	Intent passedIntent;
+	GraphView graph;
 
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ViewGroup vg = (ViewGroup) findViewById(R.id.data);
         ViewGroup.inflate(CartActivity.this, R.layout.cart, vg);
         
+        graph = (GraphView) this.findViewById(R.id.graphview);
+        graph.setDays(days);
         
         test = (Button) findViewById(R.id.btn_test);
         test.setOnClickListener(new View.OnClickListener() {
@@ -70,15 +74,37 @@ public class CartActivity extends FooterActivity {
     	
     	passedIntent = getIntent();
     	
+    	
     	results = passedIntent.getStringExtra("results");
-    	if(results != null){
-    		String temp = results;
-    		outputText.append("\n" + temp);
-    	} else{
-    		Toast noMatch=Toast.makeText(inputsContext, "There was no match in the DB",Toast.LENGTH_SHORT);
-    		noMatch.setGravity(Gravity.TOP|Gravity.LEFT,0,150);
-    		noMatch.show();
+    	int check = passedIntent.getIntExtra("check",0);
+    	if(check==1){
+	    	if(results != null){
+	    		String temp = results;
+	    		Toast result=Toast.makeText(inputsContext, "You just added " + temp,Toast.LENGTH_SHORT);
+	    		result.setGravity(Gravity.TOP|Gravity.LEFT,0,150);
+	    		result.show();
+
+	    	} else{
+	    		Toast noMatch=Toast.makeText(inputsContext, "There was no match in the DB",Toast.LENGTH_SHORT);
+	    		noMatch.setGravity(Gravity.TOP|Gravity.LEFT,0,150);
+	    		noMatch.show();
+	    	}
+    	}  
+    	
+
+    	
+    	PreviousHistory pH = getCartTotalsFor(NAME);
+    	if(pH!=null ){
+    		int nH = Integer.valueOf(Math.round(pH.getCalories()));
+	    	graph.setnH(nH);
+	    	 Log.d("CartActivity", "set to" + nH);
+	    	graph.setDays(days);
+	        graph.postInvalidate();
+	        
+    	} else {
+    		graph.setnH(0);
     	}
+    	
     }
     
     public static String getAllPeopleDescFor(String username){
@@ -104,7 +130,25 @@ public class CartActivity extends FooterActivity {
      * RecDailyValues
      * 
      */
-    public static String getRDVTotalsFor(String username){
+    public static RecDailyValues getRDVTotalsFor(String username){
+    	List<Person> p = db.getAllPeopleFor(username);
+    	List<RecDailyValues> rdvList = new ArrayList<RecDailyValues>();
+    	if(p!=null){
+	    	for(int i=0; i<p.size(); i++){
+	    		RecDailyValues tempRDV = new RecDailyValues(p.get(i));
+	    		rdvList.add(tempRDV);
+	    	} 
+    	} else {
+    		db.close();
+    		return null;
+    	}
+	    
+    	db.close();
+    	RecDailyValues total = getTotalRDVOf(rdvList);
+    	return total;
+    }
+    
+    public static String getStringRDVTotalsFor(String username){
     	List<Person> p = db.getAllPeopleFor(username);
     	List<RecDailyValues> rdvList = new ArrayList<RecDailyValues>();
     	if(p!=null){
@@ -158,64 +202,7 @@ public class CartActivity extends FooterActivity {
     	return total;
     }
     
-    /**
-     * TOTAL VALUES
-     * Add up all of the values of the
-     * current_cart items!
-     */
-    public PreviousHistory getCartTotalsFor(String username){
-    	NutritionDatabaseHelper ndb = new NutritionDatabaseHelper(this);
-    	AccountDatabaseHelper adb = new AccountDatabaseHelper(this);
-    	
-    	List<GroceryItem> allGItems = adb.getAllGroceryItemsOf(username);
-    	PreviousHistory cartTotals = new PreviousHistory();
-    	cartTotals.setId(-1);
-    	cartTotals.setUsername(username);
-    	
-    	for(int i=0; i<allGItems.size(); i++){
-    		// retrieve the grocery item from the array
-    		GroceryItem tempGrocery = allGItems.get(i);
-    		
-    		// get the Quantity of the item
-    		int quantity = tempGrocery.getQuantity();
-    		
-    		// locate the item in the nutrition database
-    		Item tempItem = ndb.getItem(tempGrocery.getItemName());
-    		
-    		// add the totals to the current cartTotal, remembering
-    		// to multiply by the quantity!
-    		cartTotals.setCalories((cartTotals.getCalories() + tempItem.getCalories())*quantity);
-    		cartTotals.setProtein((cartTotals.getProtein() + tempItem.getProtein())*quantity);
-    		cartTotals.setFat((cartTotals.getFat() + tempItem.getFat())*quantity);
-    		cartTotals.setCarbohydrate((cartTotals.getCarbohydrate() + tempItem.getCarbohydrate())*quantity);
-    		cartTotals.setFiber((cartTotals.getFiber() + tempItem.getFiber())*quantity);
-    		cartTotals.setSugar((cartTotals.getSugar() + tempItem.getSugar())*quantity);
-    		cartTotals.setCalcium((cartTotals.getCalcium() + tempItem.getCalcium())*quantity);
-    		cartTotals.setIron((cartTotals.getIron() + tempItem.getIron())*quantity);
-    		cartTotals.setMagnesium((cartTotals.getMagnesium() + tempItem.getMagnesium())*quantity);
-    		cartTotals.setPotassium((cartTotals.getPotassium() + tempItem.getPotassium())*quantity);
-    		cartTotals.setSodium((cartTotals.getSodium() + tempItem.getSodium())*quantity);
-    		cartTotals.setZinc((cartTotals.getZinc() + tempItem.getZinc())*quantity);
-    		cartTotals.setVitC((cartTotals.getVitC() + tempItem.getVitC())*quantity);
-    		cartTotals.setVitB6((cartTotals.getVitB6() + tempItem.getVitB6())*quantity);
-    		cartTotals.setVitB12((cartTotals.getVitB12() + tempItem.getVitB12())*quantity);
-    		cartTotals.setVitA((cartTotals.getVitA() + tempItem.getVitA())*quantity);
-    		cartTotals.setVitE((cartTotals.getVitE() + tempItem.getVitE())*quantity);
-    		cartTotals.setVitD((cartTotals.getVitD() + tempItem.getVitD())*quantity);
-    		cartTotals.setVitK((cartTotals.getVitK() + tempItem.getVitK())*quantity);
-    		cartTotals.setFatSat((cartTotals.getFatSat() + tempItem.getFatSat())*quantity);
-    		cartTotals.setFatMono((cartTotals.getFatMono() + tempItem.getFatMono())*quantity);
-    		cartTotals.setFatPoly((cartTotals.getFatPoly() + tempItem.getFatPoly())*quantity);
-    		cartTotals.setCholesterol((cartTotals.getCholesterol() + tempItem.getCholesterol())*quantity);
-    		cartTotals.setDays(-1);
-    	}
-    	
-    	Log.d("Created: ", "Cart Total for : " + cartTotals.getUsername() 
-    			+ "Total Calories: " + cartTotals.getCalories());
-    	adb.close();
-    	ndb.close();
-    	return cartTotals;
-    }
+    
     
     
  

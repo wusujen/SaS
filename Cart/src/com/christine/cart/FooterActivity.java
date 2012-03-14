@@ -7,6 +7,10 @@ import com.christine.cart.intentResult.IntentResult;
 import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountDatabaseHelper;
 import com.christine.cart.sqlite.GroceryItem;
+import com.christine.cart.sqlite.Item;
+import com.christine.cart.sqlite.NutritionDatabaseHelper;
+import com.christine.cart.sqlite.PreviousHistory;
+import com.christine.cart.visual.GraphView;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -32,7 +36,6 @@ public class FooterActivity extends Activity {
 	
 	Button searchItem;
 	Button scanItem;
-	TextView outputText;
 	SlidingDrawer sd_itemlist;
 	ListView sd_list;
 
@@ -44,6 +47,8 @@ public class FooterActivity extends Activity {
 	String resultSize;
 	String resultMessage;
 	String resultDesc;
+	
+	GraphView graph;
 	
 	//information required to start the scan intent
 	public static final String PACKAGE = "com.christine.cart";
@@ -57,7 +62,7 @@ public class FooterActivity extends Activity {
 	
 	protected static AccountDatabaseHelper db;
 	boolean onUPCResult=false;
-	
+	public static int days;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -72,10 +77,16 @@ public class FooterActivity extends Activity {
 	        	act = tempAccount;
 	        	Log.d("FooterActivity: ", "This is act name " + act.getName());
 	        	NAME = act.getName();
+	        	int tdays = tempAccount.getDays();
+	        	if(tdays!=0){
+	    			days=tdays;
+	    			Log.d("days", "days are set " + days);
+	    		} 
 	        } else{
 	        	throw new RuntimeException("CartActivity: account passed was null");
 	        }
-        } 	    
+        }
+        
 	    
         //start the db
         db = new AccountDatabaseHelper(this);
@@ -86,31 +97,33 @@ public class FooterActivity extends Activity {
         //get the information for listView--all of the items that are in currentcart for that user
         List<GroceryItem> ccart = db.getAllGroceryItemsOf(NAME);
         db.close();
-        ArrayAdapter<String> ccartList = new ArrayAdapter<String>(this, 
-        		android.R.layout.simple_list_item_checked);
-        for(int i=0; i<ccart.size(); i++){
-        	GroceryItem temp = ccart.get(i);
-        	ccartList.add(String.valueOf(temp.getQuantity()) + " " + temp.getItemName());
-        }
-        sd_list.setAdapter(ccartList);
-        sd_list.setBackgroundColor(Color.WHITE);
+        if(ccart!=null){
+        	ArrayAdapter<String> ccartList = new ArrayAdapter<String>(this, 
+            		android.R.layout.simple_list_item_checked);
+	        for(int i=0; i<ccart.size(); i++){
+	        	GroceryItem temp = ccart.get(i);
+	        	ccartList.add(String.valueOf(temp.getQuantity()) + " " + temp.getItemName());
+	        }
+	        
+	        sd_list.setAdapter(ccartList);
+	        sd_list.setBackgroundColor(Color.WHITE);
+	        
+	        //for the sliding drawer in footer activity
+	        //populates controls the sliding drawer
+	          sd_itemlist = (SlidingDrawer) findViewById(R.id.sd_itemlist);
+	          sd_itemlist.setOnDrawerOpenListener( new OnDrawerOpenListener(){
+	          	public void onDrawerOpened(){
+	          		Log.d("FooterActivity", "Drawer Opened");
+	          	}
+	          });
+	          sd_itemlist.setOnDrawerCloseListener(new OnDrawerCloseListener(){
+	          	public void onDrawerClosed(){
+	          		Log.d("FooterActivity", "Drawer Closed");
+	          	}
+	          });    
+        } 
         
-        //for the sliding drawer in footer activity
-        //populates controls the sliding drawer
-          sd_itemlist = (SlidingDrawer) findViewById(R.id.sd_itemlist);
-          sd_itemlist.setOnDrawerOpenListener( new OnDrawerOpenListener(){
-          	public void onDrawerOpened(){
-          		Log.d("FooterActivity", "Drawer Opened");
-          	}
-          });
-          sd_itemlist.setOnDrawerCloseListener(new OnDrawerCloseListener(){
-          	public void onDrawerClosed(){
-          		Log.d("FooterActivity", "Drawer Closed");
-          	}
-          });        
-        
-        
-        
+          
 	    //Handles the PLU code
         searchItem=(Button) findViewById(R.id.btn_search);
 
@@ -194,4 +207,67 @@ public class FooterActivity extends Activity {
 		return new IntentResult(null,null);
 	}//end IntentResult
 
+	/**
+     * TOTAL VALUES
+     * Add up all of the values of the
+     * current_cart items!
+     */
+    public PreviousHistory getCartTotalsFor(String username){
+    	NutritionDatabaseHelper ndb = new NutritionDatabaseHelper(this);
+    	AccountDatabaseHelper adb = new AccountDatabaseHelper(this);
+    	
+    	List<GroceryItem> allGItems = adb.getAllGroceryItemsOf(username);
+    	PreviousHistory cartTotals = new PreviousHistory();
+    	if(allGItems!=null){
+	    	cartTotals.setId(-1);
+	    	cartTotals.setUsername(username);
+	    	
+	    	for(int i=0; i<allGItems.size(); i++){
+	    		// retrieve the grocery item from the array
+	    		GroceryItem tempGrocery = allGItems.get(i);
+	    		
+	    		// get the Quantity of the item
+	    		int quantity = tempGrocery.getQuantity();
+	    		
+	    		// locate the item in the nutrition database
+	    		Item tempItem = ndb.getItem(tempGrocery.getItemName());
+	    		
+	    		// add the totals to the current cartTotal, remembering
+	    		// to multiply by the quantity!
+	    		cartTotals.setCalories((cartTotals.getCalories() + tempItem.getCalories())*quantity);
+	    		cartTotals.setProtein((cartTotals.getProtein() + tempItem.getProtein())*quantity);
+	    		cartTotals.setFat((cartTotals.getFat() + tempItem.getFat())*quantity);
+	    		cartTotals.setCarbohydrate((cartTotals.getCarbohydrate() + tempItem.getCarbohydrate())*quantity);
+	    		cartTotals.setFiber((cartTotals.getFiber() + tempItem.getFiber())*quantity);
+	    		cartTotals.setSugar((cartTotals.getSugar() + tempItem.getSugar())*quantity);
+	    		cartTotals.setCalcium((cartTotals.getCalcium() + tempItem.getCalcium())*quantity);
+	    		cartTotals.setIron((cartTotals.getIron() + tempItem.getIron())*quantity);
+	    		cartTotals.setMagnesium((cartTotals.getMagnesium() + tempItem.getMagnesium())*quantity);
+	    		cartTotals.setPotassium((cartTotals.getPotassium() + tempItem.getPotassium())*quantity);
+	    		cartTotals.setSodium((cartTotals.getSodium() + tempItem.getSodium())*quantity);
+	    		cartTotals.setZinc((cartTotals.getZinc() + tempItem.getZinc())*quantity);
+	    		cartTotals.setVitC((cartTotals.getVitC() + tempItem.getVitC())*quantity);
+	    		cartTotals.setVitB6((cartTotals.getVitB6() + tempItem.getVitB6())*quantity);
+	    		cartTotals.setVitB12((cartTotals.getVitB12() + tempItem.getVitB12())*quantity);
+	    		cartTotals.setVitA((cartTotals.getVitA() + tempItem.getVitA())*quantity);
+	    		cartTotals.setVitE((cartTotals.getVitE() + tempItem.getVitE())*quantity);
+	    		cartTotals.setVitD((cartTotals.getVitD() + tempItem.getVitD())*quantity);
+	    		cartTotals.setVitK((cartTotals.getVitK() + tempItem.getVitK())*quantity);
+	    		cartTotals.setFatSat((cartTotals.getFatSat() + tempItem.getFatSat())*quantity);
+	    		cartTotals.setFatMono((cartTotals.getFatMono() + tempItem.getFatMono())*quantity);
+	    		cartTotals.setFatPoly((cartTotals.getFatPoly() + tempItem.getFatPoly())*quantity);
+	    		cartTotals.setCholesterol((cartTotals.getCholesterol() + tempItem.getCholesterol())*quantity);
+	    		cartTotals.setDays(-1);
+	    	}
+	    	
+	    	Log.d("Created: ", "Cart Total for : " + cartTotals.getUsername() 
+	    			+ "Total Calories: " + cartTotals.getCalories());
+	    	adb.close();
+	    	ndb.close();
+	    	return cartTotals;
+    	} 
+    	ndb.close();
+    	adb.close();
+    	return null;
+    }
 }

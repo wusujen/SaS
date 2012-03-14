@@ -35,7 +35,7 @@ public class TestTotals extends Activity {
         tv_rdv = (TextView) findViewById(R.id.tv_rdv);
         tv_peoplelist = (TextView) findViewById(R.id.tv_peoplelist);
         if(NAME!=null){
-        	String rdvTotals = CartActivity.getRDVTotalsFor(NAME);
+        	String rdvTotals = CartActivity.getStringRDVTotalsFor(NAME);
         	String pTotals = CartActivity.getAllPeopleDescFor(NAME);
         	tv_rdv.setText(rdvTotals);
         	tv_peoplelist.setText(pTotals);
