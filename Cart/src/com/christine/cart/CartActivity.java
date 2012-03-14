@@ -10,8 +10,10 @@ import com.christine.cart.sqlite.NutritionDatabaseHelper;
 import com.christine.cart.sqlite.Person;
 import com.christine.cart.sqlite.PreviousHistory;
 import com.christine.cart.sqlite.RecDailyValues;
+import com.christine.cart.visual.GraphView;
 
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -38,8 +40,6 @@ public class CartActivity extends FooterActivity {
         ViewGroup vg = (ViewGroup) findViewById(R.id.data);
         ViewGroup.inflate(CartActivity.this, R.layout.cart, vg);
         
-        outputText = (TextView) findViewById(R.id.outputText);
-        passedIntent = getIntent();
         
         test = (Button) findViewById(R.id.btn_test);
         test.setOnClickListener(new View.OnClickListener() {
