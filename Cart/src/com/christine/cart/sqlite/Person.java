@@ -130,4 +130,37 @@ public class Person {
 	public void setActivity(int activity){
 		this._activity = activity;
 	}
+	
+	public int getInchHeight(){
+		return _height%12;
+	}
+	
+	public int getFeetHeight(){
+		int i = this.getInchHeight();
+		return (_height-i)/12;
+	}
+	
+	public String getActivityString(){
+		switch(_activity){
+		case 1:
+			return "Lightly Active";
+		case 2:
+			return "Moderately Active";
+		case 3:
+			return "Very Active";
+		default:
+			return "Sedentary";
+		}
+	}
+	
+	public String returnString(){
+		String v = "Name: " + _name + "\n" +
+					"Age: " + _age  + " years \n" +
+					"Gender: " + _gender  + "\n" +
+					"Height: " + this.getFeetHeight() + "ft " 
+					+ this.getInchHeight() + " in" + "\n" +
+					"Weight: " + _weight + " pounds \n" +
+					"Activity: " + this.getActivityString() + "\n";
+		return v;
+	}
 }

@@ -630,5 +630,31 @@ public class RecDailyValues {
 		public void setCholesterol(float cholesterol){
 			this._cholesterol = cholesterol;
 		}
+		
+		public String returnString(){
+			String v = "Calories: " + Math.round(_calories) + " kcal \n" +
+						"Protein: " + Math.round(_protein) + " g \n" +
+						"Total Fat: " + Math.round(_totalfats) + " g \n" +
+						"Carbohydrates: " + Math.round(_carbs) + " g \n" + 
+						"Fiber: " + Math.round(_fiber) + " g \n" + 
+						"Sugar: " + Math.round(_sugar) + " g \n" +
+						"Calcium: " + Math.round(_calcium) + " mg \n" +
+						"Iron: " + Math.round(_iron) + " mg \n" +
+						"Magnesium: " + Math.round(_magnesium) + " mg \n" +
+						"Potassium: " + Math.round(_potassium) + " g \n" +
+						"Sodium: " + Math.round(_sodium) + " g \n" +
+						"Zinc: " + Math.round(_zinc) + " mg \n" +
+						"Vitamin C: " + Math.round(_vitC) + " mg \n" +
+						"Vitamin D: " + Math.round(_vitD) + " ug \n" +
+						"Vitamin B6: " + Math.round(_vitB6) + " mg \n" +
+						"Vitamin B12: " + Math.round(_vitB12) + " mg \n" +
+						"Vitamin A: " + Math.round(_vitA) + " ug \n" +
+						"Vitamin E: " + Math.round(_vitE) + " mg \n" +
+						"Vitamin K: " + Math.round(_vitK) + " ug \n" +
+						"Saturated Fats: " + Math.round(_fatSat) + " g \n" +
+						"PolyUnsaturated Fats: " + Math.round(_fatPoly) + " g \n" +
+						"Cholesterol: " + Math.round(_cholesterol) + " mg \n";
+			return v;
+		}
 	
 }

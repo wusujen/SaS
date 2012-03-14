@@ -55,7 +55,7 @@ public class FooterActivity extends Activity {
 	public static String NAME;
 	Account act;
 	
-	private static AccountDatabaseHelper db;
+	protected static AccountDatabaseHelper db;
 	boolean onUPCResult=false;
 	
 	
@@ -85,11 +85,12 @@ public class FooterActivity extends Activity {
         
         //get the information for listView--all of the items that are in currentcart for that user
         List<GroceryItem> ccart = db.getAllGroceryItemsOf(NAME);
+        db.close();
         ArrayAdapter<String> ccartList = new ArrayAdapter<String>(this, 
         		android.R.layout.simple_list_item_checked);
         for(int i=0; i<ccart.size(); i++){
         	GroceryItem temp = ccart.get(i);
-        	ccartList.add(temp.getItemName());
+        	ccartList.add(String.valueOf(temp.getQuantity()) + " " + temp.getItemName());
         }
         sd_list.setAdapter(ccartList);
         sd_list.setBackgroundColor(Color.WHITE);

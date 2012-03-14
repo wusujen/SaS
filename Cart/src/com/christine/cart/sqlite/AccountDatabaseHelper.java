@@ -237,9 +237,6 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	    Cursor cursor = db.query(TABLE_PEOPLE, new String[] { PEOPLE_ID, PEOPLE_USER,
 	            PEOPLE_NAME, PEOPLE_AGE, PEOPLE_GENDER, PEOPLE_HEIGHT, PEOPLE_WEIGHT, PEOPLE_ACTIVITY }, PEOPLE_USER + "=?",
 	            new String[] { username.toString() }, null, null, null, null);
-	    if (cursor != null){
-	        cursor.moveToFirst();
-	    }
 	 
 	    // looping through all rows and adding to list
 	    if (cursor.moveToFirst()) {
@@ -256,8 +253,13 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	            // Adding person to list
 	            personList.add(person);
 	        } while (cursor.moveToNext());
+	    } else{
+	    	cursor.close();
+	    	db.close();
+	    	return null;
 	    }
 	    cursor.close();
+	    db.close();
 	    return personList;
 	}
 	

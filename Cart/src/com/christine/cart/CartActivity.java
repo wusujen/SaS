@@ -1,12 +1,15 @@
 package com.christine.cart;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.christine.cart.sqlite.AccountDatabaseHelper;
 import com.christine.cart.sqlite.GroceryItem;
 import com.christine.cart.sqlite.Item;
 import com.christine.cart.sqlite.NutritionDatabaseHelper;
+import com.christine.cart.sqlite.Person;
 import com.christine.cart.sqlite.PreviousHistory;
+import com.christine.cart.sqlite.RecDailyValues;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,24 +18,20 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.SlidingDrawer;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.SlidingDrawer.OnDrawerCloseListener;
-import android.widget.SlidingDrawer.OnDrawerOpenListener;
 
 public class CartActivity extends FooterActivity {
 	String results;
-	TextView outputText;
 	Button viewItemList;
 	Button checkout;
+	Button test;
 	
 	Button searchItem;
 	Button scanItem;
 
 	Intent passedIntent;
 
-	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +40,18 @@ public class CartActivity extends FooterActivity {
         
         outputText = (TextView) findViewById(R.id.outputText);
         passedIntent = getIntent();
-        if(passedIntent != null){
-	        outputText.setText(NAME);
-	    }
         
-
+        test = (Button) findViewById(R.id.btn_test);
+        test.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				Intent startTest = new Intent(CartActivity.this, TestTotals.class);
+				startTest.putExtra("username", NAME);
+				startActivityForResult(startTest, 0);
+			}
+		});
+        
+        
         checkout = (Button) findViewById(R.id.btn_checkout);
         checkout.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -56,8 +62,101 @@ public class CartActivity extends FooterActivity {
 				startActivity(goCheckout);
 			}
 		});
+
     }
     
+    protected void onResume(){
+    	super.onResume();
+    	
+    	passedIntent = getIntent();
+    	
+    	results = passedIntent.getStringExtra("results");
+    	if(results != null){
+    		String temp = results;
+    		outputText.append("\n" + temp);
+    	} else{
+    		Toast noMatch=Toast.makeText(inputsContext, "There was no match in the DB",Toast.LENGTH_SHORT);
+    		noMatch.setGravity(Gravity.TOP|Gravity.LEFT,0,150);
+    		noMatch.show();
+    	}
+    }
+    
+    public static String getAllPeopleDescFor(String username){
+    	List<Person> p = db.getAllPeopleFor(username);
+    	String allPeopleDesc = new String();
+    	if(p!=null){
+	    	for(int i=0; i<p.size(); i++){
+	    		Person temp = p.get(i);
+	    		allPeopleDesc = allPeopleDesc + "\n" + temp.returnString();
+	    	} 
+    	} else {
+    		db.close();
+    		return "No one has been added to Cart yet. Please check preferences.";
+    	}
+	    
+    	db.close();
+    	return allPeopleDesc;
+    }
+    
+    /**
+     * TOTAL RDR
+     * Get the total values of all of the
+     * RecDailyValues
+     * 
+     */
+    public static String getRDVTotalsFor(String username){
+    	List<Person> p = db.getAllPeopleFor(username);
+    	List<RecDailyValues> rdvList = new ArrayList<RecDailyValues>();
+    	if(p!=null){
+	    	for(int i=0; i<p.size(); i++){
+	    		RecDailyValues tempRDV = new RecDailyValues(p.get(i));
+	    		rdvList.add(tempRDV);
+	    	} 
+    	} else {
+    		db.close();
+    		return "No one has been added to Cart yet. Please check preferences.";
+    	}
+	    
+    	db.close();
+    	RecDailyValues total = getTotalRDVOf(rdvList);
+    	return total.returnString();
+    }
+    
+    public static RecDailyValues getTotalRDVOf(List<RecDailyValues> rdvList){
+    	
+    	RecDailyValues total = new RecDailyValues();
+    	
+    	for(int i=0; i<rdvList.size(); i++){
+    		//create a temporary RDV object
+    		RecDailyValues temp = rdvList.get(i);
+    		
+    		//set all of the properties based on the current and the sum of the new
+    		total.setCalories(total.getCalories() + temp.getCalories());
+    		total.setCalories((total.getCalories() + temp.getCalories()));
+    		total.setProtein((total.getProtein() + temp.getProtein()));
+    		total.setFat((total.getFat() + temp.getFat()));
+    		total.setCarbohydrate((total.getCarbohydrate() + temp.getCarbohydrate()));
+    		total.setFiber((total.getFiber() + temp.getFiber()));
+    		total.setSugar((total.getSugar() + temp.getSugar()));
+    		total.setCalcium((total.getCalcium() + temp.getCalcium()));
+    		total.setIron((total.getIron() + temp.getIron()));
+    		total.setMagnesium((total.getMagnesium() + temp.getMagnesium()));
+    		total.setPotassium((total.getPotassium() + temp.getPotassium()));
+    		total.setSodium((total.getSodium() + temp.getSodium()));
+    		total.setZinc((total.getZinc() + temp.getZinc()));
+    		total.setVitC((total.getVitC() + temp.getVitC()));
+    		total.setVitB6((total.getVitB6() + temp.getVitB6()));
+    		total.setVitB12((total.getVitB12() + temp.getVitB12()));
+    		total.setVitA((total.getVitA() + temp.getVitA()));
+    		total.setVitE((total.getVitE() + temp.getVitE()));
+    		total.setVitD((total.getVitD() + temp.getVitD()));
+    		total.setVitK((total.getVitK() + temp.getVitK()));
+    		total.setFatSat((total.getFatSat() + temp.getFatSat()));
+    		total.setFatPoly((total.getFatPoly() + temp.getFatPoly()));
+    		total.setCholesterol((total.getCholesterol() + temp.getCholesterol()));
+    	}
+    	return total;
+    }
     
     /**
      * TOTAL VALUES
@@ -118,19 +217,6 @@ public class CartActivity extends FooterActivity {
     	return cartTotals;
     }
     
-    protected void onResume(){
-    	super.onResume();
-    	
-    	passedIntent = getIntent();
-    	
-    	results = passedIntent.getStringExtra("results");
-    	if(results != null){
-    		String temp = results;
-    		outputText.append("\n" + temp);
-    	} else{
-    		Toast noMatch=Toast.makeText(inputsContext, "There was no match in the DB",Toast.LENGTH_SHORT);
-    		noMatch.setGravity(Gravity.TOP|Gravity.LEFT,0,150);
-    		noMatch.show();
-    	}
-    }
+    
+ 
 }
