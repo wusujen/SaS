@@ -58,6 +58,8 @@ public class FooterActivity extends Activity {
 	private static AccountDatabaseHelper db;
 	boolean onUPCResult=false;
 	
+	//temporary fix for textView
+	public String tempText;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

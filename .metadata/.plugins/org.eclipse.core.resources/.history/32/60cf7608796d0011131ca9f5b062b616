@@ -58,6 +58,8 @@ public class FooterActivity extends Activity {
 	private static AccountDatabaseHelper db;
 	boolean onUPCResult=false;
 	
+	//temporary fix for textView
+	public String tempText;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -94,20 +96,22 @@ public class FooterActivity extends Activity {
         sd_list.setAdapter(ccartList);
         sd_list.setBackgroundColor(Color.WHITE);
         
-        //for the sliding drawer in footer activity
-        //populates controls the sliding drawer
-          sd_itemlist = (SlidingDrawer) findViewById(R.id.sd_itemlist);
-          sd_itemlist.setOnDrawerOpenListener( new OnDrawerOpenListener(){
-          	public void onDrawerOpened(){
-          		Log.d("FooterActivity", "Drawer Opened");
-          	}
-          });
-          sd_itemlist.setOnDrawerCloseListener(new OnDrawerCloseListener(){
-          	public void onDrawerClosed(){
-          		Log.d("FooterActivity", "Drawer Closed");
-          	}
-          });        
         
+        
+        //populates controls the sliding drawer
+        sd_itemlist = (SlidingDrawer) findViewById(R.id.sd_itemlist);
+        sd_itemlist.setOnDrawerOpenListener( new OnDrawerOpenListener(){
+        	public void onDrawerOpened(){
+        		Log.d("FooterActivity", "Drawer Opened");
+        		tempText = outputText.getText();
+        		outputText.setText("");
+        	}
+        });
+        sd_itemlist.setOnDrawerCloseListener(new OnDrawerCloseListener(){
+        	public void onDrawerClosed(){
+        		Log.d("FooterActivity", "Drawer Closed");
+        	}
+        });
         
         
 	    //Handles the PLU code

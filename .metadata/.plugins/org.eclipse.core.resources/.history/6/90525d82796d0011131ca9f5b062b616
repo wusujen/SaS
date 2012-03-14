@@ -45,6 +45,22 @@ public class CartActivity extends FooterActivity {
 	        outputText.setText(NAME);
 	    }
         
+        //for the sliding drawer in footer activity
+      //populates controls the sliding drawer
+        sd_itemlist = (SlidingDrawer) findViewById(R.id.sd_itemlist);
+        sd_itemlist.setOnDrawerOpenListener( new OnDrawerOpenListener(){
+        	public void onDrawerOpened(){
+        		Log.d("FooterActivity", "Drawer Opened");
+        		tempText =  outputText.getText().toString();
+        		outputText.setText("");
+        	}
+        });
+        sd_itemlist.setOnDrawerCloseListener(new OnDrawerCloseListener(){
+        	public void onDrawerClosed(){
+        		Log.d("FooterActivity", "Drawer Closed");
+        		outputText.setText(tempText);
+        	}
+        });
 
         checkout = (Button) findViewById(R.id.btn_checkout);
         checkout.setOnClickListener(new View.OnClickListener() {

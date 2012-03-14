@@ -58,6 +58,8 @@ public class FooterActivity extends Activity {
 	private static AccountDatabaseHelper db;
 	boolean onUPCResult=false;
 	
+	//temporary fix for textView
+	public String tempText;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -100,11 +102,14 @@ public class FooterActivity extends Activity {
           sd_itemlist.setOnDrawerOpenListener( new OnDrawerOpenListener(){
           	public void onDrawerOpened(){
           		Log.d("FooterActivity", "Drawer Opened");
+          		tempText =  outputText.getText().toString();
+          		outputText.setText("");
           	}
           });
           sd_itemlist.setOnDrawerCloseListener(new OnDrawerCloseListener(){
           	public void onDrawerClosed(){
           		Log.d("FooterActivity", "Drawer Closed");
+          		outputText.setText(tempText);
           	}
           });        
         
