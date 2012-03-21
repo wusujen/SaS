@@ -121,6 +121,7 @@
 	    <activity android:name="TestTotals"
 	        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape"></activity>
+	    <activity android:name="GraphViewActivity"></activity>
 	    
 	    
     </application>

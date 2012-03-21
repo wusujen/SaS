@@ -1,8 +1,0 @@
-package com.christine.cart.sqlite;
-
-public class PreviousHistory {
-	Integer _id;
-	String username;
-	
-
-}
