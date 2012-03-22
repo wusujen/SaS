@@ -19,6 +19,7 @@ public class GraphView extends SurfaceView implements Runnable{
 	Canvas canvas;
 	
 	float _calorieRatio;
+	float _calorieAdded;
 	int _days;
 
 	public GraphView(Context context) {
@@ -36,9 +37,10 @@ public class GraphView extends SurfaceView implements Runnable{
 		holder = getHolder();
 	}
 
-	public GraphView(Context context, int calorieRatio, int days){
+	public GraphView(Context context, float calorieRatio, float calorieAdded, int days){
 		super(context);
 		_calorieRatio = calorieRatio;
+		_calorieAdded = calorieAdded;
 		_days = days;
 		holder = getHolder();
 	}
@@ -95,6 +97,7 @@ public class GraphView extends SurfaceView implements Runnable{
     	int diff = base-topline;
     	int interpolate = diff/(_days + 1);
 	    int baseHeight = Math.round(_calorieRatio*(float)diff);
+	    int addHeight = Math.round(_calorieAdded*(float)diff);
 	
 	    for(int i=0;i<_days; i++){
 	    	int b = base - (i*interpolate);
@@ -108,6 +111,11 @@ public class GraphView extends SurfaceView implements Runnable{
 		  } else {
 			  Log.d("GraphView", "calorieratio is 0");
 		  }
+	    
+	    if(_calorieAdded != 0){
+	    	Rect addRect = new Rect(40, base - baseHeight , 100, base - baseHeight + addHeight );
+	    	c.drawRect(addRect, grey);
+	    }
 	}
 	
 	public void setCalorieRatio(float calorieRatio){
@@ -116,6 +124,14 @@ public class GraphView extends SurfaceView implements Runnable{
 	
 	public float getCalorieRatio(){
 		return _calorieRatio;
+	}
+	
+	public void setCalorieAdded(float calorieAdded){
+		this._calorieAdded = calorieAdded;
+	}
+	
+	public float getCalorieAdded(){
+		return _calorieAdded;
 	}
 	
 	public void setDays(int days){

@@ -77,6 +77,7 @@ public class CartActivity extends Activity {
 	private static String USERNAME;
 	private static Account act;
 	private static AccountDatabaseHelper db;
+	private static NutritionDatabaseHelper ndb;
 	private boolean onUPCResult = false;
 
 	// information for graph settings
@@ -84,7 +85,8 @@ public class CartActivity extends Activity {
 	private static int totalCaloriesNeeded;
 	
 	private static Item selectedItem;
-	private static int selectedItemPosition;
+	private static int selectedItemPosition = -1;
+	private static ArrayAdapter<String> ccartList;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -121,6 +123,7 @@ public class CartActivity extends Activity {
 
 		// start the db
 		db = new AccountDatabaseHelper(this);
+		ndb = new NutritionDatabaseHelper(this);
 
 		// Set the total stats needed
 		RecDailyValues totalRDV = getRDVTotalsFor(USERNAME);
@@ -131,10 +134,10 @@ public class CartActivity extends Activity {
 
 		// get the information for listView: all of the items that are in
 		// currentcart for that user
-		List<GroceryItem> ccart = db.getAllGroceryItemsOf(USERNAME);
+		final List<GroceryItem> ccart = db.getAllGroceryItemsOf(USERNAME);
 		db.close();
 		if (ccart != null) {
-			ArrayAdapter<String> ccartList = new ArrayAdapter<String>(this,
+			ccartList = new ArrayAdapter<String>(this,
 					android.R.layout.simple_list_item_checked);
 			for (int i = 0; i < ccart.size(); i++) {
 				GroceryItem temp = ccart.get(i);
@@ -150,11 +153,27 @@ public class CartActivity extends Activity {
 
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-					if(position!=selectedItemPosition){
+					if(position!=selectedItemPosition || selectedItemPosition==-1){
 						sd_list.setSelection(position);
 						selectedItemPosition = position;
+						
+						//retrieve the item name and clean the string
+						String tempItemName = ccartList.getItem(position);
+						int pos = tempItemName.indexOf(" ");
+						String selectedItemName = tempItemName.substring(pos+1);
+						
+						//select the item in the nutrition database
+						selectedItem = ndb.getItem(selectedItemName);
+						
+						float newCals = selectedItem.getCalories();
+						int itemQuantity = ccart.get(position).getQuantity();
+						graph.setCalorieAdded(newCals * itemQuantity /(float) (totalCaloriesNeeded * days));
+						Log.d("CartActivity: ", "Calorie Added: " + graph.getCalorieAdded());
+						
+						ndb.close();
 					} else {
 						sd_list.clearChoices();
+						graph.setCalorieAdded(0);
 					}
 				}	
 			});
@@ -263,7 +282,9 @@ public class CartActivity extends Activity {
 		if (check == 1) {
 			if (results != null) {
 				String temp = results;
-				Log.d("CartActivity: ", "Result is " + temp);
+				ndb = new NutritionDatabaseHelper(this);
+				selectedItem = ndb.getItem(results);
+				ndb.close();
 			} else {
 				Toast noMatch = Toast.makeText(inputsContext,
 						"There was no match in the DB", Toast.LENGTH_SHORT);
@@ -278,14 +299,13 @@ public class CartActivity extends Activity {
 					.getCalories()));
 			graph.setCalorieRatio((float) currentCaloricContent
 					/ (float) (totalCaloriesNeeded * days));
-			Log.d("CartActivity", "Current Caloric content set to "
-					+ currentCaloricContent + "Total calories needed: "
-					+ (totalCaloriesNeeded * days));
 			graph.setDays(days);
+			
 			graph.postInvalidate();
 
 		} else {
 			graph.setCalorieRatio(0);
+			graph.setCalorieAdded(0);
 		}
 
 	}
