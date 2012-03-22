@@ -54,23 +54,19 @@ public class InputDatabaseSearchActivity extends Activity {
 	    String ifPLU=itemInfo.getString("plu");
 	    if(ifPLU != null){
 	    	pluCode = ifPLU;
-	    	Log.d("PLU Code: ", pluCode);
 	    }
 	    
 	    String ifBarcode=itemInfo.getString("resultDesc");
 	    if(ifBarcode != null){
 	    	barcodeItem = ifBarcode;
-	    	Log.d("Barcode Code: ", "Barcode :" + barcodeItem);
+	    	//Log.d("Barcode Code: ", "Barcode :" + barcodeItem);
 	    }
 
         ndb = startNutritionDB();
         adb = startAccountDB();
 	 	
 	 	if(pluCode != null){ 
-	 		Log.d("PLU Code: ", "Plu code: " + pluCode);
 	 	    String itemName = ndb.getPLUItem(Integer.parseInt(pluCode));
-	 	    Log.d("Item Name from PLU : ", "Item Name " + itemName);
-	 	    
 	 	    GroceryItem resultItem = ndb.getGroceryItem(itemName, username);
 	 	    
 	 	    if(resultItem!=null){
@@ -83,8 +79,8 @@ public class InputDatabaseSearchActivity extends Activity {
 	 	    		resultItem.setQuantity(q+1);
 	 	    		
 	 	    		adb.updateGroceryItem(resultItem);
-	 	    		Log.d("Result Item: ", "Result Item: " + resultItem.getItemName() + 
-	 	    				"Result Quantity: " + resultItem.getQuantity());
+	 	    		//Log.d("Result Item: ", "Result Item: " + resultItem.getItemName() + 
+	 	    				//"Result Quantity: " + resultItem.getQuantity());
 			        adb.close();
 			        ndb.close();
 			        startShowResultsIntent(result);
@@ -92,15 +88,17 @@ public class InputDatabaseSearchActivity extends Activity {
 	 	    		resultItem.setQuantity(1);
 	 	    		
 	 	    		adb.addGroceryItem(resultItem);
-	 	    		Log.d("Result Item: ", "Result Item: " + resultItem.getItemName() + 
-	 	    				"Result Quantity: " + resultItem.getQuantity());
+	 	    		//Log.d("Result Item: ", "Result Item: " + resultItem.getItemName() + 
+	 	    				//"Result Quantity: " + resultItem.getQuantity());
 	 	    		adb.close();
 			        ndb.close();
 			        startShowResultsIntent(result);
 	 	    	}
 
 	 	    } else {
-	 	    	throw new RuntimeException("Item was null");
+	 	    	adb.close();
+	 	    	ndb.close();
+	 	    	startShowResultsIntent("e");
 	 	    }
 	 	}
 	 	else if(barcodeItem!=null){
@@ -113,8 +111,8 @@ public class InputDatabaseSearchActivity extends Activity {
  	    		resultItem.setQuantity(q+1);
  	    		
  	    		adb.updateGroceryItem(resultItem);
- 	    		Log.d("Result Item: ", "Result Item: " + resultItem.getItemName() + 
- 	    				"Result Quantity: " + resultItem.getQuantity());
+ 	    		//Log.d("Result Item: ", "Result Item: " + resultItem.getItemName() + 
+ 	    				//"Result Quantity: " + resultItem.getQuantity());
 		        adb.close();
 		        ndb.close();
 		        startShowResultsIntent(barcodeItem);
@@ -122,8 +120,8 @@ public class InputDatabaseSearchActivity extends Activity {
  	    		resultItem.setQuantity(1);
  	    		
  	    		adb.addGroceryItem(resultItem);
- 	    		Log.d("Result Item: ", "Result Item: " + resultItem.getItemName() + 
- 	    				"Result Quantity: " + resultItem.getQuantity());
+ 	    		//Log.d("Result Item: ", "Result Item: " + resultItem.getItemName() + 
+ 	    				//"Result Quantity: " + resultItem.getQuantity());
  	    		adb.close();
 		        ndb.close();
 		        startShowResultsIntent(barcodeItem);
@@ -131,7 +129,7 @@ public class InputDatabaseSearchActivity extends Activity {
 	 	} else{
 	 		adb.close();
 	 		ndb.close();
-	 		throw new RuntimeException ("All inputs were null.");
+	 		startShowResultsIntent("e");
 	 	}
 	}
 
@@ -142,12 +140,12 @@ public class InputDatabaseSearchActivity extends Activity {
 	 * Activity, and stores any results that may have been returned
 	 * from the nutrition database search
 	 **/
-	void startShowResultsIntent(ArrayList<String> results){
+	/*void startShowResultsIntent(ArrayList<String> results){
 		Intent showResults = new Intent(this,CartActivity.class);
 		showResults.putStringArrayListExtra("results", results);
 		showResults.putExtra("account", act);
 		startActivity(showResults);
-	}
+	}*/
 	
 	void startShowResultsIntent(String results){
 		Intent showResults = new Intent(this,CartActivity.class);
