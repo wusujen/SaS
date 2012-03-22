@@ -500,6 +500,7 @@ public class CartActivity extends Activity {
 
 			// set all of the properties based on the current and the sum of the
 			total.setCalories(total.getCalories() + temp.getCalories());
+			total.setCalories((total.getCalories() + temp.getCalories()));
 			total.setProtein((total.getProtein() + temp.getProtein()));
 			total.setFat((total.getFat() + temp.getFat()));
 			total.setCarbohydrate((total.getCarbohydrate() + temp

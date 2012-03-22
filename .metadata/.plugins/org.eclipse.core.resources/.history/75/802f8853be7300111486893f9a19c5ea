@@ -242,25 +242,25 @@ public class PersonActivity extends Activity {
 					newP.setName(n);
 				} 
 				if(age!=0 || age!=p.getAge()){
-					//Log.d("Person Activity: Age stored.", "Age: " + age);
+					Log.d("Person Activity: Age stored.", "Age: " + age);
 					newP.setAge(age);
 				} else {
 					Toast.makeText(v.getContext(), "Please enter a valid age!", Toast.LENGTH_LONG);
 				}
 				if(h!=0 || h!=p.getHeight()){
 					newP.setHeight(h);
-					//Log.d("Person Activity: Height stored.", "Height in inches" + h);
+					Log.d("Person Activity: Height stored.", "Height in inches" + h);
 				}
 				if(weight!=0 || weight!=p.getWeight()){
 					newP.setWeight(weight);
-					//Log.d("Person Activity: Weight", "Weight " + weight);
+					Log.d("Person Activity: Weight", "Weight " + weight);
 				} else{
 					Toast.makeText(v.getContext(), "Please enter a valid weight!",  Toast.LENGTH_LONG);
 				}
 				p.setActivity(activityLevel);
 				
 				db.addPerson(newP);
-				//Log.d("Insert..","Person Added: ");
+				Log.d("Insert..","Person Added: ");
 				Intent personSaved = new Intent();
 				personSaved.putExtra("username", username);
 				setResult(RESULT_OK, personSaved);

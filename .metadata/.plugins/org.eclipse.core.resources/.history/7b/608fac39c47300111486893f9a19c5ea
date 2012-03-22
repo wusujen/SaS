@@ -243,7 +243,7 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	        do {
 	            Person person = new Person();
 	            person.setId(Integer.parseInt(cursor.getString(0)));
-	            person.setUsername(cursor.getString(1));
+	            person.setName(cursor.getString(1));
 	            person.setName(cursor.getString(2));
 	            person.setAge(Integer.parseInt(cursor.getString(3)));
 	            person.setGender(cursor.getString(4));
@@ -276,7 +276,7 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		        do {
 		            Person person = new Person();
 		            person.setId(Integer.parseInt(cursor.getString(0)));
-		            person.setUsername(cursor.getString(1));
+		            person.setName(cursor.getString(1));
 		            person.setName(cursor.getString(2));
 		            person.setAge(Integer.parseInt(cursor.getString(3)));
 		            person.setGender(cursor.getString(4));

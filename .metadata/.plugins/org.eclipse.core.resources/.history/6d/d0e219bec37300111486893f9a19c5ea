@@ -52,7 +52,7 @@ public class RecDailyValues {
 		int activity = person.getActivity();
 		int age = person.getAge();
 		int lb = person.getWeight();
-		int in = person.getHeight();
+		int in = person.getWeight();
 		
 		//convert to metrics
 		float weight = lb*0.45359237f;	//lb to kg
@@ -94,7 +94,6 @@ public class RecDailyValues {
 			_vitE = 5;				
 			_vitK = 30;
 			_cholesterol = 300;
-			return;
 		} else if(age>=4 && age<=8){
 			float eer = (89 * weight-100)+ 175;
 			switch(activity){
@@ -130,11 +129,10 @@ public class RecDailyValues {
 			_vitE = 6;						
 			_vitK = 55;
 			_cholesterol = 300;
-			return;
 		} 
 		
 		// otherwise, check gender first
-		if(gender.equals("m")){
+		if(gender == "m"){
 			if(age>=9 && age<=13){
 				switch(activity){
 					case 1: 
@@ -277,7 +275,7 @@ public class RecDailyValues {
 
 				_cholesterol = 300;
 			}
-		} else if(gender.equals("f")){
+		} else{
 			//for females
 			if(age>=9 && age<=13){
 				switch(activity){
@@ -420,8 +418,6 @@ public class RecDailyValues {
 				_vitK = 90;
 				_cholesterol = 300;
 			}
-		} else {
-			throw new RuntimeException("unexpected gender: " + gender);
 		}
 	}
 	

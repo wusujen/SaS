@@ -465,6 +465,7 @@ public class CartActivity extends Activity {
 	 * @param username
 	 * @return
 	 * A string of all of the required values of one entity the user has specified
+	 * 
 	 */
 	public static String getStringRDVTotalsFor(String username) {
 		List<Person> p = db.getAllPeopleFor(username);
@@ -489,6 +490,7 @@ public class CartActivity extends Activity {
 	 * @return RecDailyValue
 	 * Contains all of the totaled values for the group of people
 	 * the user has set
+	 * 
 	 */
 	public static RecDailyValues getTotalRDVOf(List<RecDailyValues> rdvList) {
 
@@ -500,6 +502,7 @@ public class CartActivity extends Activity {
 
 			// set all of the properties based on the current and the sum of the
 			total.setCalories(total.getCalories() + temp.getCalories());
+			total.setCalories((total.getCalories() + temp.getCalories()));
 			total.setProtein((total.getProtein() + temp.getProtein()));
 			total.setFat((total.getFat() + temp.getFat()));
 			total.setCarbohydrate((total.getCarbohydrate() + temp
