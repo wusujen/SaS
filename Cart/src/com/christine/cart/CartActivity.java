@@ -69,11 +69,14 @@ public class CartActivity extends Activity {
 	public static final String SCAN_MODE = "SCAN_MODE";
 	public static final int REQUEST_CODE = 1;
 
-	private static String NAME;
+	private static String USERNAME;
 	private static Account act;
 	private static AccountDatabaseHelper db;
 	private boolean onUPCResult = false;
 	private static int days;
+	
+	//information for graph settings
+	private static int totalCaloriesNeeded; 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -89,7 +92,7 @@ public class CartActivity extends Activity {
 
 			if (tempAccount != null) {
 				act = tempAccount;
-				NAME = act.getName();
+				USERNAME = act.getName();
 				int tdays = tempAccount.getDays();
 				if (tdays != 0) {
 					days = tdays;
@@ -103,20 +106,26 @@ public class CartActivity extends Activity {
 						"CartActivity: account passed was null");
 			}
 		}
-
+		
+		
 		// Set the number of days and start the graph view!
 		graph = (GraphView) this.findViewById(R.id.graphview);
 		graph.setDays(days);
+		
 
 		// start the db
 		db = new AccountDatabaseHelper(this);
+		
+		// Set the total stats needed
+		RecDailyValues totalRDV = getRDVTotalsFor(USERNAME);
+		totalCaloriesNeeded = Math.round(totalRDV.getCalories());
 
 		// initiates the listview within the drawer
 		sd_list = (ListView) findViewById(R.id.sd_list);
 
 		// get the information for listView: all of the items that are in
 		// currentcart for that user
-		List<GroceryItem> ccart = db.getAllGroceryItemsOf(NAME);
+		List<GroceryItem> ccart = db.getAllGroceryItemsOf(USERNAME);
 		db.close();
 		if (ccart != null) {
 			ArrayAdapter<String> ccartList = new ArrayAdapter<String>(this,
@@ -196,7 +205,7 @@ public class CartActivity extends Activity {
 			public void onClick(View v) {
 				Intent startTest = new Intent(CartActivity.this,
 						TestTotals.class);
-				startTest.putExtra("username", NAME);
+				startTest.putExtra("username", USERNAME);
 				startActivityForResult(startTest, 0);
 			}
 		});
@@ -207,7 +216,7 @@ public class CartActivity extends Activity {
 			public void onClick(View v) {
 				Intent goCheckout = new Intent(CartActivity.this,
 						CheckoutActivity.class);
-				PreviousHistory cTotals = getCartTotalsFor(NAME);
+				PreviousHistory cTotals = getCartTotalsFor(USERNAME);
 				goCheckout.putExtra("cartTotals", cTotals); // pass the
 															// parceable!
 				goCheckout.putExtra("account", act);
@@ -248,16 +257,16 @@ public class CartActivity extends Activity {
 			}
 		}
 
-		PreviousHistory pH = getCartTotalsFor(NAME);
+		PreviousHistory pH = getCartTotalsFor(USERNAME);
 		if (pH != null) {
-			int nH = Integer.valueOf(Math.round(pH.getCalories()));
-			graph.setnH(nH);
-			Log.d("CartActivity", "set to" + nH);
+			int currentCaloricContent = Integer.valueOf(Math.round(pH.getCalories()));
+			graph.setCalorieRatio((float)currentCaloricContent/(float) (totalCaloriesNeeded*days));
+			Log.d("CartActivity", "Current Caloric content set to " + currentCaloricContent + "Total calories needed: " + (totalCaloriesNeeded*days));
 			graph.setDays(days);
 			graph.postInvalidate();
 
 		} else {
-			graph.setnH(0);
+			graph.setCalorieRatio(0);
 		}
 
 	}
