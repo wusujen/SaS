@@ -28,9 +28,6 @@ import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -54,16 +51,14 @@ public class CartActivity extends Activity {
 
 	InputMethodManager manager;
 	Context inputsContext;
-	
-	// for scan results
-	private static String upcResults;
-	private static String resultValue;
-	private static String resultSize;
-	private static String resultMessage;
+
+	String upcResults;
+	String resultValue;
+	String resultSize;
+	String resultMessage;
+	String resultDesc;
 
 	private static Intent passedIntent;
-	
-	// to start the graph view
 	private static GraphView graph;
 	private static SurfaceHolder graphHolder;
 
@@ -78,13 +73,11 @@ public class CartActivity extends Activity {
 	private static Account act;
 	private static AccountDatabaseHelper db;
 	private boolean onUPCResult = false;
+	
 
 	// information for graph settings
 	private static int days;
 	private static int totalCaloriesNeeded;
-	
-	private static Item selectedItem;
-	private static int selectedItemPosition;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -145,19 +138,6 @@ public class CartActivity extends Activity {
 			// set properties of the list view and populate the listview
 			sd_list.setAdapter(ccartList);
 			sd_list.setBackgroundColor(Color.WHITE);
-			sd_list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-			sd_list.setOnItemClickListener(new OnItemClickListener() {
-
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
-					if(position!=selectedItemPosition){
-						sd_list.setSelection(position);
-						selectedItemPosition = position;
-					} else {
-						sd_list.clearChoices();
-					}
-				}	
-			});
 
 			// for the sliding drawer in footer activity
 			// populates controls the sliding drawer
@@ -263,7 +243,11 @@ public class CartActivity extends Activity {
 		if (check == 1) {
 			if (results != null) {
 				String temp = results;
-				Log.d("CartActivity: ", "Result is " + temp);
+				Toast result = Toast.makeText(inputsContext, "You just added "
+						+ temp, Toast.LENGTH_SHORT);
+				result.setGravity(Gravity.TOP | Gravity.LEFT, 0, 150);
+				result.show();
+
 			} else {
 				Toast noMatch = Toast.makeText(inputsContext,
 						"There was no match in the DB", Toast.LENGTH_SHORT);

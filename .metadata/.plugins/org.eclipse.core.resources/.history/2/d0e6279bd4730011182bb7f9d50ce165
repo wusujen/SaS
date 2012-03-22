@@ -28,9 +28,6 @@ import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -84,7 +81,6 @@ public class CartActivity extends Activity {
 	private static int totalCaloriesNeeded;
 	
 	private static Item selectedItem;
-	private static int selectedItemPosition;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -145,19 +141,6 @@ public class CartActivity extends Activity {
 			// set properties of the list view and populate the listview
 			sd_list.setAdapter(ccartList);
 			sd_list.setBackgroundColor(Color.WHITE);
-			sd_list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-			sd_list.setOnItemClickListener(new OnItemClickListener() {
-
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
-					if(position!=selectedItemPosition){
-						sd_list.setSelection(position);
-						selectedItemPosition = position;
-					} else {
-						sd_list.clearChoices();
-					}
-				}	
-			});
 
 			// for the sliding drawer in footer activity
 			// populates controls the sliding drawer

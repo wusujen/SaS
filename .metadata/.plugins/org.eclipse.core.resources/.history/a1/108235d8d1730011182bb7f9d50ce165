@@ -28,9 +28,6 @@ import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -54,16 +51,14 @@ public class CartActivity extends Activity {
 
 	InputMethodManager manager;
 	Context inputsContext;
-	
-	// for scan results
-	private static String upcResults;
-	private static String resultValue;
-	private static String resultSize;
-	private static String resultMessage;
+
+	String upcResults;
+	String resultValue;
+	String resultSize;
+	String resultMessage;
+	String resultDesc;
 
 	private static Intent passedIntent;
-	
-	// to start the graph view
 	private static GraphView graph;
 	private static SurfaceHolder graphHolder;
 
@@ -78,13 +73,10 @@ public class CartActivity extends Activity {
 	private static Account act;
 	private static AccountDatabaseHelper db;
 	private boolean onUPCResult = false;
-
-	// information for graph settings
 	private static int days;
-	private static int totalCaloriesNeeded;
 	
-	private static Item selectedItem;
-	private static int selectedItemPosition;
+	//information for graph settings
+	private static int totalCaloriesNeeded; 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -114,14 +106,16 @@ public class CartActivity extends Activity {
 						"CartActivity: account passed was null");
 			}
 		}
-
+		
+		
 		// Set the number of days and start the graph view!
 		graph = (GraphView) this.findViewById(R.id.graphview);
 		graph.setDays(days);
+		
 
 		// start the db
 		db = new AccountDatabaseHelper(this);
-
+		
 		// Set the total stats needed
 		RecDailyValues totalRDV = getRDVTotalsFor(USERNAME);
 		totalCaloriesNeeded = Math.round(totalRDV.getCalories());
@@ -145,19 +139,6 @@ public class CartActivity extends Activity {
 			// set properties of the list view and populate the listview
 			sd_list.setAdapter(ccartList);
 			sd_list.setBackgroundColor(Color.WHITE);
-			sd_list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-			sd_list.setOnItemClickListener(new OnItemClickListener() {
-
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
-					if(position!=selectedItemPosition){
-						sd_list.setSelection(position);
-						selectedItemPosition = position;
-					} else {
-						sd_list.clearChoices();
-					}
-				}	
-			});
 
 			// for the sliding drawer in footer activity
 			// populates controls the sliding drawer
@@ -167,7 +148,7 @@ public class CartActivity extends Activity {
 					Log.d("FooterActivity", "Drawer Opened");
 					graph.setZOrderOnTop(true);
 					graphHolder = graph.getHolder();
-					// graphHolder.setFormat(PixelFormat.TRANSPARENT);
+					//graphHolder.setFormat(PixelFormat.TRANSPARENT);
 				}
 			});
 			sd_itemlist.setOnDrawerCloseListener(new OnDrawerCloseListener() {
@@ -236,8 +217,7 @@ public class CartActivity extends Activity {
 				Intent goCheckout = new Intent(CartActivity.this,
 						CheckoutActivity.class);
 				PreviousHistory cTotals = getCartTotalsFor(USERNAME);
-				goCheckout.putExtra("cartTotals", cTotals); // pass the
-															// parceable!
+				goCheckout.putExtra("cartTotals", cTotals); // pass the parceable!
 				goCheckout.putExtra("account", act);
 				startActivity(goCheckout);
 			}
@@ -263,7 +243,11 @@ public class CartActivity extends Activity {
 		if (check == 1) {
 			if (results != null) {
 				String temp = results;
-				Log.d("CartActivity: ", "Result is " + temp);
+				Toast result = Toast.makeText(inputsContext, "You just added "
+						+ temp, Toast.LENGTH_SHORT);
+				result.setGravity(Gravity.TOP | Gravity.LEFT, 0, 150);
+				result.show();
+
 			} else {
 				Toast noMatch = Toast.makeText(inputsContext,
 						"There was no match in the DB", Toast.LENGTH_SHORT);
@@ -274,13 +258,9 @@ public class CartActivity extends Activity {
 
 		PreviousHistory pH = getCartTotalsFor(USERNAME);
 		if (pH != null) {
-			int currentCaloricContent = Integer.valueOf(Math.round(pH
-					.getCalories()));
-			graph.setCalorieRatio((float) currentCaloricContent
-					/ (float) (totalCaloriesNeeded * days));
-			Log.d("CartActivity", "Current Caloric content set to "
-					+ currentCaloricContent + "Total calories needed: "
-					+ (totalCaloriesNeeded * days));
+			int currentCaloricContent = Integer.valueOf(Math.round(pH.getCalories()));
+			graph.setCalorieRatio((float)currentCaloricContent/(float) (totalCaloriesNeeded*days));
+			Log.d("CartActivity", "Current Caloric content set to " + currentCaloricContent + "Total calories needed: " + (totalCaloriesNeeded*days));
 			graph.setDays(days);
 			graph.postInvalidate();
 
@@ -290,6 +270,7 @@ public class CartActivity extends Activity {
 
 	}
 
+	
 	/**
 	 * ACTIVITY RESULTS FROM SEARCH AND SCAN
 	 */
@@ -323,10 +304,9 @@ public class CartActivity extends Activity {
 			toast.show();
 		}
 	}
-
+	
 	/**
 	 * ACTIVITY RESULT FROM SEARCH AND SCAN
-	 * 
 	 * @param requestCode
 	 * @param resultCode
 	 * @param intent
@@ -347,11 +327,16 @@ public class CartActivity extends Activity {
 		}
 		return new IntentResult(null, null);
 	}// end IntentResult
-
+	
+	
+	
+	
+	
 	/**
 	 * @param username
-	 * @return Fetch all of the people for one user If null, then request that
-	 *         user check preferences
+	 * @return
+	 * Fetch all of the people for one user 
+	 * If null, then request that user check preferences
 	 * 
 	 */
 	public static String getAllPeopleDescFor(String username) {
@@ -393,8 +378,10 @@ public class CartActivity extends Activity {
 		return total;
 	}
 
+	
 	/**
-	 * TOTAL VALUES Add up all of the values of the current_cart items
+	 * TOTAL VALUES 
+	 * Add up all of the values of the current_cart items
 	 * 
 	 */
 	public PreviousHistory getCartTotalsFor(String username) {
@@ -480,11 +467,12 @@ public class CartActivity extends Activity {
 		adb.close();
 		return null;
 	}
-
+	
+	
 	/**
 	 * @param username
-	 * @return A string of all of the required values of one entity the user has
-	 *         specified
+	 * @return
+	 * A string of all of the required values of one entity the user has specified
 	 */
 	public static String getStringRDVTotalsFor(String username) {
 		List<Person> p = db.getAllPeopleFor(username);
@@ -503,11 +491,12 @@ public class CartActivity extends Activity {
 		RecDailyValues total = getTotalRDVOf(rdvList);
 		return total.returnString();
 	}
-
+	
 	/**
 	 * @param rdvList
-	 * @return RecDailyValue Contains all of the totaled values for the group of
-	 *         people the user has set
+	 * @return RecDailyValue
+	 * Contains all of the totaled values for the group of people
+	 * the user has set
 	 */
 	public static RecDailyValues getTotalRDVOf(List<RecDailyValues> rdvList) {
 
@@ -545,5 +534,6 @@ public class CartActivity extends Activity {
 		}
 		return total;
 	}
+
 
 }
