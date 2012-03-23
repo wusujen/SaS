@@ -17,6 +17,7 @@ public class GraphView extends SurfaceView implements Runnable{
 	SurfaceHolder holder;
 	boolean isOk = false;
 	Canvas canvas;
+	
 	float _calorieRatio;
 	float _calorieAdded;
 	int _days;

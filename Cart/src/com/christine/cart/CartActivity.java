@@ -23,6 +23,7 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.View;
@@ -84,8 +85,7 @@ public class CartActivity extends Activity {
 	private static int days;
 	private static int totalCaloriesNeeded;
 	
-	private static Item selectedItem;
-	private static int selectedItemPosition = -1;
+	private static ArrayList<Item> selectedItems;
 	private static List<GroceryItem> ccart;
 	private static ArrayAdapter<String> ccartList;
 
@@ -148,14 +148,47 @@ public class CartActivity extends Activity {
 			// set properties of the list view and populate the listview
 			sd_list.setAdapter(ccartList);
 			sd_list.setBackgroundColor(Color.WHITE);
-			sd_list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+			sd_list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+			
 			sd_list.setOnItemClickListener(new OnItemClickListener() {
-
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-					if(position!=selectedItemPosition || selectedItemPosition==-1){
+					
+					SparseBooleanArray listItems = new SparseBooleanArray();
+					listItems.clear();
+					listItems= sd_list.getCheckedItemPositions();
+					selectedItems = new ArrayList<Item>();
+					for(int i=0; i<listItems.size(); i++){
+						boolean isSelected = listItems.get(i);
+						if(isSelected){
+							String tempItemName = ccartList.getItem(i);
+							int pos = tempItemName.indexOf(" ");
+							String selectedItemName = tempItemName.substring(pos+1);
+							
+							Item selectedItem = ndb.getItem(selectedItemName);
+							selectedItems.add(selectedItem);
+						}
+					}
+					
+					if(selectedItems.size()==3){
+						String tempItemName = ccartList.getItem(position);
+						int pos = tempItemName.indexOf(" ");
+						String toggledItemName = tempItemName.substring(pos+1);
+						
+						Item iToRemove = null;
+						for(Item item : selectedItems){
+							if(item.getItemName().equals(toggledItemName)){
+								iToRemove = item;
+							}
+						}
+						selectedItems.remove(iToRemove);
+						Log.d("CartActivity", "Removed: " + iToRemove.getItemName());
+						sd_list.setItemChecked(position, false);
+					}
+					
+					
+					/*if(position!=selectedItemPosition || selectedItemPosition!=-1){
 						sd_list.setItemChecked(position,true);
-						selectedItemPosition = position;
 						
 						//retrieve the item name and clean the string
 						String tempItemName = ccartList.getItem(position);
@@ -174,7 +207,7 @@ public class CartActivity extends Activity {
 					} else {
 						sd_list.clearChoices();
 						graph.setCalorieAdded(0);
-					}
+					}*/
 				}	
 			});
 
@@ -185,12 +218,13 @@ public class CartActivity extends Activity {
 				public void onDrawerOpened() {
 					graph.setZOrderOnTop(true);
 					graphHolder = graph.getHolder();
-					// graphHolder.setFormat(PixelFormat.TRANSPARENT);
 				}
 			});
 			sd_itemlist.setOnDrawerCloseListener(new OnDrawerCloseListener() {
 				public void onDrawerClosed() {
 					graph.setZOrderOnTop(false);
+					
+					
 				}
 			});
 		}
@@ -287,7 +321,7 @@ public class CartActivity extends Activity {
 				//ndb = new NutritionDatabaseHelper(this);
 				
 				// search through the existing list
-				int itemExistsInList = -1;
+				/*int itemExistsInList = -1;
 				ArrayList<String> cleanListItems = new ArrayList<String>();
 				for(int i=0; i<ccartList.getCount(); i++){
 					String tempItemName = ccartList.getItem(i);
@@ -306,7 +340,7 @@ public class CartActivity extends Activity {
 					graph.setCalorieAdded(newCals * itemQuantity /(float) (totalCaloriesNeeded * days));
 					sd_list.setItemChecked(itemExistsInList, true);
 					ndb.close();
-				}
+				}*/
 			}
 		}
 

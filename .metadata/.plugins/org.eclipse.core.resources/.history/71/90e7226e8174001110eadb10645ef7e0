@@ -85,7 +85,8 @@ public class CartActivity extends Activity {
 	private static int totalCaloriesNeeded;
 	
 	private static Item selectedItem;
-	private static int selectedItemPosition;
+	private static int selectedItemPosition = -1;
+	private static List<GroceryItem> ccart;
 	private static ArrayAdapter<String> ccartList;
 
 	@Override
@@ -106,7 +107,6 @@ public class CartActivity extends Activity {
 				int tdays = tempAccount.getDays();
 				if (tdays != 0) {
 					days = tdays;
-					Log.d("days", "days are set " + days);
 				} else {
 					// set days equal to 1 to prevent crashing
 					days = 1;
@@ -134,7 +134,7 @@ public class CartActivity extends Activity {
 
 		// get the information for listView: all of the items that are in
 		// currentcart for that user
-		List<GroceryItem> ccart = db.getAllGroceryItemsOf(USERNAME);
+		ccart = db.getAllGroceryItemsOf(USERNAME);
 		db.close();
 		if (ccart != null) {
 			ccartList = new ArrayAdapter<String>(this,
@@ -153,16 +153,27 @@ public class CartActivity extends Activity {
 
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-					if(position!=selectedItemPosition){
-						sd_list.setSelection(position);
+					if(position!=selectedItemPosition || selectedItemPosition==-1){
+						sd_list.setItemChecked(position,true);
 						selectedItemPosition = position;
 						
-						String selectedItemName = ccartList.getItem(position);
+						//retrieve the item name and clean the string
+						String tempItemName = ccartList.getItem(position);
+						int pos = tempItemName.indexOf(" ");
+						String selectedItemName = tempItemName.substring(pos+1);
+						
+						//select the item in the nutrition database
 						selectedItem = ndb.getItem(selectedItemName);
-						Log.d("CartActivity: ", "Selected item Name: " + selectedItem.getItemName() + " calories: " + selectedItem.getCalories());
+						float newCals = selectedItem.getCalories();
+						int itemQuantity = ccart.get(position).getQuantity();
+						Log.d("CartActivity: ", "Selected Item: " + selectedItem.getItemName() + " calories: " + newCals);
+						Log.d("CartActivity: ", "Quantity of item: " + itemQuantity + " total calories: " + newCals*itemQuantity);
+						graph.setCalorieAdded(newCals * itemQuantity /(float) (totalCaloriesNeeded * days));
+						
 						ndb.close();
 					} else {
 						sd_list.clearChoices();
+						graph.setCalorieAdded(0);
 					}
 				}	
 			});
@@ -172,7 +183,6 @@ public class CartActivity extends Activity {
 			sd_itemlist = (SlidingDrawer) findViewById(R.id.sd_itemlist);
 			sd_itemlist.setOnDrawerOpenListener(new OnDrawerOpenListener() {
 				public void onDrawerOpened() {
-					Log.d("FooterActivity", "Drawer Opened");
 					graph.setZOrderOnTop(true);
 					graphHolder = graph.getHolder();
 					// graphHolder.setFormat(PixelFormat.TRANSPARENT);
@@ -180,7 +190,6 @@ public class CartActivity extends Activity {
 			});
 			sd_itemlist.setOnDrawerCloseListener(new OnDrawerCloseListener() {
 				public void onDrawerClosed() {
-					Log.d("FooterActivity", "Drawer Closed");
 					graph.setZOrderOnTop(false);
 				}
 			});
@@ -269,31 +278,52 @@ public class CartActivity extends Activity {
 		results = passedIntent.getStringExtra("results");
 		int check = passedIntent.getIntExtra("check", 0);
 		if (check == 1) {
-			if (results != null) {
-				String temp = results;
-				Log.d("CartActivity: ", "Result is " + temp);
-			} else {
+			if (results.equals(null) || results.equals("e")) {
 				Toast noMatch = Toast.makeText(inputsContext,
-						"There was no match in the DB", Toast.LENGTH_SHORT);
+						"We couldn't find that item! Please try again.", Toast.LENGTH_LONG);
 				noMatch.setGravity(Gravity.TOP | Gravity.LEFT, 0, 150);
 				noMatch.show();
+			} else {
+				//ndb = new NutritionDatabaseHelper(this);
+				
+				// search through the existing list
+				int itemExistsInList = -1;
+				ArrayList<String> cleanListItems = new ArrayList<String>();
+				for(int i=0; i<ccartList.getCount(); i++){
+					String tempItemName = ccartList.getItem(i);
+					int pos = tempItemName.indexOf(" ");
+					cleanListItems.add(tempItemName.substring(pos+1));
+				}
+				
+				itemExistsInList = cleanListItems.indexOf(results);
+				
+				if(itemExistsInList!=-1){
+					selectedItem = ndb.getItem(results);
+					float newCals = selectedItem.getCalories();
+					Log.d("CartActivity: ", "Selected Item: " + selectedItem.getItemName() + " calories: " + newCals);
+					int itemQuantity = ccart.get(itemExistsInList).getQuantity();
+					Log.d("CartActivity: ", "Quantity of item: " + itemQuantity + " total calories: " + newCals*itemQuantity);
+					graph.setCalorieAdded(newCals * itemQuantity /(float) (totalCaloriesNeeded * days));
+					sd_list.setItemChecked(itemExistsInList, true);
+					ndb.close();
+				}
 			}
 		}
 
 		PreviousHistory pH = getCartTotalsFor(USERNAME);
+		Log.d("CartActivity", "Cart total calories: " + pH.getCalories());
 		if (pH != null) {
 			int currentCaloricContent = Integer.valueOf(Math.round(pH
 					.getCalories()));
 			graph.setCalorieRatio((float) currentCaloricContent
 					/ (float) (totalCaloriesNeeded * days));
-			Log.d("CartActivity", "Current Caloric content set to "
-					+ currentCaloricContent + "Total calories needed: "
-					+ (totalCaloriesNeeded * days));
 			graph.setDays(days);
+			
 			graph.postInvalidate();
 
 		} else {
 			graph.setCalorieRatio(0);
+			graph.setCalorieAdded(0);
 		}
 
 	}
@@ -427,59 +457,59 @@ public class CartActivity extends Activity {
 
 				// add the totals to the current cartTotal, remembering
 				// to multiply by the quantity!
-				cartTotals.setCalories((cartTotals.getCalories() + tempItem
-						.getCalories()) * quantity);
-				cartTotals.setProtein((cartTotals.getProtein() + tempItem
-						.getProtein()) * quantity);
-				cartTotals.setFat((cartTotals.getFat() + tempItem.getFat())
-						* quantity);
+				cartTotals.setCalories(cartTotals.getCalories() + (tempItem
+						.getCalories() * quantity));
+				cartTotals.setProtein(cartTotals.getProtein() + (tempItem
+						.getProtein() * quantity));
+				cartTotals.setFat(cartTotals.getFat() + (tempItem.getFat()
+						* quantity));
 				cartTotals
-						.setCarbohydrate((cartTotals.getCarbohydrate() + tempItem
-								.getCarbohydrate()) * quantity);
-				cartTotals.setFiber((cartTotals.getFiber() + tempItem
-						.getFiber()) * quantity);
-				cartTotals.setSugar((cartTotals.getSugar() + tempItem
-						.getSugar()) * quantity);
-				cartTotals.setCalcium((cartTotals.getCalcium() + tempItem
-						.getCalcium()) * quantity);
-				cartTotals.setIron((cartTotals.getIron() + tempItem.getIron())
-						* quantity);
-				cartTotals.setMagnesium((cartTotals.getMagnesium() + tempItem
-						.getMagnesium()) * quantity);
-				cartTotals.setPotassium((cartTotals.getPotassium() + tempItem
-						.getPotassium()) * quantity);
-				cartTotals.setSodium((cartTotals.getSodium() + tempItem
-						.getSodium()) * quantity);
-				cartTotals.setZinc((cartTotals.getZinc() + tempItem.getZinc())
-						* quantity);
-				cartTotals.setVitC((cartTotals.getVitC() + tempItem.getVitC())
-						* quantity);
-				cartTotals.setVitB6((cartTotals.getVitB6() + tempItem
-						.getVitB6()) * quantity);
-				cartTotals.setVitB12((cartTotals.getVitB12() + tempItem
-						.getVitB12()) * quantity);
-				cartTotals.setVitA((cartTotals.getVitA() + tempItem.getVitA())
-						* quantity);
-				cartTotals.setVitE((cartTotals.getVitE() + tempItem.getVitE())
-						* quantity);
-				cartTotals.setVitD((cartTotals.getVitD() + tempItem.getVitD())
-						* quantity);
-				cartTotals.setVitK((cartTotals.getVitK() + tempItem.getVitK())
-						* quantity);
-				cartTotals.setFatSat((cartTotals.getFatSat() + tempItem
-						.getFatSat()) * quantity);
-				cartTotals.setFatMono((cartTotals.getFatMono() + tempItem
-						.getFatMono()) * quantity);
-				cartTotals.setFatPoly((cartTotals.getFatPoly() + tempItem
-						.getFatPoly()) * quantity);
+						.setCarbohydrate(cartTotals.getCarbohydrate() + (tempItem
+								.getCarbohydrate() * quantity));
+				cartTotals.setFiber(cartTotals.getFiber() + (tempItem
+						.getFiber() * quantity));
+				cartTotals.setSugar(cartTotals.getSugar() + (tempItem
+						.getSugar() * quantity));
+				cartTotals.setCalcium(cartTotals.getCalcium() + (tempItem
+						.getCalcium() * quantity));
+				cartTotals.setIron(cartTotals.getIron() + (tempItem.getIron()
+						* quantity));
+				cartTotals.setMagnesium(cartTotals.getMagnesium() + (tempItem
+						.getMagnesium() * quantity));
+				cartTotals.setPotassium(cartTotals.getPotassium() + (tempItem
+						.getPotassium() * quantity));
+				cartTotals.setSodium(cartTotals.getSodium() + (tempItem
+						.getSodium() * quantity));
+				cartTotals.setZinc(cartTotals.getZinc() + (tempItem.getZinc()
+						* quantity));
+				cartTotals.setVitC(cartTotals.getVitC() + (tempItem.getVitC()
+						* quantity));
+				cartTotals.setVitB6(cartTotals.getVitB6() + (tempItem
+						.getVitB6() * quantity));
+				cartTotals.setVitB12(cartTotals.getVitB12() + (tempItem
+						.getVitB12() * quantity));
+				cartTotals.setVitA(cartTotals.getVitA() + (tempItem.getVitA()
+						* quantity));
+				cartTotals.setVitE(cartTotals.getVitE() + (tempItem.getVitE()
+						* quantity));
+				cartTotals.setVitD(cartTotals.getVitD() + (tempItem.getVitD()
+						* quantity));
+				cartTotals.setVitK(cartTotals.getVitK() + (tempItem.getVitK()
+						* quantity));
+				cartTotals.setFatSat(cartTotals.getFatSat() + (tempItem
+						.getFatSat() * quantity));
+				cartTotals.setFatMono(cartTotals.getFatMono() + (tempItem
+						.getFatMono() * quantity));
+				cartTotals.setFatPoly(cartTotals.getFatPoly() + (tempItem
+						.getFatPoly() * quantity));
 				cartTotals
-						.setCholesterol((cartTotals.getCholesterol() + tempItem
-								.getCholesterol()) * quantity);
+						.setCholesterol(cartTotals.getCholesterol() + (tempItem
+								.getCholesterol() * quantity));
 				cartTotals.setDays(-1);
 			}
 
-			Log.d("Created: ", "Cart Total for : " + cartTotals.getUsername()
-					+ "Total Calories: " + cartTotals.getCalories());
+			//Log.d("Created: ", "Cart Total for : " + cartTotals.getUsername()
+					//+ "Total Calories: " + cartTotals.getCalories());
 			adb.close();
 			ndb.close();
 			return cartTotals;
