@@ -75,7 +75,7 @@ public class CartActivity extends Activity {
 	public static final String SCAN_MODE = "SCAN_MODE";
 	public static final int REQUEST_CODE = 1;
 
-	private static String USERNAME;
+	private static String currentUsername;
 	private static Account act;
 	private static AccountDatabaseHelper db;
 	private static NutritionDatabaseHelper ndb;
@@ -83,9 +83,9 @@ public class CartActivity extends Activity {
 
 	// information for graph settings
 	private static int days;
-	private static int totalCaloriesNeeded;
 	
 	private static ArrayList<Item> selectedItems;
+	private static ArrayList<Integer> quantities;
 	private static List<GroceryItem> ccart;
 	private static ArrayAdapter<String> ccartList;
 
@@ -103,7 +103,7 @@ public class CartActivity extends Activity {
 
 			if (tempAccount != null) {
 				act = tempAccount;
-				USERNAME = act.getName();
+				currentUsername = act.getName();
 				int tdays = tempAccount.getDays();
 				if (tdays != 0) {
 					days = tdays;
@@ -117,24 +117,21 @@ public class CartActivity extends Activity {
 			}
 		}
 
-		// Set the number of days and start the graph view!
-		graph = (GraphView) this.findViewById(R.id.graphview);
-		graph.setDays(days);
 
 		// start the db
 		db = new AccountDatabaseHelper(this);
 		ndb = new NutritionDatabaseHelper(this);
-
-		// Set the total stats needed
-		RecDailyValues totalRDV = getRDVTotalsFor(USERNAME);
-		totalCaloriesNeeded = Math.round(totalRDV.getCalories());
-
+		
+		// Set the number of days and start the graph view!
+		graph = (GraphView) this.findViewById(R.id.graphview);
+		graph.setDays(days);
+		
 		// initiates the listview within the drawer
 		sd_list = (ListView) findViewById(R.id.sd_list);
 
 		// get the information for listView: all of the items that are in
 		// currentcart for that user
-		ccart = db.getAllGroceryItemsOf(USERNAME);
+		ccart = db.getAllGroceryItemsOf(currentUsername);
 		db.close();
 		if (ccart != null) {
 			ccartList = new ArrayAdapter<String>(this,
@@ -157,6 +154,7 @@ public class CartActivity extends Activity {
 					SparseBooleanArray listItems = new SparseBooleanArray();
 					listItems.clear();
 					listItems= sd_list.getCheckedItemPositions();
+					quantities = new ArrayList<Integer>();
 					selectedItems = new ArrayList<Item>();
 					for(int i=0; i<listItems.size(); i++){
 						boolean isSelected = listItems.get(i);
@@ -167,6 +165,12 @@ public class CartActivity extends Activity {
 							
 							Item selectedItem = ndb.getItem(selectedItemName);
 							selectedItems.add(selectedItem);
+							for(GroceryItem gItem : ccart){
+								if(gItem.getItemName().equals(selectedItemName)){
+									quantities.add(gItem.getQuantity());
+									Log.d("CartActivity: " , "Name: " + gItem.getItemName() + quantities.get(0));
+								}
+							}
 						}
 					}
 					
@@ -186,6 +190,8 @@ public class CartActivity extends Activity {
 						sd_list.setItemChecked(position, false);
 					}
 					
+					graph.passSelectedItems(selectedItems);
+					graph.passSelectedQuantities(quantities);
 					
 					/*if(position!=selectedItemPosition || selectedItemPosition!=-1){
 						sd_list.setItemChecked(position,true);
@@ -223,8 +229,6 @@ public class CartActivity extends Activity {
 			sd_itemlist.setOnDrawerCloseListener(new OnDrawerCloseListener() {
 				public void onDrawerClosed() {
 					graph.setZOrderOnTop(false);
-					
-					
 				}
 			});
 		}
@@ -275,7 +279,7 @@ public class CartActivity extends Activity {
 			public void onClick(View v) {
 				Intent startTest = new Intent(CartActivity.this,
 						TestTotals.class);
-				startTest.putExtra("username", USERNAME);
+				startTest.putExtra("username", currentUsername);
 				startActivityForResult(startTest, 0);
 			}
 		});
@@ -286,7 +290,7 @@ public class CartActivity extends Activity {
 			public void onClick(View v) {
 				Intent goCheckout = new Intent(CartActivity.this,
 						CheckoutActivity.class);
-				PreviousHistory cTotals = getCartTotalsFor(USERNAME);
+				PreviousHistory cTotals = getCartTotalsFor(currentUsername);
 				goCheckout.putExtra("cartTotals", cTotals); // pass the
 															// parceable!
 				goCheckout.putExtra("account", act);
@@ -343,23 +347,11 @@ public class CartActivity extends Activity {
 				}*/
 			}
 		}
-
-		PreviousHistory pH = getCartTotalsFor(USERNAME);
-		Log.d("CartActivity", "Cart total calories: " + pH.getCalories());
-		if (pH != null) {
-			int currentCaloricContent = Integer.valueOf(Math.round(pH
-					.getCalories()));
-			graph.setCalorieRatio((float) currentCaloricContent
-					/ (float) (totalCaloriesNeeded * days));
-			graph.setDays(days);
-			
-			graph.postInvalidate();
-
-		} else {
-			graph.setCalorieRatio(0);
-			graph.setCalorieAdded(0);
-		}
-
+		
+		PreviousHistory pH = getCartTotalsFor(currentUsername);		// get the current cart
+		RecDailyValues totalRDV = getRDVTotalsFor(currentUsername);	// get the needed nutrients
+		graph.getRatios(pH, totalRDV);
+		graph.postInvalidate();
 	}
 
 	/**
@@ -550,7 +542,9 @@ public class CartActivity extends Activity {
 		}
 		ndb.close();
 		adb.close();
-		return null;
+		PreviousHistory emptyHistory = new PreviousHistory();
+		emptyHistory.setUsername(currentUsername);
+		return emptyHistory;
 	}
 
 	/**

@@ -3,3 +3,8 @@
 1332366356010	Change Layout
 1332368490219	Delete element
 1332473104129	Rename local variable 'selectedItemName'
+1332524139547	Rename field '_calorieAdded'
+1332525074261	Rename field '_calorieRatio'
+1332525088537	Rename field '_CALORIE_RATIO'
+1332525111030	Rename field '_caloriesAdded'
+1332550519289	Rename field 'USERNAME'

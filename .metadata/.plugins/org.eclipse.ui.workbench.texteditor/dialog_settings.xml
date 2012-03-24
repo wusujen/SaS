@@ -13,16 +13,16 @@
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="s" key="selection"/>
+		<item value="username" key="selection"/>
 		<list key="findhistory">
-			<item value="s"/>
-			<item value=" tempItem"/>
-			<item value="((cartTotals"/>
-			<item value="quantity)"/>
-			<item value="check"/>
-			<item value="error"/>
-			<item value="Log.d"/>
-			<item value="db"/>
+			<item value="username"/>
+			<item value="Destroy"/>
+			<item value="destroy"/>
+			<item value="setUser"/>
+			<item value="set"/>
+			<item value="setuser"/>
+			<item value="quantities"/>
+			<item value="graph"/>
 		</list>
 		<list key="replacehistory">
 			<item value=" (tempItem"/>
