@@ -169,16 +169,9 @@ public class GraphView extends SurfaceView implements Runnable {
 		CALORIE_RATIO = (currentCaloricContent / CALORIES_NEEDED);
 	}
 	
-	/**
-	 * Returns the height of the calories bar based on one item's index, taking into
-	 * account the quantity.
-	 * 
-	 * @param index of the item in the cart
-	 * @return
-	 */
 	public float getAddedContent(int index){
 		float selectedCalories = selectedItems.get(index).getCalories();
-		float addedContent = ((selectedCalories * (float) selectedQuantities.get(index)) / 
+		float addedContent = ((selectedCalories * (float) selectedQuantities.get(0)) / 
 				CALORIES_NEEDED );
 		return addedContent;
 	}
