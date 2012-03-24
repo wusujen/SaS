@@ -111,8 +111,8 @@ public class GraphView extends SurfaceView implements Runnable {
 			float b = topline + (i * interpolate);
 			c.drawLine(20, b, w - 20, b, grey);
 		} 
-		c.drawLine(20, topline, w - 20, topline, blue);	//top line
-		c.drawLine(20, base, w - 20, base, black);		//bottom line
+		c.drawLine(20, topline, w - 20, topline, blue);		//top line
+		c.drawLine(20, base, w - 20, base, black);			//bottom line
 		
 		determineMode();
 		

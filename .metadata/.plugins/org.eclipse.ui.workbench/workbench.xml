@@ -34,14 +34,7 @@
 <page aggregateWorkingSetId="Aggregate for window 1329521721393" focus="true" label="Workspace - Java">
 <editors>
 <editorArea activeWorkbook="org.eclipse.ui.internal.EditorStack@ad355b">
-<info part="org.eclipse.ui.internal.EditorStack@637690">
-<folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-</presentation>
-</folder>
-</info>
-<info part="org.eclipse.ui.internal.EditorStack@ad355b" ratio="0.4295977" ratioLeft="598" ratioRight="794" relationship="2" relative="org.eclipse.ui.internal.EditorStack@637690">
+<info part="org.eclipse.ui.internal.EditorStack@ad355b">
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
@@ -49,13 +42,9 @@
 </folder>
 </info>
 </editorArea>
-<editor focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CartActivity.java" partName="CartActivity.java" path="C:/SaS/Cart/src/com/christine/cart/CartActivity.java" title="CartActivity.java" tooltip="Cart/src/com/christine/cart/CartActivity.java" workbook="org.eclipse.ui.internal.EditorStack@637690">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/CartActivity.java"/>
-<editorState selectionHorizontalPixel="73" selectionLength="0" selectionOffset="5869" selectionTopPixel="1695"/>
-</editor>
 <editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GraphView.java" partName="GraphView.java" path="C:/SaS/Cart/src/com/christine/cart/visual/GraphView.java" title="GraphView.java" tooltip="Cart/src/com/christine/cart/visual/GraphView.java" workbook="org.eclipse.ui.internal.EditorStack@ad355b">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/visual/GraphView.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="4363" selectionTopPixel="2235"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2807" selectionTopPixel="1155"/>
 </editor>
 </editors>
 <views>
@@ -76,8 +65,7 @@
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
-<category IMemento.internal.id="Warnings (63 items)"/>
-<category IMemento.internal.id="Warnings"/>
+<category IMemento.internal.id="Warnings (64 items)"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="745"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
@@ -274,18 +262,6 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/visual/GraphView.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/visual/GraphView.java"/>
 </editors>
-<item historyLabel="GraphView.java" index="1">
-<position info="not_deleted" x="2922" y="0"/>
-</item>
-<item historyLabel="CartActivity.java" index="0">
-<position info="not_deleted" x="12303" y="0"/>
-</item>
-<item historyLabel="GraphView.java" index="1">
-<position info="not_deleted" x="3833" y="0"/>
-</item>
-<item historyLabel="CartActivity.java" index="0">
-<position info="not_deleted" x="12309" y="0"/>
-</item>
 <item historyLabel="CartActivity.java" index="0">
 <position info="not_deleted" x="11833" y="0"/>
 </item>
@@ -418,11 +394,23 @@
 <item historyLabel="GraphView.java" index="2">
 <position info="not_deleted" x="4565" y="15"/>
 </item>
-<item active="true" historyLabel="GraphView.java" index="2">
+<item historyLabel="GraphView.java" index="2">
 <position info="not_deleted" x="4762" y="0"/>
 </item>
 <item historyLabel="GraphView.java" index="2">
-<position info="not_deleted" x="863" y="15"/>
+<position info="not_deleted" x="2723" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="2731" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="2740" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="2746" y="0"/>
+</item>
+<item active="true" historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="2759" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
