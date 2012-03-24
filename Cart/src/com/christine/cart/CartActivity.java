@@ -154,10 +154,18 @@ public class CartActivity extends Activity {
 					SparseBooleanArray listItems = new SparseBooleanArray();
 					listItems.clear();
 					listItems= sd_list.getCheckedItemPositions();
-					quantities = new ArrayList<Integer>();
-					selectedItems = new ArrayList<Item>();
-					for(int i=0; i<listItems.size(); i++){
+					
+					if(selectedItems!=null || quantities!=null){
+						selectedItems.clear();
+						quantities.clear();
+					} else {
+						selectedItems = new ArrayList<Item>();
+						quantities = new ArrayList<Integer>();
+					}
+					
+					for(int i=0; i<ccartList.getCount(); i++){
 						boolean isSelected = listItems.get(i);
+
 						if(isSelected){
 							String tempItemName = ccartList.getItem(i);
 							int pos = tempItemName.indexOf(" ");
@@ -168,10 +176,9 @@ public class CartActivity extends Activity {
 							for(GroceryItem gItem : ccart){
 								if(gItem.getItemName().equals(selectedItemName)){
 									quantities.add(gItem.getQuantity());
-									Log.d("CartActivity: " , "Name: " + gItem.getItemName() + quantities.get(0));
 								}
 							}
-						}
+						} 
 					}
 					
 					if(selectedItems.size()==3){
@@ -322,29 +329,49 @@ public class CartActivity extends Activity {
 				noMatch.setGravity(Gravity.TOP | Gravity.LEFT, 0, 150);
 				noMatch.show();
 			} else {
-				//ndb = new NutritionDatabaseHelper(this);
+				ndb = new NutritionDatabaseHelper(this);
 				
-				// search through the existing list
-				/*int itemExistsInList = -1;
-				ArrayList<String> cleanListItems = new ArrayList<String>();
+				if(selectedItems!=null || quantities!=null){
+					selectedItems.clear();
+					quantities.clear();
+				} else {
+					selectedItems = new ArrayList<Item>();
+					quantities = new ArrayList<Integer>();
+				}
+				
+				int position = -1;
 				for(int i=0; i<ccartList.getCount(); i++){
 					String tempItemName = ccartList.getItem(i);
 					int pos = tempItemName.indexOf(" ");
-					cleanListItems.add(tempItemName.substring(pos+1));
+					String compare = tempItemName.substring(pos+1);
+					
+					if(compare.equals(results)){
+						position = i;
+						break;
+					} else {
+						continue;
+					}
 				}
 				
-				itemExistsInList = cleanListItems.indexOf(results);
+								
+				Item selectedItem = ndb.getItem(results);
+				ndb.close();
 				
-				if(itemExistsInList!=-1){
-					selectedItem = ndb.getItem(results);
-					float newCals = selectedItem.getCalories();
-					Log.d("CartActivity: ", "Selected Item: " + selectedItem.getItemName() + " calories: " + newCals);
-					int itemQuantity = ccart.get(itemExistsInList).getQuantity();
-					Log.d("CartActivity: ", "Quantity of item: " + itemQuantity + " total calories: " + newCals*itemQuantity);
-					graph.setCalorieAdded(newCals * itemQuantity /(float) (totalCaloriesNeeded * days));
-					sd_list.setItemChecked(itemExistsInList, true);
-					ndb.close();
-				}*/
+				selectedItems.add(selectedItem);
+				
+				for(GroceryItem gItem : ccart){
+					if(gItem.getItemName().equals(results)){
+						quantities.add(gItem.getQuantity());
+						Log.d("CartActivity: " , "Name: " + gItem.getItemName() + quantities.get(0));
+					}
+				}
+			
+				Log.d("CartActivity", "Position: " + position);
+				sd_list.setItemChecked(position, true);
+				
+				graph.passSelectedItems(selectedItems);
+				graph.passSelectedQuantities(quantities);
+				graph.postInvalidate();
 			}
 		}
 		
