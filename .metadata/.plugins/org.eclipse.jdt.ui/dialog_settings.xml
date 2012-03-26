@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<item value="filter_imports;" key="filters_last_used"/>
-	<item value="C:\SaS\00_libraries" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="C:\Users\Christine\Thesis\SaS\00_libraries" key="org.eclipse.jdt.ui.lastextjar"/>
 	<item value="500" key="CallHierarchyViewPart.ratio3"/>
 	<item value="500" key="CallHierarchyViewPart.ratio1"/>
 	<item value="3" key="CallHierarchyViewPart.orientation"/>
@@ -30,6 +30,9 @@
 	<section name="quick_assist_proposal_size">
 		<item value="361" key="size.x"/>
 		<item value="252" key="size.y"/>
+	</section>
+	<section name="ClasspathContainerSelectionPage">
+		<item value="0" key="index"/>
 	</section>
 	<section name="BreadcrumbItemDropDown">
 	</section>

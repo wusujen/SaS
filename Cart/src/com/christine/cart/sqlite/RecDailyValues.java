@@ -670,5 +670,14 @@ public class RecDailyValues {
 						"Cholesterol: " + Math.round(_cholesterol) + " mg \n";
 			return v;
 		}
+		
+		public Float[] getNutritionNeeds(){
+			Float[] props = new Float[] {
+					this._calories, this._protein, this._totalfats, this._carbs, this._fiber, this._sugar, this._calcium, 
+					this._iron, this._magnesium, this._potassium, this._sodium, this._zinc, this._vitC, this._vitD, 
+					this._vitB6, this._vitB12, this._vitA, this._vitE, this._vitK, this._fatSat, /*MONOFAT*/ 0.0f, this._fatPoly,
+					this._cholesterol };
+			return props;
+		}
 	
 }

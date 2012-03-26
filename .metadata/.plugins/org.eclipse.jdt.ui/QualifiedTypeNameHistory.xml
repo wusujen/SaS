@@ -15,7 +15,6 @@
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Account"/>
 <fullyQualifiedTypeName name="com.christine.cart.SetupDaysActivity"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.NutritionDatabaseHelper"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="android.os.Parcelable"/>
 <fullyQualifiedTypeName name="android.widget.Spinner"/>
@@ -42,7 +41,6 @@
 <fullyQualifiedTypeName name="android.content.res.Resources"/>
 <fullyQualifiedTypeName name="android.graphics.Rect"/>
 <fullyQualifiedTypeName name="android.graphics.Paint"/>
-<fullyQualifiedTypeName name="android.R"/>
 <fullyQualifiedTypeName name="com.christine.cart.R"/>
 <fullyQualifiedTypeName name="android.graphics.Color"/>
 <fullyQualifiedTypeName name="android.graphics.Path"/>
@@ -60,4 +58,6 @@
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Item"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.PreviousHistory"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.RecDailyValues"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="android.R"/>
 </qualifiedTypeNameHistroy>

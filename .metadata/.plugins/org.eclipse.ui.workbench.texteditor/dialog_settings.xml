@@ -13,26 +13,26 @@
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="round" key="selection"/>
+		<item value="vitamin " key="selection"/>
 		<list key="findhistory">
-			<item value="round"/>
-			<item value="Log"/>
-			<item value="username"/>
-			<item value="Destroy"/>
-			<item value="destroy"/>
-			<item value="setUser"/>
-			<item value="set"/>
-			<item value="setuser"/>
+			<item value="vit"/>
+			<item value="vig"/>
+			<item value="this."/>
+			<item value="&quot;,"/>
+			<item value="&quot;_"/>
+			<item value="&quot;"/>
+			<item value="Ratio"/>
+			<item value=";"/>
 		</list>
 		<list key="replacehistory">
+			<item value="vitamin "/>
+			<item value="this._"/>
+			<item value=","/>
+			<item value="this."/>
+			<item value="Ratio;"/>
+			<item value="Ratio"/>
+			<item value="private static float "/>
 			<item value=" (tempItem"/>
-			<item value="(cartTotals"/>
-			<item value="quantity))"/>
-			<item value="calorieRatio"/>
-			<item value="USERNAME"/>
-			<item value="calories"/>
-			<item value="_calories"/>
-			<item value=""/>
 		</list>
 	</section>
 </section>

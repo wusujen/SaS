@@ -1,6 +1,7 @@
 package com.christine.cart.visual;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.christine.cart.sqlite.Item;
 import com.christine.cart.sqlite.PreviousHistory;
@@ -26,9 +27,21 @@ public class GraphView extends SurfaceView implements Runnable {
 	public ArrayList<Item> selectedItems;
 	public ArrayList<Integer> selectedQuantities;
 
-	private static float CALORIE_RATIO = 0;
-	private static float CALORIES_NEEDED = 0;
-	private static int MODE = 0;
+	private static HashMap<String, Float> needs;
+	private static HashMap<String, Float> ratios;
+	
+	private static float calorieRatio;
+	private static float caloriesNeeded;
+	
+	private static int MODE;
+	private final static int SELECT_NONE = 0;
+	private final static int SELECT_SINGLE = 1;
+	private final static int SELECT_COMPARE = 2;
+	private final static String[] order = new String[] {
+			"calories", "protein", "totalfats", "carbs", "fiber", 
+			"sugar", "calcium", "iron", "magnesium", "potassium", "sodium", "zinc", "_vitamin C",
+			"vitamin D", "vitamin B6", "vitamin B12", "vitamin A", "vitamin E", "vitamin K", "Saturated Fat", "Mononsaturated Fat", "Polyunsaturated Fat",
+			"cholesterol" };
 
 	public GraphView(Context context) {
 		super(context);
@@ -89,7 +102,7 @@ public class GraphView extends SurfaceView implements Runnable {
 	@Override
 	public void onDraw(Canvas c) {
 		super.onDraw(c);
-
+		
 		Paint blue = new Paint();
 		blue.setColor(Color.BLUE);
 		Paint black = new Paint();
@@ -116,11 +129,11 @@ public class GraphView extends SurfaceView implements Runnable {
 		
 		determineMode();
 		
-		if (CALORIE_RATIO != 0 && MODE==0) {
-			int baseHeight = Math.round(CALORIE_RATIO * (float) diff);
+		if (calorieRatio != 0 && MODE==SELECT_NONE) {
+			int baseHeight = Math.round(calorieRatio * (float) diff);
 			drawCurrentCartContent(c, base, baseHeight);
-		} else if(CALORIE_RATIO!=0 && MODE==1){
-			int baseHeight = Math.round(CALORIE_RATIO * (float) diff);
+		} else if(calorieRatio!=0 && MODE==SELECT_SINGLE){
+			int baseHeight = Math.round(calorieRatio * (float) diff);
 			drawCurrentCartContent(c, base, baseHeight);
 			
 			float addedCals = getAddedContent(0);
@@ -128,7 +141,7 @@ public class GraphView extends SurfaceView implements Runnable {
 					int addHeight = Math.round(addedCals * (float) diff);
 					drawSingleMode(c, base, baseHeight, addHeight);
 			} 
-		} else if (MODE == 2){
+		} else if (MODE==SELECT_COMPARE){
 			float baseCals = getAddedContent(0);
 			float compareCals = getAddedContent(1);
 			int baseHeight = Math.round(baseCals * (float) diff);
@@ -156,16 +169,41 @@ public class GraphView extends SurfaceView implements Runnable {
 			return;
 		} 
 		
-		MODE = 0;
+		MODE = SELECT_NONE;
 	}
 
-	// calculate the current cart vs. need ratios
-	public void getRatios(PreviousHistory totalCart, RecDailyValues totalRDV) {
-		float currentCaloricContent = totalCart.getCalories();
-		float neededCaloricContent = totalRDV.getCalories();
+	/**
+	 * 
+	 * @param totalCart
+	 * @param totalRDV
+	 */
+	public void getRatios(PreviousHistory currentTotalCart, RecDailyValues currentRDV) {
+		float currentCaloricContent = currentTotalCart.getCalories();
+		float neededCaloricContent = currentRDV.getCalories();
+		
+		HashMap<String, Float> needs = new HashMap<String, Float>(order.length);
+		HashMap<String, Float> ratios = new HashMap<String, Float>(order.length);
+		
+		Float[] rdvTotals = currentRDV.getNutritionNeeds();
+		Float[] cartTotals = currentTotalCart.getNutritionProperties();
+		
+		for(int i=0; i<order.length; i++){
+			float need = rdvTotals[i] * (float) this._days;
+			float ratio = cartTotals[i] / need;
+			String n = order [i];
+			
+			needs.put(n, need);
+			if(need == 0.0f){
+				ratios.put(n, 0.0f);
+			} else {
+				ratios.put(n, ratio);
+			}
+			
+			Log.d("GraphView", "Need: " + n + "," + needs.get(n) + " || Ratio: " + ratios.get(n));
+		}
 	
-		CALORIES_NEEDED = (neededCaloricContent * (float) this._days);
-		CALORIE_RATIO = (currentCaloricContent / CALORIES_NEEDED);
+		caloriesNeeded = (neededCaloricContent * (float) this._days);
+		calorieRatio = (currentCaloricContent / caloriesNeeded);
 	}
 	
 	/**
@@ -178,19 +216,39 @@ public class GraphView extends SurfaceView implements Runnable {
 	public float getAddedContent(int index){
 		float selectedCalories = selectedItems.get(index).getCalories();
 		float addedContent = ((selectedCalories * (float) selectedQuantities.get(index)) / 
-				CALORIES_NEEDED );
+				caloriesNeeded );
 		return addedContent;
 	}
 
 	private void drawCurrentCartContent(Canvas c, int base, int baseHeight) {
 		Paint blue = new Paint();
 		blue.setColor(Color.BLUE);
+		
+		Paint blackText = new Paint();
+		blackText.setColor(Color.BLACK);
+		blackText.isAntiAlias();
+		blackText.setTextSize(22);
 
 		Rect baseRect = new Rect(40, base - baseHeight, 100, base);
 		c.drawRect(baseRect, blue);
+		
+		int halfBar = 30;
+		
+		String o = order[0];
+		float len = blackText.measureText(o, 0, o.length());
+		Log.d("GraphView", "len: " + len);
+		c.drawText(o, 40 + (halfBar-(len/2)), base + 25, blackText);
 	}
 	
-	// ONLY if MODE => 1
+	/**
+	 * Only if MODE is equal to SELECT_SINGLE
+	 * Draws one bar with one grey selelection
+	 * 
+	 * @param c
+	 * @param base
+	 * @param baseHeight
+	 * @param addHeight
+	 */
 	public void drawSingleMode(Canvas c, int base, int baseHeight,
 			int addHeight) {
 		// Bar Colors
@@ -202,7 +260,16 @@ public class GraphView extends SurfaceView implements Runnable {
 		c.drawRect(addRect, grey);
 	}
 	
-	// ONLY if MODE => 2
+	/**
+	 * ONLY if mode is equal to SELECT_COMPARE
+	 * Draws a blue bar to represent the first selected item
+	 * and yellow bar to represent the second.
+	 *  
+	 * @param c
+	 * @param base
+	 * @param baseHeight
+	 * @param cBaseHeight
+	 */
 	public void drawCompareMode(Canvas c, int base, int baseHeight, int cBaseHeight){
 		Paint orange = new Paint();
 		orange.setColor(Color.YELLOW);

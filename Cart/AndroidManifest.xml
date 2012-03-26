@@ -67,7 +67,7 @@
             android:screenOrientation="portrait" ></activity>
         
         <!-- For ZXING LIBRARY -->
-        <activity android:name="com.google.zxing.client.android.CaptureActivity"
+       <activity android:name="com.google.zxing.client.android.CaptureActivity"
               android:screenOrientation="landscape"
               android:configChanges="orientation|keyboardHidden"
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
@@ -77,28 +77,25 @@
             <category android:name="android.intent.category.DEFAULT"/>
           </intent-filter>
 		</activity>
-		
 		<activity android:name="com.google.zxing.client.android.PreferencesActivity"
 		              android:label="@string/preferences_name">
-	    </activity>
-	    
-	    <activity android:name="com.google.zxing.client.android.HelpActivity"
-	              android:screenOrientation="user">
-	      <intent-filter>
-	        <action android:name="android.intent.action.VIEW"/>
-	        <category android:name="android.intent.category.DEFAULT"/>
-	      </intent-filter>
-	    </activity>
-	    
-	    <activity android:name="com.google.zxing.client.android.share.ShareActivity"
-	              android:label="@string/share_name"
-	              android:screenOrientation="user"
-	              android:theme="@android:style/Theme.Light">
-	      <intent-filter>
-	        <action android:name="com.google.zxing.client.android.SHARE"/>
-	        <category android:name="android.intent.category.DEFAULT"/>
-	      </intent-filter>
-	    </activity>
+		    </activity>
+		    <activity android:name="com.google.zxing.client.android.HelpActivity"
+		              android:screenOrientation="user">
+		      <intent-filter>
+		        <action android:name="android.intent.action.VIEW"/>
+		        <category android:name="android.intent.category.DEFAULT"/>
+		      </intent-filter>
+		    </activity>
+		    <activity android:name="com.google.zxing.client.android.share.ShareActivity"
+		              android:label="@string/share_name"
+		              android:screenOrientation="user"
+		              android:theme="@android:style/Theme.Light">
+		      <intent-filter>
+		        <action android:name="com.google.zxing.client.android.SHARE"/>
+		        <category android:name="android.intent.category.DEFAULT"/>
+		      </intent-filter>
+		    </activity>
 	    
 	    <!-- END ZXING LIBRARY -->
 	    
