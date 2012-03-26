@@ -1,2 +1,5 @@
 1332708208197	Rename field 'CALORIE_RATIO'
 1332708220722	Rename field 'CALORIES_NEEDED'
+1332776353403	Rename local variable 'multiplier'
+1332776674843	Rename local variable 'diff'
+1332778662386	Rename method 'getAddedContent'

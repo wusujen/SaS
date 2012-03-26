@@ -115,8 +115,8 @@ public class GraphView extends SurfaceView implements Runnable {
 
 		int base = h - 80;
 		int topline = 60;
-		int diff = base - topline;
-		float interpolate = (float) diff / (float) _days;
+		int graphHeight = base - topline;
+		float interpolate = (float) graphHeight / (float) _days;
 		
 		
 		// to draw the lines:
@@ -129,25 +129,24 @@ public class GraphView extends SurfaceView implements Runnable {
 		
 		determineMode();
 		
-		if (calorieRatio != 0 && MODE==SELECT_NONE) {
-			int baseHeight = Math.round(calorieRatio * (float) diff);
-			drawCurrentCartContent(c, base, baseHeight);
+		if (calorieRatio!= 0 && MODE==SELECT_NONE) {
+			
+			drawCurrentCartContent(c, base, graphHeight);
+			
 		} else if(calorieRatio!=0 && MODE==SELECT_SINGLE){
-			int baseHeight = Math.round(calorieRatio * (float) diff);
-			drawCurrentCartContent(c, base, baseHeight);
 			
-			float addedCals = getAddedContent(0);
-			if(addedCals!=0){
-					int addHeight = Math.round(addedCals * (float) diff);
-					drawSingleMode(c, base, baseHeight, addHeight);
-			} 
+			int baseHeight = Math.round(calorieRatio * (float) graphHeight);
+			drawCurrentCartContent(c, base, graphHeight);
+
+			drawSingleMode(c, base, graphHeight);
+			
 		} else if (MODE==SELECT_COMPARE){
-			float baseCals = getAddedContent(0);
-			float compareCals = getAddedContent(1);
-			int baseHeight = Math.round(baseCals * (float) diff);
-			int cBaseHeight = Math.round(compareCals * (float) diff);
+			/*float baseCals = getAddedNutrition(0);
+			float compareCals = getAddedNutrition(1);
+			int baseHeight = Math.round(baseCals * (float) graphHeight);
+			int cBaseHeight = Math.round(compareCals * (float) graphHeight);
 			
-			drawCompareMode(c, base, baseHeight, cBaseHeight);
+			drawCompareMode(c, base, baseHeight, cBaseHeight);*/
 		}
 	}
 
@@ -181,8 +180,8 @@ public class GraphView extends SurfaceView implements Runnable {
 		float currentCaloricContent = currentTotalCart.getCalories();
 		float neededCaloricContent = currentRDV.getCalories();
 		
-		HashMap<String, Float> needs = new HashMap<String, Float>(order.length);
-		HashMap<String, Float> ratios = new HashMap<String, Float>(order.length);
+		needs = new HashMap<String, Float>(order.length);
+		ratios = new HashMap<String, Float>(order.length);
 		
 		Float[] rdvTotals = currentRDV.getNutritionNeeds();
 		Float[] cartTotals = currentTotalCart.getNutritionProperties();
@@ -213,14 +212,20 @@ public class GraphView extends SurfaceView implements Runnable {
 	 * @param index of the item in the cart
 	 * @return
 	 */
-	public float getAddedContent(int index){
-		float selectedCalories = selectedItems.get(index).getCalories();
-		float addedContent = ((selectedCalories * (float) selectedQuantities.get(index)) / 
-				caloriesNeeded );
-		return addedContent;
+	public ArrayList<Float> getAddedNutrition(int index){
+		Float[] nutrients = selectedItems.get(index).getNutritionProperties();
+		
+		ArrayList<Float> addedNutrition = new ArrayList<Float>();
+		for(int i=0; i<nutrients.length; i++){
+			float addedContent = ((nutrients[i] * (float) selectedQuantities.get(index)) / 
+				needs.get(order[i]));
+			addedNutrition.add(addedContent);
+		}
+		
+		return addedNutrition;
 	}
 
-	private void drawCurrentCartContent(Canvas c, int base, int baseHeight) {
+	private void drawCurrentCartContent(Canvas c, int base, int graphHeight) {
 		Paint blue = new Paint();
 		blue.setColor(Color.BLUE);
 		
@@ -228,16 +233,26 @@ public class GraphView extends SurfaceView implements Runnable {
 		blackText.setColor(Color.BLACK);
 		blackText.isAntiAlias();
 		blackText.setTextSize(22);
-
-		Rect baseRect = new Rect(40, base - baseHeight, 100, base);
-		c.drawRect(baseRect, blue);
 		
-		int halfBar = 30;
+		// WIDTH
+		int startBar = 40;
+		int endBar = 100;
+		int halfBar = (endBar - startBar)/2;
 		
-		String o = order[0];
-		float len = blackText.measureText(o, 0, o.length());
-		Log.d("GraphView", "len: " + len);
-		c.drawText(o, 40 + (halfBar-(len/2)), base + 25, blackText);
+		for(int i=0; i<order.length; i++){
+			int spacing = 115*i;
+			
+			// TEXT
+			String o = order[i];
+			float len = blackText.measureText(o, 0, o.length());
+			c.drawText(o, (startBar+spacing + (halfBar-(len/2))), base + 25, blackText);
+			
+			// BAR
+			int barHeight = Math.round(ratios.get(o) * (float) graphHeight);
+			
+			Rect baseRect = new Rect((startBar+spacing), base - barHeight, (endBar+spacing), base);
+			c.drawRect(baseRect, blue);
+		}
 	}
 	
 	/**
@@ -249,15 +264,26 @@ public class GraphView extends SurfaceView implements Runnable {
 	 * @param baseHeight
 	 * @param addHeight
 	 */
-	public void drawSingleMode(Canvas c, int base, int baseHeight,
-			int addHeight) {
+	public void drawSingleMode(Canvas c, int base, int graphHeight) {
 		// Bar Colors
 		Paint grey = new Paint();
 		grey.setColor(Color.LTGRAY);
 		
-		Rect addRect = new Rect(40, base - baseHeight, 100, base - baseHeight
-				+ addHeight);
-		c.drawRect(addRect, grey);
+		ArrayList<Float> selectedNutrition = getAddedNutrition(0);
+		
+		// WIDTH
+		int startBar = 40;
+		int endBar = 100;
+		
+		for(int i=0; i<selectedNutrition.size(); i++){
+			int spacing = 115*i;
+			int barHeight = Math.round(ratios.get(order[i]) * (float) graphHeight);
+			int addHeight = Math.round(selectedNutrition.get(i) * (float) graphHeight);
+			
+			Rect addRect = new Rect((startBar+spacing), base - barHeight, (endBar+spacing), base - barHeight
+					+ addHeight);
+			c.drawRect(addRect, grey);
+		}
 	}
 	
 	/**
