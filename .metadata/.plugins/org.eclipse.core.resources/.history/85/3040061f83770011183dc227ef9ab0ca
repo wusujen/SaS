@@ -1,0 +1,22 @@
+package com.christine.cart.visual;
+
+import android.view.SurfaceHolder;
+
+public class GraphThread extends Thread {
+	private SurfaceHolder _surfaceHolder;
+	private GraphView _graph;
+	private boolean _run = false;
+	
+	public GraphThread(SurfaceHolder surfaceHolder, GraphView graph){
+		_surfaceHolder = surfaceHolder;
+		_graph = graph;
+	}
+	
+	public void setRunning (boolean run){
+		_run = run;
+	}
+	
+	public void run(){
+		
+	}
+}

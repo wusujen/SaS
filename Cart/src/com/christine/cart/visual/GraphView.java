@@ -17,12 +17,10 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-public class GraphView extends SurfaceView implements Runnable {
+public class GraphView extends SurfaceView implements SurfaceHolder.Callback {
 
-	private Thread t = null;
+	private GraphThread thread;
 	public SurfaceHolder holder;
-	private boolean isOk = false;
-	private Canvas canvas;
 	public int _days;
 	public ArrayList<Item> selectedItems;
 	public ArrayList<Integer> selectedQuantities;
@@ -42,59 +40,56 @@ public class GraphView extends SurfaceView implements Runnable {
 
 	public GraphView(Context context) {
 		super(context);
-		holder = getHolder();
+		getHolder().addCallback(this);
+		thread = new GraphThread(getHolder(), this);
+
 		selectedItems = new ArrayList<Item>();
 		selectedQuantities = new ArrayList<Integer>();
 	}
 
 	public GraphView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		holder = getHolder();
+		getHolder().addCallback(this);
+		thread = new GraphThread(getHolder(), this);
+		
 		selectedItems = new ArrayList<Item>();
 		selectedQuantities = new ArrayList<Integer>();
 	}
 
 	public GraphView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		holder = getHolder();
+		getHolder().addCallback(this);
+		thread = new GraphThread(getHolder(), this);
+		
 		selectedItems = new ArrayList<Item>();
 		selectedQuantities = new ArrayList<Integer>();
 	}
-
-	public void run() {
+	
+	public void surfaceChanged(SurfaceHolder holder, int format, int width,
+			int height) {
 		// TODO Auto-generated method stub
-		while (isOk) {
-			// drawing stuff goes here
-			if (!holder.getSurface().isValid()) {
-				continue;
-			}
-
-			canvas = holder.lockCanvas();
-			canvas.drawARGB(255, 255, 255, 255);
-			
-			onDraw(canvas);
-				
-			holder.unlockCanvasAndPost(canvas);
-		}
-	}
-
-	public void pause() {
-		isOk = false;
-		try {
-			t.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		t = null;
 		
 	}
 
-	public void resume() {
-		isOk = true;
-		t = new Thread(this);
-		t.start();
+	public void surfaceCreated(SurfaceHolder holder) {
+		thread.setRunning(true);
+		thread.start();
 	}
+
+	public void surfaceDestroyed(SurfaceHolder holder) {
+		boolean retry = true;
+		thread.setRunning(false);
+		while (retry) {
+			try {
+				thread.join();
+				retry = false;
+			} catch (InterruptedException e){
+				//try again and again!
+			}
+		}
+	}
+
+
 
 	@Override
 	public void onDraw(Canvas c) {
@@ -129,15 +124,20 @@ public class GraphView extends SurfaceView implements Runnable {
 		if (ratios!=null && MODE==SELECT_NONE) {
 			
 			drawCurrentCartContent(c, base, graphHeight);
+			Log.d("GraphView", "Canvas Width, no selection: " + c.getWidth());
 			
 		} else if(ratios!=null && MODE==SELECT_SINGLE){
 
 			drawCurrentCartContent(c, base, graphHeight);
 			drawSingleMode(c, base, graphHeight);
 			
+			Log.d("GraphView", "Canvas Width, single selection: " + c.getWidth());
+			
 		} else if (MODE==SELECT_COMPARE){
 
 			drawCompareMode(c, base, graphHeight);
+			
+			Log.d("GraphView", "Canvas Width, comparison: " + c.getWidth());
 		}
 	}
 
@@ -326,5 +326,7 @@ public class GraphView extends SurfaceView implements Runnable {
 			c.drawRect(compareRect, orange);
 		}
 	}
+
+
 
 }

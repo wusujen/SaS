@@ -305,13 +305,11 @@ public class CartActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		graph.pause();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		graph.resume();
 
 		passedIntent = getIntent();
 
