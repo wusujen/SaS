@@ -45,7 +45,7 @@
 </editorArea>
 <editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GraphView.java" partName="GraphView.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/visual/GraphView.java" title="GraphView.java" tooltip="Cart/src/com/christine/cart/visual/GraphView.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/visual/GraphView.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="7392" selectionTopPixel="3679"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3815" selectionTopPixel="1575"/>
 </editor>
 </editors>
 <views>
@@ -69,7 +69,9 @@
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
-<category IMemento.internal.id="Warnings (12 items)"/>
+<category IMemento.internal.id="Warnings (34 items)"/>
+<category IMemento.internal.id="Warnings"/>
+<category IMemento.internal.id="Errors"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="820"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
@@ -259,11 +261,6 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/zxing/src/com/google/zxing/client/android/CaptureActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/zxing/src/com/google/zxing/client/android/CaptureActivityHandler.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/zxing/src/com/google/zxing/client/android/DecodeHandler.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/zxing/src/com/google/zxing/client/android/book/SearchBookContentsActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.CommonXmlEditor" path="/Cart/res/layout/person.xml"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/visual/GraphView.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/zxing/src/com/google/zxing/client/android/share/ShareActivity.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" path="/zxing/AndroidManifest.xml"/>
@@ -275,151 +272,153 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/Item.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/PreviousHistory.java"/>
 </editors>
-<item historyLabel="CaptureActivityHandler.java" index="1">
-<position info="not_deleted" x="3907" y="0"/>
-</item>
-<item historyLabel="DecodeHandler.java" index="2">
-<position info="not_deleted" x="2101" y="0"/>
-</item>
-<item historyLabel="SearchBookContentsActivity.java" index="3">
-<position info="not_deleted" x="3134" y="0"/>
-</item>
-<item historyLabel="person.xml" index="4"/>
-<item historyLabel="CaptureActivity.java" index="0">
-<position info="not_deleted" x="3821" y="68"/>
-</item>
-<item historyLabel="GraphView.java" index="5">
-<position info="not_deleted" x="6621" y="0"/>
-</item>
-<item historyLabel="ShareActivity.java" index="6">
+<item historyLabel="ShareActivity.java" index="1">
 <position info="not_deleted" x="3" y="0"/>
 </item>
-<item historyLabel="ShareActivity.java" index="6">
+<item historyLabel="ShareActivity.java" index="1">
 <position info="not_deleted" x="7564" y="8"/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="6621" y="0"/>
 </item>
-<item historyLabel="zxing Manifest" index="7"/>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="zxing Manifest" index="2"/>
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="4726" y="0"/>
 </item>
-<item historyLabel="CaptureActivityHandler.java" index="8">
+<item historyLabel="CaptureActivityHandler.java" index="3">
 <position info="not_deleted" x="3" y="0"/>
 </item>
-<item historyLabel="CaptureActivityHandler.java" index="8">
+<item historyLabel="CaptureActivityHandler.java" index="3">
 <position/>
 </item>
-<item historyLabel="CaptureActivityHandler.java" index="8">
+<item historyLabel="CaptureActivityHandler.java" index="3">
 <position/>
 </item>
-<item historyLabel="CaptureActivityHandler.java" index="8">
+<item historyLabel="CaptureActivityHandler.java" index="3">
 <position/>
 </item>
-<item historyLabel="CaptureActivityHandler.java" index="8">
+<item historyLabel="CaptureActivityHandler.java" index="3">
 <position info="not_deleted" x="2136" y="0"/>
 </item>
-<item historyLabel="DecodeHandler.java" index="9">
+<item historyLabel="DecodeHandler.java" index="4">
 <position info="not_deleted" x="1670" y="185"/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="4726" y="0"/>
 </item>
-<item historyLabel="SearchBookContentsActivity.java" index="10">
+<item historyLabel="SearchBookContentsActivity.java" index="5">
 <position info="not_deleted" x="2872" y="265"/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="5491" y="0"/>
 </item>
-<item historyLabel="Contents.java" index="11">
+<item historyLabel="Contents.java" index="6">
 <position info="not_deleted" x="3064" y="8"/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="5491" y="0"/>
 </item>
-<item historyLabel="CartActivity.java" index="12">
+<item historyLabel="CartActivity.java" index="7">
 <position info="not_deleted" x="426" y="0"/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="5491" y="0"/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="3099" y="0"/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="6721" y="0"/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="6851" y="67"/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="5474" y="0"/>
 </item>
-<item historyLabel="Item.java" index="13">
+<item historyLabel="Item.java" index="8">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="5474" y="0"/>
 </item>
-<item historyLabel="Item.java" index="13">
+<item historyLabel="Item.java" index="8">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="PreviousHistory.java" index="14">
+<item historyLabel="PreviousHistory.java" index="9">
 <position/>
 </item>
-<item historyLabel="Item.java" index="13">
+<item historyLabel="Item.java" index="8">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="PreviousHistory.java" index="14">
+<item historyLabel="PreviousHistory.java" index="9">
 <position/>
 </item>
-<item historyLabel="Item.java" index="13">
+<item historyLabel="Item.java" index="8">
 <position info="not_deleted" x="6815" y="0"/>
 </item>
-<item historyLabel="PreviousHistory.java" index="14">
+<item historyLabel="PreviousHistory.java" index="9">
 <position/>
 </item>
-<item historyLabel="Item.java" index="13">
+<item historyLabel="Item.java" index="8">
 <position info="not_deleted" x="6815" y="0"/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="6658" y="0"/>
 </item>
-<item historyLabel="PreviousHistory.java" index="14">
+<item historyLabel="PreviousHistory.java" index="9">
 <position info="not_deleted" x="620" y="0"/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="6658" y="0"/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="6029" y="0"/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="5987" y="0"/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="5985" y="0"/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="5836" y="0"/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="7513" y="0"/>
 </item>
-<item historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="7559" y="0"/>
 </item>
-<item active="true" historyLabel="GraphView.java" index="5">
+<item historyLabel="GraphView.java" index="0">
 <position info="not_deleted" x="7753" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="0">
+<position info="not_deleted" x="8281" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="0">
+<position info="not_deleted" x="8315" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="0">
+<position info="not_deleted" x="8700" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="0">
+<position info="not_deleted" x="8687" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="0">
+<position info="not_deleted" x="3742" y="0"/>
+</item>
+<item active="true" historyLabel="GraphView.java" index="0">
+<position info="not_deleted" x="8700" y="1"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -427,12 +426,6 @@
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
-<trimArea IMemento.internal.id="16384">
-<trimItem IMemento.internal.id="left"/>
-</trimArea>
-<trimArea IMemento.internal.id="131072">
-<trimItem IMemento.internal.id="right"/>
-</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
 </trimArea>
@@ -440,7 +433,6 @@
 <trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
 <trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
-<trimItem IMemento.internal.id="bottom"/>
 </trimArea>
 </trimLayout>
 </window>

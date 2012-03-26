@@ -30,9 +30,6 @@ public class GraphView extends SurfaceView implements Runnable {
 	private static HashMap<String, Float> needs;
 	private static HashMap<String, Float> ratios;
 	
-	private static float calorieRatio;
-	private static float caloriesNeeded;
-	
 	private static int MODE;
 	private final static int SELECT_NONE = 0;
 	private final static int SELECT_SINGLE = 1;
@@ -129,24 +126,18 @@ public class GraphView extends SurfaceView implements Runnable {
 		
 		determineMode();
 		
-		if (calorieRatio!= 0 && MODE==SELECT_NONE) {
+		if (ratios!=null && MODE==SELECT_NONE) {
 			
 			drawCurrentCartContent(c, base, graphHeight);
 			
-		} else if(calorieRatio!=0 && MODE==SELECT_SINGLE){
-			
-			int baseHeight = Math.round(calorieRatio * (float) graphHeight);
-			drawCurrentCartContent(c, base, graphHeight);
+		} else if(ratios!=null && MODE==SELECT_SINGLE){
 
+			drawCurrentCartContent(c, base, graphHeight);
 			drawSingleMode(c, base, graphHeight);
 			
 		} else if (MODE==SELECT_COMPARE){
-			/*float baseCals = getAddedNutrition(0);
-			float compareCals = getAddedNutrition(1);
-			int baseHeight = Math.round(baseCals * (float) graphHeight);
-			int cBaseHeight = Math.round(compareCals * (float) graphHeight);
-			
-			drawCompareMode(c, base, baseHeight, cBaseHeight);*/
+
+			drawCompareMode(c, base, graphHeight);
 		}
 	}
 
@@ -200,9 +191,6 @@ public class GraphView extends SurfaceView implements Runnable {
 			
 			Log.d("GraphView", "Need: " + n + "," + needs.get(n) + " || Ratio: " + ratios.get(n));
 		}
-	
-		caloriesNeeded = (neededCaloricContent * (float) this._days);
-		calorieRatio = (currentCaloricContent / caloriesNeeded);
 	}
 	
 	/**
@@ -296,17 +284,47 @@ public class GraphView extends SurfaceView implements Runnable {
 	 * @param baseHeight
 	 * @param cBaseHeight
 	 */
-	public void drawCompareMode(Canvas c, int base, int baseHeight, int cBaseHeight){
+	public void drawCompareMode(Canvas c, int base, int graphHeight){
 		Paint orange = new Paint();
 		orange.setColor(Color.YELLOW);
+		
 		Paint blue = new Paint();
 		blue.setColor(Color.BLUE);
-
-		Rect baseRect = new Rect(40, base - baseHeight, 100, base);
-		Rect compareRect = new Rect(120, base - cBaseHeight, 180, base);
 		
-		c.drawRect(baseRect, blue);
-		c.drawRect(compareRect, orange);
+		Paint blackText = new Paint();
+		blackText.setColor(Color.BLACK);
+		blackText.isAntiAlias();
+		blackText.setTextSize(22);
+		
+		// WIDTH
+		int startBarB = 40;
+		int endBarB = startBarB + 60;
+		int startBarO = endBarB + 20;
+		int endBarO = startBarO + 60 ;
+		int halfBar = (endBarO - startBarB)/2;	//TEXT
+		
+		// NUTRITION
+		ArrayList<Float> NutrientB = getAddedNutrition(0);
+		ArrayList<Float> NutrientO = getAddedNutrition(1);
+		
+		for(int i=0; i<NutrientB.size(); i++){
+			int spacing = (endBarO + 20)*i;
+			
+			// TEXT
+			String o = order[i];
+			float len = blackText.measureText(o, 0, o.length());
+			c.drawText(o, (startBarB+spacing + (halfBar-(len/2))), base + 25, blackText);
+			
+			// BAR
+			int barHeightB = Math.round(NutrientB.get(i) * (float) graphHeight);
+			int barHeightO = Math.round(NutrientO.get(i) * (float) graphHeight);
+			
+			Rect baseRect = new Rect((startBarB+spacing), base - barHeightB, (endBarB+spacing), base);
+			Rect compareRect = new Rect((startBarO+spacing), base - barHeightO, (endBarO+spacing), base);
+			
+			c.drawRect(baseRect, blue);
+			c.drawRect(compareRect, orange);
+		}
 	}
 
 }
