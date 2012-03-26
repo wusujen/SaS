@@ -3,12 +3,26 @@
     android:id="@+id/FrameLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <com.christine.cart.visual.GraphView
+                android:id="@+id/graphview"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp" />
 
-    <com.christine.cart.visual.GraphView
-        android:id="@+id/graphview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="10dp" />
+        </LinearLayout>
+    </HorizontalScrollView>
      
      <TableRow
         android:id="@+id/tableRow1"
