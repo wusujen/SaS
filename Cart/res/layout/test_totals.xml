@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="left" >
-
+
         <TableRow
             android:id="@+id/tableRow1"
             android:layout_width="match_parent"

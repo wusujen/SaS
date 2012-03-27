@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="horizontal" >
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-
+
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
@@ -22,7 +22,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
-                android:text="Tell us about "
+                android:text="@string/person_title"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
-                android:text="name" />
+                android:text="@string/tv_name" />
 
             <EditText
                 android:id="@+id/et_name"
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
-                android:text="age" />
+                android:text="@string/tv_age" />
 
             <SeekBar
                 android:id="@+id/sb_age"
@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
-                android:text="height" />
+                android:text="@string/tv_height" />
 
             <TableRow
                 android:id="@+id/tableRow1"
@@ -92,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
-                android:text="weight" />
+                android:text="@string/tv_weight" />
 
             <SeekBar
                 android:id="@+id/sb_weight"
@@ -108,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
-                android:text="level of activity" />
+                android:text="@string/tv_activity" />
 
             <Spinner
                 android:id="@+id/sp_activity"
@@ -131,7 +131,7 @@
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
-                    android:text="Submit" />
+                    android:text="@string/btn_submit" />
 
                 <Button
                     android:id="@+id/btn_cancel"
@@ -141,7 +141,7 @@
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
-                    android:text="Cancel" />
+                    android:text="@string/btn_cancel" />
             </TableRow>
         </LinearLayout>
 

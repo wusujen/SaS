@@ -55,7 +55,6 @@ public class SetupPeopleActivity extends Activity {
 	    boy = (Button) findViewById(R.id.btn_boy);
 	    girl = (Button) findViewById(R.id.btn_girl);
 	    user_properties = (TextView) findViewById(R.id.user_properties);
-	    tv_added = (TextView) findViewById(R.id.tv_added);
 	    tv_plist = (TextView) findViewById(R.id.tv_plist);
 	    
 	    man.setOnClickListener(new View.OnClickListener() {
