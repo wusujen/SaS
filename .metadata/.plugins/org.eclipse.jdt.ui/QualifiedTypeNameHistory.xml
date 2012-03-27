@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.database.SQLException"/>
-<fullyQualifiedTypeName name="com.christine.cart.CreateAccountActivity"/>
-<fullyQualifiedTypeName name="android.database.sqlite.SQLiteDatabase"/>
-<fullyQualifiedTypeName name="android.widget.Button"/>
-<fullyQualifiedTypeName name="android.widget.EditText"/>
-<fullyQualifiedTypeName name="com.christine.cart.sqlite.PersonActivity"/>
-<fullyQualifiedTypeName name="sqlite.DaysActivity"/>
-<fullyQualifiedTypeName name="android.content.Intent"/>
-<fullyQualifiedTypeName name="com.christine.cart.CartActivity"/>
-<fullyQualifiedTypeName name="com.christine.cart.SetupPeopleActivity"/>
 <fullyQualifiedTypeName name="android.accounts.Account"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Account"/>
 <fullyQualifiedTypeName name="com.christine.cart.SetupDaysActivity"/>
@@ -36,7 +26,6 @@
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Person"/>
 <fullyQualifiedTypeName name="com.christine.cart.R.id"/>
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
-<fullyQualifiedTypeName name="android.view.View"/>
 <fullyQualifiedTypeName name="android.content.res.Resources"/>
 <fullyQualifiedTypeName name="android.graphics.Rect"/>
 <fullyQualifiedTypeName name="android.graphics.Paint"/>
@@ -60,4 +49,15 @@
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="android.R"/>
 <fullyQualifiedTypeName name="android.view.SurfaceHolder.Callback"/>
+<fullyQualifiedTypeName name="android.view.MotionEvent"/>
+<fullyQualifiedTypeName name="android.graphics.Bitmap"/>
+<fullyQualifiedTypeName name="android.graphics.Bitmap.Config"/>
+<fullyQualifiedTypeName name="android.graphics.Bitmap.CompressFormat"/>
+<fullyQualifiedTypeName name="java.io.OutputStream"/>
+<fullyQualifiedTypeName name="android.view.View"/>
+<fullyQualifiedTypeName name="android.support.v4.view.ViewPager.LayoutParams"/>
+<fullyQualifiedTypeName name="android.view.ViewGroup.LayoutParams"/>
+<fullyQualifiedTypeName name="android.view.ViewGroup"/>
+<fullyQualifiedTypeName name="android.widget.LinearLayout"/>
+<fullyQualifiedTypeName name="android.widget.LinearLayout.LayoutParams"/>
 </qualifiedTypeNameHistroy>

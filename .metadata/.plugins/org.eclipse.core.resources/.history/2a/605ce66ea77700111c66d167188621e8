@@ -1,0 +1,50 @@
+package com.christine.cart.visual;
+
+import java.io.OutputStream;
+
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.view.SurfaceHolder;
+
+public class GraphThread extends Thread {
+	private SurfaceHolder _surfaceHolder;
+	private GraphView _graph;
+	private boolean _run = false;
+
+	
+	public GraphThread(SurfaceHolder surfaceHolder, GraphView graph){
+		_surfaceHolder = surfaceHolder;
+		_graph = graph;
+	}
+	
+	public void setRunning (boolean run){
+		_run = run;
+	}
+	
+	@Override
+	public void run(){
+		Canvas c;
+		Bitmap b;
+		
+		while(_run){
+			c = null;
+			b = Bitmap.createBitmap(_graph.getGraphWidth(), GraphView.getGraphHeight(), Bitmap.Config.ARGB_8888);
+			try{
+				c = _surfaceHolder.lockCanvas(null);
+				
+				c.setBitmap(b);
+				c.drawARGB(255,255,255,255);		
+				synchronized(_surfaceHolder){
+					_graph.onDraw(c);
+				}
+				
+			} finally{
+				if(c!=null){
+					_surfaceHolder.unlockCanvasAndPost(c);
+				}
+			}
+		}
+	}
+	
+	
+}

@@ -61,7 +61,6 @@ public class CartActivity extends Activity {
 	
 	// to start the graph view
 	private static GraphView graph;
-	private static SurfaceHolder graphHolder;
 
 	// information required to start the scan intent
 	public static final String PACKAGE = "com.christine.cart";
@@ -224,13 +223,12 @@ public class CartActivity extends Activity {
 			sd_itemlist = (SlidingDrawer) findViewById(R.id.sd_itemlist);
 			sd_itemlist.setOnDrawerOpenListener(new OnDrawerOpenListener() {
 				public void onDrawerOpened() {
-					graph.setZOrderOnTop(true);
-					graphHolder = graph.getHolder();
+					
 				}
 			});
 			sd_itemlist.setOnDrawerCloseListener(new OnDrawerCloseListener() {
 				public void onDrawerClosed() {
-					graph.setZOrderOnTop(false);
+
 				}
 			});
 		}
