@@ -72,7 +72,7 @@ public class InputScanActivity extends Activity {
 			HashMap<String, String> params = new HashMap<String, String>();
 			params.put("rpc_key", rpc_key);
 			params.put("upc", contents);
-			HashMap<String, String> result = (HashMap<String, String>) client.call("lookup", params);
+			HashMap result = (HashMap) client.call("lookup", params);
 			System.out.println("This is contents " + contents);
 			
 			//store these values

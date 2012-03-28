@@ -21,6 +21,9 @@ public class GraphView extends View{
 
 	public SurfaceHolder holder;
 	public int _days;
+	public int _topline;
+	public int _base;
+	public int _graphHeight;
 	public ArrayList<Item> selectedItems;
 	public ArrayList<Integer> selectedQuantities;
 
@@ -70,8 +73,8 @@ public class GraphView extends View{
 		setMeasuredDimension( widthMeasureSpec, heightMeasureSpec);
 	}
 
-	// @Override
-	public void onDraw(Canvas c) {
+	@Override
+	protected void onDraw(Canvas c) {
 		super.onDraw(c);
 		Paint blue = new Paint();
 		blue.setColor(Color.BLUE);
@@ -83,31 +86,31 @@ public class GraphView extends View{
 		int w = getWidth();
 		int h = getHeight();
 
-		int base = h - 80;
-		int topline = 60;
-		int graphHeight = base - topline;
-		float interpolate = (float) graphHeight / (float) _days;
+		_base = h - 80;
+		_topline = 60;
+		_graphHeight = _base - _topline;
+		float interpolate = (float) _graphHeight / (float) _days;
 		
 		
 		// to draw the lines:
 		for (int i = 0; i < _days; i++) {
-			float b = topline + (i * interpolate);
+			float b = _topline + (i * interpolate);
 			c.drawLine(20, b, w - 20, b, grey);
 		} 
-		c.drawLine(20, topline, w - 20, topline, blue);	//top line
-		c.drawLine(20, base, w - 20, base, black);		//bottom line
+		c.drawLine(20, _topline, w - 20, _topline, blue);	//top line
+		c.drawLine(20, _base, w - 20, _base, black);		//bottom line
 		
 		determineMode();
 		
 		if (ratios!=null && MODE==SELECT_NONE) {
-			drawCurrentCartContent(c, base, graphHeight);
+			drawCurrentCartContent(c, _base, _graphHeight);
 			
 		} else if(ratios!=null && MODE==SELECT_SINGLE){
-			drawCurrentCartContent(c, base, graphHeight);
-			drawSingleMode(c, base, graphHeight);
+			drawCurrentCartContent(c, _base, _graphHeight);
+			drawSingleMode(c, _base, _graphHeight);
 			
 		} else if (MODE==SELECT_COMPARE){
-			drawCompareMode(c, base, graphHeight);
+			drawCompareMode(c, _base, _graphHeight);
 		}
 	}
 	
@@ -115,6 +118,22 @@ public class GraphView extends View{
 	
 	public void setDays(int days) {
 		this._days = days;
+	}
+	
+	public int getDays() {
+		return this._days;
+	}
+	
+	public int getBase(){
+		return this._base;
+	}
+	
+	public int getTopline(){
+		return this._topline;
+	}
+	
+	public int getGraphHeight(){
+		return this._graphHeight;
 	}
 
 	public void passSelectedItems(ArrayList<Item> selection) {

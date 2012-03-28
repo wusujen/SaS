@@ -1,0 +1,645 @@
+package com.christine.cart;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.christine.cart.intentResult.IntentResult;
+import com.christine.cart.sqlite.Account;
+import com.christine.cart.sqlite.AccountDatabaseHelper;
+import com.christine.cart.sqlite.GroceryItem;
+import com.christine.cart.sqlite.Item;
+import com.christine.cart.sqlite.NutritionDatabaseHelper;
+import com.christine.cart.sqlite.Person;
+import com.christine.cart.sqlite.PreviousHistory;
+import com.christine.cart.sqlite.RecDailyValues;
+import com.christine.cart.visual.GraphLabelView;
+import com.christine.cart.visual.GraphView;
+
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.util.Log;
+import android.util.SparseBooleanArray;
+import android.view.Gravity;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.SlidingDrawer;
+import android.widget.Toast;
+import android.widget.SlidingDrawer.OnDrawerCloseListener;
+import android.widget.SlidingDrawer.OnDrawerOpenListener;
+
+public class CartActivity extends Activity {
+
+	// UI Elements
+	String results;
+	Button viewItemList;
+	Button checkout;
+	Button test;
+	Button searchItem;
+	Button scanItem;
+	SlidingDrawer sd_itemlist;
+	ListView sd_list;
+
+	InputMethodManager manager;
+	Context inputsContext;
+	
+	// for scan results
+	private static String upcResults;
+	private static String resultValue;
+	private static String resultSize;
+	private static String resultMessage;
+
+	private static Intent passedIntent;
+	
+	// to start the graph view
+	private static GraphView graph;
+	private static GraphLabelView graphLabels;
+	private static Canvas c;
+
+	// information required to start the scan intent
+	public static final String PACKAGE = "com.christine.cart";
+	public static final String SCANNER = "com.google.zxing.client.android.SCAN";
+	public static final String SCAN_FORMATS = "UPC_A,UPC_E,EAN_8,EAN_13,CODE_39,CODE_93,CODE_128";
+	public static final String SCAN_MODE = "SCAN_MODE";
+	public static final int REQUEST_CODE = 1;
+
+	private static String currentUsername;
+	private static Account act;
+	private static AccountDatabaseHelper db;
+	private static NutritionDatabaseHelper ndb;
+	private boolean onUPCResult = false;
+
+	// information for graph settings
+	private static int days;
+	
+	private static ArrayList<Item> selectedItems;
+	private static ArrayList<Integer> quantities;
+	private static List<GroceryItem> ccart;
+	private static ArrayAdapter<String> ccartList;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.cart);
+
+		// From the intent, read the number of days
+		Intent passedIntent = getIntent();
+
+		if (passedIntent != null) {
+			// retrieve the account
+			Account tempAccount = passedIntent.getParcelableExtra("account");
+
+			if (tempAccount != null) {
+				act = tempAccount;
+				currentUsername = act.getName();
+				int tdays = tempAccount.getDays();
+				if (tdays != 0) {
+					days = tdays;
+				} else {
+					// set days equal to 1 to prevent crashing
+					days = 1;
+				}
+			} else {
+				throw new RuntimeException(
+						"CartActivity: account passed was null");
+			}
+		}
+
+
+		// start the db
+		db = new AccountDatabaseHelper(this);
+		ndb = new NutritionDatabaseHelper(this);
+		
+		// Set the number of days and start the graph view!
+		graph = (GraphView) this.findViewById(R.id.graphview);
+		graph.setDays(days);
+
+		// Start the graph label view
+		c = new Canvas();
+		c.drawARGB(255, 255, 255, 255);
+		graphLabels = (GraphLabelView) this.findViewById(R.id.graphlabelview);
+		graphLabels.setGraphView(graph);
+		graphLabels.draw(c);
+		
+		// initiates the listview within the drawer
+		sd_list = (ListView) findViewById(R.id.sd_list);
+
+		// get the information for listView: all of the items that are in
+		// currentcart for that user
+		ccart = db.getAllGroceryItemsOf(currentUsername);
+		db.close();
+		if (ccart != null) {
+			ccartList = new ArrayAdapter<String>(this,
+					android.R.layout.simple_list_item_checked);
+			for (int i = 0; i < ccart.size(); i++) {
+				GroceryItem temp = ccart.get(i);
+				ccartList.add(String.valueOf(temp.getQuantity()) + " "
+						+ temp.getItemName());
+			}
+
+			// set properties of the list view and populate the listview
+			sd_list.setAdapter(ccartList);
+			sd_list.setBackgroundColor(Color.WHITE);
+			sd_list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+			
+			sd_list.setOnItemClickListener(new OnItemClickListener() {
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					
+					SparseBooleanArray listItems = new SparseBooleanArray();
+					listItems.clear();
+					listItems= sd_list.getCheckedItemPositions();
+					
+					if(selectedItems!=null || quantities!=null){
+						selectedItems.clear();
+						quantities.clear();
+					} else {
+						selectedItems = new ArrayList<Item>();
+						quantities = new ArrayList<Integer>();
+					}
+					
+					for(int i=0; i<ccartList.getCount(); i++){
+						boolean isSelected = listItems.get(i);
+
+						if(isSelected){
+							String tempItemName = ccartList.getItem(i);
+							int pos = tempItemName.indexOf(" ");
+							String selectedItemName = tempItemName.substring(pos+1);
+							
+							Item selectedItem = ndb.getItem(selectedItemName);
+							selectedItems.add(selectedItem);
+							for(GroceryItem gItem : ccart){
+								if(gItem.getItemName().equals(selectedItemName)){
+									quantities.add(gItem.getQuantity());
+								}
+							}
+						} 
+					}
+					
+					if(selectedItems.size()==3){
+						String tempItemName = ccartList.getItem(position);
+						int pos = tempItemName.indexOf(" ");
+						String toggledItemName = tempItemName.substring(pos+1);
+						
+						Item iToRemove = null;
+						for(Item item : selectedItems){
+							if(item.getItemName().equals(toggledItemName)){
+								iToRemove = item;
+							}
+						}
+						selectedItems.remove(iToRemove);
+						Log.d("CartActivity", "Removed: " + iToRemove.getItemName());
+						sd_list.setItemChecked(position, false);
+					}
+					
+					graph.passSelectedItems(selectedItems);
+					graph.passSelectedQuantities(quantities);
+					
+					/*if(position!=selectedItemPosition || selectedItemPosition!=-1){
+						sd_list.setItemChecked(position,true);
+						
+						//retrieve the item name and clean the string
+						String tempItemName = ccartList.getItem(position);
+						int pos = tempItemName.indexOf(" ");
+						String selectedItemName = tempItemName.substring(pos+1);
+						
+						//select the item in the nutrition database
+						selectedItem = ndb.getItem(selectedItemName);
+						float newCals = selectedItem.getCalories();
+						int itemQuantity = ccart.get(position).getQuantity();
+						Log.d("CartActivity: ", "Selected Item: " + selectedItem.getItemName() + " calories: " + newCals);
+						Log.d("CartActivity: ", "Quantity of item: " + itemQuantity + " total calories: " + newCals*itemQuantity);
+						graph.setCalorieAdded(newCals * itemQuantity /(float) (totalCaloriesNeeded * days));
+						
+						ndb.close();
+					} else {
+						sd_list.clearChoices();
+						graph.setCalorieAdded(0);
+					}*/
+				}	
+			});
+
+			// for the sliding drawer in footer activity
+			// populates controls the sliding drawer
+			sd_itemlist = (SlidingDrawer) findViewById(R.id.sd_itemlist);
+			sd_itemlist.setOnDrawerOpenListener(new OnDrawerOpenListener() {
+				public void onDrawerOpened() {
+					
+				}
+			});
+			sd_itemlist.setOnDrawerCloseListener(new OnDrawerCloseListener() {
+				public void onDrawerClosed() {
+
+				}
+			});
+		}
+
+		// Handles the PLU code
+		searchItem = (Button) findViewById(R.id.btn_search);
+
+		manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		inputsContext = getApplicationContext();
+
+		searchItem.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				// opens up activity with a text entry and numpad
+				Intent openSearchItemScreen = new Intent(CartActivity.this,
+						InputSearchActivity.class);
+				openSearchItemScreen.putExtra("account", act);
+				startActivity(openSearchItemScreen);
+			}
+		}); // end searchItem
+
+		// Handles the Barcode Scanning activity
+		scanItem = (Button) findViewById(R.id.btn_scan);
+		scanItem.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				// start a scanner intent, using zxing library
+				// refer back to PACKAGE settings
+				Intent scanIntent = new Intent(SCANNER);
+				scanIntent.setPackage(PACKAGE);
+				scanIntent.addCategory(Intent.CATEGORY_DEFAULT);
+				scanIntent.putExtra("SCAN_FORMATS", SCAN_FORMATS);
+				scanIntent.putExtra("SCAN_MODE", SCAN_MODE);
+				scanIntent.putExtra("account", act);
+				try {
+					startActivityForResult(scanIntent, REQUEST_CODE);
+				} catch (ActivityNotFoundException e) {
+					Toast eToast = Toast.makeText(CartActivity.this,
+							"Activity Not Found!", Toast.LENGTH_LONG);
+					eToast.setGravity(Gravity.TOP, 25, 400);
+					eToast.show();
+				}
+			}
+		});// end scanBarcode onClickListener
+
+		// Testing so we can see the user's daily intake values
+		test = (Button) findViewById(R.id.btn_test);
+		test.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				Intent startTest = new Intent(CartActivity.this,
+						TestTotals.class);
+				startTest.putExtra("username", currentUsername);
+				startActivityForResult(startTest, 0);
+			}
+		});
+
+		// Take the user to the checkout screen
+		checkout = (Button) findViewById(R.id.btn_checkout);
+		checkout.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Intent goCheckout = new Intent(CartActivity.this,
+						CheckoutActivity.class);
+				PreviousHistory cTotals = getCartTotalsFor(currentUsername);
+				goCheckout.putExtra("cartTotals", cTotals); // pass the
+															// parceable!
+				goCheckout.putExtra("account", act);
+				startActivity(goCheckout);
+			}
+		});
+
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		passedIntent = getIntent();
+
+		results = passedIntent.getStringExtra("results");
+		int check = passedIntent.getIntExtra("check", 0);
+		if (check == 1) {
+			if (results.equals(null) || results.equals("e")) {
+				Toast noMatch = Toast.makeText(inputsContext,
+						"We couldn't find that item! Please try again.", Toast.LENGTH_LONG);
+				noMatch.setGravity(Gravity.TOP | Gravity.LEFT, 0, 150);
+				noMatch.show();
+			} else {
+				ndb = new NutritionDatabaseHelper(this);
+				
+				if(selectedItems!=null || quantities!=null){
+					selectedItems.clear();
+					quantities.clear();
+				} else {
+					selectedItems = new ArrayList<Item>();
+					quantities = new ArrayList<Integer>();
+				}
+				
+				int position = -1;
+				for(int i=0; i<ccartList.getCount(); i++){
+					String tempItemName = ccartList.getItem(i);
+					int pos = tempItemName.indexOf(" ");
+					String compare = tempItemName.substring(pos+1);
+					
+					if(compare.equals(results)){
+						position = i;
+						break;
+					} else {
+						continue;
+					}
+				}
+				
+								
+				Item selectedItem = ndb.getItem(results);
+				ndb.close();
+				
+				selectedItems.add(selectedItem);
+				
+				for(GroceryItem gItem : ccart){
+					if(gItem.getItemName().equals(results)){
+						quantities.add(gItem.getQuantity());
+						Log.d("CartActivity: " , "Name: " + gItem.getItemName() + quantities.get(0));
+					}
+				}
+			
+				Log.d("CartActivity", "Position: " + position);
+				sd_list.setItemChecked(position, true);
+				
+				graph.passSelectedItems(selectedItems);
+				graph.passSelectedQuantities(quantities);
+				graph.postInvalidate();
+				graphLabels.draw(c);
+			}
+		}
+		
+		PreviousHistory pH = getCartTotalsFor(currentUsername);		// get the current cart
+		RecDailyValues totalRDV = getRDVTotalsFor(currentUsername);	// get the needed nutrients
+		graph.getRatios(pH, totalRDV);
+		graph.postInvalidate();
+		graphLabels.draw(c);
+	}
+
+	/**
+	 * ACTIVITY RESULTS FROM SEARCH AND SCAN
+	 */
+	public void onActivityResult(int requestCode, int resultCode,
+			Intent scanIntent) {
+		IntentResult scanResult = parseActivityResult(requestCode, resultCode,
+				scanIntent);
+		String contents = scanResult.getContents();
+		String format = scanResult.getFormatName();
+
+		if (contents != null) {
+			Toast toast = Toast.makeText(this, "Content:" + contents
+					+ " Format:" + format, Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.TOP, 25, 400);
+			toast.show();
+
+			// start the InputScanActivity and pass this intent the contents and
+			// formats
+			Intent startInputScanActivity = new Intent(this,
+					InputScanActivity.class);
+			startInputScanActivity.setType("text/plain");
+			startInputScanActivity.putExtra("contents", contents);
+			startInputScanActivity.putExtra("format", format);
+
+			startActivity(startInputScanActivity);
+
+		} else {
+			Toast toast = Toast.makeText(inputsContext, "Scan Failed",
+					resultCode);
+			toast.setGravity(Gravity.TOP, 25, 400);
+			toast.show();
+		}
+	}
+
+	/**
+	 * ACTIVITY RESULT FROM SEARCH AND SCAN
+	 * 
+	 * @param requestCode
+	 * @param resultCode
+	 * @param intent
+	 * @return
+	 */
+	public static IntentResult parseActivityResult(int requestCode,
+			int resultCode, Intent intent) {
+		if (requestCode == REQUEST_CODE) {
+			if (resultCode == RESULT_OK) {
+				String contents = intent.getStringExtra("SCAN_RESULT");
+				String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+
+				return new IntentResult(contents, format);
+			} else {
+				// Handle cancel
+				return new IntentResult(null, null);
+			}
+		}
+		return new IntentResult(null, null);
+	}// end IntentResult
+
+	/**
+	 * @param username
+	 * @return Fetch all of the people for one user If null, then request that
+	 *         user check preferences
+	 * 
+	 */
+	public static String getAllPeopleDescFor(String username) {
+		List<Person> p = db.getAllPeopleFor(username);
+		String allPeopleDesc = new String();
+		if (p != null) {
+			for (int i = 0; i < p.size(); i++) {
+				Person temp = p.get(i);
+				allPeopleDesc = allPeopleDesc + "\n" + temp.returnString();
+			}
+		} else {
+			db.close();
+			return "No one has been added to Cart yet. Please check preferences.";
+		}
+
+		db.close();
+		return allPeopleDesc;
+	}
+
+	/**
+	 * TOTAL RDR Get the total values of all of the RecDailyValues
+	 * 
+	 */
+	public static RecDailyValues getRDVTotalsFor(String username) {
+		List<Person> p = db.getAllPeopleFor(username);
+		List<RecDailyValues> rdvList = new ArrayList<RecDailyValues>();
+		if (p != null) {
+			for (int i = 0; i < p.size(); i++) {
+				RecDailyValues tempRDV = new RecDailyValues(p.get(i));
+				rdvList.add(tempRDV);
+			}
+		} else {
+			db.close();
+			return null;
+		}
+
+		db.close();
+		RecDailyValues total = getTotalRDVOf(rdvList);
+		return total;
+	}
+
+	/**
+	 * TOTAL VALUES Add up all of the values of the current_cart items
+	 * 
+	 */
+	public PreviousHistory getCartTotalsFor(String username) {
+		NutritionDatabaseHelper ndb = new NutritionDatabaseHelper(this);
+		AccountDatabaseHelper adb = new AccountDatabaseHelper(this);
+
+		List<GroceryItem> allGItems = adb.getAllGroceryItemsOf(username);
+		PreviousHistory cartTotals = new PreviousHistory();
+		if (allGItems != null) {
+			cartTotals.setId(-1);
+			cartTotals.setUsername(username);
+
+			for (int i = 0; i < allGItems.size(); i++) {
+				// retrieve the grocery item from the array
+				GroceryItem tempGrocery = allGItems.get(i);
+
+				// get the Quantity of the item
+				int quantity = tempGrocery.getQuantity();
+
+				// locate the item in the nutrition database
+				Item tempItem = ndb.getItem(tempGrocery.getItemName());
+
+				// add the totals to the current cartTotal, remembering
+				// to multiply by the quantity!
+				cartTotals.setCalories(cartTotals.getCalories() + (tempItem
+						.getCalories() * quantity));
+				cartTotals.setProtein(cartTotals.getProtein() + (tempItem
+						.getProtein() * quantity));
+				cartTotals.setFat(cartTotals.getFat() + (tempItem.getFat()
+						* quantity));
+				cartTotals
+						.setCarbohydrate(cartTotals.getCarbohydrate() + (tempItem
+								.getCarbohydrate() * quantity));
+				cartTotals.setFiber(cartTotals.getFiber() + (tempItem
+						.getFiber() * quantity));
+				cartTotals.setSugar(cartTotals.getSugar() + (tempItem
+						.getSugar() * quantity));
+				cartTotals.setCalcium(cartTotals.getCalcium() + (tempItem
+						.getCalcium() * quantity));
+				cartTotals.setIron(cartTotals.getIron() + (tempItem.getIron()
+						* quantity));
+				cartTotals.setMagnesium(cartTotals.getMagnesium() + (tempItem
+						.getMagnesium() * quantity));
+				cartTotals.setPotassium(cartTotals.getPotassium() + (tempItem
+						.getPotassium() * quantity));
+				cartTotals.setSodium(cartTotals.getSodium() + (tempItem
+						.getSodium() * quantity));
+				cartTotals.setZinc(cartTotals.getZinc() + (tempItem.getZinc()
+						* quantity));
+				cartTotals.setVitC(cartTotals.getVitC() + (tempItem.getVitC()
+						* quantity));
+				cartTotals.setVitB6(cartTotals.getVitB6() + (tempItem
+						.getVitB6() * quantity));
+				cartTotals.setVitB12(cartTotals.getVitB12() + (tempItem
+						.getVitB12() * quantity));
+				cartTotals.setVitA(cartTotals.getVitA() + (tempItem.getVitA()
+						* quantity));
+				cartTotals.setVitE(cartTotals.getVitE() + (tempItem.getVitE()
+						* quantity));
+				cartTotals.setVitD(cartTotals.getVitD() + (tempItem.getVitD()
+						* quantity));
+				cartTotals.setVitK(cartTotals.getVitK() + (tempItem.getVitK()
+						* quantity));
+				cartTotals.setFatSat(cartTotals.getFatSat() + (tempItem
+						.getFatSat() * quantity));
+				cartTotals.setFatMono(cartTotals.getFatMono() + (tempItem
+						.getFatMono() * quantity));
+				cartTotals.setFatPoly(cartTotals.getFatPoly() + (tempItem
+						.getFatPoly() * quantity));
+				cartTotals
+						.setCholesterol(cartTotals.getCholesterol() + (tempItem
+								.getCholesterol() * quantity));
+				cartTotals.setDays(-1);
+			}
+
+			//Log.d("Created: ", "Cart Total for : " + cartTotals.getUsername()
+					//+ "Total Calories: " + cartTotals.getCalories());
+			adb.close();
+			ndb.close();
+			return cartTotals;
+		}
+		ndb.close();
+		adb.close();
+		PreviousHistory emptyHistory = new PreviousHistory();
+		emptyHistory.setUsername(currentUsername);
+		return emptyHistory;
+	}
+
+	/**
+	 * @param username
+	 * @return A string of all of the required values of one entity the user has
+	 *         specified
+	 */
+	public static String getStringRDVTotalsFor(String username) {
+		List<Person> p = db.getAllPeopleFor(username);
+		List<RecDailyValues> rdvList = new ArrayList<RecDailyValues>();
+		if (p != null) {
+			for (int i = 0; i < p.size(); i++) {
+				RecDailyValues tempRDV = new RecDailyValues(p.get(i));
+				rdvList.add(tempRDV);
+			}
+		} else {
+			db.close();
+			return "No one has been added to Cart yet. Please check preferences.";
+		}
+
+		db.close();
+		RecDailyValues total = getTotalRDVOf(rdvList);
+		return total.returnString();
+	}
+
+	/**
+	 * @param rdvList
+	 * @return RecDailyValue Contains all of the totaled values for the group of
+	 *         people the user has set
+	 */
+	public static RecDailyValues getTotalRDVOf(List<RecDailyValues> rdvList) {
+
+		RecDailyValues total = new RecDailyValues();
+
+		for (int i = 0; i < rdvList.size(); i++) {
+			// create a temporary RDV object
+			RecDailyValues temp = rdvList.get(i);
+
+			// set all of the properties based on the current and the sum of the
+			total.setCalories(total.getCalories() + temp.getCalories());
+			total.setProtein((total.getProtein() + temp.getProtein()));
+			total.setFat((total.getFat() + temp.getFat()));
+			total.setCarbohydrate((total.getCarbohydrate() + temp
+					.getCarbohydrate()));
+			total.setFiber((total.getFiber() + temp.getFiber()));
+			total.setSugar((total.getSugar() + temp.getSugar()));
+			total.setCalcium((total.getCalcium() + temp.getCalcium()));
+			total.setIron((total.getIron() + temp.getIron()));
+			total.setMagnesium((total.getMagnesium() + temp.getMagnesium()));
+			total.setPotassium((total.getPotassium() + temp.getPotassium()));
+			total.setSodium((total.getSodium() + temp.getSodium()));
+			total.setZinc((total.getZinc() + temp.getZinc()));
+			total.setVitC((total.getVitC() + temp.getVitC()));
+			total.setVitB6((total.getVitB6() + temp.getVitB6()));
+			total.setVitB12((total.getVitB12() + temp.getVitB12()));
+			total.setVitA((total.getVitA() + temp.getVitA()));
+			total.setVitE((total.getVitE() + temp.getVitE()));
+			total.setVitD((total.getVitD() + temp.getVitD()));
+			total.setVitK((total.getVitK() + temp.getVitK()));
+			total.setFatSat((total.getFatSat() + temp.getFatSat()));
+			total.setFatPoly((total.getFatPoly() + temp.getFatPoly()));
+			total.setCholesterol((total.getCholesterol() + temp
+					.getCholesterol()));
+		}
+		return total;
+	}
+
+}

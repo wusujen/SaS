@@ -9,3 +9,7 @@
 1332815770925	Delete element
 1332864434429	Delete element
 1332864443557	Delete element
+1332902591213	Rename local variable 'base'
+1332902600749	Rename local variable 'topline'
+1332902899225	Rename local variable 'graphHeight'
+1332903300119	Rename local variable 'blackText'

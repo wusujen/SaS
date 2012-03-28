@@ -1,10 +1,7 @@
 package com.christine.cart;
 
-import java.util.ArrayList;
-
 import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountDatabaseHelper;
-import com.christine.cart.sqlite.Item;
 import com.christine.cart.sqlite.PreviousHistory;
 
 import android.app.Activity;

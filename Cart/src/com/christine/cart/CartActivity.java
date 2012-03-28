@@ -12,18 +12,19 @@ import com.christine.cart.sqlite.NutritionDatabaseHelper;
 import com.christine.cart.sqlite.Person;
 import com.christine.cart.sqlite.PreviousHistory;
 import com.christine.cart.sqlite.RecDailyValues;
+import com.christine.cart.visual.GraphLabelView;
 import com.christine.cart.visual.GraphView;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Gravity;
-import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -61,6 +62,7 @@ public class CartActivity extends Activity {
 	
 	// to start the graph view
 	private static GraphView graph;
+	private static GraphLabelView graphLabels;
 
 	// information required to start the scan intent
 	public static final String PACKAGE = "com.christine.cart";
@@ -119,6 +121,9 @@ public class CartActivity extends Activity {
 		// Set the number of days and start the graph view!
 		graph = (GraphView) this.findViewById(R.id.graphview);
 		graph.setDays(days);
+
+		// Start the graph label view
+		graphLabels = (GraphLabelView) this.findViewById(R.id.graphlabelview);
 		
 		// initiates the listview within the drawer
 		sd_list = (ListView) findViewById(R.id.sd_list);
@@ -362,14 +367,26 @@ public class CartActivity extends Activity {
 				
 				graph.passSelectedItems(selectedItems);
 				graph.passSelectedQuantities(quantities);
+				
 				graph.postInvalidate();
+				
+				graphLabels.setDays(days);
+				graphLabels.setGraphHeight(graph.getGraphHeight());
+				
+				graphLabels.postInvalidate();
 			}
 		}
 		
 		PreviousHistory pH = getCartTotalsFor(currentUsername);		// get the current cart
 		RecDailyValues totalRDV = getRDVTotalsFor(currentUsername);	// get the needed nutrients
 		graph.getRatios(pH, totalRDV);
+		
 		graph.postInvalidate();
+		
+		graphLabels.setDays(days);
+		graphLabels.setGraphHeight(graph.getGraphHeight());
+		
+		graphLabels.postInvalidate();
 	}
 
 	/**

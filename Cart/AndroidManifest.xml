@@ -65,6 +65,7 @@
         </activity>
         
         <activity android:name="InputSearchActivity" 
+            android:theme="@android:style/Theme.Light.NoTitleBar"
             android:screenOrientation="landscape"></activity>
         
         <activity android:name="InputScanActivity" 
@@ -115,9 +116,11 @@
 	        android:screenOrientation="landscape"></activity>
 	    
 	    <activity android:name=".sqlite.PersonActivity" 
+	        android:theme="@android:style/Theme.Light.NoTitleBar"
 	        android:screenOrientation="landscape"></activity>
 	    
 	    <activity android:name=".sqlite.DaysActivity" 
+	        android:theme="@android:style/Theme.Light.NoTitleBar"
 	        android:screenOrientation="landscape"></activity>
 	    
 	    <activity android:name=".sqlite.GroceryActivity" 

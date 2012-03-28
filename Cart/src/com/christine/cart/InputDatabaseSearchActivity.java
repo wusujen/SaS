@@ -1,8 +1,6 @@
 package com.christine.cart;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountDatabaseHelper;
@@ -12,12 +10,8 @@ import com.christine.cart.sqlite.NutritionDatabaseHelper;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-//import android.widget.TextView; //for debugging purposes
-import android.util.Log;
 
 
 public class InputDatabaseSearchActivity extends Activity {

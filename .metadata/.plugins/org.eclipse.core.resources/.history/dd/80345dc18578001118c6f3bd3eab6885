@@ -1,0 +1,78 @@
+package com.christine.cart.visual;
+
+import java.util.ArrayList;
+
+import com.christine.cart.sqlite.Item;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
+
+public class GraphLabelView extends View{
+	
+	private GraphView graphView;
+	private int days;
+	private int topline;
+	private int base;
+	private int graphHeight;
+	
+	public GraphLabelView(Context context) {
+		super(context);
+	}
+	
+	public GraphLabelView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		
+	}
+
+	public GraphLabelView(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+		
+	}
+	
+	@Override
+	protected void onDraw(Canvas c){
+		super.onDraw(c);
+		
+		Paint greyText = makeTextPaint(18, Color.LTGRAY, "RIGHT");
+		Paint blueText = makeTextPaint(22, Color.BLUE, "RIGHT");
+		
+		int viewWidth = getWidth();
+		int xPos = viewWidth - 10;
+		
+		for(int i=0; i<days; i++){
+			
+			int yPos = base + (Math.round((float) graphHeight / (float) days)*i); 
+			
+			c.drawText( i + " days", xPos, yPos, greyText);
+			
+		}
+		
+		c.drawText("GOAL", xPos, topline, blueText);
+		Log.d("GraphLabelView", "Drawn!");
+	}
+	
+	public Paint makeTextPaint(int textSize, int color, String align){
+
+		Paint textPaint = new Paint();
+		textPaint .setColor(color);
+		textPaint .isAntiAlias();
+		textPaint .setTextAlign(Paint.Align.valueOf(align));
+		textPaint .setTextSize(textSize);
+		
+		return textPaint;
+	}
+	
+	public void setGraphView(GraphView g){
+		graphView = g;
+		days = graphView.getDays();
+		topline = graphView.getTopline();
+		base = graphView.getBase();
+		graphHeight = graphView.getGraphHeight();
+	}
+
+}
