@@ -421,11 +421,7 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	            // Adding groceryItem to list
 	            groceryList.add(gItem);
 	        } while (cursor.moveToNext());
-	    } else{
-	    	cursor.close();
-	    	db.close();
-	    	return null;
-	    }
+	    } 
 	    
 	    cursor.close();
 	    db.close();
@@ -438,7 +434,7 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		SQLiteDatabase db = this.getWritableDatabase();
 		int numDeleted = db.delete(TABLE_CCART, CCART_USER + " = ? ",
 	            new String[] { String.valueOf(username) });
-		Log.d("Delete Person: ","Row Number removed: " + numDeleted + " from User: " 
+		Log.d("AccountDatabaseHelper","Row Number removed: " + numDeleted + " from User: " 
 	            + username + " deleted from database");
 	    db.close();
 	}

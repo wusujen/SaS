@@ -16,8 +16,6 @@
 <fullyQualifiedTypeName name="android.widget.SlidingDrawer.OnDrawerCloseListener"/>
 <fullyQualifiedTypeName name="android.widget.ListView"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.AccountDatabaseHelper"/>
-<fullyQualifiedTypeName name="com.christine.cart.sqlite.GroceryItem"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="android.widget.ListAdapter"/>
 <fullyQualifiedTypeName name="android.widget.ArrayAdapter"/>
 <fullyQualifiedTypeName name="android.R.id"/>
@@ -35,7 +33,6 @@
 <fullyQualifiedTypeName name="android.widget.AdapterView.OnItemClickListener"/>
 <fullyQualifiedTypeName name="android.widget.AbsListView"/>
 <fullyQualifiedTypeName name="android.util.SparseBooleanArray"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Item"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.PreviousHistory"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.RecDailyValues"/>
@@ -60,4 +57,7 @@
 <fullyQualifiedTypeName name="android.view.SurfaceView"/>
 <fullyQualifiedTypeName name="android.graphics.Canvas"/>
 <fullyQualifiedTypeName name="android.graphics.Color"/>
+<fullyQualifiedTypeName name="com.christine.cart.sqlite.GroceryItem"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.List"/>
 </qualifiedTypeNameHistroy>

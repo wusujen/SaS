@@ -337,6 +337,19 @@ public class PreviousHistory implements Parcelable{
 				this._cholesterol };
 		return props;
 	}
+	
+	public String toString(){
+		String pString = 
+				"User " + this._username + " || Calories " + this._calories + " || Protein " + this._protein + 
+				" || Total Fats " + this._totalfats + " || Carbs " +  this._carbs + " || Fiber " + this._fiber + 
+				" || Sugar " + this._sugar + " || Calcium " + this._calcium + " || Iron " + this._iron + 
+				" || Magnesium " + this._magnesium + " || Potassium " + this._potassium + " || Sodium " + this._sodium +
+				" || Zinc" + this._zinc + " || Vit C " + this._vitC + " || Vit D " + this._vitD + " || Vit B6 " + this._vitB6 +
+				" || Vit B12 " + this._vitB12 + " || Vit A " + this._vitA + " || Vit E " + this._vitE + " || Vit K " + this._vitK + 
+				" || Saturated Fat " + this._fatSat + " || Mono Fat " + this._fatMono + 
+				" || Poly Fat " + this._fatPoly + " || Cholesterol " + this._cholesterol;
+		return pString;
+	}
 	/**
 	 * 
 	 * AS A PARCELLABLE ITEM

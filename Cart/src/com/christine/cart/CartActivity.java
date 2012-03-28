@@ -73,7 +73,7 @@ public class CartActivity extends Activity {
 
 	private static String currentUsername;
 	private static Account act;
-	private static AccountDatabaseHelper db;
+	private static AccountDatabaseHelper adb;
 	private static NutritionDatabaseHelper ndb;
 	private boolean onUPCResult = false;
 
@@ -84,6 +84,7 @@ public class CartActivity extends Activity {
 	private static ArrayList<Integer> quantities;
 	private static List<GroceryItem> ccart;
 	private static ArrayAdapter<String> ccartList;
+	private static PreviousHistory pcart; // => previous cart totals
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -115,7 +116,7 @@ public class CartActivity extends Activity {
 
 
 		// start the db
-		db = new AccountDatabaseHelper(this);
+		adb = new AccountDatabaseHelper(this);
 		ndb = new NutritionDatabaseHelper(this);
 		
 		// Set the number of days and start the graph view!
@@ -129,9 +130,12 @@ public class CartActivity extends Activity {
 		sd_list = (ListView) findViewById(R.id.sd_list);
 
 		// get the information for listView: all of the items that are in
-		// currentcart for that user
-		ccart = db.getAllGroceryItemsOf(currentUsername);
-		db.close();
+		// current cart for that user
+		ccart = adb.getAllGroceryItemsOf(currentUsername);
+		pcart = adb.getPreviousHistoryFor(currentUsername);
+		adb.close();
+		
+		//setup the listview if current cart is not null
 		if (ccart != null) {
 			ccartList = new ArrayAdapter<String>(this,
 					android.R.layout.simple_list_item_checked);
@@ -199,27 +203,6 @@ public class CartActivity extends Activity {
 					graph.passSelectedItems(selectedItems);
 					graph.passSelectedQuantities(quantities);
 					
-					/*if(position!=selectedItemPosition || selectedItemPosition!=-1){
-						sd_list.setItemChecked(position,true);
-						
-						//retrieve the item name and clean the string
-						String tempItemName = ccartList.getItem(position);
-						int pos = tempItemName.indexOf(" ");
-						String selectedItemName = tempItemName.substring(pos+1);
-						
-						//select the item in the nutrition database
-						selectedItem = ndb.getItem(selectedItemName);
-						float newCals = selectedItem.getCalories();
-						int itemQuantity = ccart.get(position).getQuantity();
-						Log.d("CartActivity: ", "Selected Item: " + selectedItem.getItemName() + " calories: " + newCals);
-						Log.d("CartActivity: ", "Quantity of item: " + itemQuantity + " total calories: " + newCals*itemQuantity);
-						graph.setCalorieAdded(newCals * itemQuantity /(float) (totalCaloriesNeeded * days));
-						
-						ndb.close();
-					} else {
-						sd_list.clearChoices();
-						graph.setCalorieAdded(0);
-					}*/
 				}	
 			});
 
@@ -238,6 +221,14 @@ public class CartActivity extends Activity {
 			});
 		}
 
+		// Get the previous history for the user
+		// if it exists, then pass it to Graph labels to draw goals
+		if(pcart!=null){
+			Log.d("CartActivity" , "Previous History" + pcart.toString());
+		} else {
+			Log.d("CartActivity", "There is no previous history yet for this cart");
+		}
+		
 		// Handles the PLU code
 		searchItem = (Button) findViewById(R.id.btn_search);
 
@@ -299,6 +290,7 @@ public class CartActivity extends Activity {
 				goCheckout.putExtra("cartTotals", cTotals); // pass the
 															// parceable!
 				goCheckout.putExtra("account", act);
+				goCheckout.putExtra("days", days);
 				startActivity(goCheckout);
 			}
 		});
@@ -454,7 +446,7 @@ public class CartActivity extends Activity {
 	 * 
 	 */
 	public static String getAllPeopleDescFor(String username) {
-		List<Person> p = db.getAllPeopleFor(username);
+		List<Person> p = adb.getAllPeopleFor(username);
 		String allPeopleDesc = new String();
 		if (p != null) {
 			for (int i = 0; i < p.size(); i++) {
@@ -462,11 +454,11 @@ public class CartActivity extends Activity {
 				allPeopleDesc = allPeopleDesc + "\n" + temp.returnString();
 			}
 		} else {
-			db.close();
+			adb.close();
 			return "No one has been added to Cart yet. Please check preferences.";
 		}
 
-		db.close();
+		adb.close();
 		return allPeopleDesc;
 	}
 
@@ -475,7 +467,7 @@ public class CartActivity extends Activity {
 	 * 
 	 */
 	public static RecDailyValues getRDVTotalsFor(String username) {
-		List<Person> p = db.getAllPeopleFor(username);
+		List<Person> p = adb.getAllPeopleFor(username);
 		List<RecDailyValues> rdvList = new ArrayList<RecDailyValues>();
 		if (p != null) {
 			for (int i = 0; i < p.size(); i++) {
@@ -483,11 +475,11 @@ public class CartActivity extends Activity {
 				rdvList.add(tempRDV);
 			}
 		} else {
-			db.close();
+			adb.close();
 			return null;
 		}
 
-		db.close();
+		adb.close();
 		RecDailyValues total = getTotalRDVOf(rdvList);
 		return total;
 	}
@@ -588,7 +580,7 @@ public class CartActivity extends Activity {
 	 *         specified
 	 */
 	public static String getStringRDVTotalsFor(String username) {
-		List<Person> p = db.getAllPeopleFor(username);
+		List<Person> p = adb.getAllPeopleFor(username);
 		List<RecDailyValues> rdvList = new ArrayList<RecDailyValues>();
 		if (p != null) {
 			for (int i = 0; i < p.size(); i++) {
@@ -596,11 +588,11 @@ public class CartActivity extends Activity {
 				rdvList.add(tempRDV);
 			}
 		} else {
-			db.close();
+			adb.close();
 			return "No one has been added to Cart yet. Please check preferences.";
 		}
 
-		db.close();
+		adb.close();
 		RecDailyValues total = getTotalRDVOf(rdvList);
 		return total.returnString();
 	}

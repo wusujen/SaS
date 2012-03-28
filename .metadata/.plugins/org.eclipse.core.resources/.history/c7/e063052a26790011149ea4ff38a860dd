@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/FrameLayout1"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent" >
-
-    <TableRow
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView1"
+        android:layout_width="515dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <com.christine.cart.visual.GraphView
+                android:id="@+id/graphview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </HorizontalScrollView>
+     
+     <TableRow
         android:id="@+id/tableRow1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,6 +50,18 @@
             android:padding="10dp"
             android:text="@string/additem_btn_scan" />
     </TableRow>
+
+     <LinearLayout
+         android:id="@+id/linearLayout3"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:orientation="horizontal" >
+
+         <com.christine.cart.visual.GraphLabelView
+             android:id="@+id/graphlabelview"
+             android:layout_width="match_parent"
+             android:layout_height="320dp" />
+     </LinearLayout>
 
     <SlidingDrawer
         android:id="@+id/sd_itemlist"

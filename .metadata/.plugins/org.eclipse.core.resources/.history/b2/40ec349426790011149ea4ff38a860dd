@@ -2,33 +2,73 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/FrameLayout1"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-
+    android:layout_height="match_parent" >
+
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
+        android:layout_width="515dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right" >
+
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
-
+            android:orientation="horizontal" >
+
             <com.christine.cart.visual.GraphView
                 android:id="@+id/graphview"
                 android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp" />
-
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1" />
         </LinearLayout>
     </HorizontalScrollView>
-     
-     <TableRow
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+
+        <com.christine.cart.visual.GraphLabelView
+            android:id="@+id/graphlabelview"
+            android:layout_width="match_parent"
+            android:layout_height="320dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="534dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:gravity="right"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/btn_checkout"
+            android:layout_width="104dp"
+            android:layout_height="36dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="-10dp"
+            android:layout_marginTop="5dp"
+            android:text="Checkout" />
+
+        <Button
+            android:id="@+id/btn_test"
+            android:layout_width="104dp"
+            android:layout_height="36dp"
+            android:layout_marginRight="-10dp"
+            android:layout_marginTop="10dp"
+            android:text="Test" />
+
+    </LinearLayout>
+
+    <TableRow
         android:id="@+id/tableRow1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:gravity="center|right" >
 
         <Button
@@ -87,31 +127,5 @@
             </ListView>
         </LinearLayout>
     </SlidingDrawer>
-
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:gravity="right"
-        android:orientation="vertical" >
-
-        <Button
-            android:id="@+id/btn_checkout"
-            android:layout_width="104dp"
-            android:layout_height="36dp"
-            android:layout_gravity="right"
-            android:layout_marginRight="-10dp"
-            android:layout_marginTop="5dp"
-            android:text="Checkout" />
-
-        <Button
-            android:id="@+id/btn_test"
-            android:layout_width="104dp"
-            android:layout_height="36dp"
-            android:layout_marginRight="-10dp"
-            android:layout_marginTop="10dp"
-            android:text="Test" />
-    </LinearLayout>
 
 </FrameLayout>

@@ -12,6 +12,7 @@ import com.christine.cart.sqlite.NutritionDatabaseHelper;
 import com.christine.cart.sqlite.Person;
 import com.christine.cart.sqlite.PreviousHistory;
 import com.christine.cart.sqlite.RecDailyValues;
+import com.christine.cart.visual.GraphLabelView;
 import com.christine.cart.visual.GraphView;
 
 import android.app.Activity;
@@ -20,23 +21,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Gravity;
-import android.view.SurfaceHolder;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SlidingDrawer;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.SlidingDrawer.OnDrawerCloseListener;
 import android.widget.SlidingDrawer.OnDrawerOpenListener;
@@ -66,7 +62,7 @@ public class CartActivity extends Activity {
 	
 	// to start the graph view
 	private static GraphView graph;
-	private static SurfaceHolder graphHolder;
+	private static GraphLabelView graphLabels;
 
 	// information required to start the scan intent
 	public static final String PACKAGE = "com.christine.cart";
@@ -75,7 +71,7 @@ public class CartActivity extends Activity {
 	public static final String SCAN_MODE = "SCAN_MODE";
 	public static final int REQUEST_CODE = 1;
 
-	private static String USERNAME;
+	private static String currentUsername;
 	private static Account act;
 	private static AccountDatabaseHelper db;
 	private static NutritionDatabaseHelper ndb;
@@ -103,7 +99,7 @@ public class CartActivity extends Activity {
 
 			if (tempAccount != null) {
 				act = tempAccount;
-				USERNAME = act.getName();
+				currentUsername = act.getName();
 				int tdays = tempAccount.getDays();
 				if (tdays != 0) {
 					days = tdays;
@@ -125,14 +121,16 @@ public class CartActivity extends Activity {
 		// Set the number of days and start the graph view!
 		graph = (GraphView) this.findViewById(R.id.graphview);
 		graph.setDays(days);
-		
 
+		// Start the graph label view
+		graphLabels = (GraphLabelView) this.findViewById(R.id.graphlabelview);
+		
 		// initiates the listview within the drawer
 		sd_list = (ListView) findViewById(R.id.sd_list);
 
 		// get the information for listView: all of the items that are in
 		// currentcart for that user
-		ccart = db.getAllGroceryItemsOf(USERNAME);
+		ccart = db.getAllGroceryItemsOf(currentUsername);
 		db.close();
 		if (ccart != null) {
 			ccartList = new ArrayAdapter<String>(this,
@@ -155,10 +153,18 @@ public class CartActivity extends Activity {
 					SparseBooleanArray listItems = new SparseBooleanArray();
 					listItems.clear();
 					listItems= sd_list.getCheckedItemPositions();
-					quantities = new ArrayList<Integer>();
-					selectedItems = new ArrayList<Item>();
-					for(int i=0; i<listItems.size(); i++){
+					
+					if(selectedItems!=null || quantities!=null){
+						selectedItems.clear();
+						quantities.clear();
+					} else {
+						selectedItems = new ArrayList<Item>();
+						quantities = new ArrayList<Integer>();
+					}
+					
+					for(int i=0; i<ccartList.getCount(); i++){
 						boolean isSelected = listItems.get(i);
+
 						if(isSelected){
 							String tempItemName = ccartList.getItem(i);
 							int pos = tempItemName.indexOf(" ");
@@ -171,7 +177,7 @@ public class CartActivity extends Activity {
 									quantities.add(gItem.getQuantity());
 								}
 							}
-						}
+						} 
 					}
 					
 					if(selectedItems.size()==3){
@@ -189,6 +195,9 @@ public class CartActivity extends Activity {
 						Log.d("CartActivity", "Removed: " + iToRemove.getItemName());
 						sd_list.setItemChecked(position, false);
 					}
+					
+					graph.passSelectedItems(selectedItems);
+					graph.passSelectedQuantities(quantities);
 					
 					/*if(position!=selectedItemPosition || selectedItemPosition!=-1){
 						sd_list.setItemChecked(position,true);
@@ -219,15 +228,12 @@ public class CartActivity extends Activity {
 			sd_itemlist = (SlidingDrawer) findViewById(R.id.sd_itemlist);
 			sd_itemlist.setOnDrawerOpenListener(new OnDrawerOpenListener() {
 				public void onDrawerOpened() {
-					graph.setZOrderOnTop(true);
-					graphHolder = graph.getHolder();
+					
 				}
 			});
 			sd_itemlist.setOnDrawerCloseListener(new OnDrawerCloseListener() {
 				public void onDrawerClosed() {
-					graph.setZOrderOnTop(false);
-					
-					
+
 				}
 			});
 		}
@@ -278,7 +284,7 @@ public class CartActivity extends Activity {
 			public void onClick(View v) {
 				Intent startTest = new Intent(CartActivity.this,
 						TestTotals.class);
-				startTest.putExtra("username", USERNAME);
+				startTest.putExtra("username", currentUsername);
 				startActivityForResult(startTest, 0);
 			}
 		});
@@ -289,7 +295,7 @@ public class CartActivity extends Activity {
 			public void onClick(View v) {
 				Intent goCheckout = new Intent(CartActivity.this,
 						CheckoutActivity.class);
-				PreviousHistory cTotals = getCartTotalsFor(USERNAME);
+				PreviousHistory cTotals = getCartTotalsFor(currentUsername);
 				goCheckout.putExtra("cartTotals", cTotals); // pass the
 															// parceable!
 				goCheckout.putExtra("account", act);
@@ -302,13 +308,11 @@ public class CartActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		graph.pause();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		graph.resume();
 
 		passedIntent = getIntent();
 
@@ -321,41 +325,68 @@ public class CartActivity extends Activity {
 				noMatch.setGravity(Gravity.TOP | Gravity.LEFT, 0, 150);
 				noMatch.show();
 			} else {
-				//ndb = new NutritionDatabaseHelper(this);
+				ndb = new NutritionDatabaseHelper(this);
 				
-				// search through the existing list
-				/*int itemExistsInList = -1;
-				ArrayList<String> cleanListItems = new ArrayList<String>();
+				if(selectedItems!=null || quantities!=null){
+					selectedItems.clear();
+					quantities.clear();
+				} else {
+					selectedItems = new ArrayList<Item>();
+					quantities = new ArrayList<Integer>();
+				}
+				
+				int position = -1;
 				for(int i=0; i<ccartList.getCount(); i++){
 					String tempItemName = ccartList.getItem(i);
 					int pos = tempItemName.indexOf(" ");
-					cleanListItems.add(tempItemName.substring(pos+1));
+					String compare = tempItemName.substring(pos+1);
+					
+					if(compare.equals(results)){
+						position = i;
+						break;
+					} else {
+						continue;
+					}
 				}
 				
-				itemExistsInList = cleanListItems.indexOf(results);
+								
+				Item selectedItem = ndb.getItem(results);
+				ndb.close();
 				
-				if(itemExistsInList!=-1){
-					selectedItem = ndb.getItem(results);
-					float newCals = selectedItem.getCalories();
-					Log.d("CartActivity: ", "Selected Item: " + selectedItem.getItemName() + " calories: " + newCals);
-					int itemQuantity = ccart.get(itemExistsInList).getQuantity();
-					Log.d("CartActivity: ", "Quantity of item: " + itemQuantity + " total calories: " + newCals*itemQuantity);
-					graph.setCalorieAdded(newCals * itemQuantity /(float) (totalCaloriesNeeded * days));
-					sd_list.setItemChecked(itemExistsInList, true);
-					ndb.close();
-				}*/
+				selectedItems.add(selectedItem);
+				
+				for(GroceryItem gItem : ccart){
+					if(gItem.getItemName().equals(results)){
+						quantities.add(gItem.getQuantity());
+						Log.d("CartActivity: " , "Name: " + gItem.getItemName() + quantities.get(0));
+					}
+				}
+			
+				Log.d("CartActivity", "Position: " + position);
+				sd_list.setItemChecked(position, true);
+				
+				graph.passSelectedItems(selectedItems);
+				graph.passSelectedQuantities(quantities);
+				
+				graph.postInvalidate();
+				
+				graphLabels.setDays(days);
+				graphLabels.setGraphHeight(graph.getGraphHeight());
+				
+				graphLabels.postInvalidate();
 			}
 		}
 		
-		PreviousHistory pH = getCartTotalsFor(USERNAME);		// get the current cart
-		RecDailyValues totalRDV = getRDVTotalsFor(USERNAME);	// get the needed nutrients
-		if (pH!=null) {
-			graph.getRatios(pH, totalRDV);
-			graph.passSelectedItems(selectedItems);
-			graph.passSelectedQuantities(quantities);
-			graph.postInvalidate();
-		} 
+		PreviousHistory pH = getCartTotalsFor(currentUsername);		// get the current cart
+		RecDailyValues totalRDV = getRDVTotalsFor(currentUsername);	// get the needed nutrients
+		graph.getRatios(pH, totalRDV);
 		
+		graph.postInvalidate();
+		
+		graphLabels.setDays(days);
+		graphLabels.setGraphHeight(graph.getGraphHeight());
+		
+		graphLabels.postInvalidate();
 	}
 
 	/**
@@ -546,7 +577,9 @@ public class CartActivity extends Activity {
 		}
 		ndb.close();
 		adb.close();
-		return null;
+		PreviousHistory emptyHistory = new PreviousHistory();
+		emptyHistory.setUsername(currentUsername);
+		return emptyHistory;
 	}
 
 	/**
