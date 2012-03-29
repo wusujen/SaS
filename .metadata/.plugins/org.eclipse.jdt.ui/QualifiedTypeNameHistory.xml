@@ -34,7 +34,6 @@
 <fullyQualifiedTypeName name="android.widget.AbsListView"/>
 <fullyQualifiedTypeName name="android.util.SparseBooleanArray"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Item"/>
-<fullyQualifiedTypeName name="com.christine.cart.sqlite.PreviousHistory"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.RecDailyValues"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="android.R"/>
@@ -52,7 +51,6 @@
 <fullyQualifiedTypeName name="android.view.View"/>
 <fullyQualifiedTypeName name="android.graphics.Paint.Align"/>
 <fullyQualifiedTypeName name="com.christine.cart.R.id"/>
-<fullyQualifiedTypeName name="com.christine.cart.visual.GraphLabelView"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.view.SurfaceView"/>
 <fullyQualifiedTypeName name="android.graphics.Canvas"/>
@@ -60,4 +58,6 @@
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.GroceryItem"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.christine.cart.sqlite.PreviousHistory"/>
+<fullyQualifiedTypeName name="com.christine.cart.visual.GraphLabelView"/>
 </qualifiedTypeNameHistroy>

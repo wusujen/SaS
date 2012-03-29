@@ -363,20 +363,17 @@ public class CartActivity extends Activity {
 				graph.postInvalidate();
 				
 				graphLabels.setDays(days);
-				graphLabels.setGraphHeight(graph.getGraphHeight());
-				
 				graphLabels.postInvalidate();
 			}
 		}
 		
 		PreviousHistory pH = getCartTotalsFor(currentUsername);		// get the current cart
 		RecDailyValues totalRDV = getRDVTotalsFor(currentUsername);	// get the needed nutrients
-		graph.getRatios(pH, totalRDV);
+		graph.getRatios(pH, totalRDV, pcart);
 		
 		graph.postInvalidate();
 		
 		graphLabels.setDays(days);
-		graphLabels.setGraphHeight(graph.getGraphHeight());
 		
 		graphLabels.postInvalidate();
 	}

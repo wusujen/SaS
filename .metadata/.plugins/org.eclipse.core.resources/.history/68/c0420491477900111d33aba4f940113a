@@ -1,0 +1,121 @@
+package com.christine.cart.visual;
+
+
+import java.util.HashMap;
+
+import com.christine.cart.sqlite.PreviousHistory;
+import com.christine.cart.sqlite.RecDailyValues;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
+
+public class GraphLabelView extends View{
+	
+	private int days;
+	private PreviousHistory goalNums;
+	
+	private static HashMap<String, Float> needs;
+	private static HashMap<String, Float> ratios;
+	
+	private final static String[] order = new String[] {
+		"calories", "protein", "totalfats", "carbs", "fiber", 
+		"sugar", "calcium", "iron", "magnesium", "potassium", "sodium", "zinc", "vitamin C",
+		"vitamin D", "vitamin B6", "vitamin B12", "vitamin A", "vitamin E", "vitamin K",
+		"Saturated Fat", "Mononsaturated Fat", "Polyunsaturated Fat", "cholesterol" };
+	
+	public GraphLabelView(Context context) {
+		super(context);
+	}
+	
+	public GraphLabelView(Context context, AttributeSet attrs) {
+		super(context, attrs);	
+	}
+
+	public GraphLabelView(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+	}
+	
+	@Override
+	public void onDraw(Canvas c){
+		super.onDraw(c);
+		
+		int xPos = 75;
+		int h = getHeight();
+		int base = h-80;
+		int topline = 60;
+		int graphHeight = base - topline;
+		
+		
+		
+	}
+	
+
+	
+	public void setDays(int days){
+		this.days = days;
+	}
+	
+	
+
+	/**
+	 * 
+	 * @param totalCart
+	 * @param totalRDV
+	 */
+	public void getRatios(PreviousHistory currentTotalCart, PreviousHistory pcart) {
+		needs = new HashMap<String, Float>(order.length);
+		ratios = new HashMap<String, Float>(order.length);
+		
+		Float[] pcartTotals = pcart.getNutritionProperties();
+		Float[] cartTotals = currentTotalCart.getNutritionProperties();
+		
+		for(int i=0; i<order.length; i++){
+			float need = pcartTotals[i] * (float) this.days;
+			float ratio = cartTotals[i] / need;
+			String n = order [i];
+			
+			needs.put(n, need);
+			if(need == 0.0f){
+				ratios.put(n, 0.0f);
+			} else {
+				ratios.put(n, ratio);
+			}
+		}
+	}
+	
+	
+	public void drawLabels(Canvas c, int graphHeight, int base, int topline, int xPos){
+		Paint textPaint = new Paint();
+		textPaint .setColor(Color.GRAY);
+		textPaint .isAntiAlias();
+		textPaint .setTextAlign(Paint.Align.RIGHT);
+		textPaint .setTextSize(18);
+		
+		for(int i=0; i<days; i++){
+			if(days>10 && days<18){
+				int mod = i%2;
+				if(mod==0){
+					int yPos = base - (Math.round((float) graphHeight / (float) days)*i); 
+					c.drawText( i + " days", xPos, yPos+4, textPaint);
+				}
+			} else if(days>18){
+				int mod = i%4;
+				if(mod==0){
+					int yPos = base - (Math.round((float) graphHeight / (float) days)*i); 
+					c.drawText( i + " days", xPos, yPos+4, textPaint);
+				}
+			} else {
+				int yPos = base - (Math.round((float) graphHeight / (float) days)*i); 
+				c.drawText( i + " days", xPos, yPos+4, textPaint);
+			}
+			invalidate();
+		}
+		
+		c.drawText("GOAL", xPos, topline+4, textPaint);
+	}
+}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="24" version="2.0">
+<workbench progressCount="32" version="2.0">
 <workbenchAdvisor/>
 <window height="768" maximized="true" width="1024" x="230" y="0">
 <fastViewData fastViewLocation="1024"/>
@@ -23,7 +23,7 @@
 <coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="107" y="22"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="61" y="22"/>
+<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="com.aptana.ui.globalActionSet" itemType="typeToolBarContribution" x="53" y="22"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="190" y="22"/>
@@ -35,7 +35,7 @@
 </coolbarLayout>
 <page aggregateWorkingSetId="Aggregate for window 1329521721393" focus="true" label="Workspace - Java">
 <editors>
-<editorArea activeWorkbook="DefaultEditorWorkbook">
+<editorArea activeWorkbook="org.eclipse.ui.internal.EditorStack@3aa58a">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
@@ -44,13 +44,24 @@
 </presentation>
 </folder>
 </info>
+<info part="org.eclipse.ui.internal.EditorStack@3aa58a" ratio="0.45099485" ratioLeft="612" ratioRight="745" relationship="2" relative="DefaultEditorWorkbook">
+<folder appearance="1" expanded="2">
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
 </editorArea>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CartActivity.java" partName="CartActivity.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/CartActivity.java" title="CartActivity.java" tooltip="Cart/src/com/christine/cart/CartActivity.java" workbook="DefaultEditorWorkbook">
+<editor focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CartActivity.java" partName="CartActivity.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/CartActivity.java" title="CartActivity.java" tooltip="Cart/src/com/christine/cart/CartActivity.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/CartActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="6987" selectionTopPixel="2475"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="12323" selectionTopPixel="6719"/>
 </editor>
-<editor activePart="true" focus="true" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="cart.xml" partName="cart.xml" path="C:/Users/Christine/Thesis/SaS/Cart/res/layout/cart.xml" title="cart.xml" tooltip="Cart/res/layout/cart.xml" workbook="DefaultEditorWorkbook">
+<editor id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="cart.xml" partName="cart.xml" path="C:/Users/Christine/Thesis/SaS/Cart/res/layout/cart.xml" title="cart.xml" tooltip="Cart/res/layout/cart.xml" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/res/layout/cart.xml"/>
+</editor>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GraphView.java" partName="GraphView.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/visual/GraphView.java" title="GraphView.java" tooltip="Cart/src/com/christine/cart/visual/GraphView.java" workbook="org.eclipse.ui.internal.EditorStack@3aa58a">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/visual/GraphView.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="9284" selectionTopPixel="4503"/>
 </editor>
 </editors>
 <views>
@@ -74,7 +85,9 @@
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
-<category IMemento.internal.id="Warnings (41 items)"/>
+<category IMemento.internal.id="Warnings (26 items)"/>
+<category IMemento.internal.id="Warnings"/>
+<category IMemento.internal.id="Errors"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="820"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
@@ -123,7 +136,7 @@
 <viewState/>
 </view>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.PackageExplorer" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -218,7 +231,7 @@
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.12236059" ratioLeft="226" ratioRight="1621" relationship="2" relative="left"/>
-<info folder="true" part="bottom" ratio="0.6666667" ratioLeft="728" ratioRight="364" relationship="4" relative="org.eclipse.ui.editorss">
+<info folder="true" part="bottom" ratio="0.81593406" ratioLeft="891" ratioRight="201" relationship="4" relative="org.eclipse.ui.editorss">
 <folder activePageID="org.eclipse.ui.views.PropertySheet" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
@@ -265,169 +278,171 @@
 <navigationHistory>
 <editors>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/CartActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/CheckoutActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/AccountActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/AccountDatabaseHelper.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/visual/GraphLabelView.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/visual/GraphView.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/PreviousHistory.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/GroceryItem.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/DaysActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/Item.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" path="/Cart/res/layout/cart.xml"/>
 </editors>
-<item historyLabel="CartActivity.java" index="0">
-<position info="not_deleted" x="9841" y="0"/>
+<item historyLabel="PreviousHistory.java" index="3">
+<position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="CheckoutActivity.java" index="1">
-<position info="not_deleted" x="621" y="3"/>
-</item>
-<item historyLabel="CheckoutActivity.java" index="1">
-<position info="not_deleted" x="1183" y="0"/>
-</item>
-<item historyLabel="CheckoutActivity.java" index="1">
-<position info="not_deleted" x="1067" y="11"/>
-</item>
-<item historyLabel="CheckoutActivity.java" index="1">
+<item historyLabel="GraphLabelView.java" index="1">
 <position/>
 </item>
-<item historyLabel="CheckoutActivity.java" index="1">
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="917" y="0"/>
+</item>
+<item historyLabel="GraphLabelView.java" index="1">
 <position/>
 </item>
-<item historyLabel="CheckoutActivity.java" index="1">
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="1462" y="0"/>
+</item>
+<item historyLabel="GraphLabelView.java" index="1">
 <position/>
 </item>
-<item historyLabel="CheckoutActivity.java" index="1">
-<position info="not_deleted" x="2090" y="0"/>
+<item historyLabel="GraphLabelView.java" index="1">
+<position info="not_deleted" x="2101" y="0"/>
 </item>
-<item historyLabel="CheckoutActivity.java" index="1">
-<position info="not_deleted" x="2090" y="0"/>
+<item historyLabel="GraphLabelView.java" index="1">
+<position info="not_deleted" x="831" y="0"/>
 </item>
-<item historyLabel="CheckoutActivity.java" index="1">
-<position info="not_deleted" x="2295" y="0"/>
+<item historyLabel="GraphLabelView.java" index="1">
+<position/>
 </item>
-<item historyLabel="CheckoutActivity.java" index="1">
-<position info="not_deleted" x="2503" y="0"/>
+<item historyLabel="GraphLabelView.java" index="1">
+<position/>
 </item>
-<item historyLabel="CheckoutActivity.java" index="1">
-<position info="not_deleted" x="2234" y="4"/>
+<item historyLabel="GraphLabelView.java" index="1">
+<position/>
 </item>
-<item historyLabel="CheckoutActivity.java" index="1">
-<position info="not_deleted" x="2503" y="0"/>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="1462" y="0"/>
 </item>
-<item historyLabel="CheckoutActivity.java" index="1">
-<position info="not_deleted" x="2494" y="0"/>
+<item historyLabel="GraphLabelView.java" index="1">
+<position/>
 </item>
-<item historyLabel="CartActivity.java" index="0">
-<position info="not_deleted" x="9841" y="0"/>
+<item historyLabel="GraphLabelView.java" index="1">
+<position/>
 </item>
-<item historyLabel="CheckoutActivity.java" index="1">
-<position info="not_deleted" x="2494" y="0"/>
+<item historyLabel="GraphLabelView.java" index="1">
+<position/>
 </item>
-<item historyLabel="AccountActivity.java" index="2">
+<item historyLabel="GraphLabelView.java" index="1">
+<position info="not_deleted" x="495" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="10071" y="0"/>
+</item>
+<item historyLabel="GraphLabelView.java" index="1">
+<position info="not_deleted" x="1111" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="9770" y="0"/>
+</item>
+<item historyLabel="GraphLabelView.java" index="1">
+<position info="not_deleted" x="833" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="917" y="0"/>
+</item>
+<item historyLabel="GraphLabelView.java" index="1">
+<position info="not_deleted" x="846" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="4460" y="0"/>
+</item>
+<item historyLabel="GraphLabelView.java" index="1">
+<position info="not_deleted" x="298" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="6838" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="4589" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="4951" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="5152" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="5190" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="5319" y="0"/>
+</item>
+<item historyLabel="GraphLabelView.java" index="1">
+<position info="not_deleted" x="38" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="9902" y="0"/>
+</item>
+<item historyLabel="PreviousHistory.java" index="3">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="CheckoutActivity.java" index="1">
-<position info="not_deleted" x="2494" y="0"/>
-</item>
-<item historyLabel="AccountDatabaseHelper.java" index="3">
-<position info="not_deleted" x="16099" y="0"/>
-</item>
-<item historyLabel="CheckoutActivity.java" index="1">
-<position info="not_deleted" x="2494" y="0"/>
-</item>
-<item historyLabel="CheckoutActivity.java" index="1">
-<position info="not_deleted" x="2948" y="0"/>
-</item>
-<item historyLabel="AccountDatabaseHelper.java" index="3">
-<position info="not_deleted" x="16580" y="0"/>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="9902" y="0"/>
 </item>
 <item historyLabel="CartActivity.java" index="0">
-<position info="not_deleted" x="9322" y="0"/>
+<position info="not_deleted" x="12014" y="0"/>
 </item>
-<item historyLabel="CheckoutActivity.java" index="1">
-<position info="not_deleted" x="2948" y="0"/>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="9636" y="0"/>
 </item>
+<item historyLabel="GraphView.java" index="2">
+<position/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="4866" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="4955" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="4951" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="4946" y="0"/>
+</item>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="5151" y="0"/>
+</item>
+<item historyLabel="cart.xml" index="4"/>
 <item historyLabel="CartActivity.java" index="0">
-<position info="not_deleted" x="9322" y="0"/>
+<position info="not_deleted" x="12323" y="0"/>
 </item>
-<item historyLabel="CartActivity.java" index="0">
-<position info="not_deleted" x="3700" y="0"/>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="4946" y="0"/>
 </item>
-<item historyLabel="CartActivity.java" index="0">
-<position info="not_deleted" x="7260" y="0"/>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="9839" y="0"/>
 </item>
-<item historyLabel="CartActivity.java" index="0">
-<position info="not_deleted" x="7428" y="0"/>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="10061" y="0"/>
 </item>
-<item historyLabel="CartActivity.java" index="0">
-<position info="not_deleted" x="7334" y="0"/>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="9456" y="0"/>
 </item>
-<item historyLabel="PreviousHistory.java" index="4">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="9460" y="0"/>
 </item>
-<item historyLabel="GroceryItem.java" index="5">
-<position info="not_deleted" x="0" y="0"/>
+<item active="true" historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="9498" y="0"/>
 </item>
-<item historyLabel="PreviousHistory.java" index="4">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="DaysActivity.java" index="6">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="PreviousHistory.java" index="4">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="Item.java" index="7">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="PreviousHistory.java" index="4">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="AccountDatabaseHelper.java" index="3">
-<position info="not_deleted" x="16580" y="0"/>
-</item>
-<item historyLabel="CheckoutActivity.java" index="1">
-<position info="not_deleted" x="2948" y="0"/>
-</item>
-<item historyLabel="CartActivity.java" index="0">
-<position info="not_deleted" x="7334" y="0"/>
-</item>
-<item historyLabel="PreviousHistory.java" index="4">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="PreviousHistory.java" index="4">
-<position info="not_deleted" x="6474" y="0"/>
-</item>
-<item historyLabel="CartActivity.java" index="0">
-<position info="not_deleted" x="7334" y="0"/>
-</item>
-<item historyLabel="CartActivity.java" index="0">
-<position info="not_deleted" x="6987" y="0"/>
-</item>
-<item historyLabel="AccountDatabaseHelper.java" index="3">
-<position info="not_deleted" x="16580" y="0"/>
-</item>
-<item historyLabel="CartActivity.java" index="0">
-<position info="not_deleted" x="6987" y="0"/>
-</item>
-<item historyLabel="PreviousHistory.java" index="4">
-<position info="not_deleted" x="6474" y="0"/>
-</item>
-<item historyLabel="CartActivity.java" index="0">
-<position info="not_deleted" x="6987" y="0"/>
-</item>
-<item historyLabel="CheckoutActivity.java" index="1">
-<position info="not_deleted" x="2948" y="0"/>
-</item>
-<item historyLabel="CartActivity.java" index="0">
-<position info="not_deleted" x="6987" y="0"/>
-</item>
-<item active="true" historyLabel="cart.xml" index="8"/>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
+<trimArea IMemento.internal.id="16384">
+<trimItem IMemento.internal.id="left"/>
+</trimArea>
+<trimArea IMemento.internal.id="131072">
+<trimItem IMemento.internal.id="right"/>
+</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
 </trimArea>
@@ -435,10 +450,20 @@
 <trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
 <trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
+<trimItem IMemento.internal.id="bottom"/>
 </trimArea>
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PreviousHistory.java" tooltip="Cart/src/com/christine/cart/sqlite/PreviousHistory.java">
+<persistable path="/Cart/src/com/christine/cart/sqlite/PreviousHistory.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GraphView.java" tooltip="Cart/src/com/christine/cart/visual/GraphView.java">
+<persistable path="/Cart/src/com/christine/cart/visual/GraphView.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GraphLabelView.java" tooltip="Cart/src/com/christine/cart/visual/GraphLabelView.java">
+<persistable path="/Cart/src/com/christine/cart/visual/GraphLabelView.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="cart.xml" tooltip="Cart/res/layout/cart.xml">
 <persistable path="/Cart/res/layout/cart.xml"/>
 </file>
@@ -450,9 +475,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GroceryItem.java" tooltip="Cart/src/com/christine/cart/sqlite/GroceryItem.java">
 <persistable path="/Cart/src/com/christine/cart/sqlite/GroceryItem.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PreviousHistory.java" tooltip="Cart/src/com/christine/cart/sqlite/PreviousHistory.java">
-<persistable path="/Cart/src/com/christine/cart/sqlite/PreviousHistory.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AccountDatabaseHelper.java" tooltip="Cart/src/com/christine/cart/sqlite/AccountDatabaseHelper.java">
 <persistable path="/Cart/src/com/christine/cart/sqlite/AccountDatabaseHelper.java"/>
@@ -471,12 +493,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NutritionDatabaseHelper.java" tooltip="Cart/src/com/christine/cart/sqlite/NutritionDatabaseHelper.java">
 <persistable path="/Cart/src/com/christine/cart/sqlite/NutritionDatabaseHelper.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GraphView.java" tooltip="Cart/src/com/christine/cart/visual/GraphView.java">
-<persistable path="/Cart/src/com/christine/cart/visual/GraphView.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GraphLabelView.java" tooltip="Cart/src/com/christine/cart/visual/GraphLabelView.java">
-<persistable path="/Cart/src/com/christine/cart/visual/GraphLabelView.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="search_plu.xml" tooltip="Cart/res/layout/search_plu.xml">
 <persistable path="/Cart/res/layout/search_plu.xml"/>

@@ -29,6 +29,7 @@ public class GraphView extends View{
 
 	private static HashMap<String, Float> needs;
 	private static HashMap<String, Float> ratios;
+	private static HashMap<String, Float> goals;
 	
 	private static int MODE;
 	private final static int SELECT_NONE = 0;
@@ -76,12 +77,15 @@ public class GraphView extends View{
 	@Override
 	protected void onDraw(Canvas c) {
 		super.onDraw(c);
-		Paint blue = new Paint();
-		blue.setColor(Color.BLUE);
-		Paint black = new Paint();
-		black.setColor(Color.BLACK);
-		Paint grey = new Paint();
-		grey.setColor(Color.LTGRAY);
+		Paint blueLine = new Paint();
+		blueLine.setColor(Color.BLUE);
+		blueLine.setStrokeWidth(2);
+		
+		Paint blackLine = new Paint();
+		blackLine.setColor(Color.BLACK);
+		
+		Paint greyLine = new Paint();
+		greyLine.setColor(Color.LTGRAY);
 
 		int w = getWidth();
 		int h = getHeight();
@@ -95,23 +99,27 @@ public class GraphView extends View{
 		// to draw the lines:
 		for (int i = 0; i < _days; i++) {
 			float b = _topline + (i * interpolate);
-			c.drawLine(20, b, w - 20, b, grey);
+			c.drawLine(20, b, w - 20, b, greyLine);
 		} 
-		c.drawLine(20, _topline, w - 20, _topline, blue);	//top line
-		c.drawLine(20, _base, w - 20, _base, black);		//bottom line
+		c.drawLine(20, _topline, w - 20, _topline, blueLine);	//top line
+		c.drawLine(20, _base, w - 20, _base, blackLine);		//bottom line
 		
 		determineMode();
 		
 		if (ratios!=null && MODE==SELECT_NONE) {
 			drawCurrentCartContent(c, _base, _graphHeight);
+			drawGoalLines(c, _graphHeight, _base, _topline);
 			
 		} else if(ratios!=null && MODE==SELECT_SINGLE){
 			drawCurrentCartContent(c, _base, _graphHeight);
 			drawSingleMode(c, _base, _graphHeight);
+			drawGoalLines(c, _graphHeight, _base, _topline);
 			
 		} else if (MODE==SELECT_COMPARE){
 			drawCompareMode(c, _base, _graphHeight);
 		}
+		
+		
 	}
 	
 	
@@ -158,16 +166,20 @@ public class GraphView extends View{
 	 * @param totalCart
 	 * @param totalRDV
 	 */
-	public void getRatios(PreviousHistory currentTotalCart, RecDailyValues currentRDV) {
+	public void getRatios(PreviousHistory currentTotalCart, RecDailyValues currentRDV, PreviousHistory pcart) {
 		needs = new HashMap<String, Float>(order.length);
 		ratios = new HashMap<String, Float>(order.length);
+		goals = new HashMap<String, Float>(order.length);
 		
 		Float[] rdvTotals = currentRDV.getNutritionNeeds();
 		Float[] cartTotals = currentTotalCart.getNutritionProperties();
+		Float[] pcartTotals = pcart.getNutritionProperties();
 		
 		for(int i=0; i<order.length; i++){
 			float need = rdvTotals[i] * (float) this._days;
 			float ratio = cartTotals[i] / need;
+			float goal = pcartTotals[i] / need;
+			
 			String n = order [i];
 			
 			needs.put(n, need);
@@ -177,7 +189,14 @@ public class GraphView extends View{
 				ratios.put(n, ratio);
 			}
 			
-			Log.d("GraphView", "Need: " + n + "," + needs.get(n) + " || Ratio: " + ratios.get(n));
+			if(goal == 0.0f){
+				goals.put(n, 0.0f);
+			} else {
+				goals.put(n, goal);
+			}
+			
+			Log.d("GraphView", "Need: " + n + "," + needs.get(n) + " || Ratio: " + ratios.get(n) 
+					+ "||  Goal " + goals.get(n));
 		}
 	}
 	
@@ -321,5 +340,30 @@ public class GraphView extends View{
 		}
 	}
 
+	private void drawGoalLines(Canvas c, int graphHeight, int base, int topline){
+		Paint incPaint = new Paint();
+		incPaint.setColor(Color.rgb(10, 207, 72));
+		incPaint.setStrokeWidth(2);
+		
+		Paint decPaint = new Paint();
+		decPaint.setColor(Color.rgb(250, 94, 10));
+		decPaint.setStrokeWidth(2);
+		
+		int startLineX = 40;
+		int endLineX = 100;
+		
+		for(int i=0; i<order.length; i++){
+			int spacing = 150*i;
+			
+			int yPos = base - Math.round(goals.get(order[i]) * (float) graphHeight); 
+			
+			if(yPos < topline) {
+				c.drawLine(startLineX + spacing, yPos, endLineX + spacing, yPos, incPaint);
+			} else if ( yPos > topline &  yPos < (base - 2)){
+				c.drawLine(startLineX + spacing, yPos, endLineX + spacing, yPos, decPaint);
+			}
+			
+		}
+	}
 
 }
