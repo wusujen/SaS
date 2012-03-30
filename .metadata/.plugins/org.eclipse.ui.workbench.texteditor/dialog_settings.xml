@@ -2,9 +2,9 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="257" key="DIALOG_WIDTH"/>
-		<item value="744" key="DIALOG_Y_ORIGIN"/>
+		<item value="294" key="DIALOG_Y_ORIGIN"/>
 		<item value="380" key="DIALOG_HEIGHT"/>
-		<item value="1414" key="DIALOG_X_ORIGIN"/>
+		<item value="870" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
@@ -13,26 +13,26 @@
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="adb.close()" key="selection"/>
+		<item value="badRec" key="selection"/>
 		<list key="findhistory">
-			<item value="adb.close()"/>
-			<item value="Delete Person"/>
-			<item value="Canvas"/>
-			<item value="canvas"/>
-			<item value="postInvalidate();"/>
-			<item value="graph"/>
-			<item value="portrait"/>
-			<item value="thread"/>
+			<item value="badRec"/>
+			<item value="badRreec"/>
+			<item value="goodPrev"/>
+			<item value="Positive"/>
+			<item value="goodRec"/>
+			<item value="positive"/>
+			<item value="toString"/>
+			<item value="pcart"/>
 		</list>
 		<list key="replacehistory">
+			<item value="badPrev"/>
+			<item value="Negative"/>
+			<item value="badRec"/>
+			<item value="negative"/>
+			<item value="bad"/>
 			<item value="vitamin "/>
 			<item value="this._"/>
 			<item value=","/>
-			<item value="this."/>
-			<item value="Ratio;"/>
-			<item value="Ratio"/>
-			<item value="private static float "/>
-			<item value=" (tempItem"/>
 		</list>
 	</section>
 </section>

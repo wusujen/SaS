@@ -508,7 +508,8 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		} else {
 			cursor.close();
 			db.close();
-			return null;
+			pH = new PreviousHistory();
+			return pH;
 		}
 		
 		//return account

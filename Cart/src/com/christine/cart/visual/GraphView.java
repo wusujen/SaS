@@ -160,13 +160,13 @@ public class GraphView extends View{
 		
 		MODE = SELECT_NONE;
 	}
-
+		
 	/**
 	 * 
 	 * @param totalCart
 	 * @param totalRDV
 	 */
-	public void getRatios(PreviousHistory currentTotalCart, RecDailyValues currentRDV, PreviousHistory pcart) {
+	public void getRatiosWithPCart(PreviousHistory currentTotalCart, RecDailyValues currentRDV, PreviousHistory pcart) {
 		needs = new HashMap<String, Float>(order.length);
 		ratios = new HashMap<String, Float>(order.length);
 		goals = new HashMap<String, Float>(order.length);
@@ -194,9 +194,9 @@ public class GraphView extends View{
 			} else {
 				goals.put(n, goal);
 			}
-			
+			/*
 			Log.d("GraphView", "Need: " + n + "," + needs.get(n) + " || Ratio: " + ratios.get(n) 
-					+ "||  Goal " + goals.get(n));
+					+ "||  Goal " + goals.get(n));*/
 		}
 	}
 	

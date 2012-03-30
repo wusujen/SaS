@@ -19,74 +19,85 @@ public class CheckoutActivity extends Activity {
 	Button newCart;
 	Button logout;
 	TextView cartTotals;
-	
+
 	AccountDatabaseHelper adb;
 	Account act;
 	int days;
 	String username;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.checkout);
-	    
-	    cartTotals = (TextView) findViewById(R.id.tv_cartTotal);
-	    Intent cartContents = getIntent();
-    	act = cartContents.getParcelableExtra("account");
-    	PreviousHistory pH = cartContents.getParcelableExtra("cartTotals");
-    	days = cartContents.getIntExtra("days", 1);
-	    username = act.getName();
-	    
-    	if(pH!=null && act!=null){
-	    	pH.setId(null);
-	    	pH.setDays(days);
-	    	
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.checkout);
 
-	    	// write to the previous history database, if the user doesn't
-	    	// already exist in the db
-	    	adb = new AccountDatabaseHelper(this);
-	    	
-	    	PreviousHistory existingHistory = adb.getPreviousHistoryFor(pH.getUsername());
-	    	if(existingHistory != null){
-	    		adb.updatePreviousHistoryFor(pH);
-	    		
-	    		PreviousHistory thisHistory = adb.getPreviousHistoryFor(username);
-	    		Log.d("CheckoutActivity", "PH updated, Name: " + thisHistory.getUsername() + " Days: " + thisHistory.getDays() + " Calories: " + thisHistory.getCalories());
-	    	} else{
-	    		adb.addPreviousHistoryFor(pH);
-	    		
-	    		PreviousHistory thisHistory = adb.getPreviousHistoryFor(username);
-	    		Log.d("CheckoutActivity", "PH added, Name: " + thisHistory.getUsername() + " Days: " + thisHistory.getDays() + " Calories: " + thisHistory.getCalories());
-	    	}
-	    	
-	    	// delete all of the current cart items based upon the username
-	    	adb.deleteAllGroceryItemsOf(username);
-	    	List<GroceryItem> gList = adb.getAllGroceryItemsOf(username);
-	    	if(gList.size()==0){
-	    		Log.d("CheckoutActivity", "Grocery items successfully cleared!");
-	    	} else {
-	    		Log.d("CheckoutActivity", "Grocery items still exist: " + gList.size());
-	    	}
-	    	
-	    	adb.close();
-	    } else{
-    		cartTotals.setText("No Items in Cart");
-    	}
-	    
-	    newCart = (Button) findViewById(R.id.btn_newcart);
-	    newCart.setOnClickListener(new View.OnClickListener() {
+		cartTotals = (TextView) findViewById(R.id.tv_cartTotal);
+		Intent cartContents = getIntent();
+		act = cartContents.getParcelableExtra("account");
+		PreviousHistory pH = cartContents.getParcelableExtra("cartTotals");
+		days = cartContents.getIntExtra("days", 1);
+		username = act.getName();
+
+		if (pH != null && act != null) {
+			pH.setId(null);
+			pH.setDays(days);
+
+			// write to the previous history database, if the user doesn't
+			// already exist in the db
+			adb = new AccountDatabaseHelper(this);
+
+			PreviousHistory existingHistory = adb.getPreviousHistoryFor(pH
+					.getUsername());
+			if (existingHistory.getCalories()!=0.0f) {
+				adb.updatePreviousHistoryFor(pH);
+
+				PreviousHistory thisHistory = adb
+						.getPreviousHistoryFor(username);
+				Log.d("CheckoutActivity",
+						"PH updated, Name: " + thisHistory.getUsername()
+								+ " Days: " + thisHistory.getDays()
+								+ " Calories: " + thisHistory.getCalories());
+			} else {
+				adb.addPreviousHistoryFor(pH);
+
+				PreviousHistory thisHistory = adb
+						.getPreviousHistoryFor(username);
+				Log.d("CheckoutActivity",
+						"PH added, Name: " + thisHistory.getUsername()
+								+ " Days: " + thisHistory.getDays()
+								+ " Calories: " + thisHistory.getCalories());
+			}
+
+			// delete all of the current cart items based upon the username
+			adb.deleteAllGroceryItemsOf(username);
+			List<GroceryItem> gList = adb.getAllGroceryItemsOf(username);
+			if (gList.size() == 0) {
+				Log.d("CheckoutActivity", "Grocery items successfully cleared!");
+			} else {
+				Log.d("CheckoutActivity",
+						"Grocery items still exist: " + gList.size());
+			}
+
+			adb.close();
+		} else {
+			cartTotals.setText("No Items in Cart");
+		}
+
+		newCart = (Button) findViewById(R.id.btn_newcart);
+		newCart.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent startNewCart = new Intent(CheckoutActivity.this, SetupPeopleActivity.class);
+				Intent startNewCart = new Intent(CheckoutActivity.this,
+						SetupPeopleActivity.class);
 				startNewCart.putExtra("account", act);
 				startNewCart.putExtra("username", act.getName());
 				startActivity(startNewCart);
 			}
 		});
-	    
-	    logout = (Button) findViewById(R.id.btn_logout);
-	    logout.setOnClickListener(new View.OnClickListener() {
+
+		logout = (Button) findViewById(R.id.btn_logout);
+		logout.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent logoutNow = new Intent(CheckoutActivity.this, StartActivity.class);
+				Intent logoutNow = new Intent(CheckoutActivity.this,
+						StartActivity.class);
 				startActivity(logoutNow);
 			}
 		});
