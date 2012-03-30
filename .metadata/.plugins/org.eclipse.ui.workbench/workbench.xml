@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="25" version="2.0">
+<workbench progressCount="24" version="2.0">
 <workbenchAdvisor/>
 <window height="768" maximized="true" width="1024" x="230" y="0">
 <fastViewData fastViewLocation="1024"/>
@@ -47,11 +47,11 @@
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NutritionAdvisor.java" partName="NutritionAdvisor.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/visual/NutritionAdvisor.java" title="NutritionAdvisor.java" tooltip="Cart/src/com/christine/cart/visual/NutritionAdvisor.java" workbook="org.eclipse.ui.internal.EditorStack@60563144">
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NutritionAdvisor.java" partName="NutritionAdvisor.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/visual/NutritionAdvisor.java" title="NutritionAdvisor.java" tooltip="Cart/src/com/christine/cart/visual/NutritionAdvisor.java" workbook="org.eclipse.ui.internal.EditorStack@60563144">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/visual/NutritionAdvisor.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1218" selectionTopPixel="255"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2516" selectionTopPixel="0"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CartActivity.java" partName="CartActivity.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/CartActivity.java" title="CartActivity.java" tooltip="Cart/src/com/christine/cart/CartActivity.java" workbook="org.eclipse.ui.internal.EditorStack@60563144">
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CartActivity.java" partName="CartActivity.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/CartActivity.java" title="CartActivity.java" tooltip="Cart/src/com/christine/cart/CartActivity.java" workbook="org.eclipse.ui.internal.EditorStack@60563144">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/CartActivity.java"/>
 <editorState selectionHorizontalPixel="0" selectionLength="54" selectionOffset="12267" selectionTopPixel="7920"/>
 </editor>
@@ -85,9 +85,7 @@
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
-<category IMemento.internal.id="Warnings (40 items)"/>
-<category IMemento.internal.id="Errors"/>
-<category IMemento.internal.id="Warnings"/>
+<category IMemento.internal.id="Warnings (34 items)"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="820"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
@@ -281,10 +279,8 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/CartActivity.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/visual/GraphView.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/AccountDatabaseHelper.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/CartActivity.java"/>
 </editors>
-<item historyLabel="NutritionAdvisor.java" index="0">
-<position info="not_deleted" x="1053" y="0"/>
-</item>
 <item historyLabel="NutritionAdvisor.java" index="0">
 <position info="not_deleted" x="1087" y="0"/>
 </item>
@@ -429,8 +425,11 @@
 <item historyLabel="GraphView.java" index="2">
 <position info="not_deleted" x="3543" y="0"/>
 </item>
-<item active="true" historyLabel="NutritionAdvisor.java" index="0">
+<item historyLabel="NutritionAdvisor.java" index="0">
 <position info="not_deleted" x="7105" y="0"/>
+</item>
+<item active="true" historyLabel="CartActivity.java" index="4">
+<position info="not_deleted" x="12267" y="54"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -438,13 +437,6 @@
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
-<trimArea IMemento.internal.id="16384">
-<trimItem IMemento.internal.id="left"/>
-</trimArea>
-<trimArea IMemento.internal.id="131072">
-<trimItem IMemento.internal.id="right"/>
-<trimItem IMemento.internal.id="org.eclipse.ui.editorss"/>
-</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
 </trimArea>
