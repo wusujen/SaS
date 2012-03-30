@@ -383,8 +383,13 @@ public class CartActivity extends Activity {
 		
 		advisor.setCurrCart(currentCart);
 		advisor.setRecDailyValues(totalRDV);
+		advisor.setDays(days);
 		
-		graph.getRatiosWithPCart(currentCart, totalRDV, pcart);
+		if(pcart.getCalories()!=0.0f){
+			graph.getRatiosWithPCart(currentCart, totalRDV, pcart);
+		} else {
+			graph.getRatiosWithoutPCart(currentCart, totalRDV);
+		}
 		graph.postInvalidate();
 
 		graphLabels.setDays(days);
@@ -648,6 +653,10 @@ public class CartActivity extends Activity {
 			total.setCholesterol((total.getCholesterol() + temp
 					.getCholesterol()));
 		}
+		
+		//multiply all of the stats by the number of days in order to get the right RDV amount!
+		
+		
 		return total;
 	}
 

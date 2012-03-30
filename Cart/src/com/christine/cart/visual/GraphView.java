@@ -108,12 +108,16 @@ public class GraphView extends View{
 		
 		if (ratios!=null && MODE==SELECT_NONE) {
 			drawCurrentCartContent(c, _base, _graphHeight);
-			drawGoalLines(c, _graphHeight, _base, _topline);
+			if(goals!=null){
+				drawGoalLines(c, _graphHeight, _base, _topline);
+			}
 			
 		} else if(ratios!=null && MODE==SELECT_SINGLE){
 			drawCurrentCartContent(c, _base, _graphHeight);
 			drawSingleMode(c, _base, _graphHeight);
-			drawGoalLines(c, _graphHeight, _base, _topline);
+			if(goals!=null){
+				drawGoalLines(c, _graphHeight, _base, _topline);
+			}
 			
 		} else if (MODE==SELECT_COMPARE){
 			drawCompareMode(c, _base, _graphHeight);
@@ -197,6 +201,33 @@ public class GraphView extends View{
 			/*
 			Log.d("GraphView", "Need: " + n + "," + needs.get(n) + " || Ratio: " + ratios.get(n) 
 					+ "||  Goal " + goals.get(n));*/
+		}
+	}
+	
+	/**
+	 * 
+	 * @param totalCart
+	 * @param totalRDV
+	 */
+	public void getRatiosWithoutPCart(PreviousHistory currentTotalCart, RecDailyValues currentRDV) {
+		needs = new HashMap<String, Float>(order.length);
+		ratios = new HashMap<String, Float>(order.length);
+		
+		Float[] rdvTotals = currentRDV.getNutritionNeeds();
+		Float[] cartTotals = currentTotalCart.getNutritionProperties();
+		
+		for(int i=0; i<order.length; i++){
+			float need = rdvTotals[i] * (float) this._days;
+			float ratio = cartTotals[i] / need;
+			
+			String n = order [i];
+			
+			needs.put(n, need);
+			if(need == 0.0f){
+				ratios.put(n, 0.0f);
+			} else {
+				ratios.put(n, ratio);
+			}
 		}
 	}
 	
