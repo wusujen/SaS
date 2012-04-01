@@ -90,8 +90,8 @@ public class GraphView extends View{
 		int w = getWidth();
 		int h = getHeight();
 
-		_base = h - 80;
-		_topline = 60;
+		_base = h - 90;
+		_topline = 90;
 		_graphHeight = _base - _topline;
 		float interpolate = (float) _graphHeight / (float) _days;
 		

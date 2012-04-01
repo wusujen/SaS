@@ -654,9 +654,6 @@ public class CartActivity extends Activity {
 					.getCholesterol()));
 		}
 		
-		//multiply all of the stats by the number of days in order to get the right RDV amount!
-		
-		
 		return total;
 	}
 
