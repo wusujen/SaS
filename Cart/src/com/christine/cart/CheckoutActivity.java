@@ -30,57 +30,8 @@ public class CheckoutActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.checkout);
 
-		cartTotals = (TextView) findViewById(R.id.tv_cartTotal);
 		Intent cartContents = getIntent();
 		act = cartContents.getParcelableExtra("account");
-		PreviousHistory pH = cartContents.getParcelableExtra("cartTotals");
-		days = cartContents.getIntExtra("days", 1);
-		username = act.getName();
-
-		if (pH != null && act != null) {
-			pH.setId(null);
-			pH.setDays(days);
-
-			// write to the previous history database, if the user doesn't
-			// already exist in the db
-			adb = new AccountDatabaseHelper(this);
-
-			PreviousHistory existingHistory = adb.getPreviousHistoryFor(pH
-					.getUsername());
-			if (existingHistory.getCalories()!=0.0f) {
-				adb.updatePreviousHistoryFor(pH);
-
-				PreviousHistory thisHistory = adb
-						.getPreviousHistoryFor(username);
-				Log.d("CheckoutActivity",
-						"PH updated, Name: " + thisHistory.getUsername()
-								+ " Days: " + thisHistory.getDays()
-								+ " Calories: " + thisHistory.getCalories());
-			} else {
-				adb.addPreviousHistoryFor(pH);
-
-				PreviousHistory thisHistory = adb
-						.getPreviousHistoryFor(username);
-				Log.d("CheckoutActivity",
-						"PH added, Name: " + thisHistory.getUsername()
-								+ " Days: " + thisHistory.getDays()
-								+ " Calories: " + thisHistory.getCalories());
-			}
-
-			// delete all of the current cart items based upon the username
-			adb.deleteAllGroceryItemsOf(username);
-			List<GroceryItem> gList = adb.getAllGroceryItemsOf(username);
-			if (gList.size() == 0) {
-				Log.d("CheckoutActivity", "Grocery items successfully cleared!");
-			} else {
-				Log.d("CheckoutActivity",
-						"Grocery items still exist: " + gList.size());
-			}
-
-			adb.close();
-		} else {
-			cartTotals.setText("No Items in Cart");
-		}
 
 		newCart = (Button) findViewById(R.id.btn_newcart);
 		newCart.setOnClickListener(new View.OnClickListener() {
@@ -98,9 +49,15 @@ public class CheckoutActivity extends Activity {
 			public void onClick(View v) {
 				Intent logoutNow = new Intent(CheckoutActivity.this,
 						StartActivity.class);
+				logoutNow.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(logoutNow);
 			}
 		});
+	}
+	
+	@Override
+	public void onBackPressed() {
+	   return; //prevent back button from working
 	}
 
 }

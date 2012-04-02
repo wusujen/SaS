@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Change Layout" description="Change Layout" file="/Cart/res/layout/summary.xml" flags="6" flatten="true" id="com.android.ide.eclipse.adt.refactoring.convert" proj="/Cart" sel-end="1105" sel-start="40" stamp="1333380108574" type="android.widget.RelativeLayout"/>
+</session>

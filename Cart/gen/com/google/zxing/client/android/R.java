@@ -46,6 +46,7 @@ public final class R {
     }
     public static final class id {
         public static final int FrameLayout1=0x7f07001d;
+        public static final int RelativeLayout1=0x7f07006a;
         public static final int activity=0x7f070047;
         /**  Messages IDs 
          */
@@ -58,7 +59,8 @@ public final class R {
         public static final int btn_cancel=0x7f07004b;
         public static final int btn_checkout=0x7f070024;
         public static final int btn_girl=0x7f07005f;
-        public static final int btn_goback=0x7f070070;
+        public static final int btn_goals=0x7f07006d;
+        public static final int btn_goback=0x7f070074;
         public static final int btn_guest=0x7f070069;
         public static final int btn_join=0x7f070068;
         public static final int btn_login=0x7f07003a;
@@ -96,16 +98,16 @@ public final class R {
         public static final int meta_text_view_label=0x7f070016;
         public static final int networkStatus=0x7f07003b;
         public static final int outputText=0x7f07004d;
-        public static final int output_text=0x7f07006a;
+        public static final int output_text=0x7f07006e;
         public static final int page_number_view=0x7f070051;
-        public static final int pl_header=0x7f07006e;
+        public static final int pl_header=0x7f070072;
         public static final int pluHeading=0x7f070053;
         public static final int preview_view=0x7f07000c;
         public static final int prompt=0x7f070056;
         public static final int query_button=0x7f07004f;
         public static final int query_text_view=0x7f07004e;
         public static final int quit=0x7f070005;
-        public static final int rdv_header=0x7f07006b;
+        public static final int rdv_header=0x7f07006f;
         public static final int restart_preview=0x7f070006;
         public static final int result_button_view=0x7f07001a;
         public static final int result_list_view=0x7f070050;
@@ -114,7 +116,7 @@ public final class R {
         public static final int sb_age=0x7f070041;
         public static final int sb_weight=0x7f070046;
         public static final int scrollView1=0x7f07003c;
-        public static final int scrollView2=0x7f07006d;
+        public static final int scrollView2=0x7f070071;
         public static final int sd_content=0x7f07002a;
         public static final int sd_handle=0x7f07002b;
         public static final int sd_itemlist=0x7f070029;
@@ -135,6 +137,7 @@ public final class R {
         public static final int sp_inches=0x7f070044;
         public static final int status_view=0x7f07001c;
         public static final int submitPLU=0x7f070055;
+        public static final int summary_title=0x7f07006b;
         public static final int tableRow1=0x7f070026;
         public static final int tableRow2=0x7f070049;
         public static final int textView1=0x7f07002e;
@@ -147,14 +150,15 @@ public final class R {
         public static final int title=0x7f07004c;
         public static final int tv_age=0x7f070040;
         public static final int tv_cartTotal=0x7f070031;
-        public static final int tv_days=0x7f070071;
+        public static final int tv_days=0x7f070075;
         public static final int tv_height=0x7f070042;
         public static final int tv_name=0x7f07003e;
         public static final int tv_peopleinfo=0x7f07005a;
-        public static final int tv_peoplelist=0x7f07006f;
+        public static final int tv_peoplelist=0x7f070073;
         public static final int tv_plist=0x7f070062;
         public static final int tv_printdays=0x7f070057;
-        public static final int tv_rdv=0x7f07006c;
+        public static final int tv_rdv=0x7f070070;
+        public static final int tv_summary=0x7f07006c;
         public static final int tv_title=0x7f07003d;
         public static final int tv_weight=0x7f070045;
         public static final int type_text_view=0x7f070013;
@@ -182,8 +186,9 @@ public final class R {
         public static final int setup_people=0x7f030010;
         public static final int share=0x7f030011;
         public static final int start=0x7f030012;
-        public static final int test_totals=0x7f030013;
-        public static final int visualization=0x7f030014;
+        public static final int summary=0x7f030013;
+        public static final int test_totals=0x7f030014;
+        public static final int visualization=0x7f030015;
     }
     public static final class raw {
         public static final int beep=0x7f050000;

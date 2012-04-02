@@ -36,6 +36,7 @@ public class InputSearchActivity extends Activity {
 				String pluCode = enterPLU.getText().toString();
 				
 				Intent searchForPLUCode = new Intent(InputSearchActivity.this, InputDatabaseSearchActivity.class);
+				searchForPLUCode.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 				searchForPLUCode.setType("text/plain");
 				searchForPLUCode.putExtra("plu",pluCode);
 				searchForPLUCode.putExtra("account", act);

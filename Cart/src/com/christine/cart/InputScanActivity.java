@@ -98,6 +98,7 @@ public class InputScanActivity extends Activity {
 		//the next invisible activity, which searches the database
 		Intent databaseSearch=new Intent(inputsContext, InputDatabaseSearchActivity.class);
 		databaseSearch.setType("text/plain");
+		databaseSearch.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		databaseSearch.putExtra("scanResult",contents); //This is the barcode reading
 		databaseSearch.putExtra("resultSize", resultSize); //This is the size of the item
 		databaseSearch.putExtra("resultDesc", resultDesc); //This is the name of the item

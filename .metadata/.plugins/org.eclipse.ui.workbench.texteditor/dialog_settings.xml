@@ -2,29 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="257" key="DIALOG_WIDTH"/>
-		<item value="294" key="DIALOG_Y_ORIGIN"/>
-		<item value="870" key="DIALOG_X_ORIGIN"/>
+		<item value="273" key="DIALOG_Y_ORIGIN"/>
 		<item value="380" key="DIALOG_HEIGHT"/>
+		<item value="1167" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="true" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
+		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="getPreviousHistoryFor" key="selection"/>
+		<item value="RecDailyValues" key="selection"/>
 		<list key="findhistory">
+			<item value="PreviousHistory"/>
+			<item value="_days"/>
+			<item value="advisor.set"/>
+			<item value="advisor.setPreviousHistory"/>
+			<item value="getPrevious"/>
 			<item value="getPreviousHistoryFor"/>
 			<item value="pcart"/>
 			<item value="setDay"/>
-			<item value="setDAys"/>
-			<item value="RDV"/>
-			<item value="null"/>
-			<item value="positive"/>
-			<item value="goodRec"/>
 		</list>
 		<list key="replacehistory">
+			<item value="RecDailyValues"/>
 			<item value="negative"/>
 			<item value="badRec"/>
 			<item value="prevNeg"/>
@@ -32,7 +33,6 @@
 			<item value="badPrev"/>
 			<item value="bad"/>
 			<item value="vitamin "/>
-			<item value="this._"/>
 		</list>
 	</section>
 </section>

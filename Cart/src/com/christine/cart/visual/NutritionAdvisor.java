@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.PreviousHistory;
 import com.christine.cart.sqlite.RecDailyValues;
 
@@ -153,8 +156,6 @@ public class NutritionAdvisor {
 		Log.d("NutritionAdvisor", "Get Current State with Past, Good Prev: " + goodPrev.toString());
 		Log.d("NutritionAdvisor", "Get Current State with Past, Bad Prev: " + badPrev.toString());
 		
-		
-		
 	}
 
 	/*
@@ -206,7 +207,8 @@ public class NutritionAdvisor {
 	 * Accepts a context displays a toast with the positive aspects of the
 	 * current state of the cart;
 	 */
-	public void givePositiveAdvice(Context context){
+	public String getPositiveAdvice(){
+		positive = new String();
 		String prevPos = new String();
 		String recPos = new String();
 		
@@ -259,22 +261,19 @@ public class NutritionAdvisor {
 		}
 		
 		if(recPos!=null && recPos.length()>0){
-			positive += "Great job! You've met the requirements on " + recPos;
-		}
-		if(positive!=null && positive.length()>0){
-			Toast pos = Toast.makeText(context, positive, Toast.LENGTH_LONG);
-			pos.show();
+			positive += "\nGreat job! You've met the requirements on " + recPos;
 		}
 		
-		positive = new String();
+		return positive;
+		
 	}
 	
 	/*
 	 * Accepts a context displays a toast with the negative aspects of the
 	 * current state of the cart;
 	 */
-	public void giveNegativeAdvice(Context context){
-		
+	public String getNegativeAdvice(){
+		negative = new String();
 		String prevNeg = new String();
 		String recNeg = new String();
 		
@@ -300,7 +299,7 @@ public class NutritionAdvisor {
 					}
 				
 				if(prevNeg!=null && prevNeg.length()>0){
-					negative = "You did better last time on " + prevNeg;
+					negative = " You did better last time on " + prevNeg;
 				}
 				
 			}
@@ -327,15 +326,31 @@ public class NutritionAdvisor {
 		}
 		
 		if(recNeg!=null && recNeg.length()>0){
-			negative += "Try to reduce the amounts of " + recNeg;
+			negative += "\nTry to reduce the amounts of " + recNeg;
 		}
 		
-		if(negative!=null && negative.length()>0){
-			Toast neg = Toast.makeText(context, negative, Toast.LENGTH_LONG);
-			neg.show();
-		}
-		
-		negative = new String();
+		return negative;
 	}
-
+	
+	public void giveAdvice(Context context){
+		
+		String posA = getPositiveAdvice();
+		String negA = getNegativeAdvice();
+		
+		if(posA!=null && negA!=null && posA.length()!=0 && negA.length()!=0) {
+			Toast neg = Toast.makeText(context, negA, Toast.LENGTH_LONG);
+			neg.show();
+			
+			Toast pos = Toast.makeText(context, posA, Toast.LENGTH_LONG);
+			pos.show();
+		}
+		
+	}
+	
+	public void clearPreviouslyShownToasts(){
+		announcedPrev = new ArrayList<String>();
+		announcedRec = new ArrayList<String>();
+	}
+	
+	
 }

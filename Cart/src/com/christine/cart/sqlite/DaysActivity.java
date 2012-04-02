@@ -32,6 +32,7 @@ public class DaysActivity extends Activity {
 	    	startCart.putExtra("username", username);
 	    	startCart.putExtra("account", newAct);
 	    	setResult(RESULT_OK, startCart);
+	    	startCart.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 	    	finish();
 	    } else {
 	    	throw new RuntimeException("Update failed");

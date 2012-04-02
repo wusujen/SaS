@@ -212,6 +212,7 @@ public class GraphView extends View{
 	public void getRatiosWithoutPCart(PreviousHistory currentTotalCart, RecDailyValues currentRDV) {
 		needs = new HashMap<String, Float>(order.length);
 		ratios = new HashMap<String, Float>(order.length);
+		goals = null;
 		
 		Float[] rdvTotals = currentRDV.getNutritionNeeds();
 		Float[] cartTotals = currentTotalCart.getNutritionProperties();

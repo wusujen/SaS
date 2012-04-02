@@ -129,7 +129,11 @@
 	    <activity android:name="TestTotals"
 	        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape"></activity>
+	    
 	    <activity android:name="GraphViewActivity"></activity>
+	    <activity android:name="SummaryActivity"
+	        android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+	    <activity android:name="NextGoalsActivity"></activity>
 	    
 	    
     </application>

@@ -1,5 +1,9 @@
 package com.christine.cart.sqlite;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
+
 /**
  * RecDailyValues
  * 
@@ -15,7 +19,7 @@ package com.christine.cart.sqlite;
  * @author Christine
  *
  */
-public class RecDailyValues {
+public class RecDailyValues implements Parcelable{
 	float _calories;	//kcal
 	float _protein;		//gram(g)
 	float _totalfats;	//varies based on age is a % of calories, base 65
@@ -680,4 +684,89 @@ public class RecDailyValues {
 			return props;
 		}
 	
+		/**
+		 * 
+		 * AS A PARCELLABLE ITEM
+		 * @see http://techdroid.kbeanie.com/2010/06/parcelable-how-to-do-that-in-android.html
+		 * @see http://shri.blog.kraya.co.uk/2010/04/26/android-parcel-data-to-pass-between-activities-using-parcelable-classes/
+		 *
+		 *
+		 */
+		
+		public RecDailyValues(Parcel in){
+			readFromParcel(in);
+		}
+		
+		public int describeContents() {
+			return 0;
+		}
+
+		public void writeToParcel(Parcel dest, int flags) {
+			Log.v("Writing to Parcel", "writeToParcel..."+flags);
+			
+			dest.writeFloat(_calories);
+			dest.writeFloat(_protein);
+			dest.writeFloat(_totalfats);
+			dest.writeFloat(_carbs);
+			dest.writeFloat(_fiber);
+			dest.writeFloat(_sugar);
+			dest.writeFloat(_calcium);
+			dest.writeFloat(_iron);
+			dest.writeFloat(_magnesium);
+			dest.writeFloat(_potassium);
+			dest.writeFloat(_sodium);
+			dest.writeFloat(_zinc);
+			dest.writeFloat(_vitC);
+			dest.writeFloat(_vitD);
+			dest.writeFloat(_vitB6);
+			dest.writeFloat(_vitB12);
+			dest.writeFloat(_vitA);
+			dest.writeFloat(_vitE);
+			dest.writeFloat(_vitK);
+			dest.writeFloat(_fatSat);
+			dest.writeFloat(_fatPoly);
+			dest.writeFloat(_cholesterol);
+
+		}
+		
+		private void readFromParcel(Parcel in) {
+			// We just need to read back each
+			// field in the order that it was
+			// written to the parcel
+
+			_calories = in.readFloat();
+			_protein = in.readFloat();
+			_totalfats = in.readFloat();
+			_carbs = in.readFloat();
+			_fiber = in.readFloat();
+			_sugar = in.readFloat();
+			_calcium = in.readFloat();
+			_iron = in.readFloat();
+			_magnesium = in.readFloat();
+			_potassium = in.readFloat();
+			_sodium = in.readFloat();
+			_zinc = in.readFloat();
+			_vitC = in.readFloat();
+			_vitD = in.readFloat();
+			_vitB6 = in.readFloat();
+			_vitB12 = in.readFloat();
+			_vitA = in.readFloat();
+			_vitE = in.readFloat();
+			_vitK = in.readFloat();
+			_fatSat = in.readFloat();
+			_fatPoly = in.readFloat();
+			_cholesterol = in.readFloat();
+
+		}
+		
+		 public static final Parcelable.Creator<RecDailyValues> CREATOR =
+	    	new Parcelable.Creator<RecDailyValues>() {
+	            public RecDailyValues createFromParcel(Parcel in) {
+	                return new RecDailyValues(in);
+	            }
+	 
+	            public RecDailyValues[] newArray(int size) {
+	                return new RecDailyValues[size];
+	            }
+	        };
 }

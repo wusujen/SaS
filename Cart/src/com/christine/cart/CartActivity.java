@@ -86,6 +86,7 @@ public class CartActivity extends Activity {
 	private static List<GroceryItem> ccart;
 	private static ArrayAdapter<String> ccartList;
 	private static PreviousHistory pcart; // => previous cart totals
+	private static RecDailyValues totalRDV;
 
 	private static NutritionAdvisor advisor;
 
@@ -236,7 +237,8 @@ public class CartActivity extends Activity {
 			advisor.setPastCart(pcart);
 		} else {
 			Log.d("CartActivity",
-					"There is no previous history yet for this cart");
+					"There is no previous history yet for this cart. Username is: " + pcart.getUsername());
+			
 		}
 
 		// Handles the PLU code
@@ -250,6 +252,7 @@ public class CartActivity extends Activity {
 				// opens up activity with a text entry and numpad
 				Intent openSearchItemScreen = new Intent(CartActivity.this,
 						InputSearchActivity.class);
+				openSearchItemScreen.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 				openSearchItemScreen.putExtra("account", act);
 				startActivity(openSearchItemScreen);
 			}
@@ -262,6 +265,7 @@ public class CartActivity extends Activity {
 				// start a scanner intent, using zxing library
 				// refer back to PACKAGE settings
 				Intent scanIntent = new Intent(SCANNER);
+				scanIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 				scanIntent.setPackage(PACKAGE);
 				scanIntent.addCategory(Intent.CATEGORY_DEFAULT);
 				scanIntent.putExtra("SCAN_FORMATS", SCAN_FORMATS);
@@ -285,6 +289,7 @@ public class CartActivity extends Activity {
 			public void onClick(View v) {
 				Intent startTest = new Intent(CartActivity.this,
 						TestTotals.class);
+				startTest.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 				startTest.putExtra("username", currentUsername);
 				startActivityForResult(startTest, 0);
 			}
@@ -295,12 +300,14 @@ public class CartActivity extends Activity {
 		checkout.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent goCheckout = new Intent(CartActivity.this,
-						CheckoutActivity.class);
+						SummaryActivity.class);
 				PreviousHistory cTotals = getCartTotalsFor(currentUsername);
 				goCheckout.putExtra("cartTotals", cTotals); // pass the
 															// parceable!
 				goCheckout.putExtra("account", act);
 				goCheckout.putExtra("days", days);
+				goCheckout.putExtra("rdv", totalRDV);
+				goCheckout.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 				startActivity(goCheckout);
 			}
 		});
@@ -379,7 +386,7 @@ public class CartActivity extends Activity {
 		}
 
 		PreviousHistory currentCart = getCartTotalsFor(currentUsername);
-		RecDailyValues totalRDV = getRDVTotalsFor(currentUsername);
+		totalRDV = getRDVTotalsFor(currentUsername);
 		
 		advisor.setCurrCart(currentCart);
 		advisor.setRecDailyValues(totalRDV);
@@ -395,9 +402,18 @@ public class CartActivity extends Activity {
 		graphLabels.setDays(days);
 		graphLabels.postInvalidate();
 		
-		advisor.giveNegativeAdvice(this.getApplicationContext());
-		advisor.givePositiveAdvice(this.getApplicationContext());
+		advisor.giveAdvice(this.getApplicationContext());
 
+	}
+	
+	@Override
+	protected void onDestroy(){
+		super.onDestroy();
+	}
+	
+	@Override
+	public void onBackPressed() {
+	   return; //prevent back button from working
 	}
 
 	/**
@@ -432,6 +448,7 @@ public class CartActivity extends Activity {
 			toast.setGravity(Gravity.TOP, 25, 400);
 			toast.show();
 		}
+
 	}
 
 	/**
