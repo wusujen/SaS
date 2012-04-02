@@ -104,7 +104,6 @@ public class SummaryActivity extends Activity {
 		
 		btn_goals.setOnClickListener( new View.OnClickListener(){
 			public void onClick(View v){
-				advisor.clearPreviouslyShownToasts();
 				Intent goCheckout = new Intent(SummaryActivity.this,
 						CheckoutActivity.class);
 				goCheckout.putExtra("account", act);

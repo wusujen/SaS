@@ -27,8 +27,8 @@ public class NutritionAdvisor {
 	private static ArrayList<String> goodRec;
 	private static ArrayList<String> badRec;
 	
-	private static ArrayList<String> announcedPrev = new ArrayList<String>();
-	private static ArrayList<String> announcedRec = new ArrayList<String>();
+	private ArrayList<String> announcedPrev = new ArrayList<String>();
+	private ArrayList<String> announcedRec = new ArrayList<String>();
 	
 	String positive = new String();
 	String negative = new String();
