@@ -27,7 +27,7 @@ public class SetupPeopleActivity extends Activity {
 	TextView tv_plist;
 	TextView tv_added;
 	
-	private static String USERNAME = null;
+	private static String username = null;
     private static String PASSWORD = null;
     private Account act;
     
@@ -115,25 +115,25 @@ public class SetupPeopleActivity extends Activity {
 	    db = new AccountDatabaseHelper(this);
 	    
 	    // Get the username from the intent
- 		USERNAME = getIntent().getStringExtra("username");
+ 		username = getIntent().getStringExtra("username");
  		act = getIntent().getParcelableExtra("account");
  		
- 	    if(USERNAME==null){
+ 	    if(username==null){
  	    	Log.d("SetupPeopleActivity:", "username returned null");
  	    	return;
  	    } else{
- 	    	Log.d("UserName:", USERNAME);
+ 	    	Log.d("UserName:", username);
  	    	if(act != null){
- 	    		USERNAME = act.getName();
+ 	    		username = act.getName();
  	    		PASSWORD = act.getPassword();
- 		    	Log.d("Account Info: ", "username: " + USERNAME + "password: " + PASSWORD);
- 		    	user_properties.setText("username: " + USERNAME + "\n password: " + PASSWORD);
+ 		    	Log.d("Account Info: ", "username: " + username + "password: " + PASSWORD);
+ 		    	user_properties.setText("username: " + username + "\n password: " + PASSWORD);
  	    	} else{
  	    		Log.d("Fail: ", "unsuccessful retrieval");
  	    	}
  	    }
  	    
- 	    List<Person> pList = db.getAllPeopleFor(USERNAME);
+ 	    List<Person> pList = db.getAllPeopleFor(username);
  	    if(pList!=null){
  	    	tv_plist.setText("");
  	    	for(int i=0; i<pList.size(); i++){
@@ -161,7 +161,7 @@ public class SetupPeopleActivity extends Activity {
 		
 		Bundle userInfo = new Bundle();
 		userInfo.putInt("requestCode", requestCode);
-		userInfo.putString("username", USERNAME);
+		userInfo.putString("username", username);
 		
 		addPerson.putExtras(userInfo);
 		startActivityForResult(addPerson, requestCode);

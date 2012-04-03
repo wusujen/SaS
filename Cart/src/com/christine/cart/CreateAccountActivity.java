@@ -5,16 +5,18 @@ import com.christine.cart.sqlite.AccountActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 public class CreateAccountActivity extends Activity {
 
-	Button btn_login;
+	Button btn_start;
 	EditText username;
 	EditText password;
 	TextView errorText;
@@ -24,13 +26,15 @@ public class CreateAccountActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.login);
+	    getWindow().setFormat(PixelFormat.RGBA_8888);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
+	    setContentView(R.layout.join);
 		
 		username = (EditText) findViewById(R.id.textedit_username);
 		password = (EditText) findViewById(R.id.textedit_password);
 		errorText = (TextView) findViewById(R.id.textview_error);
-		btn_login = (Button) findViewById(R.id.btn_login);
-		btn_login.setOnClickListener(new View.OnClickListener() {
+		btn_start = (Button) findViewById(R.id.btn_start);
+		btn_start.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
 				// get the entered user information
@@ -85,10 +89,9 @@ public class CreateAccountActivity extends Activity {
 				    }
 				    else{
 				    	// 
-				    	Intent startSetupPeople = new Intent(this,SetupPeopleActivity.class);
-				    	startSetupPeople.putExtra("username", name);
-				    	startSetupPeople.putExtra("account", act);
-				    	startActivity(startSetupPeople);
+				    	Intent startProfileActivity = new Intent(this,ProfileActivity.class);
+				    	startProfileActivity.putExtra("account", act);
+				    	startActivity(startProfileActivity);
 				    }
 					break;
 				case RESULT_CANCELED:

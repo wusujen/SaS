@@ -42,6 +42,7 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		private static final String PEOPLE_HEIGHT = "height";
 		private static final String PEOPLE_WEIGHT = "weight";
 		private static final String PEOPLE_ACTIVITY = "activity";
+		private static final String PEOPLE_MAIN = "main";
 	
 	//Current_Cart Table Info
 	private static final String TABLE_CCART = "current_cart";
@@ -224,6 +225,7 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	    values.put(PEOPLE_HEIGHT, person.getHeight()); // Height
 	    values.put(PEOPLE_WEIGHT, person.getWeight()); // Weight
 	    values.put(PEOPLE_ACTIVITY, person.getActivity()); //Activity
+	    values.put(PEOPLE_MAIN, String.valueOf(person.getMain()));
 	 
 	    // Inserting Row
 	    Log.d("Inserting...", "Inserting into" + TABLE_PEOPLE);
@@ -235,7 +237,7 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		SQLiteDatabase db = this.getReadableDatabase();
 		List<Person> personList = new ArrayList<Person>();
 	    Cursor cursor = db.query(TABLE_PEOPLE, new String[] { PEOPLE_ID, PEOPLE_USER,
-	            PEOPLE_NAME, PEOPLE_AGE, PEOPLE_GENDER, PEOPLE_HEIGHT, PEOPLE_WEIGHT, PEOPLE_ACTIVITY }, PEOPLE_USER + "=?",
+	            PEOPLE_NAME, PEOPLE_AGE, PEOPLE_GENDER, PEOPLE_HEIGHT, PEOPLE_WEIGHT, PEOPLE_ACTIVITY , PEOPLE_MAIN}, PEOPLE_USER + "=?",
 	            new String[] { username.toString() }, null, null, null, null);
 	 
 	    // looping through all rows and adding to list
@@ -250,6 +252,7 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	            person.setHeight(Integer.parseInt(cursor.getString(5)));
 	            person.setWeight(Integer.parseInt(cursor.getString(6)));
 	            person.setActivity(Integer.parseInt(cursor.getString(7)));
+	            person.setMain(Boolean.parseBoolean(cursor.getString(8)));
 	            // Adding person to list
 	            personList.add(person);
 	        } while (cursor.moveToNext());
@@ -283,6 +286,7 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		            person.setHeight(Integer.parseInt(cursor.getString(5)));
 		            person.setWeight(Integer.parseInt(cursor.getString(6)));
 		            person.setActivity(Integer.parseInt(cursor.getString(7)));
+		            person.setMain(Boolean.parseBoolean(cursor.getString(8)));
 		            // Adding person to list
 		            personList.add(person);
 		        } while (cursor.moveToNext());
@@ -319,7 +323,8 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	    values.put(PEOPLE_HEIGHT, person.getHeight()); // Height
 	    values.put(PEOPLE_WEIGHT, person.getWeight()); // Weight
 	    values.put(PEOPLE_ACTIVITY, person.getActivity()); //Activity
-	 
+	    values.put(PEOPLE_MAIN, String.valueOf(person.getMain()));
+	    
 	    // updating row
 	    return db.update(TABLE_PEOPLE, values, PEOPLE_USER + " = ?",
 	            new String[] { String.valueOf(person.getUsername()) });

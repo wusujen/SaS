@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="15dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="50dp"
         android:text="@string/start_welcome"
         android:textSize="24dp"
         android:textStyle="bold" />
@@ -29,13 +29,5 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="5dp"
         android:text="@string/start_btn_login" />
-
-    <Button
-        android:id="@+id/btn_guest"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="5dp"
-        android:text="@string/start_btn_guest" />
 
 </LinearLayout>

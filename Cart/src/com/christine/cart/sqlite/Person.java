@@ -7,10 +7,11 @@ public class Person {
 	String _username;
 	String _name;
 	int _age;
-	String _gender; //m or f
-	int _height; //in inches
-	int _weight; //in pounds
-	int _activity; //0=>sedentary, 1=>moderately active, 2=>very active
+	String _gender; 	//m or f
+	int _height;	 	//in inches
+	int _weight; 		//in pounds
+	int _activity;		//0=>sedentary, 1=>moderately active, 2=>very active
+	boolean _main; 		
 
 	// blank constructor
 	public Person(){
@@ -49,6 +50,7 @@ public class Person {
 		_height = height;
 		_weight = weight;
 		_activity = activity;
+		_main = false;
 	}
 	
 	// get Id
@@ -138,6 +140,14 @@ public class Person {
 	public int getFeetHeight(){
 		int i = this.getInchHeight();
 		return (_height-i)/12;
+	}
+	
+	public boolean getMain(){
+		return this._main;
+	}
+	
+	public void setMain(boolean bool){
+		this._main = bool;
 	}
 	
 	public String getActivityString(){

@@ -35,8 +35,7 @@ public class PersonActivity extends Activity {
 	Spinner sp_inches;
 	Spinner sp_activity;
 	
-	
-	AccountDatabaseHelper db;
+	AccountDatabaseHelper adb;
 	Person p;
 	String username;
 	int totalHeight;
@@ -52,12 +51,12 @@ public class PersonActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.person);
 	    
-	    db = new AccountDatabaseHelper(this);
+	    adb = new AccountDatabaseHelper(this);
 	    
-	    tv_title = (TextView) findViewById(R.id.tv_title);
 	    tv_age = (TextView) findViewById(R.id.tv_age);
 	    tv_weight = (TextView) findViewById(R.id.tv_weight);
 	    tv_height = (TextView) findViewById(R.id.tv_height);
+	    tv_title = (TextView) findViewById(R.id.tv_title);
 	    
 	    et_name = (EditText) findViewById(R.id.et_name);
 	    sb_age = (SeekBar) findViewById(R.id.sb_age);
@@ -258,7 +257,7 @@ public class PersonActivity extends Activity {
 				}
 				p.setActivity(activityLevel);
 				
-				db.addPerson(newP);
+				adb.addPerson(newP);
 				//Log.d("Insert..","Person Added: ");
 				Intent personSaved = new Intent();
 				personSaved.putExtra("username", username);

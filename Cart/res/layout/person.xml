@@ -4,32 +4,56 @@
     android:layout_height="match_parent"
     android:orientation="horizontal" >
 
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:layout_marginLeft="20dp"
+        android:layout_weight="0.50"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_person"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/tv_title"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </LinearLayout>
+
     <ScrollView
         android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1" >
 
         <LinearLayout
             android:id="@+id/linearLayout1"
-            android:layout_width="match_parent"
+            android:layout_width="321dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:text="@string/person_title"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/tv_name" />
 
             <EditText
@@ -38,7 +62,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:layout_weight="1"
                 android:inputType="text" />
 
@@ -55,7 +78,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp" />
 
             <TextView
@@ -68,23 +90,20 @@
             <TableRow
                 android:id="@+id/tableRow1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:baselineAligned="false" >
 
                 <Spinner
                     android:id="@+id/sp_feet"
                     android:layout_width="119dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="15dp" />
-
+
                 <Spinner
                     android:id="@+id/sp_inches"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp" />
-
+                    android:layout_marginLeft="15dp" />
             </TableRow>
 
             <TextView
@@ -92,6 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/tv_weight" />
 
             <SeekBar
@@ -100,7 +120,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp" />
 
             <TextView
@@ -109,15 +128,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
                 android:text="@string/tv_activity" />
-
+
             <Spinner
                 android:id="@+id/sp_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp" />
-
+                android:layout_marginLeft="15dp" />
+
             <TableRow
                 android:id="@+id/tableRow2"
                 android:layout_width="match_parent"
@@ -132,6 +150,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:text="@string/btn_submit" />
+
 
                 <Button
                     android:id="@+id/btn_cancel"
