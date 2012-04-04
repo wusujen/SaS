@@ -76,12 +76,11 @@ public class LoginActivity extends Activity {
 				    	Log.d("LoginActivity:", "username returned null");
 				    	errorText.setText("Sorry, we couldn't log you in! Please try again.");
 				    } else{
-				    	Log.d("LoginActivity: ", "This is name: " + name);
-				    	Intent startSetupPeople = new Intent(this,SetupPeopleActivity.class);
+				    	Intent startSetupDays = new Intent(this,SetupDaysActivity.class);
 				    	// add the account object
-				    	startSetupPeople.putExtra("username", name);
-				    	startSetupPeople.putExtra("account", act);
-				    	startActivity(startSetupPeople);
+				    	startSetupDays.putExtra("username", name);
+				    	startSetupDays.putExtra("account", act);
+				    	startActivity(startSetupDays);
 				    }
 					break;
 				case RESULT_CANCELED:

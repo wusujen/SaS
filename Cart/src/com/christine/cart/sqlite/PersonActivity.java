@@ -7,21 +7,28 @@ import com.christine.cart.R;
 import com.christine.cart.SetupPeopleActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class PersonActivity extends Activity {
-
+	
+	Button man;
+	Button woman;
+	Button boy;
+	Button girl;
 	Button btn_submit;
 	Button btn_cancel;
 	TextView tv_title;
@@ -35,21 +42,95 @@ public class PersonActivity extends Activity {
 	Spinner sp_inches;
 	Spinner sp_activity;
 	
+	LinearLayout ll;
+	LayoutInflater li;
+	
+	View person_gender;
+	View person_define;
+	
 	AccountDatabaseHelper adb;
 	Person p;
 	String username;
+	Account act;
 	int totalHeight;
 	int inHeight;
 	int ftHeight;
 	int activityLevel;
 	int age;
 	int weight;
+	int requestCode;
+	
+	public static final int MAN = 1001;
+    public static final int WOMAN = 1002;
+    public static final int BOY = 1003;
+    public static final int GIRL = 1004;
 	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.person);
+	    
+	   
+	    
+	    act = getIntent().getParcelableExtra("account");
+	    username = act.getName();
+	    requestCode = getIntent().getIntExtra("requestCode", SetupPeopleActivity.ADD_PERSON);
+	    if(requestCode==SetupPeopleActivity.EDIT_PERSON) {
+	    	addEventsToDefinePersonLayout(SetupPeopleActivity.EDIT_PERSON);
+	    } else {
+	    	ll = (LinearLayout) findViewById(R.id.ll_define_person);
+	 	    li= (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	 	    person_gender = li.inflate(R.layout.person_gender, null);
+	 	    
+	 	    ll.addView(person_gender);
+	 	    setupPersonGenderView();
+	    }
+	    
+	}
+	
+	public void setupPersonGenderView(){
+		//set up gui elements
+	    man = (Button) findViewById(R.id.btn_man);
+	    woman = (Button) findViewById(R.id.btn_woman);
+	    boy = (Button) findViewById(R.id.btn_boy);
+	    girl = (Button) findViewById(R.id.btn_girl);
+	    
+	    man.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				addEventsToDefinePersonLayout(MAN);
+			}
+		});
+	    
+	    woman.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				addEventsToDefinePersonLayout(WOMAN);
+			}
+		});
+	    
+	    boy.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				addEventsToDefinePersonLayout(BOY);
+			}
+		});
+	    
+	    girl.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				addEventsToDefinePersonLayout(GIRL);
+			}
+		});
+	    
+	}
+	
+	// Convenience method to start an intent request
+	// to person activity.
+	void addEventsToDefinePersonLayout(final int personType){
+		ll = (LinearLayout) findViewById(R.id.ll_define_person);
+	    li= (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	    person_define = li.inflate(R.layout.person_define, null);
+	    
+	    ll.addView(person_define);
+	    ll.removeView(person_gender);
 	    
 	    adb = new AccountDatabaseHelper(this);
 	    
@@ -69,26 +150,27 @@ public class PersonActivity extends Activity {
 	    btn_cancel = (Button) findViewById(R.id.btn_cancel);
 	    
 	    
-	    Bundle extras = getIntent().getExtras();
-	    int requestCode = extras.getInt("requestCode");
-	    username = extras.getString("username");
-	    
-	    switch(requestCode){
-	    	case SetupPeopleActivity.MAN:
-	    		p = Person.createPerson(requestCode, username);
+	    switch(personType){
+	    	case PersonActivity.MAN:
+	    		p = Person.createPerson(personType, username);
 	    		tv_title.append(" him:");
 	    		break;
-	    	case SetupPeopleActivity.WOMAN:
-	    		p = Person.createPerson(requestCode, username);
+	    	case PersonActivity.WOMAN:
+	    		p = Person.createPerson(personType, username);
 	    		tv_title.append(" her:");
 	    		break;
-	    	case SetupPeopleActivity.BOY:
-	    		p = Person.createPerson(requestCode, username);
+	    	case PersonActivity.BOY:
+	    		p = Person.createPerson(personType, username);
 	    		tv_title.append(" him:");
 	    		break;
-	    	case SetupPeopleActivity.GIRL:
-	    		p = Person.createPerson(requestCode, username);
+	    	case PersonActivity.GIRL:
+	    		p = Person.createPerson(personType, username);
 	    		tv_title.append(" her:");
+	    		break;
+	    	case SetupPeopleActivity.EDIT_PERSON:
+	    		p = getIntent().getParcelableExtra("person");
+	    		tv_title.setText("Edit " + p.getName());
+	    		et_name.setText(p.getName());
 	    		break;
 	    	default:
 	    		throw new RuntimeException("Not implemented");
@@ -154,7 +236,11 @@ public class PersonActivity extends Activity {
 	    		new String[]{"Sedentary", "Lightly Active", "Moderately Active", "Very Active"});
 	    aLevel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    sp_activity.setAdapter(aLevel);
-	    sp_activity.setSelection(0);
+	    if(p.getActivity()==0){
+	    	sp_activity.setSelection(0);
+	    } else {
+	    	sp_activity.setSelection(p.getActivity());
+	    }
 	    sp_activity.setOnItemSelectedListener(new OnItemSelectedListener(){
 
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -207,9 +293,11 @@ public class PersonActivity extends Activity {
 				}
 			});
 	    }
+	    sb_age.setProgress(age);
 	    
 	    
 	    //setup Weight slider
+	    weight = p.getWeight();
 	    sb_weight.setMax(380);
 	    sb_weight.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			
@@ -227,6 +315,7 @@ public class PersonActivity extends Activity {
 				tv_weight.setText("weight: " + Integer.toString(weight) + " pounds");
 			}
 		});
+	    sb_weight.setProgress(weight);
 	    
 	    btn_submit.setOnClickListener( new View.OnClickListener() {
 			
@@ -255,12 +344,23 @@ public class PersonActivity extends Activity {
 				} else{
 					Toast.makeText(v.getContext(), "Please enter a valid weight!",  Toast.LENGTH_LONG);
 				}
-				p.setActivity(activityLevel);
+				newP.setActivity(activityLevel);
+				newP.setUsername(username);
 				
-				adb.addPerson(newP);
+				//check if person exists
+				List<Person> checkPeople = adb.getAllPeopleFor(username);
+				boolean exists = true;
+				if(personType == SetupPeopleActivity.EDIT_PERSON){
+					adb.updatePerson(p, newP);
+				} else {
+					adb.addPerson(newP);
+				}
+				
+				adb.close();
 				//Log.d("Insert..","Person Added: ");
 				Intent personSaved = new Intent();
 				personSaved.putExtra("username", username);
+				personSaved.putExtra("requestCode", requestCode);
 				setResult(RESULT_OK, personSaved);
 				finish();
 			}
@@ -269,12 +369,13 @@ public class PersonActivity extends Activity {
 	    btn_cancel.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
+				adb.close();
 				Intent cancel = new Intent();
+				cancel.putExtra("requestCode", requestCode);
 				setResult(RESULT_CANCELED, cancel);
 				finish();
 			}
 		});
-	    
 	}
 
 }

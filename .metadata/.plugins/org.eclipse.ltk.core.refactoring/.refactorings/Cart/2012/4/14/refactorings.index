@@ -9,3 +9,10 @@
 1333464587923	Rename field 'USERNAME'
 1333511958199	Rename field 'returnedItem'
 1333511966510	Rename field 'gItem'
+1333517524865	Rename method 'addPersonIntent'
+1333517955420	Rename type 'SetupPeopleActivity'
+1333518099655	Rename type 'PersonActivity'
+1333542323055	Rename field 'db'
+1333544046029	Change Layout
+1333545779692	Rename field 'PASSWORD'
+1333546290079	Rename local variable 'requestCode'

@@ -9,39 +9,36 @@ import com.christine.cart.sqlite.Person;
 import com.christine.cart.sqlite.PersonActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SetupPeopleActivity extends Activity {
 
-	Button man;
-	Button woman;
-	Button boy;
-	Button girl;
 	Button next;
-	TextView user_properties;
-	TextView tv_plist;
-	TextView tv_added;
+	Button add;
+	Button edit;
+	ListView peopleList;
 	
 	private static String username = null;
-    private static String PASSWORD = null;
-    private Account act;
+    private static String password = null;
+    public static final int ADD_PERSON = 1;
+    public static final int EDIT_PERSON = 2;
+    private static Account act;
+    private static Person selectedP;
     
-    public static final int MAN = 1001;
-    public static final int WOMAN = 1002;
-    public static final int BOY = 1003;
-    public static final int GIRL = 1004;
-    
-	static int countMan=0;
-	static int countWoman=0;
-	static int countBoy=0;
-	static int countGirl=0;
-	
-	AccountDatabaseHelper db;
+    List<Person> plist = null;
+	AccountDatabaseHelper adb;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -49,39 +46,17 @@ public class SetupPeopleActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.setup_people);
 	    
-	    //set up gui elements
-	    man = (Button) findViewById(R.id.btn_man);
-	    woman = (Button) findViewById(R.id.btn_woman);
-	    boy = (Button) findViewById(R.id.btn_boy);
-	    girl = (Button) findViewById(R.id.btn_girl);
-	    user_properties = (TextView) findViewById(R.id.user_properties);
-	    tv_plist = (TextView) findViewById(R.id.tv_plist);
+	    act = getIntent().getParcelableExtra("account");
+	    username = act.getName();
 	    
-	    man.setOnClickListener(new View.OnClickListener() {
+	    add = (Button) findViewById(R.id.btn_add);
+	    add.setOnClickListener(new View.OnClickListener() {
+			
 			public void onClick(View v) {
-				countMan++;
-				addPersonIntent(v, MAN);
-			}
-		});
-	    
-	    woman.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				countWoman++;
-				addPersonIntent(v, WOMAN);
-			}
-		});
-	    
-	    boy.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				countBoy++;
-				addPersonIntent(v, BOY);
-			}
-		});
-	    
-	    girl.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				countGirl++;
-				addPersonIntent(v, GIRL);
+				Intent addPerson = new Intent(SetupPeopleActivity.this, PersonActivity.class);
+				addPerson.putExtra("account", act);
+				addPerson.putExtra("requestCode", ADD_PERSON);
+				startActivityForResult(addPerson, ADD_PERSON);
 			}
 		});
 	    
@@ -95,10 +70,6 @@ public class SetupPeopleActivity extends Activity {
 				Intent startSetupDays=new Intent(v.getContext(),SetupDaysActivity.class);
 				
 				Bundle people = new Bundle();
-				people.putInt("man", countMan);
-				people.putInt("woman", countWoman);
-				people.putInt("boy", countBoy);
-				people.putInt("girl", countGirl);
 				people.putParcelable("account", act);
 				
 				startSetupDays.putExtras(people);
@@ -106,65 +77,102 @@ public class SetupPeopleActivity extends Activity {
 				startActivity(startSetupDays);
 			}
 		});
-	}
-	
-	@Override
-	protected void onResume(){
-		super.onResume();
-		//setup database helper
-	    db = new AccountDatabaseHelper(this);
 	    
-	    // Get the username from the intent
- 		username = getIntent().getStringExtra("username");
- 		act = getIntent().getParcelableExtra("account");
- 		
- 	    if(username==null){
- 	    	Log.d("SetupPeopleActivity:", "username returned null");
- 	    	return;
- 	    } else{
- 	    	Log.d("UserName:", username);
- 	    	if(act != null){
- 	    		username = act.getName();
- 	    		PASSWORD = act.getPassword();
- 		    	Log.d("Account Info: ", "username: " + username + "password: " + PASSWORD);
- 		    	user_properties.setText("username: " + username + "\n password: " + PASSWORD);
- 	    	} else{
- 	    		Log.d("Fail: ", "unsuccessful retrieval");
- 	    	}
- 	    }
- 	    
- 	    List<Person> pList = db.getAllPeopleFor(username);
- 	    if(pList!=null){
- 	    	tv_plist.setText("");
- 	    	for(int i=0; i<pList.size(); i++){
- 	    		Person temp = pList.get(i);
- 	    		tv_plist.append("Name: " + temp.getName() + " Age: " + temp.getAge() + "\n");
- 	    	}
- 	    } else {
- 	    	tv_plist.setText("nobody added yet");
- 	    }
- 	    
- 	    db.close();
+	    edit = (Button) findViewById(R.id.btn_edit);
+	    edit.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				if(selectedP!=null){
+					Intent editPerson = new Intent(SetupPeopleActivity.this, PersonActivity.class);
+					editPerson.putExtra("requestCode", EDIT_PERSON);
+					editPerson.putExtra("account", act);
+					editPerson.putExtra("person", selectedP);
+					startActivityForResult(editPerson, EDIT_PERSON);
+				}
+			}
+		});
 	}
 	
 	@Override
-	protected void onPause(){
-		super.onPause();
-		db.close();
+	public void onResume(){
+		super.onResume();
+		selectedP = null;
+		if(plist==null){
+			adb = new AccountDatabaseHelper(this);
+			plist = adb.getAllPeopleFor(username);
+			adb.close();
+			
+			if(plist!=null){
+				setupPeopleList(SetupPeopleActivity.this, plist);
+			} else {
+				Log.d("SetupPeopleActivity", "Line 110: Plist was null");
+			}
+		} else {
+			setupPeopleList(SetupPeopleActivity.this, plist);
+			Log.d("SetupPeopleActivity", "Line 113: Plist wasn't null, setup is an issue");
+		}
+		
+		
+		
 	}
 	
 	
-	// Convenience method to start an intent request
-	// to person activity.
-	void addPersonIntent(View v, int requestCode){
-		Intent addPerson = new Intent(v.getContext(), PersonActivity.class);
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent intent){
+		if(requestCode==ADD_PERSON){
+			if(resultCode == RESULT_OK){
+				 adb = new AccountDatabaseHelper(this);
+				 plist = adb.getAllPeopleFor(username); 
+				 adb.close();
+			} else if (resultCode == RESULT_CANCELED){
+				Toast sorry = Toast.makeText(SetupPeopleActivity.this, 
+						"Sorry, we had trouble adding that person! Please try again.", Toast.LENGTH_LONG);
+				sorry.show();
+			}
+		} else if(requestCode==EDIT_PERSON){
+			if(resultCode == RESULT_OK){
+				adb = new AccountDatabaseHelper(this);
+				plist = adb.getAllPeopleFor(username); 
+				adb.close();
+			} else if (resultCode == RESULT_CANCELED){
+				Toast sorry = Toast.makeText(SetupPeopleActivity.this, 
+						"Sorry, we had trouble editing that person! Please try again.", Toast.LENGTH_LONG);
+				sorry.show();
+			}
+		}
+	}
+	
+	/*
+	 * Convenience function to setup People list
+	 * based upon context and the list of persons
+	 * for the current user
+	 */
+	private void setupPeopleList(Context context, final List<Person> persons){
 		
-		Bundle userInfo = new Bundle();
-		userInfo.putInt("requestCode", requestCode);
-		userInfo.putString("username", username);
+		ArrayAdapter<String> peopleNames = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_single_choice);
+		for(int i=0; i<persons.size(); i++){
+			Person p = persons.get(i);
+			
+			if(p.getMain()){
+				peopleNames.add(String.valueOf(p.getName()) + " (you)");
+			} else {
+				peopleNames.add(String.valueOf(p.getName()));
+			}
+		}
 		
-		addPerson.putExtras(userInfo);
-		startActivityForResult(addPerson, requestCode);
+		peopleList = (ListView) findViewById(R.id.lv_people);
+		
+		peopleList.setAdapter(peopleNames);
+		peopleList.setBackgroundColor(Color.WHITE);
+		peopleList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		
+		peopleList.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> arg0, View v, int position,
+					long id) {
+				selectedP = persons.get(position);
+			}
+			
+		});
 	}
 	
 }

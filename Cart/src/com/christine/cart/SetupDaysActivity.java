@@ -14,7 +14,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class SetupDaysActivity extends Activity {
-	TextView peopleInfo;
+
 	TextView printDays;
 	SeekBar daySetter;
 	Button start;
@@ -32,25 +32,14 @@ public class SetupDaysActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.setup_days);
 	    
-	    Bundle people = getIntent().getExtras();
-	    if(people==null){
-	    	return;
-	    }
-	    
-	    int man=people.getInt("man");
-	    int woman=people.getInt("woman");
-	    int boy=people.getInt("boy");
-	    int girl=people.getInt("girl");
-	    
-	    act = people.getParcelable("account");
+
+	    act = getIntent().getParcelableExtra("account");
 	    if(act!=null){
 	    	USERNAME = act.getName();
 	    } else{
 	    	throw new RuntimeException("SetupDaysActivity: Passed account is null");
 	    }
-	    
-	    peopleInfo = (TextView) findViewById(R.id.tv_peopleinfo);
-		peopleInfo.setText("men: " + man + "\n woman: " + woman + "\n boy: " + boy + "\n girl: " + girl);
+	
 		
 		printDays = (TextView) findViewById(R.id.tv_printdays);
 		daySetter = (SeekBar) findViewById(R.id.seekbar_days);

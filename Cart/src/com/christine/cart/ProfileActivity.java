@@ -6,6 +6,7 @@ import java.util.List;
 import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountDatabaseHelper;
 import com.christine.cart.sqlite.Person;
+import com.christine.cart.sqlite.PersonActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -77,7 +78,7 @@ public class ProfileActivity extends Activity {
 	    act = extras.getParcelable("account");
 	    username = act.getName();
 	    
-	    p = Person.createPerson(SetupPeopleActivity.MAN, username);
+	    p = Person.createPerson(PersonActivity.MAN, username);
 	    p.setName(username);
 	    
 	    //setup the default values for each of the UI elements
@@ -253,7 +254,7 @@ public class ProfileActivity extends Activity {
 					for(int i=0; i<people.size(); i++){
 						Person tempP = people.get(i);
 						if(tempP.getName().equals(newP.getName())){
-							adb.updatePerson(newP);
+							adb.updatePerson(p, newP);
 						} else {
 							adb.addPerson(newP);
 						}
@@ -261,8 +262,6 @@ public class ProfileActivity extends Activity {
 				} else {
 					adb.addPerson(newP);
 				}
-				
-				Log.d("ProfileActivity", "Username: " + p.getName() + "Is main" + p.getMain());
 				
 				adb.close();
 				

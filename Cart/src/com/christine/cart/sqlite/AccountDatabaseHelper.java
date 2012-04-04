@@ -312,22 +312,23 @@ public class AccountDatabaseHelper extends DatabaseHelper{
         return cursor.getCount();
 	}
 	
-	public int updatePerson(Person person){
+	public int updatePerson(Person person, Person newPerson){
 		SQLiteDatabase db = this.getWritableDatabase();
 		 
 	    ContentValues values = new ContentValues();
-	    values.put(PEOPLE_USER, person.getUsername()); //username
-	    values.put(PEOPLE_NAME, person.getName()); // Name
-	    values.put(PEOPLE_AGE, person.getAge()); // Age
-	    values.put(PEOPLE_GENDER, person.getGender()); // Gender
-	    values.put(PEOPLE_HEIGHT, person.getHeight()); // Height
-	    values.put(PEOPLE_WEIGHT, person.getWeight()); // Weight
-	    values.put(PEOPLE_ACTIVITY, person.getActivity()); //Activity
-	    values.put(PEOPLE_MAIN, String.valueOf(person.getMain()));
+	    values.put(PEOPLE_USER, newPerson.getUsername()); //username
+	    values.put(PEOPLE_NAME, newPerson.getName()); // Name
+	    values.put(PEOPLE_AGE, newPerson.getAge()); // Age
+	    values.put(PEOPLE_GENDER, newPerson.getGender()); // Gender
+	    values.put(PEOPLE_HEIGHT, newPerson.getHeight()); // Height
+	    values.put(PEOPLE_WEIGHT, newPerson.getWeight()); // Weight
+	    values.put(PEOPLE_ACTIVITY, newPerson.getActivity()); //Activity
+	    values.put(PEOPLE_MAIN, String.valueOf(newPerson.getMain()));
 	    
 	    // updating row
-	    return db.update(TABLE_PEOPLE, values, PEOPLE_USER + " = ?",
-	            new String[] { String.valueOf(person.getUsername()) });
+	    return db.update(TABLE_PEOPLE, values, PEOPLE_USER + " = ? AND " 
+	    		+ PEOPLE_NAME + " =?",
+	            new String[] { String.valueOf(person.getUsername()), String.valueOf(person.getName())});
 	}
 	
 	public void deletePerson(Person person){

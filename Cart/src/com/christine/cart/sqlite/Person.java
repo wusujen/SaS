@@ -1,8 +1,12 @@
 package com.christine.cart.sqlite;
 
-import com.christine.cart.SetupPeopleActivity;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
 
-public class Person {
+import com.christine.cart.sqlite.PersonActivity;
+
+public class Person implements Parcelable{
 	Integer _id;
 	String _username;
 	String _name;
@@ -21,13 +25,13 @@ public class Person {
 	// general default constructor: user added new person
 	public static Person createPerson(int requestCode, String username){
 		switch(requestCode){
-			case SetupPeopleActivity.MAN:
+			case PersonActivity.MAN:
 				return new Person(username, 47, "m", 69, 194, 0);
-			case SetupPeopleActivity.WOMAN:
+			case PersonActivity.WOMAN:
 				return new Person(username, 50, "f", 64, 164, 0);
-			case SetupPeopleActivity.BOY:
+			case PersonActivity.BOY:
 				return new Person(username, 9, "m", 55, 53, 0);
-			case SetupPeopleActivity.GIRL:
+			case PersonActivity.GIRL:
 				return new Person(username, 9, "f", 54, 53, 0);
 			default:
 				return null;
@@ -173,4 +177,63 @@ public class Person {
 					"Activity: " + this.getActivityString() + "\n";
 		return v;
 	}
+	
+	/**
+	 * 
+	 * AS A PARCELLABLE ITEM
+	 * @see http://techdroid.kbeanie.com/2010/06/parcelable-how-to-do-that-in-android.html
+	 * @see http://shri.blog.kraya.co.uk/2010/04/26/android-parcel-data-to-pass-between-activities-using-parcelable-classes/
+	 *
+	 *
+	 */
+	
+	public Person(Parcel in){
+		readFromParcel(in);
+	}
+	
+	public int describeContents() {
+		return 0;
+	}
+
+	public void writeToParcel(Parcel dest, int flags) {
+		Log.v("Writing to Parcel", "writeToParcel..."+flags);
+		dest.writeInt(_id);
+		dest.writeString(_username);
+		dest.writeString(_name);
+		dest.writeInt(_age);
+		dest.writeString(_gender);
+		dest.writeInt(_height);
+		dest.writeInt(_weight);
+		dest.writeInt(_activity);
+		dest.writeString(String.valueOf(_main));
+	}
+	
+	private void readFromParcel(Parcel in) {
+		// We just need to read back each
+		// field in the order that it was
+		// written to the parcel
+		
+		_id = in.readInt();
+		_username = in.readString();
+		_name = in.readString();
+		_age = in.readInt();
+		_gender = in.readString();
+		_height = in.readInt();
+		_weight = in.readInt();
+		_activity = in.readInt();
+		_main = Boolean.valueOf(in.readString());
+
+	}
+	
+	 public static final Parcelable.Creator<Person> CREATOR =
+    	new Parcelable.Creator<Person>() {
+            public Person createFromParcel(Parcel in) {
+                return new Person(in);
+            }
+ 
+            public Person[] newArray(int size) {
+                return new Person[size];
+            }
+        };
+	
 }
