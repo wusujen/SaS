@@ -66,33 +66,24 @@ public class InputDatabaseSearchActivity extends Activity {
 	 	    if(resultItem!=null){
 	 	    	String result = resultItem.getItemName();
 	 	    	
-		        //add that item to the user's current cart
-	 	    	GroceryItem gItem = adb.getGroceryItemOf(username, result);
-	 	    	if(gItem!=null){
-	 	    		int q = gItem.getQuantity();
-	 	    		resultItem.setQuantity(q+1);
-	 	    		
-	 	    		adb.updateGroceryItem(resultItem);
-	 	    		//Log.d("Result Item: ", "Result Item: " + resultItem.getItemName() + 
-	 	    				//"Result Quantity: " + resultItem.getQuantity());
-			        adb.close();
-			        ndb.close();
-			        startShowResultsIntent(result);
-	 	    	}  else {
-	 	    		resultItem.setQuantity(1);
-	 	    		
-	 	    		adb.addGroceryItem(resultItem);
-	 	    		//Log.d("Result Item: ", "Result Item: " + resultItem.getItemName() + 
-	 	    				//"Result Quantity: " + resultItem.getQuantity());
-	 	    		adb.close();
-			        ndb.close();
-			        startShowResultsIntent(result);
-	 	    	}
+	 	    	adb.close();
+	 	    	ndb.close();
+	 	    	
+	 	    	resultItem.setQuantity(-1);
+	 	    	
+	 	    	Intent returnWithItem = new Intent();
+		        returnWithItem.putExtra("itemname", result);
+		        returnWithItem.putExtra("gItem", resultItem);
+		        setResult(RESULT_OK, returnWithItem);
+		        finish();
 
 	 	    } else {
 	 	    	adb.close();
 	 	    	ndb.close();
-	 	    	startShowResultsIntent("e");
+	 	    	
+	 	    	Intent returnWithNoItem = new Intent();
+		        setResult(RESULT_CANCELED, returnWithNoItem);
+		        finish();
 	 	    }
 	 	}
 	 	else if(barcodeItem!=null){
@@ -134,13 +125,6 @@ public class InputDatabaseSearchActivity extends Activity {
 	 * Activity, and stores any results that may have been returned
 	 * from the nutrition database search
 	 **/
-	/*void startShowResultsIntent(ArrayList<String> results){
-		Intent showResults = new Intent(this,CartActivity.class);
-		showResults.putStringArrayListExtra("results", results);
-		showResults.putExtra("account", act);
-		startActivity(showResults);
-	}*/
-	
 	void startShowResultsIntent(String results){
 		Intent showResults = new Intent(this,CartActivity.class);
 		showResults.putExtra("check", 1);

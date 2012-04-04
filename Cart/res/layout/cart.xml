@@ -34,7 +34,7 @@
         android:layout_marginBottom="10dp"
         android:layout_gravity="bottom"
         android:orientation="horizontal" >
-
+
         <com.christine.cart.visual.GraphLabelView
             android:id="@+id/graphlabelview"
             android:layout_width="match_parent"

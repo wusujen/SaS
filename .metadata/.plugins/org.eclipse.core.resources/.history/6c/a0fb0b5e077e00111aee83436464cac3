@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="plu_quantity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <TextView
+               android:id="@+id/textView3"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/tv_sp_quantity"
+               android:textAppearance="?android:attr/textAppearanceSmall" />
+
+           <TextView
+               android:id="@+id/textView2"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+           <SeekBar
+               android:id="@+id/sb_number"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginRight="20dp"
+               android:layout_marginTop="20dp" />
+
+
+           <Spinner
+               android:id="@+id/sb_unit"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginRight="20dp"
+               android:layout_marginTop="20dp" />
+
+
+           <TableRow
+               android:id="@+id/tableRow1"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginRight="23dp"
+               android:layout_marginTop="20dp" >
+
+               <Button
+                   android:id="@+id/btn_add"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:text="@string/btn_sp_add" />
+
+               <Button
+                   android:id="@+id/btn_cancel"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:text="@string/btn_cancel" />
+           </TableRow>
+
+</LinearLayout>

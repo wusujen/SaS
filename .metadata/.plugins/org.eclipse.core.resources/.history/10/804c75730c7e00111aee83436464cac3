@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/plu_quantity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_sp_quantity"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/tv_sp_itemname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_cancel" />
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_sp_add" />
+
+</LinearLayout>

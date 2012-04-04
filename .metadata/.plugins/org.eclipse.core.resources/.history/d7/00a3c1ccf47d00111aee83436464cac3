@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+	 <LinearLayout
+	     android:id="@+id/LinearLayout1"
+	     android:layout_width="0dp"
+	     android:layout_height="match_parent"
+	     android:layout_gravity="bottom"
+	     android:layout_marginLeft="20dp"
+	     android:layout_marginTop="10dp"
+	     android:layout_weight="0.50"
+	     android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_sb"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/tv_title"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+              <TextView
+                  android:id="@+id/pluHeading"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="20dp"
+                  android:text="Input PLU Code"
+                  android:textAppearance="?android:attr/textAppearanceLarge" />
+		
+		    <EditText
+		        android:id="@+id/enterPLU"
+		        android:layout_width="match_parent"
+		        android:layout_height="50dp"
+		        android:inputType="number" 
+		        android:layout_gravity="center_vertical|center_horizontal"
+		        android:layout_marginTop="10dp"
+		        android:layout_marginLeft="20dp"
+		        android:layout_marginRight="20dp"
+		        android:clickable="false"/>
+		
+		
+		    <Button
+		        android:id="@+id/submitPLU"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:text="Search PLU Codes" 
+		        android:layout_gravity="center_vertical|center_horizontal" 
+		        android:layout_marginLeft="20dp" 
+		        android:layout_marginRight="20dp" 
+		        android:layout_marginTop="10dp"/>
+		
+
+            <TextView
+                android:id="@+id/outputText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/sp_outputtext"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

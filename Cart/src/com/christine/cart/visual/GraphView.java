@@ -35,11 +35,11 @@ public class GraphView extends View{
 	private final static int SELECT_NONE = 0;
 	private final static int SELECT_SINGLE = 1;
 	private final static int SELECT_COMPARE = 2;
-	private final static String[] order = new String[] {
-			"calories", "protein", "totalfats", "carbs", "fiber", 
-			"sugar", "calcium", "iron", "magnesium", "potassium", "sodium", "zinc", "vitamin C",
-			"vitamin D", "vitamin B6", "vitamin B12", "vitamin A", "vitamin E", "vitamin K",
-			"Saturated Fat", "Mononsaturated Fat", "Polyunsaturated Fat", "cholesterol" };
+	private final static String[] reduced = new String[]{
+		"calories", "protein", "totalfats", "carbs", "fiber", 
+		"sugar", "calcium", "iron", "magnesium", "potassium", "sodium", "zinc", "vitamin C",
+		"vitamin D", "vitamin B6", "vitamin B12", "vitamin A", "vitamin E", "vitamin K",
+		"saturated fat", "cholesterol"};
 	
 
 
@@ -124,6 +124,7 @@ public class GraphView extends View{
 		}
 		
 		
+		
 	}
 	
 	
@@ -171,20 +172,20 @@ public class GraphView extends View{
 	 * @param totalRDV
 	 */
 	public void getRatiosWithPCart(PreviousHistory currentTotalCart, RecDailyValues currentRDV, PreviousHistory pcart) {
-		needs = new HashMap<String, Float>(order.length);
-		ratios = new HashMap<String, Float>(order.length);
-		goals = new HashMap<String, Float>(order.length);
+		needs = new HashMap<String, Float>(reduced.length);
+		ratios = new HashMap<String, Float>(reduced.length);
+		goals = new HashMap<String, Float>(reduced.length);
 		
-		Float[] rdvTotals = currentRDV.getNutritionNeeds();
-		Float[] cartTotals = currentTotalCart.getNutritionProperties();
-		Float[] pcartTotals = pcart.getNutritionProperties();
+		Float[] rdvTotals = currentRDV.getNutritionNeedsNoMono();
+		Float[] cartTotals = currentTotalCart.getNutritionPropertiesNoMono();
+		Float[] pcartTotals = pcart.getNutritionPropertiesNoMono();
 		
-		for(int i=0; i<order.length; i++){
+		for(int i=0; i<reduced.length; i++){
 			float need = rdvTotals[i] * (float) this._days;
 			float ratio = cartTotals[i] / need;
 			float goal = pcartTotals[i] / need;
 			
-			String n = order [i];
+			String n = reduced [i];
 			
 			needs.put(n, need);
 			if(need == 0.0f){
@@ -202,6 +203,16 @@ public class GraphView extends View{
 			Log.d("GraphView", "Need: " + n + "," + needs.get(n) + " || Ratio: " + ratios.get(n) 
 					+ "||  Goal " + goals.get(n));*/
 		}
+		
+		needs.remove("polyunsaturated fat");
+		needs.remove("monunsaturated fat");
+		
+		ratios.remove("polyunsaturated fat");
+		ratios.remove("monunsaturated fat");
+		
+		goals.remove("polyunsaturated fat");
+		goals.remove("monunsaturated fat");
+		
 	}
 	
 	/**
@@ -210,18 +221,18 @@ public class GraphView extends View{
 	 * @param totalRDV
 	 */
 	public void getRatiosWithoutPCart(PreviousHistory currentTotalCart, RecDailyValues currentRDV) {
-		needs = new HashMap<String, Float>(order.length);
-		ratios = new HashMap<String, Float>(order.length);
+		needs = new HashMap<String, Float>(reduced.length);
+		ratios = new HashMap<String, Float>(reduced.length);
 		goals = null;
 		
-		Float[] rdvTotals = currentRDV.getNutritionNeeds();
-		Float[] cartTotals = currentTotalCart.getNutritionProperties();
+		Float[] rdvTotals = currentRDV.getNutritionNeedsNoMono();
+		Float[] cartTotals = currentTotalCart.getNutritionPropertiesNoMono();
 		
-		for(int i=0; i<order.length; i++){
+		for(int i=0; i<reduced.length; i++){
 			float need = rdvTotals[i] * (float) this._days;
 			float ratio = cartTotals[i] / need;
 			
-			String n = order [i];
+			String n = reduced[i];
 			
 			needs.put(n, need);
 			if(need == 0.0f){
@@ -230,6 +241,12 @@ public class GraphView extends View{
 				ratios.put(n, ratio);
 			}
 		}
+		
+		needs.remove("polyunsaturated fat");
+		needs.remove("monunsaturated fat");
+		
+		ratios.remove("polyunsaturated fat");
+		ratios.remove("monunsaturated fat");
 	}
 	
 	/**
@@ -240,12 +257,12 @@ public class GraphView extends View{
 	 * @return
 	 */
 	public ArrayList<Float> getAddedNutrition(int index){
-		Float[] nutrients = selectedItems.get(index).getNutritionProperties();
+		Float[] nutrients = selectedItems.get(index).getNutritionPropertiesNoMono();
 		
 		ArrayList<Float> addedNutrition = new ArrayList<Float>();
 		for(int i=0; i<nutrients.length; i++){
 			float addedContent = ((nutrients[i] * (float) selectedQuantities.get(index)) / 
-				needs.get(order[i]));
+				needs.get(reduced[i]));
 			addedNutrition.add(addedContent);
 		}
 		
@@ -260,7 +277,8 @@ public class GraphView extends View{
 		Paint blackText = new Paint();
 		blackText.setColor(Color.BLACK);
 		blackText.isAntiAlias();
-		blackText.setTextSize(22);
+		blackText.setTextSize(18);
+		blackText.setTextAlign(Paint.Align.CENTER);
 		
 		// WIDTH
 		int startBar = 40;
@@ -268,18 +286,18 @@ public class GraphView extends View{
 		int endBar = startBar + barWidth;
 		int halfBar = (endBar - startBar)/2;
 		
-		for(int i=0; i<order.length; i++){
-			int spacing = 150*i;
+		for(int i=0; i<reduced.length; i++){
+			int spacing = 180*i;
 			
 			// TEXT
-			String o = order[i];
-			float len = blackText.measureText(o, 0, o.length());
-			c.drawText(o, (startBar+spacing + (halfBar-(len/2))), base + 25, blackText);
+			String o = reduced[i];
+			float len = blackText.measureText(o.toUpperCase(), 0, o.length());
+			c.drawText(o.toUpperCase(), (startBar + spacing + halfBar), base + 25, blackText);
 			
 			// BAR
 			int barHeight = Math.round(ratios.get(o) * (float) graphHeight);
 			
-			Rect baseRect = new Rect((startBar+spacing), base - barHeight, (endBar+spacing), base);
+			Rect baseRect = new Rect((startBar + spacing), base - barHeight, (endBar+spacing), base);
 			c.drawRect(baseRect, grey);
 		}
 		
@@ -287,7 +305,7 @@ public class GraphView extends View{
 	
 	/**
 	 * Only if MODE is equal to SELECT_SINGLE
-	 * Draws one bar with one grey selelection
+	 * Draws one bar with one grey selection
 	 * 
 	 * @param c
 	 * @param base
@@ -308,8 +326,8 @@ public class GraphView extends View{
 		int endBar = 100;
 		
 		for(int i=0; i<selectedNutrition.size(); i++){
-			int spacing = 150*i;
-			int barHeight = Math.round(ratios.get(order[i]) * (float) graphHeight);
+			int spacing = 180*i;
+			int barHeight = Math.round(ratios.get(reduced[i]) * (float) graphHeight);
 			int addHeight = Math.round(selectedNutrition.get(i) * (float) graphHeight);
 			
 			Rect addRect = new Rect((startBar+spacing), base - barHeight, (endBar+spacing), base - barHeight
@@ -339,7 +357,7 @@ public class GraphView extends View{
 		Paint blackText = new Paint();
 		blackText.setColor(Color.BLACK);
 		blackText.isAntiAlias();
-		blackText.setTextSize(22);
+		blackText.setTextSize(18);
 		
 		// WIDTH
 		int startBarB = 40;
@@ -356,9 +374,9 @@ public class GraphView extends View{
 			int spacing = (endBarO + 20)*i;
 			
 			// TEXT
-			String o = order[i];
-			float len = blackText.measureText(o, 0, o.length());
-			c.drawText(o, (startBarB+spacing + (halfBar-(len/2))), base + 25, blackText);
+			String o = reduced[i];
+			float len = blackText.measureText(o.toUpperCase(), 0,o.length());
+			c.drawText(o.toUpperCase(), (startBarB + spacing + (halfBar-(len/2))), base + 25, blackText);
 			
 			// BAR
 			int barHeightB = Math.round(NutrientB.get(i) * (float) graphHeight);
@@ -384,10 +402,10 @@ public class GraphView extends View{
 		int startLineX = 40;
 		int endLineX = 100;
 		
-		for(int i=0; i<order.length; i++){
-			int spacing = 150*i;
+		for(int i=0; i<reduced.length; i++){
+			int spacing = 180*i;
 			
-			int yPos = base - Math.round(goals.get(order[i]) * (float) graphHeight); 
+			int yPos = base - Math.round(goals.get(reduced[i]) * (float) graphHeight); 
 			
 			if(yPos < topline) {
 				c.drawLine(startLineX + spacing, yPos, endLineX + spacing, yPos, incPaint);

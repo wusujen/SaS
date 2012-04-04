@@ -1,0 +1,66 @@
+package com.christine.cart;
+
+import com.christine.cart.sqlite.Account;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+
+public class InputSearchActivity extends Activity {
+
+	EditText enterPLU;
+	Button submitPLU;
+	
+	Account act;
+	public static final int PLU_SEARCH = 1;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+	    super.onCreate(savedInstanceState);
+	    setContentView(R.layout.search_plu);
+	    
+	    LinearLayout ll = (LinearLayout) findViewById(R.id.ll_sp_window);
+	    LayoutInflater li= (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	    View child = li.inflate(R.layout.plu_enter, null);
+	    
+	    ll.addView(child);
+	    
+	    Account temp= getIntent().getParcelableExtra("account");
+	    if(temp!=null){
+	    	act = temp;
+	    } else{
+	    	throw new RuntimeException("InputSearchActivity, account is null");
+	    }
+	    	
+	    
+	    enterPLU = (EditText) findViewById(R.id.enterPLU);
+	    submitPLU = (Button) findViewById(R.id.submitPLU);
+	    submitPLU.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				String pluCode = enterPLU.getText().toString();
+				
+				Intent searchForPLUCode = new Intent(InputSearchActivity.this, InputDatabaseSearchActivity.class);
+				searchForPLUCode.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+				searchForPLUCode.setType("text/plain");
+				searchForPLUCode.putExtra("plu",pluCode);
+				searchForPLUCode.putExtra("account", act);
+				
+				startActivityForResult(searchForPLUCode, PLU_SEARCH );
+			}
+		});
+	    
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode,
+			Intent intent){
+		
+	}
+
+}
