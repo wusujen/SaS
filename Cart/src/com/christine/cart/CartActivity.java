@@ -34,6 +34,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SlidingDrawer;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.SlidingDrawer.OnDrawerCloseListener;
 import android.widget.SlidingDrawer.OnDrawerOpenListener;
@@ -47,6 +48,7 @@ public class CartActivity extends Activity {
 	Button test;
 	Button searchItem;
 	Button scanItem;
+	TextView added;
 	SlidingDrawer sd_itemlist;
 	ListView sd_list;
 
@@ -89,7 +91,7 @@ public class CartActivity extends Activity {
 	private static RecDailyValues totalRDV;
 
 	private static NutritionAdvisor advisor;
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -131,7 +133,9 @@ public class CartActivity extends Activity {
 
 		// Start the nutrition advisor
 		advisor = new NutritionAdvisor();
-
+		
+		added = (TextView) findViewById(R.id.tv_added);
+		
 		// initiates the listview within the drawer
 		sd_list = (ListView) findViewById(R.id.sd_list);
 
@@ -144,7 +148,7 @@ public class CartActivity extends Activity {
 		// setup the listview if current cart is not null
 		if (ccart != null) {
 			ccartList = new ArrayAdapter<String>(this,
-					android.R.layout.simple_list_item_checked);
+					android.R.layout.simple_list_item_multiple_choice);
 			for (int i = 0; i < ccart.size(); i++) {
 				GroceryItem temp = ccart.get(i);
 				ccartList.add(String.valueOf(temp.getQuantity()) + " "
@@ -159,11 +163,12 @@ public class CartActivity extends Activity {
 			sd_list.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-
 					SparseBooleanArray listItems = new SparseBooleanArray();
 					listItems.clear();
 					listItems = sd_list.getCheckedItemPositions();
-
+					
+					added.setText("");
+					
 					if (selectedItems != null || quantities != null) {
 						selectedItems.clear();
 						quantities.clear();
@@ -171,7 +176,8 @@ public class CartActivity extends Activity {
 						selectedItems = new ArrayList<Item>();
 						quantities = new ArrayList<Integer>();
 					}
-
+					
+					
 					for (int i = 0; i < ccartList.getCount(); i++) {
 						boolean isSelected = listItems.get(i);
 
@@ -180,8 +186,9 @@ public class CartActivity extends Activity {
 							int pos = tempItemName.indexOf(" ");
 							String selectedItemName = tempItemName
 									.substring(pos + 1);
-
+							
 							Item selectedItem = ndb.getItem(selectedItemName);
+							
 							selectedItems.add(selectedItem);
 							for (GroceryItem gItem : ccart) {
 								if (gItem.getItemName()
@@ -191,8 +198,15 @@ public class CartActivity extends Activity {
 							}
 						}
 					}
+					
+					if(selectedItems.size()==1){
+						added.setText(selectedItems.get(0).getItemName() + " is selected.");
 
-					if (selectedItems.size() == 3) {
+					} else if(selectedItems.size()==2){
+						
+						added.setText("Compare " + selectedItems.get(0).getItemName() + " and " + selectedItems.get(1).getItemName());
+						
+					} else if (selectedItems.size() == 3) {
 						String tempItemName = ccartList.getItem(position);
 						int pos = tempItemName.indexOf(" ");
 						String toggledItemName = tempItemName
@@ -208,14 +222,15 @@ public class CartActivity extends Activity {
 						Log.d("CartActivity",
 								"Removed: " + iToRemove.getItemName());
 						sd_list.setItemChecked(position, false);
-					}
-
+					} 
+					
 					graph.passSelectedItems(selectedItems);
 					graph.passSelectedQuantities(quantities);
 
 				}
 			});
-
+		
+			
 			// for the sliding drawer in footer activity
 			// populates controls the sliding drawer
 			sd_itemlist = (SlidingDrawer) findViewById(R.id.sd_itemlist);
@@ -299,18 +314,26 @@ public class CartActivity extends Activity {
 		checkout = (Button) findViewById(R.id.btn_checkout);
 		checkout.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent goCheckout = new Intent(CartActivity.this,
-						SummaryActivity.class);
-				PreviousHistory cTotals = getCartTotalsFor(currentUsername);
-				goCheckout.putExtra("cartTotals", cTotals); // pass the
-															// parceable!
-				goCheckout.putExtra("account", act);
-				goCheckout.putExtra("days", days);
-				goCheckout.putExtra("rdv", totalRDV);
-				goCheckout.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-				startActivity(goCheckout);
+
+					PreviousHistory cTotals = getCartTotalsFor(currentUsername);
+				if(cTotals.getCalories() != 0) {
+					Intent goCheckout = new Intent(CartActivity.this,
+							SummaryActivity.class);
+					goCheckout.putExtra("cartTotals", cTotals); // pass the
+																// parceable!
+					goCheckout.putExtra("account", act);
+					goCheckout.putExtra("days", days);
+					goCheckout.putExtra("rdv", totalRDV);
+					goCheckout.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+					startActivity(goCheckout);
+				} else {
+					Toast noItemsInCart = Toast.makeText(CartActivity.this, "You have no items in your cart yet!", Toast.LENGTH_SHORT);
+					noItemsInCart.show();
+				}
 			}
 		});
+		
+		
 
 	}
 
@@ -361,8 +384,10 @@ public class CartActivity extends Activity {
 
 				Item selectedItem = ndb.getItem(results);
 				ndb.close();
-
+				
 				selectedItems.add(selectedItem);
+				
+				added.setText(selectedItem.getItemName() + " is selected.");
 
 				for (GroceryItem gItem : ccart) {
 					if (gItem.getItemName().equals(results)) {

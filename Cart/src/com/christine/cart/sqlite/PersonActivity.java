@@ -36,8 +36,9 @@ public class PersonActivity extends Activity {
 	TextView tv_weight;
 	TextView tv_height;
 	EditText et_name;
-	SeekBar sb_age;
-	SeekBar sb_weight;
+	Spinner sp_age;
+	Spinner sp_gender;
+	Spinner sp_weight;
 	Spinner sp_feet;
 	Spinner sp_inches;
 	Spinner sp_activity;
@@ -57,6 +58,7 @@ public class PersonActivity extends Activity {
 	int ftHeight;
 	int activityLevel;
 	int age;
+	String gender;
 	int weight;
 	int requestCode;
 	
@@ -71,56 +73,18 @@ public class PersonActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.person);
 	    
-	   
-	    
+
 	    act = getIntent().getParcelableExtra("account");
 	    username = act.getName();
 	    requestCode = getIntent().getIntExtra("requestCode", SetupPeopleActivity.ADD_PERSON);
 	    if(requestCode==SetupPeopleActivity.EDIT_PERSON) {
 	    	addEventsToDefinePersonLayout(SetupPeopleActivity.EDIT_PERSON);
 	    } else {
-	    	ll = (LinearLayout) findViewById(R.id.ll_define_person);
-	 	    li= (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	 	    person_gender = li.inflate(R.layout.person_gender, null);
-	 	    
-	 	    ll.addView(person_gender);
-	 	    setupPersonGenderView();
+	    	addEventsToDefinePersonLayout(MAN);
 	    }
 	    
 	}
 	
-	public void setupPersonGenderView(){
-		//set up gui elements
-	    man = (Button) findViewById(R.id.btn_man);
-	    woman = (Button) findViewById(R.id.btn_woman);
-	    boy = (Button) findViewById(R.id.btn_boy);
-	    girl = (Button) findViewById(R.id.btn_girl);
-	    
-	    man.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				addEventsToDefinePersonLayout(MAN);
-			}
-		});
-	    
-	    woman.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				addEventsToDefinePersonLayout(WOMAN);
-			}
-		});
-	    
-	    boy.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				addEventsToDefinePersonLayout(BOY);
-			}
-		});
-	    
-	    girl.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				addEventsToDefinePersonLayout(GIRL);
-			}
-		});
-	    
-	}
 	
 	// Convenience method to start an intent request
 	// to person activity.
@@ -140,8 +104,9 @@ public class PersonActivity extends Activity {
 	    tv_title = (TextView) findViewById(R.id.tv_title);
 	    
 	    et_name = (EditText) findViewById(R.id.et_name);
-	    sb_age = (SeekBar) findViewById(R.id.sb_age);
-	    sb_weight = (SeekBar) findViewById(R.id.sb_weight);
+	    sp_age = (Spinner) findViewById(R.id.sp_age);
+	    sp_gender = (Spinner) findViewById(R.id.sp_gender);
+	    sp_weight = (Spinner) findViewById(R.id.sp_weight);
 	    sp_feet = (Spinner) findViewById(R.id.sp_feet);
 	    sp_inches = (Spinner) findViewById(R.id.sp_inches);
 	    sp_activity = (Spinner) findViewById(R.id.sp_activity);
@@ -255,67 +220,80 @@ public class PersonActivity extends Activity {
 	    });
 	    
 	    //to setup the age slider
+	    List<String> year = new ArrayList<String>();
 	    age = p.getAge();
-	    if(age<19){
-	    	sb_age.setMax(17);
-	    	sb_age.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+	    
+    	for(int i=2; i<99; i++){
+    		year.add(String.valueOf(i) + " years");
+    	}
+    	
+	    ArrayAdapter<String> years = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, year);
+	    years.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    sp_age.setAdapter(years);
+	    sp_age.setSelection(age-2);	//the starting selection
+	    sp_age.setOnItemSelectedListener(new OnItemSelectedListener(){
 
-				public void onStopTrackingTouch(SeekBar seekBar) {
-					return;
-				}
-				
-				public void onStartTrackingTouch(SeekBar seekBar) {
-					return;
-				}
-				
-				public void onProgressChanged(SeekBar seekBar, int progress,
-						boolean fromUser) {
-					age = progress+1;
-					tv_age.setText("age: " + Integer.toString(age) + " years");
-				}
-			});
-	    } else {
-	    	sb_age.setMax(100);
-	    	sb_age.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				age = arg2 + 2;
+			}
 
-				public void onStopTrackingTouch(SeekBar seekBar) {
-					return;
-				}
-				
-				public void onStartTrackingTouch(SeekBar seekBar) {
-					return;
-				}
-				
-				public void onProgressChanged(SeekBar seekBar, int progress,
-						boolean fromUser) {
-					age = progress+19;
-					tv_age.setText("age: " + Integer.toString(age) + " years");
-				}
-			});
-	    }
-	    sb_age.setProgress(age);
+			public void onNothingSelected(AdapterView<?> arg0) {
+				return;
+			}
+	    });
 	    
 	    
 	    //setup Weight slider
+	    List<String> lb = new ArrayList<String>();
 	    weight = p.getWeight();
-	    sb_weight.setMax(380);
-	    sb_weight.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-			
-			public void onStopTrackingTouch(SeekBar seekBar) {
+	    for(int i=35; i<290; i++){
+	    	lb.add(String.valueOf(i) + " pounds");
+	    }
+	    ArrayAdapter<String> lbs = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lb);
+	    lbs.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    sp_weight.setAdapter(lbs);
+	    sp_weight.setSelection(weight-35);	//the starting selection
+	    sp_weight.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				weight = arg2 + 35;
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
 				return;
 			}
-			
-			public void onStartTrackingTouch(SeekBar seekBar) {
+	    });
+	    
+	    List<String> gen = new ArrayList<String>();
+	    gender = p.getGender();
+	    gen.add("male");
+	    gen.add("female");
+	    ArrayAdapter<String> genders = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gen);
+	    genders.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    sp_gender.setAdapter(genders);
+	    if(gender.equals("m")){
+	    	sp_gender.setSelection(0);	//the starting selection
+	    } else {
+	    	sp_gender.setSelection(1);
+	    }
+	    sp_gender.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				if(arg2==0){
+					gender = "m" ;
+				} else {
+					gender = "f";
+				}
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
 				return;
 			}
-			
-			public void onProgressChanged(SeekBar seekBar, int progress,
-					boolean fromUser) {
-				weight = progress;
-				tv_weight.setText("weight: " + Integer.toString(weight) + " pounds");
-			}
-		});
-	    sb_weight.setProgress(weight);
+	    });
+
 	    
 	    btn_submit.setOnClickListener( new View.OnClickListener() {
 			
@@ -345,6 +323,7 @@ public class PersonActivity extends Activity {
 					Toast.makeText(v.getContext(), "Please enter a valid weight!",  Toast.LENGTH_LONG);
 				}
 				newP.setActivity(activityLevel);
+				newP.setGender(gender);
 				newP.setUsername(username);
 				
 				//check if person exists

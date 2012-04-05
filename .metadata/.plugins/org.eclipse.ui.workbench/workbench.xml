@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="33" version="2.0">
+<workbench progressCount="35" version="2.0">
 <workbenchAdvisor/>
 <window height="768" maximized="true" width="1024" x="230" y="0">
 <fastViewData fastViewLocation="1024"/>
@@ -35,33 +35,37 @@
 </coolbarLayout>
 <page aggregateWorkingSetId="Aggregate for window 1329521721393" focus="true" label="Workspace - Java">
 <editors>
-<editorArea activeWorkbook="org.eclipse.ui.internal.EditorStack@1492d44">
-<info part="org.eclipse.ui.internal.EditorStack@14e9367">
-<folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-</presentation>
-</folder>
-</info>
-<info part="org.eclipse.ui.internal.EditorStack@1492d44" ratio="0.40997022" ratioLeft="551" ratioRight="793" relationship="2" relative="org.eclipse.ui.internal.EditorStack@14e9367">
+<editorArea activeWorkbook="org.eclipse.ui.internal.EditorStack@c01ad4">
+<info part="org.eclipse.ui.internal.EditorStack@c01ad4">
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LoginActivity.java" partName="LoginActivity.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/LoginActivity.java" title="LoginActivity.java" tooltip="Cart/src/com/christine/cart/LoginActivity.java" workbook="org.eclipse.ui.internal.EditorStack@1492d44">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/LoginActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2593" selectionTopPixel="643"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="PersonActivity.java" partName="PersonActivity.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/sqlite/PersonActivity.java" title="PersonActivity.java" tooltip="Cart/src/com/christine/cart/sqlite/PersonActivity.java" workbook="org.eclipse.ui.internal.EditorStack@c01ad4">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/sqlite/PersonActivity.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="8489" selectionTopPixel="4093"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SetupDaysActivity.java" partName="SetupDaysActivity.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/SetupDaysActivity.java" title="SetupDaysActivity.java" tooltip="Cart/src/com/christine/cart/SetupDaysActivity.java" workbook="org.eclipse.ui.internal.EditorStack@1492d44">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/SetupDaysActivity.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="912" selectionTopPixel="838"/>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CartActivity.java" partName="CartActivity.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/CartActivity.java" title="CartActivity.java" tooltip="Cart/src/com/christine/cart/CartActivity.java" workbook="org.eclipse.ui.internal.EditorStack@c01ad4">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/CartActivity.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="53" selectionOffset="4675" selectionTopPixel="1515"/>
 </editor>
-<editor focus="true" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="person_gender.xml" partName="person_gender.xml" path="C:/Users/Christine/Thesis/SaS/Cart/res/layout/person_gender.xml" title="person_gender.xml" tooltip="Cart/res/layout/person_gender.xml" workbook="org.eclipse.ui.internal.EditorStack@14e9367">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/res/layout/person_gender.xml"/>
+<editor id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="cart.xml" partName="cart.xml" path="C:/Users/Christine/Thesis/SaS/Cart/res/layout/cart.xml" title="cart.xml" tooltip="Cart/res/layout/cart.xml" workbook="org.eclipse.ui.internal.EditorStack@c01ad4">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/res/layout/cart.xml"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GraphView.java" partName="GraphView.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/visual/GraphView.java" title="GraphView.java" tooltip="Cart/src/com/christine/cart/visual/GraphView.java" workbook="org.eclipse.ui.internal.EditorStack@c01ad4">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/visual/GraphView.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="59" selectionOffset="5943" selectionTopPixel="3000"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="InputDatabaseSearchActivity.java" partName="InputDatabaseSearchActivity.java" path="C:/Users/Christine/Thesis/SaS/Cart/src/com/christine/cart/InputDatabaseSearchActivity.java" title="InputDatabaseSearchActivity.java" tooltip="Cart/src/com/christine/cart/InputDatabaseSearchActivity.java" workbook="org.eclipse.ui.internal.EditorStack@c01ad4">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Cart/src/com/christine/cart/InputDatabaseSearchActivity.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2798" selectionTopPixel="1110"/>
 </editor>
 </editors>
 <views>
@@ -85,7 +89,8 @@
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
-<category IMemento.internal.id="Warnings (36 items)"/>
+<category IMemento.internal.id="Warnings (35 items)"/>
+<category IMemento.internal.id="Warnings"/>
 <category IMemento.internal.id="Errors"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="820"/>
@@ -276,158 +281,160 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/AccountDatabaseHelper.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/PersonActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" path="/Cart/res/layout/person.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" path="/Cart/res/layout/person_define.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" path="/Cart/res/layout/person_gender.xml"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/InputDatabaseSearchActivity.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/CartActivity.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/visual/GraphView.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/InputSearchActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" path="/Cart/res/layout/plu_enter.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/DatabaseHelper.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/NutritionDatabaseHelper.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/ProfileActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/LoginActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.xml.XmlEditor" path="/Cart/res/values/strings.xml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/SetupDaysActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/DaysActivity.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Cart/src/com/christine/cart/sqlite/AccountActivity.java"/>
 </editors>
-<item historyLabel="person.xml" index="2"/>
-<item historyLabel="person_gender.xml" index="4"/>
-<item historyLabel="PersonActivity.java" index="1">
-<position info="not_deleted" x="3627" y="0"/>
-</item>
-<item historyLabel="InputDatabaseSearchActivity.java" index="5">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="PersonActivity.java" index="1">
-<position info="not_deleted" x="3627" y="0"/>
-</item>
-<item historyLabel="InputSearchActivity.java" index="6">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="plu_enter.xml" index="7"/>
-<item historyLabel="InputSearchActivity.java" index="6">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="plu_enter.xml" index="7"/>
-<item historyLabel="PersonActivity.java" index="1">
-<position info="not_deleted" x="3627" y="0"/>
-</item>
-<item historyLabel="person.xml" index="2"/>
-<item historyLabel="PersonActivity.java" index="1">
-<position info="not_deleted" x="3488" y="0"/>
-</item>
-<item historyLabel="PersonActivity.java" index="1">
-<position info="not_deleted" x="5289" y="53"/>
-</item>
-<item historyLabel="PersonActivity.java" index="1">
-<position info="not_deleted" x="1986" y="69"/>
-</item>
-<item historyLabel="PersonActivity.java" index="1">
-<position info="not_deleted" x="5256" y="0"/>
-</item>
-<item historyLabel="PersonActivity.java" index="1">
-<position info="not_deleted" x="11269" y="63"/>
-</item>
-<item historyLabel="person_define.xml" index="3"/>
-<item historyLabel="PersonActivity.java" index="1">
-<position info="not_deleted" x="11269" y="63"/>
-</item>
-<item historyLabel="PersonActivity.java" index="1">
-<position info="not_deleted" x="7611" y="0"/>
-</item>
-<item historyLabel="PersonActivity.java" index="1">
-<position info="not_deleted" x="7605" y="0"/>
-</item>
-<item historyLabel="PersonActivity.java" index="1">
-<position info="not_deleted" x="5253" y="0"/>
-</item>
-<item historyLabel="PersonActivity.java" index="1">
-<position info="not_deleted" x="5256" y="0"/>
-</item>
-<item historyLabel="PersonActivity.java" index="1">
-<position info="not_deleted" x="10933" y="0"/>
-</item>
-<item historyLabel="DatabaseHelper.java" index="8">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="PersonActivity.java" index="1">
-<position info="not_deleted" x="10933" y="0"/>
-</item>
-<item historyLabel="NutritionDatabaseHelper.java" index="9">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="PersonActivity.java" index="1">
-<position info="not_deleted" x="10933" y="0"/>
-</item>
-<item historyLabel="AccountDatabaseHelper.java" index="0">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="AccountDatabaseHelper.java" index="0">
-<position info="not_deleted" x="12697" y="0"/>
-</item>
-<item historyLabel="PersonActivity.java" index="1">
-<position info="not_deleted" x="10717" y="0"/>
-</item>
-<item historyLabel="ProfileActivity.java" index="10">
-<position info="not_deleted" x="7727" y="0"/>
-</item>
-<item historyLabel="AccountDatabaseHelper.java" index="0">
-<position info="not_deleted" x="12554" y="0"/>
-</item>
-<item historyLabel="PersonActivity.java" index="1">
-<position info="not_deleted" x="9582" y="0"/>
-</item>
-<item historyLabel="AccountDatabaseHelper.java" index="0">
-<position info="not_deleted" x="12554" y="0"/>
-</item>
-<item historyLabel="ProfileActivity.java" index="10">
-<position info="not_deleted" x="7727" y="0"/>
-</item>
-<item historyLabel="LoginActivity.java" index="11">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="strings.xml" index="12"/>
-<item historyLabel="LoginActivity.java" index="11">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="ProfileActivity.java" index="10">
-<position info="not_deleted" x="7727" y="0"/>
-</item>
-<item historyLabel="LoginActivity.java" index="11">
-<position info="not_deleted" x="2786" y="0"/>
-</item>
-<item historyLabel="SetupDaysActivity.java" index="13">
+<item historyLabel="CartActivity.java" index="1">
 <position/>
 </item>
-<item historyLabel="LoginActivity.java" index="11">
-<position info="not_deleted" x="2786" y="0"/>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="5943" y="59"/>
 </item>
-<item historyLabel="SetupDaysActivity.java" index="13">
-<position info="not_deleted" x="912" y="0"/>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="13422" y="54"/>
 </item>
-<item historyLabel="LoginActivity.java" index="11">
-<position info="not_deleted" x="2786" y="0"/>
+<item historyLabel="GraphView.java" index="2">
+<position info="not_deleted" x="5943" y="59"/>
 </item>
-<item historyLabel="SetupDaysActivity.java" index="13">
-<position info="not_deleted" x="912" y="0"/>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="13422" y="54"/>
 </item>
-<item historyLabel="LoginActivity.java" index="11">
-<position info="not_deleted" x="2923" y="0"/>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="12418" y="0"/>
 </item>
-<item historyLabel="DaysActivity.java" index="14">
-<position info="not_deleted" x="1057" y="0"/>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="12513" y="0"/>
 </item>
-<item historyLabel="LoginActivity.java" index="11">
-<position info="not_deleted" x="2606" y="0"/>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="6683" y="0"/>
 </item>
-<item historyLabel="AccountActivity.java" index="15">
-<position info="not_deleted" x="821" y="0"/>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="6730" y="0"/>
 </item>
-<item active="true" historyLabel="LoginActivity.java" index="11">
-<position info="not_deleted" x="2606" y="0"/>
+<item historyLabel="CartActivity.java" index="1">
+<position/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="11089" y="0"/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="11119" y="0"/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="11118" y="0"/>
+</item>
+<item historyLabel="InputSearchActivity.java" index="3">
+<position/>
+</item>
+<item historyLabel="InputDatabaseSearchActivity.java" index="0">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="InputSearchActivity.java" index="3">
+<position/>
+</item>
+<item historyLabel="InputSearchActivity.java" index="3">
+<position/>
+</item>
+<item historyLabel="InputSearchActivity.java" index="3">
+<position/>
+</item>
+<item historyLabel="InputSearchActivity.java" index="3">
+<position/>
+</item>
+<item historyLabel="InputDatabaseSearchActivity.java" index="0">
+<position info="not_deleted" x="2576" y="0"/>
+</item>
+<item historyLabel="InputSearchActivity.java" index="3">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="InputSearchActivity.java" index="3">
+<position info="not_deleted" x="2117" y="0"/>
+</item>
+<item historyLabel="InputSearchActivity.java" index="3">
+<position info="not_deleted" x="2123" y="0"/>
+</item>
+<item historyLabel="InputSearchActivity.java" index="3">
+<position info="not_deleted" x="3911" y="0"/>
+</item>
+<item historyLabel="InputDatabaseSearchActivity.java" index="0">
+<position info="not_deleted" x="2798" y="0"/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="11118" y="0"/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="6733" y="0"/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="7314" y="0"/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="6822" y="0"/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="6452" y="0"/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="5428" y="0"/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="5401" y="0"/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="7546" y="0"/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="7438" y="0"/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position info="not_deleted" x="7590" y="0"/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position/>
+</item>
+<item historyLabel="CartActivity.java" index="1">
+<position/>
+</item>
+<item active="true" historyLabel="CartActivity.java" index="1">
+<position/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -453,50 +460,50 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AccountActivity.java" tooltip="Cart/src/com/christine/cart/sqlite/AccountActivity.java">
-<persistable path="/Cart/src/com/christine/cart/sqlite/AccountActivity.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DaysActivity.java" tooltip="Cart/src/com/christine/cart/sqlite/DaysActivity.java">
-<persistable path="/Cart/src/com/christine/cart/sqlite/DaysActivity.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SetupDaysActivity.java" tooltip="Cart/src/com/christine/cart/SetupDaysActivity.java">
-<persistable path="/Cart/src/com/christine/cart/SetupDaysActivity.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="LoginActivity.java" tooltip="Cart/src/com/christine/cart/LoginActivity.java">
-<persistable path="/Cart/src/com/christine/cart/LoginActivity.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ProfileActivity.java" tooltip="Cart/src/com/christine/cart/ProfileActivity.java">
-<persistable path="/Cart/src/com/christine/cart/ProfileActivity.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AccountDatabaseHelper.java" tooltip="Cart/src/com/christine/cart/sqlite/AccountDatabaseHelper.java">
-<persistable path="/Cart/src/com/christine/cart/sqlite/AccountDatabaseHelper.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NutritionDatabaseHelper.java" tooltip="Cart/src/com/christine/cart/sqlite/NutritionDatabaseHelper.java">
-<persistable path="/Cart/src/com/christine/cart/sqlite/NutritionDatabaseHelper.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DatabaseHelper.java" tooltip="Cart/src/com/christine/cart/sqlite/DatabaseHelper.java">
-<persistable path="/Cart/src/com/christine/cart/sqlite/DatabaseHelper.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="person_define.xml" tooltip="Cart/res/layout/person_define.xml">
-<persistable path="/Cart/res/layout/person_define.xml"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="plu_enter.xml" tooltip="Cart/res/layout/plu_enter.xml">
-<persistable path="/Cart/res/layout/plu_enter.xml"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="InputSearchActivity.java" tooltip="Cart/src/com/christine/cart/InputSearchActivity.java">
 <persistable path="/Cart/src/com/christine/cart/InputSearchActivity.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="InputDatabaseSearchActivity.java" tooltip="Cart/src/com/christine/cart/InputDatabaseSearchActivity.java">
 <persistable path="/Cart/src/com/christine/cart/InputDatabaseSearchActivity.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="person_gender.xml" tooltip="Cart/res/layout/person_gender.xml">
-<persistable path="/Cart/res/layout/person_gender.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GraphView.java" tooltip="Cart/src/com/christine/cart/visual/GraphView.java">
+<persistable path="/Cart/src/com/christine/cart/visual/GraphView.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="cart.xml" tooltip="Cart/res/layout/cart.xml">
 <persistable path="/Cart/res/layout/cart.xml"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="Cart/AndroidManifest.xml">
-<persistable path="/Cart/AndroidManifest.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CartActivity.java" tooltip="Cart/src/com/christine/cart/CartActivity.java">
+<persistable path="/Cart/src/com/christine/cart/CartActivity.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="InputScanActivity.java" tooltip="Cart/src/com/christine/cart/InputScanActivity.java">
+<persistable path="/Cart/src/com/christine/cart/InputScanActivity.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="search_barcode.xml" tooltip="Cart/res/layout/search_barcode.xml">
+<persistable path="/Cart/res/layout/search_barcode.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="person.xml" tooltip="Cart/res/layout/person.xml">
+<persistable path="/Cart/res/layout/person.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="person_define.xml" tooltip="Cart/res/layout/person_define.xml">
+<persistable path="/Cart/res/layout/person_define.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="profile.xml" tooltip="Cart/res/layout/profile.xml">
+<persistable path="/Cart/res/layout/profile.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Person.java" tooltip="Cart/src/com/christine/cart/sqlite/Person.java">
+<persistable path="/Cart/src/com/christine/cart/sqlite/Person.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="person_gender.xml" tooltip="Cart/res/layout/person_gender.xml">
+<persistable path="/Cart/res/layout/person_gender.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.xml.XmlEditor" name="strings.xml" tooltip="Cart/res/values/strings.xml">
+<persistable path="/Cart/res/values/strings.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="StartActivity.java" tooltip="Cart/src/com/christine/cart/StartActivity.java">
+<persistable path="/Cart/src/com/christine/cart/StartActivity.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ProfileActivity.java" tooltip="Cart/src/com/christine/cart/ProfileActivity.java">
+<persistable path="/Cart/src/com/christine/cart/ProfileActivity.java"/>
 </file>
 </mruList>
 </workbench>

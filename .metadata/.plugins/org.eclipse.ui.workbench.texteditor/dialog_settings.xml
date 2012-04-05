@@ -3,36 +3,36 @@
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="257" key="DIALOG_WIDTH"/>
 		<item value="199" key="DIALOG_Y_ORIGIN"/>
+		<item value="1609" key="DIALOG_X_ORIGIN"/>
 		<item value="380" key="DIALOG_HEIGHT"/>
-		<item value="1613" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="isRegEx"/>
 		<item value="false" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="update" key="selection"/>
+		<item value="enterPLU" key="selection"/>
 		<list key="findhistory">
-			<item value="update"/>
-			<item value="person"/>
-			<item value="Toast"/>
-			<item value="user_properties"/>
-			<item value="setText"/>
-			<item value="TextView"/>
-			<item value="setText("/>
-			<item value="setText()"/>
+			<item value="listItem"/>
+			<item value="enterPlu"/>
+			<item value="number"/>
+			<item value="added"/>
+			<item value="weight"/>
+			<item value="age"/>
+			<item value="sp_age"/>
+			<item value="sp_weight"/>
 		</list>
 		<list key="replacehistory">
+			<item value="gender"/>
+			<item value="sp_weight"/>
+			<item value="sp_age"/>
 			<item value="newPerson"/>
 			<item value="Person"/>
 			<item value=""/>
 			<item value="18dp"/>
 			<item value="GroceryItem"/>
-			<item value="180"/>
-			<item value="175"/>
-			<item value="reduced"/>
 		</list>
 	</section>
 </section>

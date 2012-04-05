@@ -47,73 +47,68 @@ public final class R {
     }
     public static final class id {
         public static final int FrameLayout1=0x7f07001d;
-        public static final int LinearLayout1=0x7f070037;
+        public static final int LinearLayout1=0x7f070038;
         public static final int RelativeLayout1=0x7f07007a;
-        public static final int activity=0x7f07004b;
+        public static final int activity=0x7f070050;
         /**  Messages IDs 
          */
         public static final int auto_focus=0x7f070000;
-        public static final int back_button=0x7f070035;
+        public static final int back_button=0x7f070036;
         public static final int barcode_image_view=0x7f07000f;
         public static final int bookmark_title=0x7f07000a;
         public static final int bookmark_url=0x7f07000b;
         public static final int btn_add=0x7f070061;
-        public static final int btn_boy=0x7f070053;
-        public static final int btn_cancel=0x7f07004f;
+        public static final int btn_cancel=0x7f070054;
         public static final int btn_checkout=0x7f070024;
         public static final int btn_edit=0x7f070072;
-        public static final int btn_girl=0x7f070054;
         public static final int btn_goals=0x7f07007d;
         public static final int btn_goback=0x7f070084;
         public static final int btn_join=0x7f070079;
         public static final int btn_later=0x7f070062;
-        public static final int btn_login=0x7f07003c;
-        public static final int btn_logout=0x7f07002f;
-        public static final int btn_man=0x7f070051;
-        public static final int btn_newcart=0x7f070030;
+        public static final int btn_login=0x7f07003d;
+        public static final int btn_logout=0x7f070030;
+        public static final int btn_newcart=0x7f070031;
         public static final int btn_next=0x7f070073;
         public static final int btn_no=0x7f070059;
         public static final int btn_scan=0x7f070028;
         public static final int btn_search=0x7f070027;
-        public static final int btn_start=0x7f07003b;
-        public static final int btn_submit=0x7f07004e;
+        public static final int btn_start=0x7f07003c;
+        public static final int btn_submit=0x7f070053;
         public static final int btn_test=0x7f070025;
-        public static final int btn_woman=0x7f070052;
         public static final int btn_yes=0x7f070058;
         public static final int contents_supplement_text_view=0x7f070019;
         public static final int contents_text_view=0x7f070018;
         public static final int decode=0x7f070001;
         public static final int decode_failed=0x7f070002;
         public static final int decode_succeeded=0x7f070003;
-        public static final int done_button=0x7f070036;
-        public static final int encode_view=0x7f070032;
+        public static final int done_button=0x7f070037;
+        public static final int encode_view=0x7f070033;
         public static final int enterPLU=0x7f07005b;
         public static final int enter_plu=0x7f07005a;
-        public static final int et_name=0x7f070043;
+        public static final int et_name=0x7f070044;
         public static final int et_quantity=0x7f070060;
         public static final int format_text_view=0x7f070011;
         public static final int format_text_view_label=0x7f070010;
         public static final int graphlabelview=0x7f070022;
         public static final int graphview=0x7f070020;
-        public static final int help_contents=0x7f070034;
+        public static final int help_contents=0x7f070035;
         public static final int horizontalScrollView1=0x7f07001e;
-        public static final int image_view=0x7f070033;
+        public static final int image_view=0x7f070034;
         public static final int launch_product_query=0x7f070004;
         public static final int linearLayout1=0x7f070023;
         public static final int linearLayout2=0x7f07001f;
         public static final int linearLayout3=0x7f070021;
-        public static final int ll_define_person=0x7f070040;
+        public static final int ll_define_person=0x7f070041;
         public static final int ll_sp_prompt=0x7f07006a;
         public static final int ll_sp_window=0x7f07006c;
         public static final int lv_people=0x7f070070;
         public static final int meta_text_view=0x7f070017;
         public static final int meta_text_view_label=0x7f070016;
-        public static final int networkStatus=0x7f07003d;
+        public static final int networkStatus=0x7f07003e;
         public static final int outputText=0x7f070064;
         public static final int output_text=0x7f07007e;
         public static final int page_number_view=0x7f070068;
-        public static final int person_define=0x7f070041;
-        public static final int person_gender=0x7f070050;
+        public static final int person_define=0x7f070042;
         public static final int pl_header=0x7f070082;
         public static final int plu_confirm=0x7f070055;
         public static final int plu_quantity=0x7f07005d;
@@ -129,9 +124,7 @@ public final class R {
         public static final int result_list_view=0x7f070067;
         public static final int result_view=0x7f07000e;
         public static final int return_scan_result=0x7f070007;
-        public static final int sb_age=0x7f070045;
-        public static final int sb_weight=0x7f07004a;
-        public static final int scrollView1=0x7f07003f;
+        public static final int scrollView1=0x7f070040;
         public static final int scrollView2=0x7f070081;
         public static final int sd_content=0x7f07002a;
         public static final int sd_handle=0x7f07002b;
@@ -148,27 +141,34 @@ public final class R {
         public static final int share_text_view=0x7f070078;
         public static final int shopper_button=0x7f07001b;
         public static final int snippet_view=0x7f070069;
-        public static final int sp_activity=0x7f07004c;
-        public static final int sp_feet=0x7f070047;
-        public static final int sp_inches=0x7f070048;
+        public static final int sp_activity=0x7f070051;
+        public static final int sp_age=0x7f070049;
+        public static final int sp_feet=0x7f07004c;
+        public static final int sp_gender=0x7f07004a;
+        public static final int sp_inches=0x7f07004d;
+        public static final int sp_weight=0x7f07004f;
         public static final int status_view=0x7f07001c;
         public static final int submitPLU=0x7f07005c;
         public static final int summary_title=0x7f07007b;
         public static final int tableRow1=0x7f070026;
-        public static final int tableRow2=0x7f07004d;
-        public static final int textView1=0x7f07002e;
+        public static final int tableRow2=0x7f070052;
+        public static final int tableRow3=0x7f070048;
+        public static final int tableRow4=0x7f070045;
+        public static final int textView1=0x7f07002f;
         public static final int textView3=0x7f07005e;
-        public static final int textedit_password=0x7f07003a;
-        public static final int textedit_username=0x7f070039;
-        public static final int textview_error=0x7f070038;
+        public static final int textedit_password=0x7f07003b;
+        public static final int textedit_username=0x7f07003a;
+        public static final int textview_error=0x7f070039;
         public static final int time_text_view=0x7f070015;
         public static final int time_text_view_label=0x7f070014;
         public static final int title=0x7f070063;
-        public static final int tv_age=0x7f070044;
-        public static final int tv_cartTotal=0x7f070031;
+        public static final int tv_added=0x7f07002e;
+        public static final int tv_age=0x7f070046;
+        public static final int tv_cartTotal=0x7f070032;
         public static final int tv_days=0x7f070085;
-        public static final int tv_height=0x7f070046;
-        public static final int tv_name=0x7f070042;
+        public static final int tv_gender=0x7f070047;
+        public static final int tv_height=0x7f07004b;
+        public static final int tv_name=0x7f070043;
         public static final int tv_peopleinfo=0x7f07006f;
         public static final int tv_peoplelist=0x7f070083;
         public static final int tv_printdays=0x7f07006d;
@@ -177,8 +177,8 @@ public final class R {
         public static final int tv_sp_itemname=0x7f07005f;
         public static final int tv_sp_pluoutput=0x7f070057;
         public static final int tv_summary=0x7f07007c;
-        public static final int tv_title=0x7f07003e;
-        public static final int tv_weight=0x7f070049;
+        public static final int tv_title=0x7f07003f;
+        public static final int tv_weight=0x7f07004e;
         public static final int type_text_view=0x7f070013;
         public static final int type_text_view_label=0x7f070012;
         public static final int viewfinder_view=0x7f07000d;
@@ -196,23 +196,22 @@ public final class R {
         public static final int network=0x7f030009;
         public static final int person=0x7f03000a;
         public static final int person_define=0x7f03000b;
-        public static final int person_gender=0x7f03000c;
-        public static final int plu_confirm=0x7f03000d;
-        public static final int plu_enter=0x7f03000e;
-        public static final int plu_quantity=0x7f03000f;
-        public static final int profile=0x7f030010;
-        public static final int search_barcode=0x7f030011;
-        public static final int search_book_contents=0x7f030012;
-        public static final int search_book_contents_header=0x7f030013;
-        public static final int search_book_contents_list_item=0x7f030014;
-        public static final int search_plu=0x7f030015;
-        public static final int setup_days=0x7f030016;
-        public static final int setup_people=0x7f030017;
-        public static final int share=0x7f030018;
-        public static final int start=0x7f030019;
-        public static final int summary=0x7f03001a;
-        public static final int test_totals=0x7f03001b;
-        public static final int visualization=0x7f03001c;
+        public static final int plu_confirm=0x7f03000c;
+        public static final int plu_enter=0x7f03000d;
+        public static final int plu_quantity=0x7f03000e;
+        public static final int profile=0x7f03000f;
+        public static final int search_barcode=0x7f030010;
+        public static final int search_book_contents=0x7f030011;
+        public static final int search_book_contents_header=0x7f030012;
+        public static final int search_book_contents_list_item=0x7f030013;
+        public static final int search_plu=0x7f030014;
+        public static final int setup_days=0x7f030015;
+        public static final int setup_people=0x7f030016;
+        public static final int share=0x7f030017;
+        public static final int start=0x7f030018;
+        public static final int summary=0x7f030019;
+        public static final int test_totals=0x7f03001a;
+        public static final int visualization=0x7f03001b;
     }
     public static final class raw {
         public static final int beep=0x7f050000;
@@ -220,8 +219,8 @@ public final class R {
     public static final class string {
         /**  AddItemFragment 
          */
-        public static final int additem_btn_scan=0x7f0800a1;
-        public static final int additem_btn_search=0x7f0800a2;
+        public static final int additem_btn_scan=0x7f0800a2;
+        public static final int additem_btn_search=0x7f0800a3;
         public static final int app_name=0x7f080000;
         public static final int app_picker_name=0x7f080001;
         public static final int bookmark_picker_name=0x7f080002;
@@ -232,14 +231,14 @@ public final class R {
         public static final int btn_girl=0x7f08009c;
         public static final int btn_later=0x7f08008c;
         public static final int btn_login=0x7f080088;
-        public static final int btn_logout=0x7f0800af;
+        public static final int btn_logout=0x7f0800b0;
         public static final int btn_man=0x7f080099;
-        public static final int btn_new_cart=0x7f0800b0;
+        public static final int btn_new_cart=0x7f0800b1;
         public static final int btn_next=0x7f08007f;
-        public static final int btn_sp_add=0x7f0800ac;
-        public static final int btn_sp_no=0x7f0800ab;
-        public static final int btn_sp_search=0x7f0800a8;
-        public static final int btn_sp_yes=0x7f0800aa;
+        public static final int btn_sp_add=0x7f0800ad;
+        public static final int btn_sp_no=0x7f0800ac;
+        public static final int btn_sp_search=0x7f0800a9;
+        public static final int btn_sp_yes=0x7f0800ab;
         public static final int btn_start=0x7f080089;
         public static final int btn_submit=0x7f08007d;
         public static final int btn_woman=0x7f08009a;
@@ -277,14 +276,14 @@ public final class R {
         public static final int contents_phone=0x7f080022;
         public static final int contents_sms=0x7f080023;
         public static final int contents_text=0x7f080024;
-        public static final int et_sp_hint=0x7f0800a7;
+        public static final int et_sp_hint=0x7f0800a8;
         public static final int history_clear_text=0x7f080025;
         public static final int history_email_title=0x7f080026;
         public static final int history_send=0x7f080027;
         public static final int history_title=0x7f080028;
         /**  ItemListFragment Text
          */
-        public static final int itemlist_header=0x7f0800a0;
+        public static final int itemlist_header=0x7f0800a1;
         public static final int menu_about=0x7f080029;
         public static final int menu_help=0x7f08002a;
         public static final int menu_history=0x7f08002b;
@@ -357,15 +356,15 @@ public final class R {
         public static final int result_text=0x7f08006b;
         public static final int result_uri=0x7f08006c;
         public static final int result_wifi=0x7f08006d;
-        public static final int sb_outputtext=0x7f0800a4;
+        public static final int sb_outputtext=0x7f0800a5;
         /**  SearchBarcode 
          */
-        public static final int sb_title=0x7f0800a3;
+        public static final int sb_title=0x7f0800a4;
         public static final int sbc_name=0x7f08006e;
-        public static final int setupd_btn_start=0x7f08009f;
+        public static final int setupd_btn_start=0x7f0800a0;
         /**  Setup Days 
          */
-        public static final int setupd_prompt=0x7f08009e;
+        public static final int setupd_prompt=0x7f08009f;
         /**  Setup People 
          */
         public static final int setupp_header=0x7f080095;
@@ -391,19 +390,20 @@ public final class R {
         public static final int title_profile=0x7f08008a;
         /**  SearchPLU 
          */
-        public static final int title_sp=0x7f0800a5;
+        public static final int title_sp=0x7f0800a6;
         public static final int tv_activity=0x7f080094;
         public static final int tv_age=0x7f080091;
         /**  Checkout 
          */
-        public static final int tv_checkout=0x7f0800ae;
+        public static final int tv_checkout=0x7f0800af;
+        public static final int tv_gender=0x7f08009e;
         public static final int tv_gender_prompt=0x7f080097;
         public static final int tv_height=0x7f080092;
         public static final int tv_name=0x7f080090;
         public static final int tv_profile=0x7f08008b;
-        public static final int tv_sp_desc=0x7f0800a6;
-        public static final int tv_sp_prompt=0x7f0800a9;
-        public static final int tv_sp_quantity=0x7f0800ad;
+        public static final int tv_sp_desc=0x7f0800a7;
+        public static final int tv_sp_prompt=0x7f0800aa;
+        public static final int tv_sp_quantity=0x7f0800ae;
         public static final int tv_title=0x7f08008f;
         public static final int tv_weight=0x7f080093;
         public static final int wa_name=0x7f080071;

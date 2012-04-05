@@ -71,14 +71,17 @@ public class InputSearchActivity extends Activity {
 			public void onClick(View v) {
 				
 				String pluCode = enterPLU.getText().toString();
-				
-				Intent searchForPLUCode = new Intent(InputSearchActivity.this, InputDatabaseSearchActivity.class);
-				searchForPLUCode.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-				searchForPLUCode.setType("text/plain");
-				searchForPLUCode.putExtra("plu",pluCode);
-				searchForPLUCode.putExtra("account", act);
-				
-				startActivityForResult(searchForPLUCode, PLU_SEARCH );
+				if(pluCode.length()!=0){
+					Intent searchForPLUCode = new Intent(InputSearchActivity.this, InputDatabaseSearchActivity.class);
+					searchForPLUCode.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+					searchForPLUCode.setType("text/plain");
+					searchForPLUCode.putExtra("plu",pluCode);
+					searchForPLUCode.putExtra("account", act);
+					
+					startActivityForResult(searchForPLUCode, PLU_SEARCH );
+				} else {
+					outputText.setText("Please enter a valid PLU code.");
+				}
 			}
 		});
 	    
@@ -148,35 +151,36 @@ public class InputSearchActivity extends Activity {
 			
 			public void onClick(View v) {
 				adb = new AccountDatabaseHelper(InputSearchActivity.this);
-			
-	 	    	int newQ = Integer.valueOf(number.getText().toString());
-	 	    	if(newQ!=0){
-
-					//add that item to the user's current cart
-		 	    	GroceryItem gItem = adb.getGroceryItemOf(act.getName(), returnedItem.getItemName());
-		 	    	
-		 	    	if(gItem!=null){
-		 	    		int q = gItem.getQuantity();
-		 	    		
-		 	    		gItem.setQuantity(q+newQ);
-		 	    		
-		 	    		adb.updateGroceryItem(gItem);
-		 	    		//Log.d("Result Item: ", "Result Item: " + resultItem.getItemName() + 
-		 	    				//"Result Quantity: " + resultItem.getQuantity());
-				        adb.close();
-				        successfulSave();
-				        
-		 	    	}  else {
-		 	    		gItem = returnedItem;
-		 	    		gItem.setQuantity(newQ);
-		 	    		
-		 	    		adb.addGroceryItem(gItem);
-		 	    		//Log.d("Result Item: ", "Result Item: " + resultItem.getItemName() + 
-		 	    				//"Result Quantity: " + resultItem.getQuantity());
-		 	    		adb.close();
-		 	    		successfulSave();
-		 	    	}
-	 	    	} else {
+				
+				String qs = number.getText().toString();
+				if(qs.length()!=0){
+		 	    	Integer newQ = Integer.valueOf(qs);
+		 	    	if(newQ!=0){
+	
+						//add that item to the user's current cart
+			 	    	GroceryItem gItem = adb.getGroceryItemOf(act.getName(), returnedItem.getItemName());
+			 	    	
+			 	    	if(gItem!=null){
+			 	    		int q = gItem.getQuantity();
+			 	    		
+			 	    		gItem.setQuantity(q+newQ);
+			 	    		
+			 	    		adb.updateGroceryItem(gItem);
+			 	    	
+					        adb.close();
+					        successfulSave();
+					        
+			 	    	}  else {
+			 	    		gItem = returnedItem;
+			 	    		gItem.setQuantity(newQ);
+			 	    		
+			 	    		adb.addGroceryItem(gItem);
+			 	    		
+			 	    		adb.close();
+			 	    		successfulSave();
+			 	    	}
+		 	    	} 
+				} else {
 	 	    		Toast noQ = Toast.makeText( InputSearchActivity.this, "Please enter a quantity.", Toast.LENGTH_LONG);
 	 	    		noQ.show();
 	 	    	}

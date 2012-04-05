@@ -16,3 +16,6 @@
 1333544046029	Change Layout
 1333545779692	Rename field 'PASSWORD'
 1333546290079	Rename local variable 'requestCode'
+1333583769316	Rename field 'sb_weight'
+1333585118109	Rename field 'sb_age'
+1333589218503	Delete element

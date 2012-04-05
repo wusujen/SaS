@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/person_define"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
     
      <TextView
@@ -21,31 +21,59 @@
                 android:layout_marginLeft="15dp"
                 android:layout_weight="1"
                 android:inputType="text" />
-
-            <TextView
-                android:id="@+id/tv_age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="18dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/tv_age" />
-
-            <SeekBar
-                android:id="@+id/sb_age"
+
+            <TableRow
+                android:id="@+id/tableRow4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp" />
+                android:layout_height="wrap_content" >
 
+                <TextView
+                    android:id="@+id/tv_age"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/tv_age" />
+
+                <TextView
+                    android:id="@+id/tv_gender"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/tv_gender" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <Spinner
+                    android:id="@+id/sp_age"
+                    android:layout_width="111dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1" />
+
+                <Spinner
+                    android:id="@+id/sp_gender"
+                    android:layout_width="111dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1" />
+            </TableRow>
+
             <TextView
                 android:id="@+id/tv_height"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/tv_height" />
-
+
             <TableRow
                 android:id="@+id/tableRow1"
                 android:layout_width="match_parent"
@@ -54,15 +82,17 @@
 
                 <Spinner
                     android:id="@+id/sp_feet"
-                    android:layout_width="119dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp" />
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1" />
 
                 <Spinner
                     android:id="@+id/sp_inches"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp" />
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1" />
             </TableRow>
 
             <TextView
@@ -72,21 +102,19 @@
                 android:layout_marginLeft="18dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/tv_weight" />
-
-            <SeekBar
-                android:id="@+id/sb_weight"
+
+            <Spinner
+                android:id="@+id/sp_weight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp" />
-
+                android:layout_marginLeft="15dp" />
+
             <TextView
                 android:id="@+id/activity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/tv_activity" />
 
             <Spinner
@@ -95,12 +123,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="15dp" />
-
+
             <TableRow
                 android:id="@+id/tableRow2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" 
-                android:layout_marginBottom="20dp">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp" >
 
                 <Button
                     android:id="@+id/btn_submit"

@@ -96,8 +96,7 @@ public class InputDatabaseSearchActivity extends Activity {
  	    		resultItem.setQuantity(q+1);
  	    		
  	    		adb.updateGroceryItem(resultItem);
- 	    		//Log.d("Result Item: ", "Result Item: " + resultItem.getItemName() + 
- 	    				//"Result Quantity: " + resultItem.getQuantity());
+ 	    		
 		        adb.close();
 		        ndb.close();
 		        startShowResultsIntent(barcodeItem);
@@ -105,8 +104,7 @@ public class InputDatabaseSearchActivity extends Activity {
  	    		resultItem.setQuantity(1);
  	    		
  	    		adb.addGroceryItem(resultItem);
- 	    		//Log.d("Result Item: ", "Result Item: " + resultItem.getItemName() + 
- 	    				//"Result Quantity: " + resultItem.getQuantity());
+ 	    	
  	    		adb.close();
 		        ndb.close();
 		        startShowResultsIntent(barcodeItem);

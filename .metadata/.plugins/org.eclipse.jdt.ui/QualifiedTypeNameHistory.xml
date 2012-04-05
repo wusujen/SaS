@@ -43,7 +43,6 @@
 <fullyQualifiedTypeName name="com.christine.cart.R.layout"/>
 <fullyQualifiedTypeName name="android.view.LayoutInflater"/>
 <fullyQualifiedTypeName name="com.christine.cart.InputSearchActivity"/>
-<fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.AccountDatabaseHelper"/>
 <fullyQualifiedTypeName name="android.widget.SeekBar"/>
 <fullyQualifiedTypeName name="android.widget.Spinner"/>
@@ -60,4 +59,5 @@
 <fullyQualifiedTypeName name="android.os.Parcelable"/>
 <fullyQualifiedTypeName name="com.christine.cart.SetupPeopleActivity"/>
 <fullyQualifiedTypeName name="android.R"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
 </qualifiedTypeNameHistroy>

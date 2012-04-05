@@ -32,8 +32,9 @@ public class ProfileActivity extends Activity {
 	TextView tv_weight;
 	TextView tv_height;
 	EditText et_name;
-	SeekBar sb_age;
-	SeekBar sb_weight;
+	Spinner sp_age;
+	Spinner sp_gender;
+	Spinner sp_weight;
 	Spinner sp_feet;
 	Spinner sp_inches;
 	Spinner sp_activity;
@@ -42,6 +43,7 @@ public class ProfileActivity extends Activity {
 	Person p;
 	Account act;
 	String username;
+	String gender;
 	int totalHeight;
 	int inHeight;
 	int ftHeight;
@@ -64,8 +66,9 @@ public class ProfileActivity extends Activity {
 	    tv_height = (TextView) findViewById(R.id.tv_height);
 	    
 	    et_name = (EditText) findViewById(R.id.et_name);
-	    sb_age = (SeekBar) findViewById(R.id.sb_age);
-	    sb_weight = (SeekBar) findViewById(R.id.sb_weight);
+	    sp_age = (Spinner) findViewById(R.id.sp_age);
+	    sp_gender = (Spinner) findViewById(R.id.sp_gender);
+	    sp_weight = (Spinner) findViewById(R.id.sp_weight);
 	    sp_feet = (Spinner) findViewById(R.id.sp_feet);
 	    sp_inches = (Spinner) findViewById(R.id.sp_inches);
 	    sp_activity = (Spinner) findViewById(R.id.sp_activity);
@@ -96,7 +99,7 @@ public class ProfileActivity extends Activity {
 	    	ft.add(String.valueOf(i) + " feet");
 	    }
 	    ArrayAdapter<String> feet = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ft);
-	    feet.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    feet.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
 	    sp_feet.setAdapter(feet);
 	    sp_feet.setSelection(ftHeight-2); 	//the starting selection
 	    sp_feet.setOnItemSelectedListener(new OnItemSelectedListener(){
@@ -155,65 +158,82 @@ public class ProfileActivity extends Activity {
 	    	
 	    });
 	    
-	    //to setup the age slider
+	    //to setup the age spinner
+	    List<String> year = new ArrayList<String>();
 	    age = p.getAge();
-	    if(age<19){
-	    	sb_age.setMax(17);
-	    	sb_age.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+	    
+    	for(int i=2; i<99; i++){
+    		year.add(String.valueOf(i) + " years");
+    	}
+    	
+	    ArrayAdapter<String> years = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, year);
+	    years.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    sp_age.setAdapter(years);
+	    sp_age.setSelection(age-2);	//the starting selection
+	    sp_age.setOnItemSelectedListener(new OnItemSelectedListener(){
 
-				public void onStopTrackingTouch(SeekBar seekBar) {
-					return;
-				}
-				
-				public void onStartTrackingTouch(SeekBar seekBar) {
-					return;
-				}
-				
-				public void onProgressChanged(SeekBar seekBar, int progress,
-						boolean fromUser) {
-					age = progress+1;
-					tv_age.setText("age: " + Integer.toString(age) + " years");
-				}
-			});
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				age = arg2 + 2;
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				return;
+			}
+	    });
+	    
+	    List<String> gen = new ArrayList<String>();
+	    gender = p.getGender();
+	    gen.add("male");
+	    gen.add("female");
+	    ArrayAdapter<String> genders = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gen);
+	    genders.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    sp_gender.setAdapter(genders);
+	    if(gender.equals("m")){
+	    	sp_gender.setSelection(0);	//the starting selection
 	    } else {
-	    	sb_age.setMax(76);
-	    	sb_age.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-				public void onStopTrackingTouch(SeekBar seekBar) {
-					return;
-				}
-				
-				public void onStartTrackingTouch(SeekBar seekBar) {
-					return;
-				}
-				
-				public void onProgressChanged(SeekBar seekBar, int progress,
-						boolean fromUser) {
-					age = progress+19;
-					tv_age.setText("age: " + Integer.toString(age) + " years");
-				}
-			});
+	    	sp_gender.setSelection(1);
 	    }
-	    
-	    
-	    //setup Weight slider
-	    sb_weight.setMax(280);
-	    sb_weight.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-			
-			public void onStopTrackingTouch(SeekBar seekBar) {
+	    sp_gender.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				if(arg2==0){
+					gender = "m" ;
+				} else {
+					gender = "f";
+				}
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
 				return;
 			}
-			
-			public void onStartTrackingTouch(SeekBar seekBar) {
+	    });
+	    
+	    //setup weight spinner
+	    List<String> lb = new ArrayList<String>();
+	    weight = p.getWeight();
+	    for(int i=35; i<290; i++){
+	    	lb.add(String.valueOf(i) + " pounds");
+	    }
+	    ArrayAdapter<String> lbs = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lb);
+	    lbs.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    sp_weight.setAdapter(lbs);
+	    sp_weight.setSelection(weight-35);	//the starting selection
+	    sp_weight.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				weight = arg2 + 35;
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
 				return;
 			}
-			
-			public void onProgressChanged(SeekBar seekBar, int progress,
-					boolean fromUser) {
-				weight = progress;
-				tv_weight.setText("weight: " + Integer.toString(weight) + " pounds");
-			}
-		});
+	    });
+	    
+	    
+	    
 	    
 	    btn_submit.setOnClickListener( new View.OnClickListener() {
 			
