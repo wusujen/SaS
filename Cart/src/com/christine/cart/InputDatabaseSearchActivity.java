@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.SQLException;
 import android.os.Bundle;
+import android.util.Log;
 
 
 public class InputDatabaseSearchActivity extends Activity {
@@ -48,12 +49,16 @@ public class InputDatabaseSearchActivity extends Activity {
 	    String ifPLU=itemInfo.getString("plu");
 	    if(ifPLU != null){
 	    	pluCode = ifPLU;
+	    	Log.d("InputDatabaseSearchActivity", "52: Plu: " + pluCode);
+	    } else {
+	    	pluCode = null;
 	    }
 	    
 	    String ifBarcode=itemInfo.getString("resultDesc");
 	    if(ifBarcode != null){
 	    	barcodeItem = ifBarcode;
-	    	//Log.d("Barcode Code: ", "Barcode :" + barcodeItem);
+	    } else {
+	    	barcodeItem = null;
 	    }
 
         ndb = startNutritionDB();
@@ -85,34 +90,6 @@ public class InputDatabaseSearchActivity extends Activity {
 		        setResult(RESULT_CANCELED, returnWithNoItem);
 		        finish();
 	 	    }
-	 	}
-	 	else if(barcodeItem!=null){
-	 	    GroceryItem resultItem = ndb.getGroceryItem(barcodeItem, username);
-	 	    
-	 		//add that item to the user's current cart
- 	    	GroceryItem gItem = adb.getGroceryItemOf(username, barcodeItem);
- 	    	if(gItem!=null){
- 	    		int q = gItem.getQuantity();
- 	    		resultItem.setQuantity(q+1);
- 	    		
- 	    		adb.updateGroceryItem(resultItem);
- 	    		
-		        adb.close();
-		        ndb.close();
-		        startShowResultsIntent(barcodeItem);
- 	    	}  else {
- 	    		resultItem.setQuantity(1);
- 	    		
- 	    		adb.addGroceryItem(resultItem);
- 	    	
- 	    		adb.close();
-		        ndb.close();
-		        startShowResultsIntent(barcodeItem);
- 	    	}
-	 	} else{
-	 		adb.close();
-	 		ndb.close();
-	 		startShowResultsIntent("e");
 	 	}
 	}
 

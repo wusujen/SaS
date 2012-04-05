@@ -159,7 +159,7 @@ public class CartActivity extends Activity {
 			sd_list.setAdapter(ccartList);
 			sd_list.setBackgroundColor(Color.WHITE);
 			sd_list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
+			
 			sd_list.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
@@ -177,9 +177,9 @@ public class CartActivity extends Activity {
 						quantities = new ArrayList<Integer>();
 					}
 					
-					
+					boolean isSelected = false;
 					for (int i = 0; i < ccartList.getCount(); i++) {
-						boolean isSelected = listItems.get(i);
+						 isSelected = listItems.get(i);
 
 						if (isSelected) {
 							String tempItemName = ccartList.getItem(i);
@@ -195,7 +195,7 @@ public class CartActivity extends Activity {
 										.equals(selectedItemName)) {
 									quantities.add(gItem.getQuantity());
 								}
-							}
+							}	
 						}
 					}
 					
@@ -236,7 +236,7 @@ public class CartActivity extends Activity {
 			sd_itemlist = (SlidingDrawer) findViewById(R.id.sd_itemlist);
 			sd_itemlist.setOnDrawerOpenListener(new OnDrawerOpenListener() {
 				public void onDrawerOpened() {
-
+					
 				}
 			});
 			sd_itemlist.setOnDrawerCloseListener(new OnDrawerCloseListener() {
@@ -285,7 +285,6 @@ public class CartActivity extends Activity {
 				scanIntent.addCategory(Intent.CATEGORY_DEFAULT);
 				scanIntent.putExtra("SCAN_FORMATS", SCAN_FORMATS);
 				scanIntent.putExtra("SCAN_MODE", SCAN_MODE);
-				scanIntent.putExtra("account", act);
 				try {
 					startActivityForResult(scanIntent, REQUEST_CODE);
 				} catch (ActivityNotFoundException e) {
@@ -351,65 +350,9 @@ public class CartActivity extends Activity {
 		results = passedIntent.getStringExtra("results");
 		int check = passedIntent.getIntExtra("check", 0);
 		if (check == 1) {
-			if (results.equals(null) || results.equals("e")) {
-				Toast noMatch = Toast.makeText(inputsContext,
-						"We couldn't find that item! Please try again.",
-						Toast.LENGTH_LONG);
-				noMatch.setGravity(Gravity.TOP | Gravity.LEFT, 0, 150);
-				noMatch.show();
-			} else {
-				ndb = new NutritionDatabaseHelper(this);
-
-				if (selectedItems != null || quantities != null) {
-					selectedItems.clear();
-					quantities.clear();
-				} else {
-					selectedItems = new ArrayList<Item>();
-					quantities = new ArrayList<Integer>();
-				}
-
-				int position = -1;
-				for (int i = 0; i < ccartList.getCount(); i++) {
-					String tempItemName = ccartList.getItem(i);
-					int pos = tempItemName.indexOf(" ");
-					String compare = tempItemName.substring(pos + 1);
-
-					if (compare.equals(results)) {
-						position = i;
-						break;
-					} else {
-						continue;
-					}
-				}
-
-				Item selectedItem = ndb.getItem(results);
-				ndb.close();
-				
-				selectedItems.add(selectedItem);
-				
-				added.setText(selectedItem.getItemName() + " is selected.");
-
-				for (GroceryItem gItem : ccart) {
-					if (gItem.getItemName().equals(results)) {
-						quantities.add(gItem.getQuantity());
-						Log.d("CartActivity: ", "Name: " + gItem.getItemName()
-								+ quantities.get(0));
-					}
-				}
-
-				Log.d("CartActivity", "Position: " + position);
-				sd_list.setItemChecked(position, true);
-
-				graph.passSelectedItems(selectedItems);
-				graph.passSelectedQuantities(quantities);
-				
-				graph.postInvalidate();
-
-				graphLabels.setDays(days);
-				graphLabels.postInvalidate();
-			}
-		}
-
+			updateGraphWithSelected(results);
+		} 
+		
 		PreviousHistory currentCart = getCartTotalsFor(currentUsername);
 		totalRDV = getRDVTotalsFor(currentUsername);
 		
@@ -449,24 +392,13 @@ public class CartActivity extends Activity {
 		IntentResult scanResult = parseActivityResult(requestCode, resultCode,
 				scanIntent);
 		String contents = scanResult.getContents();
-		String format = scanResult.getFormatName();
-
-		if (contents != null) {
-			Toast toast = Toast.makeText(this, "Content:" + contents
-					+ " Format:" + format, Toast.LENGTH_LONG);
-			toast.setGravity(Gravity.TOP, 25, 400);
-			toast.show();
-
-			// start the InputScanActivity and pass this intent the contents and
-			// formats
-			Intent startInputScanActivity = new Intent(this,
-					InputScanActivity.class);
-			startInputScanActivity.setType("text/plain");
+		Log.d("CartActivity", "Line 395: Contents " + contents);
+		if(resultCode == RESULT_OK){
+			Intent startInputScanActivity = new Intent(CartActivity.this, InputScanActivity.class);
 			startInputScanActivity.putExtra("contents", contents);
-			startInputScanActivity.putExtra("format", format);
-
+			startInputScanActivity.putExtra("account", act);
+			startInputScanActivity.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivity(startInputScanActivity);
-
 		} else {
 			Toast toast = Toast.makeText(inputsContext, "Scan Failed",
 					resultCode);
@@ -697,6 +629,70 @@ public class CartActivity extends Activity {
 		}
 		
 		return total;
+	}
+	
+	/**
+	 * UPDATE GRAPH
+	 * when results are returned
+	 */
+	void updateGraphWithSelected(String results){
+		if (results.equals(null) || results.equals("e")) {
+			Toast noMatch = Toast.makeText(inputsContext,
+					"We couldn't find that item! Please try again.",
+					Toast.LENGTH_LONG);
+			noMatch.setGravity(Gravity.TOP | Gravity.LEFT, 0, 150);
+			noMatch.show();
+		} else {
+			ndb = new NutritionDatabaseHelper(this);
+	
+			if (selectedItems != null || quantities != null) {
+				selectedItems.clear();
+				quantities.clear();
+			} else {
+				selectedItems = new ArrayList<Item>();
+				quantities = new ArrayList<Integer>();
+			}
+	
+			int position = -1;
+			for (int i = 0; i < ccartList.getCount(); i++) {
+				String tempItemName = ccartList.getItem(i);
+				int pos = tempItemName.indexOf(" ");
+				String compare = tempItemName.substring(pos + 1);
+	
+				if (compare.equals(results)) {
+					position = i;
+					break;
+				} else {
+					continue;
+				}
+			}
+	
+			Item selectedItem = ndb.getItem(results);
+			ndb.close();
+			
+			selectedItems.add(selectedItem);
+			
+			added.setText(selectedItem.getItemName() + " is selected.");
+	
+			for (GroceryItem gItem : ccart) {
+				if (gItem.getItemName().equals(results)) {
+					quantities.add(gItem.getQuantity());
+					Log.d("CartActivity: ", "Name: " + gItem.getItemName()
+							+ quantities.get(0));
+				}
+			}
+	
+			Log.d("CartActivity", "Position: " + position);
+			sd_list.setItemChecked(position, true);
+	
+			graph.passSelectedItems(selectedItems);
+			graph.passSelectedQuantities(quantities);
+			
+			graph.postInvalidate();
+	
+			graphLabels.setDays(days);
+			graphLabels.postInvalidate();
+		}
 	}
 
 }
