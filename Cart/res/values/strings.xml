@@ -21,6 +21,7 @@
 	<string name="btn_login">Log in</string>
 	<string name="btn_start">Start</string>
 	
+	
 	<!-- Profile/Person -->
 	<string name="title_profile">PROFILE</string>
 	<string name="tv_profile">Tell us a bit about yourself.</string>

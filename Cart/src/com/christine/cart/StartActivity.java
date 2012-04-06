@@ -31,7 +31,7 @@ public class StartActivity extends Activity {
        actionbar.setHomeLogo(R.drawable.carrot_green);
        actionbar.addAction(new ToastAction());
         
-      //JOIN starts 'JOIN' Activity
+      //JOIN starts 'JOIN' Activity 
  	   join=(Button) findViewById(R.id.btn_join);
  	   join.setOnClickListener(new View.OnClickListener() {
  			public void onClick(View v) {

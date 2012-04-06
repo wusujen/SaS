@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top" 
+    android:background="@drawable/background_green">
+    
+	<ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="348dp"
+        android:layout_height="70dp" 
+        android:src="@drawable/background_dropshadow"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"/>
+	
+    <RelativeLayout
+        android:id="@+id/RelativeLayout2"
+        android:layout_width="350dp"
+        android:layout_height="65dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/widget_shop"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_cartstatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="10dp"
+            android:text="TextView" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/dashboard_arrow" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/dashboard_cart" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_below="@+id/textView1"
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="195dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+
+        <Button
+            android:id="@+id/btn_people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="100dp"
+            android:background="@drawable/btn_people" />
+
+        <Button
+            android:id="@+id/btn_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="100dp"
+            android:background="@drawable/btn_help" />
+
+        <Button
+            android:id="@+id/btn_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/btn_history" />
+        
+          <Button
+              android:id="@+id/btn_logout"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentRight="true"
+              android:layout_alignParentTop="true"
+              android:layout_marginRight="5dp"
+              android:layout_marginTop="5dp"
+              android:background="@drawable/btn_logout" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/dashboard_logo" />
+
+    </RelativeLayout>
+
+    
+
+</RelativeLayout>
