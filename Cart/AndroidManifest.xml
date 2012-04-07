@@ -28,11 +28,15 @@
             </intent-filter>
         </activity>
         <activity android:name="LoginActivity" 
-             android:theme="@android:style/Theme.Light.NoTitleBar"
+             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape"></activity>
         
         <activity android:name="CreateAccountActivity" 
-             android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+            android:screenOrientation="landscape"></activity>
+        
+        <activity android:name="DashboardActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape"></activity>
         
         <activity android:name="SetupDaysActivity"
@@ -148,6 +152,7 @@
 	    <activity android:name="ProfileActivity"
 	         android:theme="@android:style/Theme.Light.NoTitleBar"
 	         android:screenOrientation="landscape"></activity>
+	    
 	    
 	    
     </application>

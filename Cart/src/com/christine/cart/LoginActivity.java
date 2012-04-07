@@ -1,7 +1,10 @@
 package com.christine.cart;
 
+
 import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountActivity;
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,13 +16,14 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 	
 	Button btn_login;
 	EditText username;
 	EditText password;
-	TextView errorText;
+	ActionBar actionBar;
 	
 	private static int GET_ACCOUNT = 2;
 
@@ -33,7 +37,6 @@ public class LoginActivity extends Activity {
 		
 		username = (EditText) findViewById(R.id.textedit_username);
 		password = (EditText) findViewById(R.id.textedit_password);
-		errorText = (TextView) findViewById(R.id.textview_error);
 		btn_login = (Button) findViewById(R.id.btn_login);
 		btn_login.setOnClickListener(new View.OnClickListener() {
 			
@@ -58,6 +61,14 @@ public class LoginActivity extends Activity {
 				startActivityForResult(startAddAccount,GET_ACCOUNT);
 			}
 		});	
+		
+		
+		//ActionBar
+		actionBar = (ActionBar) findViewById(R.id.actionbar);
+		actionBar.setTitle("Log In");
+		actionBar.setHomeAction(new backToStartAction());
+		actionBar.addAction(new signUpAction());
+				
 	} // end OnCreate
 	
 	
@@ -69,30 +80,54 @@ public class LoginActivity extends Activity {
 					// start setup people activity
 					// Get the user name from the intent
 					String name = data.getStringExtra("username");
-					
 					Account act = data.getParcelableExtra("account");
 				    if(name.equals(null)){
-				    	// log the error
-				    	Log.d("LoginActivity:", "username returned null");
-				    	errorText.setText("Sorry, we couldn't log you in! Please try again.");
+				    	String error = "Sorry, we couldn't log you in! Please try again.";
+				    	Toast loginError = Toast.makeText(LoginActivity.this , error , Toast.LENGTH_LONG);
+				    	loginError.show();
 				    } else{
-				    	Intent startSetupDays = new Intent(this,SetupDaysActivity.class);
+				    	Intent goToDashboard= new Intent(this,DashboardActivity.class);
 				    	// add the account object
-				    	startSetupDays.putExtra("username", name);
-				    	startSetupDays.putExtra("account", act);
-				    	startActivity(startSetupDays);
+				    	goToDashboard.putExtra("account", act);
+				    	startActivity(goToDashboard);
 				    }
 					break;
 				case RESULT_CANCELED:
-					// display error
-					
 					String fail = data.getStringExtra("Fail");
-					errorText.setText(fail);
+					Toast failLogin = Toast.makeText(LoginActivity.this , fail, Toast.LENGTH_LONG);
+			    	failLogin.show();
 					break;
 				default:
-					errorText.setText("Couldn't get your information. Please try again!");
-					
+					String noInfo = "Couldn't get your information. Please try again!";
+					Toast noInformation = Toast.makeText(LoginActivity.this , noInfo, Toast.LENGTH_LONG);
+			    	noInformation.show();
 			} //end switch
 		} // end if requestCode
 	} // end onActivityResult
+	
+	private class signUpAction implements Action{
+		
+		public int getDrawable(){
+			return R.drawable.ab_sign_up;
+		}
+		
+		public void performAction(View view){
+			Intent backToSignUp = new Intent(LoginActivity.this, CreateAccountActivity.class);
+			backToSignUp.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			startActivity(backToSignUp);
+		}
+	}
+	
+	private class backToStartAction implements Action{
+		public int getDrawable(){
+			return R.drawable.ab_back;
+		}
+		
+		public void performAction(View view){
+			Intent startAgain = new Intent(LoginActivity.this, StartActivity.class);
+			startAgain.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			startActivity(startAgain);
+		}
+	}
+	
 }

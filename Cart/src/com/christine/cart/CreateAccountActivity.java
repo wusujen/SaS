@@ -1,7 +1,10 @@
 package com.christine.cart;
 
+
 import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountActivity;
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,13 +16,14 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CreateAccountActivity extends Activity {
 
 	Button btn_start;
 	EditText username;
 	EditText password;
-	TextView errorText;
+	ActionBar actionBar;
 	
 	private static int ADD_ACCOUNT = 1;
 	
@@ -32,7 +36,6 @@ public class CreateAccountActivity extends Activity {
 		
 		username = (EditText) findViewById(R.id.textedit_username);
 		password = (EditText) findViewById(R.id.textedit_password);
-		errorText = (TextView) findViewById(R.id.textview_error);
 		btn_start = (Button) findViewById(R.id.btn_start);
 		btn_start.setOnClickListener(new View.OnClickListener() {
 			
@@ -58,6 +61,12 @@ public class CreateAccountActivity extends Activity {
 			}
 		});
 		
+		//ActionBar
+		actionBar = (ActionBar) findViewById(R.id.actionbar);
+		actionBar.setTitle("Sign up");
+		actionBar.setHomeAction(new backToStartAction());
+		actionBar.addAction(new logInAction());
+		
 	} // end onCreate
 	
 	
@@ -76,36 +85,60 @@ public class CreateAccountActivity extends Activity {
 					// Get the user name from the intent
 					String name = data.getStringExtra("username");
 					Account act = data.getParcelableExtra("account");
-					Log.d("CreateAccountActivity", "Account name created: " + act.getName());
 				    if(name.equals(null)){
-				    	// log the error
-				    	Log.d("CreateAccountActivity:", "username returned null");
-				    	errorText.setText("Sorry, this username is invalid. Please try another.");
+				    	String error = "Sorry, this username is invalid. Please try another.";
+				    	Toast loginError = Toast.makeText(this , error , Toast.LENGTH_LONG);
+				    	loginError.show();
 				    	return;
 				    } else if(name.equals("0")){
-				    	Log.d("CreateAccountActivity:", "username has been taken");
-				    	errorText.setText("Sorry, that username has already been taken. Please enter a new username.");
+				    	String takenError = "Sorry, that username has already been taken. Please enter a new username.";
+				    	Toast nameTaken = Toast.makeText(this , takenError, Toast.LENGTH_LONG);
+				    	nameTaken.show();
 				    	return;
 				    }
 				    else{
-				    	// 
-				    	Intent startProfileActivity = new Intent(this,ProfileActivity.class);
-				    	startProfileActivity.putExtra("account", act);
-				    	startActivity(startProfileActivity);
+				    	Intent goToDashboard = new Intent(this, DashboardActivity.class);
+				    	goToDashboard.putExtra("account", act);
+				    	startActivity(goToDashboard);
 				    }
 					break;
 				case RESULT_CANCELED:
 					// display error
 					Bundle failInfo = getIntent().getExtras();
 					String fail = failInfo.getString("fail");
-					errorText.setText(fail);
+					Toast failLogin = Toast.makeText(this , fail, Toast.LENGTH_LONG);
+			    	failLogin.show();
 					break;
 				default:
-					errorText.setText("Couldn't save your information. Please try again!");
-					
+					String noInfo = "Couldn't save your information. Please try again!";
+					Toast noInformation = Toast.makeText(this , noInfo, Toast.LENGTH_LONG);
+			    	noInformation.show();	
 			} //end switch
 		} // end if requestCode
 	} // end onActivityResult
 
+	private class logInAction implements Action{
+		
+		public int getDrawable(){
+			return R.drawable.ab_log_in;
+		}
+		
+		public void performAction(View view){
+			Intent goLogin = new Intent(CreateAccountActivity.this, LoginActivity.class);
+			goLogin.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			startActivity(goLogin);
+		}
+	}
 	
+	private class backToStartAction implements Action{
+		public int getDrawable(){
+			return R.drawable.ab_back;
+		}
+		
+		public void performAction(View view){
+			Intent startAgain = new Intent(CreateAccountActivity.this, StartActivity.class);
+			startAgain.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			startActivity(startAgain);
+		}
+	}
 }

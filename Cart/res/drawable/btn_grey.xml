@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android" >
-     <item android:drawable="@drawable/shape_silver_inverse"
+<selector xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:dither="true">
+     <item android:drawable="@drawable/shape_grey_inverse"
           android:state_pressed="true" />
-    <item android:drawable="@drawable/shape_silver" />
+    <item android:drawable="@drawable/shape_grey" />
 </selector>

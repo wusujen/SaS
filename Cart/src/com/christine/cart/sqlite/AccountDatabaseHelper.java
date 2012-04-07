@@ -306,6 +306,18 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		String countQuery = "SELECT  * FROM " + TABLE_PEOPLE;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
+        db.close();
+        cursor.close();
+ 
+        // return count
+        return cursor.getCount();
+	}
+	
+	public int getPersonCountFor(String username){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_PEOPLE, null , PEOPLE_USER + "=? ", 
+				new String []{ String.valueOf(username)}, null, null, null);
+        db.close();
         cursor.close();
  
         // return count
@@ -433,6 +445,17 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	    db.close();
 	    // return grocery List
 	    return groceryList;
+	}
+	
+	public int getGroceryCount(String username){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_CCART, null , CCART_USER + "=? ", 
+				new String []{ String.valueOf(username)}, null, null, null);
+        db.close();
+        cursor.close();
+ 
+        // return count
+        return cursor.getCount();
 	}
 	
 	// delete all grocery items associated with one user
