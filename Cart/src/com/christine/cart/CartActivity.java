@@ -15,6 +15,8 @@ import com.christine.cart.sqlite.RecDailyValues;
 import com.christine.cart.visual.GraphLabelView;
 import com.christine.cart.visual.GraphView;
 import com.christine.cart.visual.NutritionAdvisor;
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -51,6 +53,8 @@ public class CartActivity extends Activity {
 	TextView added;
 	SlidingDrawer sd_itemlist;
 	ListView sd_list;
+	
+	ActionBar actionBar;
 
 	InputMethodManager manager;
 	Context inputsContext;
@@ -119,6 +123,14 @@ public class CartActivity extends Activity {
 						"CartActivity: account passed was null");
 			}
 		}
+		
+		//ActionBar
+		actionBar = (ActionBar) findViewById(R.id.actionbar);
+		actionBar.setTitle("Your Grocery Cart");
+		actionBar.setHomeAction(new backToDashboardAction());
+		actionBar.addAction(new toDaysAction());
+		actionBar.addAction(new toPeopleAction());
+		actionBar.addAction(new toCheckoutAction());
 
 		// start the db
 		adb = new AccountDatabaseHelper(this);
@@ -295,43 +307,6 @@ public class CartActivity extends Activity {
 				}
 			}
 		});// end scanBarcode onClickListener
-
-		// Testing so we can see the user's daily intake values
-		test = (Button) findViewById(R.id.btn_test);
-		test.setOnClickListener(new View.OnClickListener() {
-
-			public void onClick(View v) {
-				Intent startTest = new Intent(CartActivity.this,
-						TestTotals.class);
-				startTest.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-				startTest.putExtra("username", currentUsername);
-				startActivityForResult(startTest, 0);
-			}
-		});
-
-		// Take the user to the checkout screen
-		checkout = (Button) findViewById(R.id.btn_checkout);
-		checkout.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-					PreviousHistory cTotals = getCartTotalsFor(currentUsername);
-				if(cTotals.getCalories() != 0) {
-					Intent goCheckout = new Intent(CartActivity.this,
-							SummaryActivity.class);
-					goCheckout.putExtra("cartTotals", cTotals); // pass the
-																// parceable!
-					goCheckout.putExtra("account", act);
-					goCheckout.putExtra("days", days);
-					goCheckout.putExtra("rdv", totalRDV);
-					goCheckout.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-					startActivity(goCheckout);
-				} else {
-					Toast noItemsInCart = Toast.makeText(CartActivity.this, "You have no items in your cart yet!", Toast.LENGTH_SHORT);
-					noItemsInCart.show();
-				}
-			}
-		});
-		
 		
 
 	}
@@ -383,6 +358,79 @@ public class CartActivity extends Activity {
 	public void onBackPressed() {
 	   return; //prevent back button from working
 	}
+	
+	/**
+	 * Set up actionbar home
+	 */
+	private class backToDashboardAction implements Action{
+		public int getDrawable(){
+			return R.drawable.ab_home_large;
+		}
+		
+		public void performAction(View view){
+			Intent startAgain = new Intent(CartActivity.this, DashboardActivity.class);
+			startAgain.putExtra("account", act);
+			startActivity(startAgain);
+		}
+	}
+	
+	/**
+	 * ACTIONBAR DAYS
+	 */
+	private class toDaysAction implements Action{
+		public int getDrawable(){
+			return R.drawable.ab_date;
+		}
+		
+		public void performAction(View view){
+			Intent daysScreen = new Intent(CartActivity.this, SetupDaysActivity.class);
+			daysScreen.putExtra("account", act);
+			startActivity(daysScreen);
+		}
+	}
+	
+	/**
+	 * ACTIONBAR PEOPLE
+	 */
+	private class toPeopleAction implements Action{
+		public int getDrawable(){
+			return R.drawable.ab_people;
+		}
+		
+		public void performAction(View view){
+			Intent peopleScreen = new Intent(CartActivity.this, SetupPeopleActivity.class);
+			peopleScreen.putExtra("account", act);
+			startActivity(peopleScreen);
+		}
+	}
+	
+	/**
+	 * ACTIONBAR CHECKOUT
+	 */
+	private class toCheckoutAction implements Action{
+		public int getDrawable(){
+			return R.drawable.ab_checkout_large;
+		}
+		
+		public void performAction(View view){
+			PreviousHistory cTotals = getCartTotalsFor(currentUsername);
+			if(cTotals.getCalories() != 0) {
+				Intent goCheckout = new Intent(CartActivity.this,
+						SummaryActivity.class);
+				goCheckout.putExtra("cartTotals", cTotals); // pass the
+															// parceable!
+				goCheckout.putExtra("account", act);
+				goCheckout.putExtra("days", days);
+				goCheckout.putExtra("rdv", totalRDV);
+				goCheckout.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+				startActivity(goCheckout);
+			} else {
+				Toast noItemsInCart = Toast.makeText(CartActivity.this, "You have no items in your cart yet!", Toast.LENGTH_SHORT);
+				noItemsInCart.show();
+			}
+		}
+	}
+	
 
 	/**
 	 * ACTIVITY RESULTS FROM SEARCH AND SCAN

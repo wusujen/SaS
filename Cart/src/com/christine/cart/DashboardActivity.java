@@ -61,14 +61,16 @@ public class DashboardActivity extends Activity {
 			addPeople.setBackgroundResource(R.drawable.dashboard_people_normal);
 			widgetTitle.setText("");
 			cartStatus.setText("Please add people before starting a cart!");
-			setOnClickListeners();
 			
 			if(groceryCount!=0){
-				widgetTitle.setText("CURRENT CART");
-				cartStatus.setText("You have " + groceryCount + " in your Cart! Keep going!");
+				widgetTitle.setText("CURRENT CART HAS " + groceryCount + " ITEMS");
+				cartStatus.setText("You're shopping for " + people.size() + " people, " + act.getDays() + " days.");
+				startCartActivity();
+				
 			} else {
 				widgetTitle.setText("START A NEW CART");
 				cartStatus.setText("Start tracking your cart's nutrients!");
+				startDaysActivity();
 			}
 		}
 		
@@ -109,12 +111,23 @@ public class DashboardActivity extends Activity {
 	    
 	}
 	
-	private void setOnClickListeners(){
-		 
-		 
+	private void startDaysActivity(){
 		 cartLauncher.setOnClickListener(new View.OnClickListener() {
 				
 				public void onClick(View v) {
+					
+					Intent startCart = new Intent(DashboardActivity.this, SetupDaysActivity.class);
+					startCart.putExtra("account", act);
+					startActivity(startCart);
+				}
+		});
+	}
+	
+	private void startCartActivity(){
+		 cartLauncher.setOnClickListener(new View.OnClickListener() {
+				
+				public void onClick(View v) {
+					
 					Intent startCart = new Intent(DashboardActivity.this, CartActivity.class);
 					startCart.putExtra("account", act);
 					startActivity(startCart);

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.markupartist.android.widget.ActionBar
+        android:id="@+id/actionbar"
+        style="@style/ActionBar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
+
+    <LinearLayout
+        android:id="@+id/ll_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/actionbar"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/background_gradient_lightgrey"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/ll_sidebar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.40"
+            android:orientation="vertical" >
+
+
+            <TextView
+                android:id="@+id/tv_days_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/tv_profile"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_forms"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_white_transparent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_printdays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="Days:"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <SeekBar
+                android:id="@+id/seekbar_days"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_margin="20dp" />
+
+            <Button
+                style="@style/GreyButton"
+                android:id="@+id/btn_start"
+                android:layout_width="140dp"
+                android:layout_height="45dp"
+                android:layout_gravity="right"
+                android:layout_margin="20dp"
+                android:text="@string/setupd_btn_start" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

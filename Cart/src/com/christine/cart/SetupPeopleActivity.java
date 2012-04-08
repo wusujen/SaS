@@ -40,6 +40,7 @@ public class SetupPeopleActivity extends Activity {
     public static final int EDIT_PERSON = 2;
     private static Account act;
     private static Person selectedP;
+    private static int currentItemNumber;
     
     List<Person> plist = null;
 	AccountDatabaseHelper adb;
@@ -50,7 +51,6 @@ public class SetupPeopleActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.setup_people);
 	    
-	    
 	    //ActionBar
   		actionBar = (ActionBar) findViewById(R.id.actionbar);
   		actionBar.setTitle("People");
@@ -58,6 +58,7 @@ public class SetupPeopleActivity extends Activity {
   		
 	    act = getIntent().getParcelableExtra("account");
 	    username = act.getName();
+	    
 	    
 	    add = (Button) findViewById(R.id.btn_add);
 	    add.setOnClickListener(new View.OnClickListener() {
@@ -74,17 +75,30 @@ public class SetupPeopleActivity extends Activity {
 	    //start SetupDays and pass the user information along
 	    //with the number of people when "btn_next" is clicked
 	    next = (Button) findViewById(R.id.btn_next);
+	    
+	    //set the text of next button depending on what the contents of
+	    //the current cart are!
+	    adb = new AccountDatabaseHelper(this);
+	    currentItemNumber = adb.getGroceryCount(username);
+	    adb.close();
+	    
 	    next.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				Intent startSetupDays=new Intent(v.getContext(),SetupDaysActivity.class);
+				if(currentItemNumber==0){
+					
+			    	Intent startSetupDays=new Intent(v.getContext(),SetupDaysActivity.class);
+					startSetupDays.putExtra("account", act);
+					startActivity(startSetupDays);
+					
+			    } else {
+			    	next.setText("Back to Cart");
+			    	
+			    	Intent backToCart = new Intent(v.getContext(), CartActivity.class);
+			    	backToCart.putExtra("account", act);
+			    	startActivity(backToCart);
+			    }
 				
-				Bundle people = new Bundle();
-				people.putParcelable("account", act);
-				
-				startSetupDays.putExtras(people);
-				
-				startActivity(startSetupDays);
 			}
 		});
 	    

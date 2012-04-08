@@ -4,6 +4,8 @@ package com.christine.cart;
 import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountDatabaseHelper;
 import com.christine.cart.sqlite.DaysActivity;
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,9 +21,11 @@ public class SetupDaysActivity extends Activity {
 	SeekBar daySetter;
 	Button start;
 			
-	int days;
+	ActionBar actionBar;
+
 	private static final int SAVE_PEOPLE = 2;
-	private static String USERNAME;
+	private static String username;
+	private static Integer days = 1;
 	private Account act;
 	
 	AccountDatabaseHelper db;
@@ -32,16 +36,27 @@ public class SetupDaysActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.setup_days);
 	    
-
+	    printDays = (TextView) findViewById(R.id.tv_printdays);
+	    
 	    act = getIntent().getParcelableExtra("account");
 	    if(act!=null){
-	    	USERNAME = act.getName();
+	    	username = act.getName();
+	    	days = Integer.valueOf(act.getDays());
+	    	if(days!=0 && days!=null){
+	    		printDays.setText("I'M SHOPPING FOR " + days + " DAYS.");
+	    	} else {
+	    		printDays.setText("I'M SHOPPING FOR 1 DAY.");
+	    	}
 	    } else{
 	    	throw new RuntimeException("SetupDaysActivity: Passed account is null");
 	    }
+	    
+	    //ActionBar
+  		actionBar = (ActionBar) findViewById(R.id.actionbar);
+  		actionBar.setTitle("People");
+  		actionBar.setHomeAction(new backToDashboardAction());
 	
 		
-		printDays = (TextView) findViewById(R.id.tv_printdays);
 		daySetter = (SeekBar) findViewById(R.id.seekbar_days);
 		daySetter.setMax(31);
 		daySetter.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -57,7 +72,7 @@ public class SetupDaysActivity extends Activity {
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				if(fromUser){
 					days=progress;
-					printDays.setText("Days: "+ days);
+					printDays.setText("I'M SHOPPING FOR " + days + " DAYS.");
 				}
 			}
 		});
@@ -69,7 +84,7 @@ public class SetupDaysActivity extends Activity {
 				
 				Bundle numberOfDays=new Bundle();
 				numberOfDays.putInt("days", days);
-				numberOfDays.putString("username", USERNAME);
+				numberOfDays.putString("username", username);
 				
 				saveDays.putExtras(numberOfDays);
 				
@@ -78,6 +93,21 @@ public class SetupDaysActivity extends Activity {
 		});
 	}
 	
+	/**
+	 * Set up actionbar home
+	 */
+	private class backToDashboardAction implements Action{
+		public int getDrawable(){
+			return R.drawable.ab_home_large;
+		}
+		
+		public void performAction(View view){
+			Intent startAgain = new Intent(SetupDaysActivity.this, DashboardActivity.class);
+			startAgain.putExtra("account", act);
+			startActivity(startAgain);
+		}
+	}
+	 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data){
 		if(requestCode==SAVE_PEOPLE){
 			if(resultCode==RESULT_OK){
