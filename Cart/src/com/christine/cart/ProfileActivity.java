@@ -9,15 +9,19 @@ import com.christine.cart.sqlite.Person;
 import com.christine.cart.sqlite.PersonActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Contacts.People;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,10 +31,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 public class ProfileActivity extends Activity {
 
 	Button btn_submit;
-	Button btn_later;
-	TextView tv_age;
-	TextView tv_weight;
-	TextView tv_height;
+	Button btn_next;
 	EditText et_name;
 	Spinner sp_age;
 	Spinner sp_gender;
@@ -39,8 +40,12 @@ public class ProfileActivity extends Activity {
 	Spinner sp_inches;
 	Spinner sp_activity;
 	
+	ScrollView ll;
+	LayoutInflater li;
+	
 	AccountDatabaseHelper adb;
 	Person p;
+	Person newP;
 	Account act;
 	String username;
 	String gender;
@@ -55,27 +60,14 @@ public class ProfileActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	
-	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.profile);
 	    
 	    adb = new AccountDatabaseHelper(this);
-	    
-	    tv_age = (TextView) findViewById(R.id.tv_age);
-	    tv_weight = (TextView) findViewById(R.id.tv_weight);
-	    tv_height = (TextView) findViewById(R.id.tv_height);
-	    
+	
 	    et_name = (EditText) findViewById(R.id.et_name);
 	    sp_age = (Spinner) findViewById(R.id.sp_age);
 	    sp_gender = (Spinner) findViewById(R.id.sp_gender);
-	    sp_weight = (Spinner) findViewById(R.id.sp_weight);
-	    sp_feet = (Spinner) findViewById(R.id.sp_feet);
-	    sp_inches = (Spinner) findViewById(R.id.sp_inches);
-	    sp_activity = (Spinner) findViewById(R.id.sp_activity);
-	    
-	    btn_submit = (Button) findViewById(R.id.btn_submit);
-	    btn_later = (Button) findViewById(R.id.btn_later);
-	    
+	    btn_next = (Button) findViewById(R.id.btn_next);
 	    
 	    Bundle extras = getIntent().getExtras();
 	    act = extras.getParcelable("account");
@@ -87,6 +79,122 @@ public class ProfileActivity extends Activity {
 	    //setup the default values for each of the UI elements
 	    //based upon what was passed via the previous intent
 	    et_name.setHint(username);
+	    
+	    //to setup the age spinner
+	    List<String> year = new ArrayList<String>();
+	    age = p.getAge();
+	    
+    	for(int i=2; i<99; i++){
+    		year.add(String.valueOf(i) + " years");
+    	}
+    	
+	    ArrayAdapter<String> years = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, year);
+	    years.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    sp_age.setAdapter(years);
+	    sp_age.setSelection(age-2);	//the starting selection
+	    sp_age.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				age = arg2 + 2;
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				return;
+			}
+	    });
+	    
+	    List<String> gen = new ArrayList<String>();
+	    gender = p.getGender();
+	    gen.add("male");
+	    gen.add("female");
+	    ArrayAdapter<String> genders = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gen);
+	    genders.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    sp_gender.setAdapter(genders);
+	    if(gender.equals("m")){
+	    	sp_gender.setSelection(0);	//the starting selection
+	    } else {
+	    	sp_gender.setSelection(1);
+	    }
+	    sp_gender.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				if(arg2==0){
+					gender = "m" ;
+				} else {
+					gender = "f";
+				}
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				return;
+			}
+	    });
+	    
+	    btn_next.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				newP = p;
+
+				String n = et_name.getText().toString();
+				if(n!=null && n!=p.getName() && n.length()!=0){
+					newP.setName(n);
+				} else {
+					newP.setName(username);
+				}
+				if(age!=0 && age!=p.getAge()){
+					newP.setAge(age);
+				} else {
+					Toast.makeText(v.getContext(), "Please enter a valid age!", Toast.LENGTH_LONG);
+				}
+				
+				newP.setGender(gender);
+				
+				setupDefinePersonLayout();
+			}
+		});
+	   
+	}
+	
+	public void setupDefinePersonLayout(){
+		ll = (ScrollView) findViewById(R.id.ll_form_container);
+	    li= (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	    View form02 = li.inflate(R.layout.person_define_02, null);
+	    View form01 = (LinearLayout) findViewById(R.id.ll_form_01);
+	    
+	    ll.removeView(form01);
+	    ll.addView(form02);
+	    
+	   
+		
+	    sp_weight = (Spinner) findViewById(R.id.sp_weight);
+	    sp_feet = (Spinner) findViewById(R.id.sp_feet);
+	    sp_inches = (Spinner) findViewById(R.id.sp_inches);
+	    sp_activity = (Spinner) findViewById(R.id.sp_activity);
+	    btn_submit = (Button) findViewById(R.id.btn_submit);
+	    
+	    //setup weight spinner
+	    List<String> lb = new ArrayList<String>();
+	    weight = p.getWeight();
+	    for(int i=35; i<290; i++){
+	    	lb.add(String.valueOf(i) + " pounds");
+	    }
+	    ArrayAdapter<String> lbs = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lb);
+	    lbs.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    sp_weight.setAdapter(lbs);
+	    sp_weight.setSelection(weight-35);	//the starting selection
+	    sp_weight.setOnItemSelectedListener(new OnItemSelectedListener(){
+
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				weight = arg2 + 35;
+			}
+
+			public void onNothingSelected(AdapterView<?> arg0) {
+				return;
+			}
+	    });
 	    
 	    //get the height and divide it
 	    totalHeight = p.getHeight();
@@ -158,102 +266,12 @@ public class ProfileActivity extends Activity {
 	    	
 	    });
 	    
-	    //to setup the age spinner
-	    List<String> year = new ArrayList<String>();
-	    age = p.getAge();
-	    
-    	for(int i=2; i<99; i++){
-    		year.add(String.valueOf(i) + " years");
-    	}
-    	
-	    ArrayAdapter<String> years = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, year);
-	    years.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	    sp_age.setAdapter(years);
-	    sp_age.setSelection(age-2);	//the starting selection
-	    sp_age.setOnItemSelectedListener(new OnItemSelectedListener(){
-
-			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				age = arg2 + 2;
-			}
-
-			public void onNothingSelected(AdapterView<?> arg0) {
-				return;
-			}
-	    });
-	    
-	    List<String> gen = new ArrayList<String>();
-	    gender = p.getGender();
-	    gen.add("male");
-	    gen.add("female");
-	    ArrayAdapter<String> genders = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, gen);
-	    genders.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	    sp_gender.setAdapter(genders);
-	    if(gender.equals("m")){
-	    	sp_gender.setSelection(0);	//the starting selection
-	    } else {
-	    	sp_gender.setSelection(1);
-	    }
-	    sp_gender.setOnItemSelectedListener(new OnItemSelectedListener(){
-
-			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				if(arg2==0){
-					gender = "m" ;
-				} else {
-					gender = "f";
-				}
-			}
-
-			public void onNothingSelected(AdapterView<?> arg0) {
-				return;
-			}
-	    });
-	    
-	    //setup weight spinner
-	    List<String> lb = new ArrayList<String>();
-	    weight = p.getWeight();
-	    for(int i=35; i<290; i++){
-	    	lb.add(String.valueOf(i) + " pounds");
-	    }
-	    ArrayAdapter<String> lbs = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lb);
-	    lbs.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	    sp_weight.setAdapter(lbs);
-	    sp_weight.setSelection(weight-35);	//the starting selection
-	    sp_weight.setOnItemSelectedListener(new OnItemSelectedListener(){
-
-			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				weight = arg2 + 35;
-			}
-
-			public void onNothingSelected(AdapterView<?> arg0) {
-				return;
-			}
-	    });
-	    
-	    
-	    
 	    
 	    btn_submit.setOnClickListener( new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				//get the person and store it into the db
-				Person newP = p;
-				String n = et_name.getText().toString();
-				int h = inHeight + (ftHeight*12);
 				
-				if(n!=null && n!=p.getName() && n.length()!=0){
-					newP.setName(n);
-				} else {
-					newP.setName(username);
-				}
-				if(age!=0 && age!=p.getAge()){
-					//Log.d("Person Activity: Age stored.", "Age: " + age);
-					newP.setAge(age);
-				} else {
-					Toast.makeText(v.getContext(), "Please enter a valid age!", Toast.LENGTH_LONG);
-				}
+				int h = inHeight + (ftHeight*12);
 				if(h!=0 && h!=p.getHeight()){
 					newP.setHeight(h);
 					//Log.d("Person Activity: Height stored.", "Height in inches" + h);
@@ -291,17 +309,6 @@ public class ProfileActivity extends Activity {
 				startActivity(personSaved);
 			}
 		});
-	    
-	    btn_later.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				Intent defaultUsed = new Intent( getApplicationContext(), SetupPeopleActivity.class);
-				defaultUsed.putExtra("username", username);
-				defaultUsed.putExtra("account", act);
-				startActivity(defaultUsed);
-			}
-		});
-	    
 	}
 
 }

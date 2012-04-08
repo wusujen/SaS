@@ -451,11 +451,11 @@ public class AccountDatabaseHelper extends DatabaseHelper{
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_CCART, null , CCART_USER + "=? ", 
 				new String []{ String.valueOf(username)}, null, null, null);
-        db.close();
+        int num = cursor.getCount();
         cursor.close();
- 
+        db.close();
         // return count
-        return cursor.getCount();
+        return num;
 	}
 	
 	// delete all grocery items associated with one user

@@ -21,17 +21,17 @@
 	
 	
 	<!-- Profile/Person -->
-	<string name="title_profile">PROFILE</string>
+	<string name="tv_stepCount1">STEP 1 OF 2</string>
 	<string name="tv_profile">Tell us a bit about yourself.</string>
 	<string name="btn_later">Do It Later</string>
 	<string name="title_people">PEOPLE</string>
 	<string name="title_person">ADD PERSON</string>
 	<string name="tv_title">Add the people that you shop for.</string>
-	<string name="tv_name">name</string>
-	<string name="tv_age">age</string>
-	<string name="tv_height">height</string>
-	<string name="tv_weight">weight</string>
-	<string name="tv_activity">level of activity</string>
+	<string name="tv_name">NAME</string>
+	<string name="tv_age">AGE</string>
+	<string name="tv_height">HEIGHT</string>
+	<string name="tv_weight">WEIGHT</string>
+	<string name="tv_activity">ACTIVITY LEVEL</string>
 	
 	<!-- Setup People -->
 	<string name="setupp_header">User Properties</string>
@@ -43,7 +43,7 @@
 	<string name="btn_boy">Boy</string>
 	<string name="btn_girl">Girl</string>
 	<string name="btn_edit">Edit</string>
-	<string name="tv_gender">gender</string>
+	<string name="tv_gender">GENDER</string>
 	
 	<!-- Setup Days -->
 	<string name="setupd_prompt">How many Days are you shopping for?</string>

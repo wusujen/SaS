@@ -84,7 +84,6 @@ public class DashboardActivity extends Activity {
 						if(main){
 							Intent startSetupPeople = new Intent(DashboardActivity.this, SetupPeopleActivity.class);
 							startSetupPeople.putExtra("account",act);
-							startSetupPeople.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 							startActivity(startSetupPeople);
 						}
 					}
@@ -93,7 +92,6 @@ public class DashboardActivity extends Activity {
 				if(!main){
 					Intent startSetupProfile = new Intent(DashboardActivity.this, ProfileActivity.class);
 					startSetupProfile.putExtra("account",act);
-					startSetupProfile.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 					startActivity(startSetupProfile);
 				}
 				

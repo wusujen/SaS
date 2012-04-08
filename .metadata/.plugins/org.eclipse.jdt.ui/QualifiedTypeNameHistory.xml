@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.widget.AbsListView"/>
 <fullyQualifiedTypeName name="android.util.SparseBooleanArray"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Item"/>
 <fullyQualifiedTypeName name="android.view.SurfaceHolder.Callback"/>
@@ -29,7 +28,6 @@
 <fullyQualifiedTypeName name="android.view.WindowManager.LayoutParams"/>
 <fullyQualifiedTypeName name="android.graphics.Paint.Align"/>
 <fullyQualifiedTypeName name="android.widget.LinearLayout"/>
-<fullyQualifiedTypeName name="com.christine.cart.R.layout"/>
 <fullyQualifiedTypeName name="android.view.LayoutInflater"/>
 <fullyQualifiedTypeName name="com.christine.cart.InputSearchActivity"/>
 <fullyQualifiedTypeName name="android.widget.SeekBar"/>
@@ -54,10 +52,12 @@
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.AccountDatabaseHelper"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Person"/>
-<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="com.christine.cart.R"/>
-<fullyQualifiedTypeName name="com.christine.cart.R.id"/>
 <fullyQualifiedTypeName name="com.christine.cart.R.drawable"/>
+<fullyQualifiedTypeName name="com.christine.cart.R.id"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="com.christine.cart.R.layout"/>
+<fullyQualifiedTypeName name="android.widget.ScrollView"/>
 </qualifiedTypeNameHistroy>
