@@ -7,6 +7,8 @@ import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountDatabaseHelper;
 import com.christine.cart.sqlite.Person;
 import com.christine.cart.sqlite.PersonActivity;
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
 
 import android.app.Activity;
 import android.content.Context;
@@ -39,6 +41,10 @@ public class ProfileActivity extends Activity {
 	Spinner sp_feet;
 	Spinner sp_inches;
 	Spinner sp_activity;
+	TextView tv_profile_step;
+	TextView tv_profile_desc;
+	
+	ActionBar actionBar;
 	
 	ScrollView ll;
 	LayoutInflater li;
@@ -68,13 +74,22 @@ public class ProfileActivity extends Activity {
 	    sp_age = (Spinner) findViewById(R.id.sp_age);
 	    sp_gender = (Spinner) findViewById(R.id.sp_gender);
 	    btn_next = (Button) findViewById(R.id.btn_next);
+	    tv_profile_step = (TextView) findViewById(R.id.tv_profile_desc);
+	    tv_profile_desc = (TextView) findViewById(R.id.tv_profile_step);
 	    
+		//ActionBar
+		actionBar = (ActionBar) findViewById(R.id.actionbar);
+		actionBar.setTitle("Log In");
+		actionBar.setHomeAction(new backToDashboardAction());
+		
 	    Bundle extras = getIntent().getExtras();
 	    act = extras.getParcelable("account");
 	    username = act.getName();
 	    
+	    
 	    p = Person.createPerson(PersonActivity.MAN, username);
 	    p.setName(username);
+	    	    
 	    
 	    //setup the default values for each of the UI elements
 	    //based upon what was passed via the previous intent
@@ -157,6 +172,25 @@ public class ProfileActivity extends Activity {
 	   
 	}
 	
+	/**
+	 * Set up actionbar home
+	 */
+	private class backToDashboardAction implements Action{
+		public int getDrawable(){
+			return R.drawable.ab_home_large;
+		}
+		
+		public void performAction(View view){
+			Intent startAgain = new Intent(ProfileActivity.this, DashboardActivity.class);
+			startAgain.putExtra("account", act);
+			startActivity(startAgain);
+		}
+	}
+	
+	
+	/**
+	 * Inflate the rest of the layout form
+	 */
 	public void setupDefinePersonLayout(){
 		ll = (ScrollView) findViewById(R.id.ll_form_container);
 	    li= (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -165,14 +199,15 @@ public class ProfileActivity extends Activity {
 	    
 	    ll.removeView(form01);
 	    ll.addView(form02);
-	    
-	   
 		
 	    sp_weight = (Spinner) findViewById(R.id.sp_weight);
 	    sp_feet = (Spinner) findViewById(R.id.sp_feet);
 	    sp_inches = (Spinner) findViewById(R.id.sp_inches);
 	    sp_activity = (Spinner) findViewById(R.id.sp_activity);
 	    btn_submit = (Button) findViewById(R.id.btn_submit);
+	    
+	    tv_profile_step.setText("STEP 2 OF 2");
+	    tv_profile_desc.setText("Hi " + newP.getName() + ". \n Just a little bit more about yourself and we'll be done!");
 	    
 	    //setup weight spinner
 	    List<String> lb = new ArrayList<String>();

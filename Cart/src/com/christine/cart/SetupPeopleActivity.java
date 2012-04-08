@@ -7,6 +7,8 @@ import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountDatabaseHelper;
 import com.christine.cart.sqlite.Person;
 import com.christine.cart.sqlite.PersonActivity;
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
 
 import android.app.Activity;
 import android.content.Context;
@@ -30,6 +32,8 @@ public class SetupPeopleActivity extends Activity {
 	Button edit;
 	ListView peopleList;
 	
+	ActionBar actionBar;
+	
 	private static String username = null;
     private static String password = null;
     public static final int ADD_PERSON = 1;
@@ -46,6 +50,12 @@ public class SetupPeopleActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.setup_people);
 	    
+	    
+	    //ActionBar
+  		actionBar = (ActionBar) findViewById(R.id.actionbar);
+  		actionBar.setTitle("People");
+  		actionBar.setHomeAction(new backToDashboardAction());
+  		
 	    act = getIntent().getParcelableExtra("account");
 	    username = act.getName();
 	    
@@ -91,6 +101,21 @@ public class SetupPeopleActivity extends Activity {
 				}
 			}
 		});
+	}
+	
+	/**
+	 * Set up actionbar home
+	 */
+	private class backToDashboardAction implements Action{
+		public int getDrawable(){
+			return R.drawable.ab_home_large;
+		}
+		
+		public void performAction(View view){
+			Intent startAgain = new Intent(SetupPeopleActivity.this, DashboardActivity.class);
+			startAgain.putExtra("account", act);
+			startActivity(startAgain);
+		}
 	}
 	
 	@Override
