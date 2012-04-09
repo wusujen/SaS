@@ -74,12 +74,12 @@ public class ProfileActivity extends Activity {
 	    sp_age = (Spinner) findViewById(R.id.sp_age);
 	    sp_gender = (Spinner) findViewById(R.id.sp_gender);
 	    btn_next = (Button) findViewById(R.id.btn_next);
-	    tv_profile_step = (TextView) findViewById(R.id.tv_profile_step);
-	    tv_profile_desc = (TextView) findViewById(R.id.tv_profile_desc);
+	    tv_profile_step = (TextView) findViewById(R.id.tv_profile_desc);
+	    tv_profile_desc = (TextView) findViewById(R.id.tv_profile_step);
 	    
 		//ActionBar
 		actionBar = (ActionBar) findViewById(R.id.actionbar);
-		actionBar.setTitle("Add Person");
+		actionBar.setTitle("Log In");
 		actionBar.setHomeAction(new backToDashboardAction());
 		
 	    Bundle extras = getIntent().getExtras();

@@ -82,7 +82,7 @@ public class SetupPeopleActivity extends Activity {
 	    currentItemNumber = adb.getGroceryCount(username);
 	    adb.close();
 	    
-	    if(currentItemNumber != 0) {
+	    if(currentItemNumber == 0) {
 	    	next.setText("Back to Cart");
 	    }
 	    

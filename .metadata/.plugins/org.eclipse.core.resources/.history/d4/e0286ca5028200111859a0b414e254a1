@@ -6,10 +6,7 @@
     android:gravity="left" >
 
 
-  <com.markupartist.android.widget.ActionBar
-        android:id="@+id/actionbar"
-        style="@style/ActionBar" />
-    
+
     <LinearLayout
         android:id="@+id/ll_container"
         android:layout_width="match_parent"
