@@ -29,7 +29,7 @@ public class GraphLabelView extends View{
 	public void onDraw(Canvas c){
 		super.onDraw(c);
 		
-		int xPos = 75;
+		int xPos = 65;
 		int h = getHeight();
 		int base = h-90;
 		int topline = 100;
@@ -64,19 +64,19 @@ public class GraphLabelView extends View{
 		textPaint .isAntiAlias();
 		textPaint .setTextAlign(Paint.Align.RIGHT);
 		textPaint .setTextSize(18);
+		textPaint .setAntiAlias(true);
+		textPaint .setSubpixelText(true);
 		
 		for(int i=0; i<days; i++){
-			if(days>10 && days<18){
+			if(days>5 && days<9){
 				int mod = i%2;
 				if(mod==0){
 					int yPos = base - (Math.round((float) graphHeight / (float) days)*i); 
-					c.drawText( i + " days", xPos, yPos+4, textPaint);
-				}
-			} else if(days>18){
-				int mod = i%4;
-				if(mod==0){
-					int yPos = base - (Math.round((float) graphHeight / (float) days)*i); 
-					c.drawText( i + " days", xPos, yPos+4, textPaint);
+					if(days==1){
+						c.drawText( i + " day", xPos, yPos+4, textPaint);
+					} else {
+						c.drawText( i + " days", xPos, yPos+4, textPaint);
+					}
 				}
 			} else {
 				int yPos = base - (Math.round((float) graphHeight / (float) days)*i); 

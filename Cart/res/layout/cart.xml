@@ -3,36 +3,41 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="fill_parent"
     android:layout_height="match_parent" >
-    
+
     <com.markupartist.android.widget.ActionBar
         android:id="@+id/actionbar"
         style="@style/ActionBar" />
-
-    <FrameLayout
-        android:id="@+id/frameLayout2"
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/actionbar" >
-
+        android:layout_alignParentTop="true"
+        android:gravity="bottom" >
+
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView1"
-            android:layout_width="515dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="right" >
-
+            android:layout_width="match_parent"
+            android:layout_height="278dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="60dp" >
+
             <LinearLayout
                 android:id="@+id/linearLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="280dp"
+                android:layout_gravity="bottom"
                 android:orientation="horizontal" >
-
+
                 <com.christine.cart.visual.GraphView
                     android:id="@+id/graphview"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_gravity="top"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_gravity="bottom" />
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -41,21 +46,23 @@
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
             android:orientation="horizontal" >
-
+
             <com.christine.cart.visual.GraphLabelView
                 android:id="@+id/graphlabelview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top" />
+                android:layout_height="280dp"
+                android:layout_gravity="bottom" />
 
         </LinearLayout>
-
+
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
             android:orientation="vertical" >
 
             <TextView
@@ -63,9 +70,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
                 android:textSize="18sp" />
-
+
             <TextView
                 android:id="@+id/tv_cart_peopledays"
                 android:layout_width="match_parent"
@@ -75,31 +81,27 @@
                 android:textSize="12sp" />
 
         </LinearLayout>
-
+
         <SlidingDrawer
             android:id="@+id/sd_itemlist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="left"
             android:content="@+id/sd_content"
             android:handle="@+id/sd_handle" >
-
+
             <RelativeLayout
                 android:id="@+id/sd_handle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left" >
-                
-				 <Button
-				     android:id="@+id/btn_handle"
-				     android:background="@drawable/cart_tab"
-				     android:layout_width="wrap_content"
-				     android:layout_height="wrap_content"
-				     android:layout_marginLeft="12dp" />
-			 
+                android:gravity="bottom" >
+
+                <Button
+                    android:id="@+id/btn_handle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:background="@drawable/cart_tab" />
             </RelativeLayout>
-
-           
 
             <LinearLayout
                 android:id="@+id/sd_content"
@@ -116,7 +118,6 @@
                     android:orientation="vertical" >
                 </LinearLayout>
 
-
                 <ListView
                     android:id="@+id/sd_list"
                     android:layout_width="match_parent"
@@ -126,17 +127,14 @@
                     android:scrollbarFadeDuration="0" >
                 </ListView>
             </LinearLayout>
-
         </SlidingDrawer>
-
+
         <TableRow
             android:id="@+id/tableRow1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:gravity="center|right" >
-
-           
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true" >
 
             <Button
                 android:id="@+id/btn_scan"
@@ -144,17 +142,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginRight="-15dp"
-                android:background="@drawable/btn_scan"/>
-            
-             <Button
+                android:background="@drawable/btn_scan" />
+
+            <Button
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginRight="12dp"
-                android:background="@drawable/btn_search"/>
+                android:background="@drawable/btn_search" />
         </TableRow>
 
-    </FrameLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

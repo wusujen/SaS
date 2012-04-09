@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.support.v4.view.ViewPager.LayoutParams"/>
-<fullyQualifiedTypeName name="android.view.ViewGroup.LayoutParams"/>
 <fullyQualifiedTypeName name="android.view.ViewGroup"/>
 <fullyQualifiedTypeName name="android.widget.LinearLayout.LayoutParams"/>
 <fullyQualifiedTypeName name="android.view.SurfaceView"/>
@@ -44,7 +42,6 @@
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Person"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
-<fullyQualifiedTypeName name="com.christine.cart.R"/>
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="com.christine.cart.R.layout"/>
 <fullyQualifiedTypeName name="android.widget.ScrollView"/>
@@ -60,4 +57,7 @@
 <fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Item"/>
 <fullyQualifiedTypeName name="com.christine.cart.R.drawable"/>
+<fullyQualifiedTypeName name="com.christine.cart.R"/>
+<fullyQualifiedTypeName name="com.christine.cart.R.color"/>
+<fullyQualifiedTypeName name="android.content.res.Resources"/>
 </qualifiedTypeNameHistroy>

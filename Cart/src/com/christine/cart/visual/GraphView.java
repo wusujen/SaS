@@ -3,11 +3,13 @@ package com.christine.cart.visual;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.christine.cart.R;
 import com.christine.cart.sqlite.Item;
 import com.christine.cart.sqlite.PreviousHistory;
 import com.christine.cart.sqlite.RecDailyValues;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -24,6 +26,7 @@ public class GraphView extends View{
 	public int _topline;
 	public int _base;
 	public int _graphHeight;
+	public int _cap;
 	public ArrayList<Item> selectedItems;
 	public ArrayList<Integer> selectedQuantities;
 
@@ -41,13 +44,18 @@ public class GraphView extends View{
 		"vitamin D", "vitamin B6", "vitamin B12", "vitamin A", "vitamin E", "vitamin K",
 		"saturated fat", "cholesterol"};
 	
-
+	private static int colorGreen;
+	private static int colorOrange;
 
 	public GraphView(Context context) {
 		super(context);
 
 		selectedItems = new ArrayList<Item>();
 		selectedQuantities = new ArrayList<Integer>();
+		
+		Resources res = getResources();
+		colorGreen = res.getColor(R.color.theme_green);
+		colorOrange = res.getColor(R.color.theme_orange);
 	}
 
 	public GraphView(Context context, AttributeSet attrs) {
@@ -55,6 +63,10 @@ public class GraphView extends View{
 		
 		selectedItems = new ArrayList<Item>();
 		selectedQuantities = new ArrayList<Integer>();
+		
+		Resources res = getResources();
+		colorGreen = res.getColor(R.color.theme_green);
+		colorOrange = res.getColor(R.color.theme_orange);
 	}
 
 	public GraphView(Context context, AttributeSet attrs, int defStyle) {
@@ -62,6 +74,10 @@ public class GraphView extends View{
 		
 		selectedItems = new ArrayList<Item>();
 		selectedQuantities = new ArrayList<Integer>();
+		
+		Resources res = getResources();
+		colorGreen = res.getColor(R.color.theme_green);
+		colorOrange = res.getColor(R.color.theme_orange);
 	}
 	
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
@@ -77,12 +93,14 @@ public class GraphView extends View{
 	@Override
 	protected void onDraw(Canvas c) {
 		super.onDraw(c);
-		Paint blueLine = new Paint();
-		blueLine.setColor(Color.BLUE);
-		blueLine.setStrokeWidth(2);
+		
+		Paint greenLine = new Paint();
+		greenLine.setColor(colorGreen);
+		greenLine.setStrokeWidth(2);
 		
 		Paint blackLine = new Paint();
 		blackLine.setColor(Color.BLACK);
+		blackLine.setStrokeWidth(2);
 		
 		Paint greyLine = new Paint();
 		greyLine.setColor(Color.LTGRAY);
@@ -93,6 +111,7 @@ public class GraphView extends View{
 		_base = h - 90;
 		_topline = 100;
 		_graphHeight = _base - _topline;
+		_cap = _topline - 20;
 		float interpolate = (float) _graphHeight / (float) _days;
 		
 		
@@ -101,7 +120,7 @@ public class GraphView extends View{
 			float b = _topline + (i * interpolate);
 			c.drawLine(20, b, w - 20, b, greyLine);
 		} 
-		c.drawLine(20, _topline, w - 20, _topline, blueLine);	//top line
+		c.drawLine(20, _topline, w - 20, _topline, greenLine);	//top line
 		c.drawLine(20, _base, w - 20, _base, blackLine);		//bottom line
 		
 		determineMode();
@@ -274,6 +293,9 @@ public class GraphView extends View{
 		Paint grey = new Paint();
 		grey.setColor(Color.LTGRAY);
 		
+		Paint orange = new Paint();
+		orange.setColor(colorOrange);
+		
 		Paint blackText = new Paint();
 		blackText.setColor(Color.BLACK);
 		blackText.isAntiAlias();
@@ -296,9 +318,15 @@ public class GraphView extends View{
 			
 			// BAR
 			int barHeight = Math.round(ratios.get(o) * (float) graphHeight);
+			int bh = base - barHeight;
 			
-			Rect baseRect = new Rect((startBar + spacing), base - barHeight, (endBar+spacing), base);
-			c.drawRect(baseRect, grey);
+			if(bh < (base-_cap)){
+				Rect smallerRect = new Rect((startBar+spacing), _cap, (endBar+spacing), base);
+				c.drawRect(smallerRect, orange);
+			} else {
+				Rect baseRect = new Rect((startBar + spacing), base - barHeight, (endBar+spacing), base);
+				c.drawRect(baseRect, grey);
+			}
 		}
 		
 	}
@@ -315,9 +343,11 @@ public class GraphView extends View{
 	public void drawSingleMode(Canvas c, int base, int graphHeight) {
 		
 		// Bar Colors
-		Paint blue = new Paint();
-		blue.setColor(Color.BLUE);
+		Paint green = new Paint();
+		green.setColor(colorGreen);
 		
+		Paint orange = new Paint();
+		orange.setColor(colorOrange);
 		
 		ArrayList<Float> selectedNutrition = getAddedNutrition(0);
 		
@@ -330,9 +360,12 @@ public class GraphView extends View{
 			int barHeight = Math.round(ratios.get(reduced[i]) * (float) graphHeight);
 			int addHeight = Math.round(selectedNutrition.get(i) * (float) graphHeight);
 			
-			Rect addRect = new Rect((startBar+spacing), base - barHeight, (endBar+spacing), base - barHeight
-					+ addHeight);
-			c.drawRect(addRect, blue);
+			int bh = base - barHeight;
+			if(bh > (base-_cap)){
+				Rect addRect = new Rect((startBar+spacing), base - barHeight, (endBar+spacing), base - barHeight
+						+ addHeight);
+				c.drawRect(addRect, green);
+			}
 		}
 	}
 	
@@ -349,15 +382,17 @@ public class GraphView extends View{
 	public void drawCompareMode(Canvas c, int base, int graphHeight){
 		
 		Paint orange = new Paint();
-		orange.setColor(Color.YELLOW);
+		orange.setColor(colorOrange);
 		
-		Paint blue = new Paint();
-		blue.setColor(Color.BLUE);
+		Paint green = new Paint();
+		green.setColor(colorGreen);
 		
 		Paint blackText = new Paint();
 		blackText.setColor(Color.BLACK);
 		blackText.isAntiAlias();
 		blackText.setTextSize(18);
+		blackText.setAntiAlias(true);
+		blackText.setSubpixelText(true);
 		
 		// WIDTH
 		int startBarB = 40;
@@ -382,10 +417,23 @@ public class GraphView extends View{
 			int barHeightB = Math.round(NutrientB.get(i) * (float) graphHeight);
 			int barHeightO = Math.round(NutrientO.get(i) * (float) graphHeight);
 			
-			Rect baseRect = new Rect((startBarB+spacing), base - barHeightB, (endBarB+spacing), base);
-			Rect compareRect = new Rect((startBarO+spacing), base - barHeightO, (endBarO+spacing), base);
+			int top = base - _cap;
+			Rect baseRect = new Rect();
+			Rect compareRect = new Rect();
 			
-			c.drawRect(baseRect, blue);
+			if(base - barHeightB < top){
+				baseRect = new Rect((startBarB+spacing), _cap, (endBarB+spacing), base);
+			} else {
+				baseRect = new Rect((startBarB+spacing), base - barHeightB, (endBarB+spacing), base);
+			}
+			
+			if(base - barHeightO < top){
+				compareRect = new Rect((startBarO+spacing), _cap, (endBarO+spacing), base);			
+			} else {
+				compareRect = new Rect((startBarO+spacing), base - barHeightO, (endBarO+spacing), base);
+			}
+			
+			c.drawRect(baseRect, green);
 			c.drawRect(compareRect, orange);
 		}
 	}

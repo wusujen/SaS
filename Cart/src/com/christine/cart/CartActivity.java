@@ -242,6 +242,8 @@ public class CartActivity extends Activity {
 		//get an updated version of the adb on resume each time
 		adb = new AccountDatabaseHelper(this);
 		ccart = adb.getAllGroceryItemsOf(currentUsername);
+		int groceryCount = adb.getGroceryCountFor(currentUsername);
+		added.setText(groceryCount + " ITEMS IN CART");
 		adb.close();
 		
 		if (ccart != null) {
@@ -255,7 +257,7 @@ public class CartActivity extends Activity {
 		if (check == 1) {
 			updateGraphWithSelected(results);
 			// setup the listview if current cart is not null
-		} 
+		} 	
 		
 		PreviousHistory currentCart = getCartTotalsFor(currentUsername);
 		totalRDV = getRDVTotalsFor(currentUsername);
@@ -640,7 +642,7 @@ public class CartActivity extends Activity {
 			ndb.close();
 			
 			selectedItems.add(selectedItem);
-			String one = "<font color='#0000ff'>" + selectedItem.getItemName() +"</font> SELECTED";
+			String one = "<font color='#7EAD1A'>" + selectedItem.getItemName() +"</font> SELECTED";
 			added.setText(Html.fromHtml(one));
 
 	
@@ -689,7 +691,11 @@ public class CartActivity extends Activity {
 				listItems.clear();
 				listItems = sd_list.getCheckedItemPositions();
 				
-				added.setText("");
+				adb = new AccountDatabaseHelper(CartActivity.this);
+				int groceryCount = adb.getGroceryCountFor(currentUsername);
+				adb.close();
+				
+				added.setText(groceryCount + " ITEMS IN CART");
 				
 				if (selectedItems != null || quantities != null) {
 					selectedItems.clear();
@@ -722,12 +728,12 @@ public class CartActivity extends Activity {
 				}
 				
 				if(selectedItems.size()==1){
-					String one = "<font color='#0000ff'>" + selectedItems.get(0).getItemName() +"</font> SELECTED";
+					String one = "<font color='#7EAD1A'>" + selectedItems.get(0).getItemName() +"</font> SELECTED";
 					added.setText(Html.fromHtml(one));
 
 				} else if(selectedItems.size()==2){
-					String two = "COMPARE <font color='#0000ff'>" + selectedItems.get(0).getItemName() +"</font>"
-							+ " VS <font color='#ffff00'>" + selectedItems.get(1).getItemName() +"</font>";
+					String two = "COMPARE <font color='#7EAD1A'>" + selectedItems.get(0).getItemName() +"</font>"
+							+ " VS <font color='#E57716'>" + selectedItems.get(1).getItemName() +"</font>";
 					added.setText(Html.fromHtml(two));
 					
 				} else if (selectedItems.size() == 3) {
