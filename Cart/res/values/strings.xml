@@ -75,6 +75,8 @@
 
 	
 	<!-- Checkout -->
+	<string name="tv_summary_title">YOUR PROGRESS</string>
+	<string name="btn_finish">I\'M DONE!</string>
 	<string name="tv_checkout">Checkout</string>
 	<string name="btn_logout">Logout</string>	
 	<string name ="btn_new_cart">New Cart</string>

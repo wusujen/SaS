@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item value="257" key="DIALOG_WIDTH"/>
-		<item value="199" key="DIALOG_Y_ORIGIN"/>
-		<item value="1609" key="DIALOG_X_ORIGIN"/>
-		<item value="380" key="DIALOG_HEIGHT"/>
+		<item value="312" key="DIALOG_WIDTH"/>
+		<item value="8" key="DIALOG_Y_ORIGIN"/>
+		<item value="396" key="DIALOG_HEIGHT"/>
+		<item value="8" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="person_gender" key="selection"/>
+		<item value="backToCart" key="selection"/>
 		<list key="findhistory">
-			<item value="person_gender"/>
-			<item value="startSetupPeople"/>
-			<item value="errorText"/>
-			<item value="5"/>
-			<item value="layout_height"/>
-			<item value="Position:"/>
-			<item value="previous history fetched"/>
-			<item value="contents"/>
+			<item value="startAgain"/>
+			<item value="setText"/>
+			<item value="start"/>
+			<item value="start cart"/>
+			<item value="checkout"/>
+			<item value="username"/>
+			<item value="use"/>
+			<item value="is selected"/>
 		</list>
 		<list key="replacehistory">
+			<item value="backToCart"/>
 			<item value="startSetupProfile"/>
 			<item value="results"/>
 			<item value="gender"/>
@@ -32,7 +33,6 @@
 			<item value="sp_age"/>
 			<item value="newPerson"/>
 			<item value="Person"/>
-			<item value=""/>
 		</list>
 	</section>
 </section>

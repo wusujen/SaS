@@ -37,13 +37,6 @@ public class Item implements Parcelable {
 		
 	}
 	
-	public Item(String itemname, float calories, float protein, 
-			float totalfats, float carbs, float fiber, float sugar, float calcium, float iron, float magnesium, float potassium, float sodium,
-			float zinc, float vitC, float vitB6, float vitB12, float vitA, float vitD, float vitE, float vitK, float fatSat,
-			float fatMono, float fatPoly, float cholesterol, float servingWeight, String serving){
-		this(null, itemname, calories, protein, totalfats, carbs, fiber, sugar, calcium, iron, magnesium, potassium, sodium, zinc, vitC, vitB6, vitB12, vitA, vitD, vitE, 
-					vitK, fatSat, fatMono, fatPoly, cholesterol, servingWeight, serving);
-	}
 	public Item(Integer id, String itemname, float calories, float protein, 
 						float totalfats, float carbs, float fiber, float sugar, float calcium, float iron, float magnesium, float potassium, float sodium,
 						float zinc, float vitC, float vitB6, float vitB12, float vitA, float vitD, float vitE, float vitK, float fatSat,

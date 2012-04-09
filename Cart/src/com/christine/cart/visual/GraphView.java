@@ -65,7 +65,7 @@ public class GraphView extends View{
 	}
 	
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
-		heightMeasureSpec = 480;
+		heightMeasureSpec = MeasureSpec.getSize(heightMeasureSpec);
 		if( MODE == 0 || MODE == 1){
 			widthMeasureSpec = 3800;
 		} else if (MODE == 2){
@@ -91,7 +91,7 @@ public class GraphView extends View{
 		int h = getHeight();
 
 		_base = h - 90;
-		_topline = 90;
+		_topline = 100;
 		_graphHeight = _base - _topline;
 		float interpolate = (float) _graphHeight / (float) _days;
 		

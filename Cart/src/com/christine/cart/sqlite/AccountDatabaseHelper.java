@@ -306,22 +306,25 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 		String countQuery = "SELECT  * FROM " + TABLE_PEOPLE;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
-        db.close();
+        
+        int peeps = cursor.getCount();
         cursor.close();
- 
+        db.close();
+        
         // return count
-        return cursor.getCount();
+        return peeps;
 	}
 	
 	public int getPersonCountFor(String username){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_PEOPLE, null , PEOPLE_USER + "=? ", 
 				new String []{ String.valueOf(username)}, null, null, null);
-        db.close();
+        int peeps = cursor.getCount();
         cursor.close();
- 
+        db.close();
+        
         // return count
-        return cursor.getCount();
+        return peeps;
 	}
 	
 	public int updatePerson(Person person, Person newPerson){

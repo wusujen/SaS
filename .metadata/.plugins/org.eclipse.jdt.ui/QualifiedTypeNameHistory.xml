@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.util.SparseBooleanArray"/>
-<fullyQualifiedTypeName name="com.christine.cart.sqlite.Item"/>
-<fullyQualifiedTypeName name="android.view.SurfaceHolder.Callback"/>
-<fullyQualifiedTypeName name="android.view.MotionEvent"/>
-<fullyQualifiedTypeName name="android.graphics.Bitmap"/>
-<fullyQualifiedTypeName name="android.graphics.Bitmap.Config"/>
-<fullyQualifiedTypeName name="android.graphics.Bitmap.CompressFormat"/>
 <fullyQualifiedTypeName name="java.io.OutputStream"/>
 <fullyQualifiedTypeName name="android.support.v4.view.ViewPager.LayoutParams"/>
 <fullyQualifiedTypeName name="android.view.ViewGroup.LayoutParams"/>
@@ -44,7 +37,6 @@
 <fullyQualifiedTypeName name="android.R"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="com.markupartist.android.widget.ActionBar"/>
-<fullyQualifiedTypeName name="com.markupartist.android.widget.ActionBar.Action"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="android.accounts.Account"/>
@@ -60,4 +52,12 @@
 <fullyQualifiedTypeName name="com.christine.cart.R.layout"/>
 <fullyQualifiedTypeName name="android.widget.ScrollView"/>
 <fullyQualifiedTypeName name="com.christine.cart.R.id"/>
+<fullyQualifiedTypeName name="android.view.View.MeasureSpec"/>
+<fullyQualifiedTypeName name="android.text.SpannableString"/>
+<fullyQualifiedTypeName name="android.text.Spannable"/>
+<fullyQualifiedTypeName name="android.text.style.ForegroundColorSpan"/>
+<fullyQualifiedTypeName name="android.text.Html"/>
+<fullyQualifiedTypeName name="android.app.AlertDialog"/>
+<fullyQualifiedTypeName name="android.content.DialogInterface"/>
+<fullyQualifiedTypeName name="com.markupartist.android.widget.ActionBar.Action"/>
 </qualifiedTypeNameHistroy>

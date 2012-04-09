@@ -78,7 +78,7 @@
         </activity>
         
         <activity android:name="InputSearchActivity" 
-            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape"></activity>
         
         <activity android:name="InputScanActivity" 
@@ -145,17 +145,9 @@
 	        android:screenOrientation="landscape"></activity>
 	    
 	    <activity android:name="SummaryActivity"
-	        android:theme="@android:style/Theme.Light.NoTitleBar"
+	        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
 	        android:screenOrientation="landscape"></activity>
-	    
-	    <activity android:name="NextGoalsActivity"
-	         android:theme="@android:style/Theme.Light.NoTitleBar"
-	         android:screenOrientation="landscape"></activity>
 
-	    
-	   
-	    
-	    
     </application>
 
 </manifest>

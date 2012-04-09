@@ -96,21 +96,23 @@ public class SummaryActivity extends Activity {
 			
 			//give the advice!
 			String summary = advisor.getNegativeAdvice() + " \n \n" + advisor.getPositiveAdvice();
+			String cleaned = summary.replaceAll("\\s","");
+			if(cleaned.length() == 0) {
+				summary = "You didn't improve or digress this time! Staying level is pretty good--but remember, you can always be a better you!";
+			}
 			tv_summary.setText(summary);
 			
 		} else {
-			tv_summary.setText("No Items in Cart");
+			tv_summary.setText("Dude, you didn't buy anything, so we can't tell you anything. Try again next time!");
 		}
 		
 		btn_goals.setOnClickListener( new View.OnClickListener(){
 			public void onClick(View v){
 				advisor.clearPreviouslyShownToasts();
-				Intent goCheckout = new Intent(SummaryActivity.this,
-						CheckoutActivity.class);
-				goCheckout.putExtra("account", act);
-				goCheckout.putExtra("days", days);
-				goCheckout.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-				startActivity(goCheckout);
+				Intent goToDashboard = new Intent(SummaryActivity.this,
+						DashboardActivity.class);
+				goToDashboard.putExtra("account", act);
+				startActivity(goToDashboard);
 			}
 			
 		});

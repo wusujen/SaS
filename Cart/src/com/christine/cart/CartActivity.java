@@ -19,12 +19,18 @@ import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Gravity;
@@ -51,6 +57,7 @@ public class CartActivity extends Activity {
 	Button searchItem;
 	Button scanItem;
 	TextView added;
+	TextView peopleDays;
 	SlidingDrawer sd_itemlist;
 	ListView sd_list;
 	
@@ -147,6 +154,11 @@ public class CartActivity extends Activity {
 		advisor = new NutritionAdvisor();
 		
 		added = (TextView) findViewById(R.id.tv_added);
+		peopleDays = (TextView) findViewById(R.id.tv_cart_peopledays);
+		
+		//start the peopledays goal reminder
+		int peopleNumber = adb.getPersonCountFor(currentUsername);
+		peopleDays.setText("You're shopping for " + days + " days and " + peopleNumber + " people");
 		
 		// initiates the listview within the drawer
 		sd_list = (ListView) findViewById(R.id.sd_list);
@@ -212,11 +224,13 @@ public class CartActivity extends Activity {
 					}
 					
 					if(selectedItems.size()==1){
-						added.setText(selectedItems.get(0).getItemName() + " is selected.");
+						String one = "<font color='#0000ff'>" + selectedItems.get(0).getItemName() +"</font> SELECTED";
+						added.setText(Html.fromHtml(one));
 
 					} else if(selectedItems.size()==2){
-						
-						added.setText("Compare " + selectedItems.get(0).getItemName() + " and " + selectedItems.get(1).getItemName());
+						String two = "COMPARE <font color='#0000ff'>" + selectedItems.get(0).getItemName() +"</font>"
+								+ " VS <font color='#ffff00'>" + selectedItems.get(1).getItemName() +"</font>";
+						added.setText(Html.fromHtml(two));
 						
 					} else if (selectedItems.size() == 3) {
 						String tempItemName = ccartList.getItem(position);
@@ -385,6 +399,7 @@ public class CartActivity extends Activity {
 		public void performAction(View view){
 			Intent daysScreen = new Intent(CartActivity.this, SetupDaysActivity.class);
 			daysScreen.putExtra("account", act);
+			daysScreen.putExtra("cart", 1);
 			startActivity(daysScreen);
 		}
 	}
@@ -415,15 +430,7 @@ public class CartActivity extends Activity {
 		public void performAction(View view){
 			PreviousHistory cTotals = getCartTotalsFor(currentUsername);
 			if(cTotals.getCalories() != 0) {
-				Intent goCheckout = new Intent(CartActivity.this,
-						SummaryActivity.class);
-				goCheckout.putExtra("cartTotals", cTotals); // pass the
-															// parceable!
-				goCheckout.putExtra("account", act);
-				goCheckout.putExtra("days", days);
-				goCheckout.putExtra("rdv", totalRDV);
-				goCheckout.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-				startActivity(goCheckout);
+				showCheckoutDialog(cTotals);
 			} else {
 				Toast noItemsInCart = Toast.makeText(CartActivity.this, "You have no items in your cart yet!", Toast.LENGTH_SHORT);
 				noItemsInCart.show();
@@ -719,8 +726,9 @@ public class CartActivity extends Activity {
 			ndb.close();
 			
 			selectedItems.add(selectedItem);
-			
-			added.setText(selectedItem.getItemName() + " is selected.");
+			String one = "<font color='#0000ff'>" + selectedItem.getItemName() +"</font> SELECTED";
+			added.setText(Html.fromHtml(one));
+
 	
 			for (GroceryItem gItem : ccart) {
 				if (gItem.getItemName().equals(results)) {
@@ -741,6 +749,35 @@ public class CartActivity extends Activity {
 			graphLabels.setDays(days);
 			graphLabels.postInvalidate();
 		}
+	}
+	
+	/**
+	 * CHECKOUT ALERT DIAOLOG
+	 */
+	private void showCheckoutDialog(final PreviousHistory cartTotals){
+		Log.d("CartActivity", "Checkout Dialog");
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Just to be sure, are you 100% done shopping? You won't be able to come back to this cart after you checkout!");
+		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		        	   Intent goCheckout = new Intent(CartActivity.this,
+								SummaryActivity.class);
+						goCheckout.putExtra("cartTotals", cartTotals); // pass the
+																	// parceable!
+						goCheckout.putExtra("account", act);
+						goCheckout.putExtra("days", days);
+						goCheckout.putExtra("rdv", totalRDV);
+						goCheckout.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+						startActivity(goCheckout);
+		           }
+		       });
+		builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		                dialog.cancel();
+		           }
+		       });
+		AlertDialog endCart = builder.create();
+		endCart.show();
 	}
 
 }

@@ -82,6 +82,10 @@ public class SetupPeopleActivity extends Activity {
 	    currentItemNumber = adb.getGroceryCount(username);
 	    adb.close();
 	    
+	    if(currentItemNumber == 0) {
+	    	next.setText("Back to Cart");
+	    }
+	    
 	    next.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
@@ -92,7 +96,6 @@ public class SetupPeopleActivity extends Activity {
 					startActivity(startSetupDays);
 					
 			    } else {
-			    	next.setText("Back to Cart");
 			    	
 			    	Intent backToCart = new Intent(v.getContext(), CartActivity.class);
 			    	backToCart.putExtra("account", act);

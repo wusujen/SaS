@@ -26,7 +26,8 @@ public class SetupDaysActivity extends Activity {
 	private static final int SAVE_PEOPLE = 2;
 	private static String username;
 	private static Integer days = 1;
-	private Account act;
+	private static Account act;
+	private static int fromCart;
 	
 	AccountDatabaseHelper db;
 	
@@ -39,6 +40,8 @@ public class SetupDaysActivity extends Activity {
 	    printDays = (TextView) findViewById(R.id.tv_printdays);
 	    
 	    act = getIntent().getParcelableExtra("account");
+	    fromCart = getIntent().getIntExtra("cart", 0);
+	    
 	    if(act!=null){
 	    	username = act.getName();
 	    	days = Integer.valueOf(act.getDays());
@@ -53,12 +56,13 @@ public class SetupDaysActivity extends Activity {
 	    
 	    //ActionBar
   		actionBar = (ActionBar) findViewById(R.id.actionbar);
-  		actionBar.setTitle("People");
+  		actionBar.setTitle("Days");
   		actionBar.setHomeAction(new backToDashboardAction());
 	
 		
 		daySetter = (SeekBar) findViewById(R.id.seekbar_days);
-		daySetter.setMax(31);
+		daySetter.setMax(8);
+		daySetter.setProgress(days);
 		daySetter.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 	
 			public void onStopTrackingTouch(SeekBar seekBar) {
@@ -78,6 +82,9 @@ public class SetupDaysActivity extends Activity {
 		});
 	    
 	    start = (Button) findViewById(R.id.btn_start);
+	    if(fromCart==1){
+	    	start.setText("Back To Cart");
+	    }
 	    start.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent saveDays=new Intent(v.getContext(),DaysActivity.class);

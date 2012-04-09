@@ -32,7 +32,7 @@ public class GraphLabelView extends View{
 		int xPos = 75;
 		int h = getHeight();
 		int base = h-90;
-		int topline = 90;
+		int topline = 100;
 		int graphHeight = base - topline;
 		
 		drawLabels(c, graphHeight, base, topline, xPos);

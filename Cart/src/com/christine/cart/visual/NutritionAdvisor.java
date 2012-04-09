@@ -147,12 +147,6 @@ public class NutritionAdvisor {
 				}
 			}
 		}
-		
-		Log.d("NutritionAdvisor", "Get Current State with Past, Good Rec: " + goodRec.toString());
-		Log.d("NutritionAdvisor", "Get Current State with Past, Bad Rec: " + badRec.toString());
-		Log.d("NutritionAdvisor", "Get Current State with Past, Good Prev: " + goodPrev.toString());
-		Log.d("NutritionAdvisor", "Get Current State with Past, Bad Prev: " + badPrev.toString());
-		
 	}
 
 	/*
@@ -195,9 +189,6 @@ public class NutritionAdvisor {
 				}
 			}
 		}
-		
-		Log.d("NutritionAdvisor", "Get Current State without Past, Good Rec: " + goodRec.toString());
-		Log.d("NutritionAdvisor", "Get Current State without Past, Bad Rec: " + badRec.toString());
 	}
 	
 	/*

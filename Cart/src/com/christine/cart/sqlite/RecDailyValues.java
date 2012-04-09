@@ -62,6 +62,9 @@ public class RecDailyValues implements Parcelable{
 		float weight = lb*0.45359237f;	//lb to kg
 		float height = in*0.0254f; 		//in to m
 		
+		//set saturated fat for all cases
+		_fatSat = 20; // in grams
+		
 		//check for the kids below 8
 		if(age >=1 && age<=3){
 			float eer = (89 * weight-100)+ 175;

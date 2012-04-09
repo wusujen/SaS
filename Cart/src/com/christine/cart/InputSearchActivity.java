@@ -3,6 +3,8 @@ package com.christine.cart;
 import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountDatabaseHelper;
 import com.christine.cart.sqlite.GroceryItem;
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
 
 import android.app.Activity;
 import android.content.Context;
@@ -31,6 +33,7 @@ public class InputSearchActivity extends Activity {
 	TextView itemName;
 	TextView desc;
 
+	ActionBar actionBar;
 	
 	LinearLayout ll;
 	LayoutInflater li;
@@ -50,6 +53,11 @@ public class InputSearchActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.search_plu);
 	    
+	    //ActionBar
+  		actionBar = (ActionBar) findViewById(R.id.actionbar);
+  		actionBar.setTitle("Search For Produce");
+  		actionBar.setHomeAction(new backToCartAction());
+  		
 	    ll = (LinearLayout) findViewById(R.id.ll_sp_window);
 	    li= (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    plu_enter = li.inflate(R.layout.plu_enter, null);
@@ -134,6 +142,23 @@ public class InputSearchActivity extends Activity {
 			outputText.setText("Sorry, we couldn't find that item. Please try again.");
 		}
 	}
+	
+	/**
+	 * ACTIONBAR CART
+	 */
+	private class backToCartAction implements Action{
+		public int getDrawable(){
+			return R.drawable.ab_back;
+		}
+		
+		public void performAction(View view){
+			Intent backToCart = new Intent(InputSearchActivity.this, CartActivity.class);
+			backToCart.putExtra("account", act);
+			startActivity(backToCart);
+		}
+	}
+	
+	
 	
 	/**
 	 * Add event handlers to quantity layout

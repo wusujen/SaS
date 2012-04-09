@@ -23,6 +23,11 @@
 		<item value="397" key="DIALOG_HEIGHT"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
+	<section name="ConvertAnonymousToNestedWizard">
+		<item value="false" key="DeclareAsStatic"/>
+		<item value="2" key="VisibilityControl"/>
+		<item value="true" key="DeclareAsFinal"/>
+	</section>
 	<section name="BuildPathsPropertyPage">
 		<item value="2" key="pageIndex"/>
 	</section>

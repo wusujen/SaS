@@ -26,31 +26,114 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal" >
-
+
                 <com.christine.cart.visual.GraphView
                     android:id="@+id/graphview"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_gravity="bottom"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="top"
+                    android:layout_marginBottom="10dp" />
+
             </LinearLayout>
         </HorizontalScrollView>
-
+
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal" >
-
+
             <com.christine.cart.visual.GraphLabelView
                 android:id="@+id/graphlabelview"
                 android:layout_width="match_parent"
-                android:layout_height="320dp"
-                android:layout_gravity="bottom" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="top" />
+
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_cart_peopledays"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_added"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <SlidingDrawer
+            android:id="@+id/sd_itemlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:content="@+id/sd_content"
+            android:handle="@+id/sd_handle" >
+
+            <RelativeLayout
+                android:id="@+id/sd_handle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left" >
+                
+				 <Button
+				     android:id="@+id/btn_handle"
+				     style="@style/ItemHandle"
+				     android:layout_width="wrap_content"
+				     android:layout_height="wrap_content"
+				     android:layout_marginLeft="10dp" />
+			 
+            </RelativeLayout>
+
+           
+
+            <LinearLayout
+                android:id="@+id/sd_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/colorbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:background="@drawable/background_green"
+                    android:orientation="vertical" >
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/sd_title"
+                    android:layout_width="203dp"
+                    android:layout_height="wrap_content"
+                    android:text="Item List"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <ListView
+                    android:id="@+id/sd_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:cacheColorHint="#00000000"
+                    android:scrollbarFadeDuration="0" >
+                </ListView>
+            </LinearLayout>
+
+        </SlidingDrawer>
+
         <TableRow
             android:id="@+id/tableRow1"
             android:layout_width="match_parent"
@@ -77,50 +160,6 @@
                 android:text="@string/additem_btn_scan" />
         </TableRow>
 
-        <SlidingDrawer
-            android:id="@+id/sd_itemlist"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:content="@+id/sd_content"
-            android:handle="@+id/sd_handle" >
-
-            <Button
-                android:id="@+id/sd_handle"
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                android:text="Item List" />
-
-            <LinearLayout
-                android:id="@+id/sd_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#fff"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/sd_title"
-                    android:layout_width="203dp"
-                    android:layout_height="wrap_content"
-                    android:text="Item List"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <ListView
-                    android:id="@+id/sd_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:cacheColorHint="#00000000"
-                    android:scrollbarFadeDuration="0" >
-                </ListView>
-            </LinearLayout>
-        </SlidingDrawer>
-
-        <TextView
-            android:id="@+id/tv_added"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp" />
     </FrameLayout>
 
 </RelativeLayout>
