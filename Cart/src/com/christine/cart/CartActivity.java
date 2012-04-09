@@ -56,6 +56,7 @@ public class CartActivity extends Activity {
 	Button test;
 	Button searchItem;
 	Button scanItem;
+	Button handle;
 	TextView added;
 	TextView peopleDays;
 	SlidingDrawer sd_itemlist;
@@ -158,119 +159,24 @@ public class CartActivity extends Activity {
 		
 		//start the peopledays goal reminder
 		int peopleNumber = adb.getPersonCountFor(currentUsername);
-		peopleDays.setText("You're shopping for " + days + " days and " + peopleNumber + " people");
-		
+		if(days==1){
+			peopleDays.setText("You're shopping for " + days + " day ");
+		} else if(days>1) {
+			peopleDays.setText("You're shopping for " + days + " days ");
+		}
+		if(peopleNumber==1){
+			peopleDays.append("and " + peopleNumber + " person");
+		} else if(peopleNumber>1) {
+			peopleDays.append("and " + peopleNumber + " people.");
+		}
+		 
 		// initiates the listview within the drawer
 		sd_list = (ListView) findViewById(R.id.sd_list);
-
-		// get the information for listView: all of the items that are in
-		// current cart for that user
-		ccart = adb.getAllGroceryItemsOf(currentUsername);
+		sd_itemlist = (SlidingDrawer) findViewById(R.id.sd_itemlist);
+		
 		pcart = adb.getPreviousHistoryFor(currentUsername);
 		adb.close();
-
-		// setup the listview if current cart is not null
-		if (ccart != null) {
-			ccartList = new ArrayAdapter<String>(this,
-					android.R.layout.simple_list_item_multiple_choice);
-			for (int i = 0; i < ccart.size(); i++) {
-				GroceryItem temp = ccart.get(i);
-				ccartList.add(String.valueOf(temp.getQuantity()) + " "
-						+ temp.getItemName());
-			}
-
-			// set properties of the list view and populate the listview
-			sd_list.setAdapter(ccartList);
-			sd_list.setBackgroundColor(Color.WHITE);
-			sd_list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-			
-			sd_list.setOnItemClickListener(new OnItemClickListener() {
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
-					SparseBooleanArray listItems = new SparseBooleanArray();
-					listItems.clear();
-					listItems = sd_list.getCheckedItemPositions();
-					
-					added.setText("");
-					
-					if (selectedItems != null || quantities != null) {
-						selectedItems.clear();
-						quantities.clear();
-					} else {
-						selectedItems = new ArrayList<Item>();
-						quantities = new ArrayList<Integer>();
-					}
-					
-					boolean isSelected = false;
-					for (int i = 0; i < ccartList.getCount(); i++) {
-						 isSelected = listItems.get(i);
-
-						if (isSelected) {
-							String tempItemName = ccartList.getItem(i);
-							int pos = tempItemName.indexOf(" ");
-							String selectedItemName = tempItemName
-									.substring(pos + 1);
-							
-							Item selectedItem = ndb.getItem(selectedItemName);
-							
-							selectedItems.add(selectedItem);
-							for (GroceryItem gItem : ccart) {
-								if (gItem.getItemName()
-										.equals(selectedItemName)) {
-									quantities.add(gItem.getQuantity());
-								}
-							}	
-						}
-					}
-					
-					if(selectedItems.size()==1){
-						String one = "<font color='#0000ff'>" + selectedItems.get(0).getItemName() +"</font> SELECTED";
-						added.setText(Html.fromHtml(one));
-
-					} else if(selectedItems.size()==2){
-						String two = "COMPARE <font color='#0000ff'>" + selectedItems.get(0).getItemName() +"</font>"
-								+ " VS <font color='#ffff00'>" + selectedItems.get(1).getItemName() +"</font>";
-						added.setText(Html.fromHtml(two));
-						
-					} else if (selectedItems.size() == 3) {
-						String tempItemName = ccartList.getItem(position);
-						int pos = tempItemName.indexOf(" ");
-						String toggledItemName = tempItemName
-								.substring(pos + 1);
-
-						Item iToRemove = null;
-						for (Item item : selectedItems) {
-							if (item.getItemName().equals(toggledItemName)) {
-								iToRemove = item;
-							}
-						}
-						selectedItems.remove(iToRemove);
-						Log.d("CartActivity",
-								"Removed: " + iToRemove.getItemName());
-						sd_list.setItemChecked(position, false);
-					} 
-					
-					graph.passSelectedItems(selectedItems);
-					graph.passSelectedQuantities(quantities);
-
-				}
-			});
 		
-			
-			// for the sliding drawer in footer activity
-			// populates controls the sliding drawer
-			sd_itemlist = (SlidingDrawer) findViewById(R.id.sd_itemlist);
-			sd_itemlist.setOnDrawerOpenListener(new OnDrawerOpenListener() {
-				public void onDrawerOpened() {
-					
-				}
-			});
-			sd_itemlist.setOnDrawerCloseListener(new OnDrawerCloseListener() {
-				public void onDrawerClosed() {
-
-				}
-			});
-		}
 
 		// Get the previous history for the user
 		// if it exists, then pass it to Graph labels to draw goals
@@ -279,7 +185,6 @@ public class CartActivity extends Activity {
 		} else {
 			Log.d("CartActivity",
 					"There is no previous history yet for this cart. Username is: " + pcart.getUsername());
-			
 		}
 
 		// Handles the PLU code
@@ -333,13 +238,23 @@ public class CartActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-
+		
+		//get an updated version of the adb on resume each time
+		adb = new AccountDatabaseHelper(this);
+		ccart = adb.getAllGroceryItemsOf(currentUsername);
+		adb.close();
+		
+		if (ccart != null) {
+			setupItemDrawer();
+		}
+		
 		passedIntent = getIntent();
 
 		results = passedIntent.getStringExtra("results");
 		int check = passedIntent.getIntExtra("check", 0);
 		if (check == 1) {
 			updateGraphWithSelected(results);
+			// setup the listview if current cart is not null
 		} 
 		
 		PreviousHistory currentCart = getCartTotalsFor(currentUsername);
@@ -447,12 +362,11 @@ public class CartActivity extends Activity {
 		IntentResult scanResult = parseActivityResult(requestCode, resultCode,
 				scanIntent);
 		String contents = scanResult.getContents();
-		Log.d("CartActivity", "Line 395: Contents " + contents);
+
 		if(resultCode == RESULT_OK){
 			Intent startInputScanActivity = new Intent(CartActivity.this, InputScanActivity.class);
 			startInputScanActivity.putExtra("contents", contents);
 			startInputScanActivity.putExtra("account", act);
-			startInputScanActivity.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivity(startInputScanActivity);
 		} else {
 			Toast toast = Toast.makeText(inputsContext, "Scan Failed",
@@ -751,6 +665,110 @@ public class CartActivity extends Activity {
 		}
 	}
 	
+	/**
+	 * Setup Sliding Drawer with List
+	 */
+	public void setupItemDrawer(){
+		ccartList = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_multiple_choice);
+		for (int i = 0; i < ccart.size(); i++) {
+			GroceryItem temp = ccart.get(i);
+			ccartList.add(String.valueOf(temp.getQuantity()) + " "
+					+ temp.getItemName());
+		}
+
+		// set properties of the list view and populate the listview
+		sd_list.setAdapter(ccartList);
+		sd_list.setBackgroundColor(Color.WHITE);
+		sd_list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+		
+		sd_list.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				SparseBooleanArray listItems = new SparseBooleanArray();
+				listItems.clear();
+				listItems = sd_list.getCheckedItemPositions();
+				
+				added.setText("");
+				
+				if (selectedItems != null || quantities != null) {
+					selectedItems.clear();
+					quantities.clear();
+				} else {
+					selectedItems = new ArrayList<Item>();
+					quantities = new ArrayList<Integer>();
+				}
+				
+				boolean isSelected = false;
+				for (int i = 0; i < ccartList.getCount(); i++) {
+					 isSelected = listItems.get(i);
+
+					if (isSelected) {
+						String tempItemName = ccartList.getItem(i);
+						int pos = tempItemName.indexOf(" ");
+						String selectedItemName = tempItemName
+								.substring(pos + 1);
+						
+						Item selectedItem = ndb.getItem(selectedItemName);
+						
+						selectedItems.add(selectedItem);
+						for (GroceryItem gItem : ccart) {
+							if (gItem.getItemName()
+									.equals(selectedItemName)) {
+								quantities.add(gItem.getQuantity());
+							}
+						}	
+					}
+				}
+				
+				if(selectedItems.size()==1){
+					String one = "<font color='#0000ff'>" + selectedItems.get(0).getItemName() +"</font> SELECTED";
+					added.setText(Html.fromHtml(one));
+
+				} else if(selectedItems.size()==2){
+					String two = "COMPARE <font color='#0000ff'>" + selectedItems.get(0).getItemName() +"</font>"
+							+ " VS <font color='#ffff00'>" + selectedItems.get(1).getItemName() +"</font>";
+					added.setText(Html.fromHtml(two));
+					
+				} else if (selectedItems.size() == 3) {
+					String tempItemName = ccartList.getItem(position);
+					int pos = tempItemName.indexOf(" ");
+					String toggledItemName = tempItemName
+							.substring(pos + 1);
+
+					Item iToRemove = null;
+					for (Item item : selectedItems) {
+						if (item.getItemName().equals(toggledItemName)) {
+							iToRemove = item;
+						}
+					}
+					selectedItems.remove(iToRemove);
+					Log.d("CartActivity",
+							"Removed: " + iToRemove.getItemName());
+					sd_list.setItemChecked(position, false);
+				} 
+				
+				graph.passSelectedItems(selectedItems);
+				graph.passSelectedQuantities(quantities);
+
+			}
+		});
+	
+		
+		// for the sliding drawer in footer activity
+		// populates controls the sliding drawer
+		handle = (Button) findViewById(R.id.btn_handle);
+		sd_itemlist.setOnDrawerOpenListener(new OnDrawerOpenListener() {
+			public void onDrawerOpened() {
+				handle.setBackgroundDrawable(getResources().getDrawable(R.drawable.cart_tab_down));
+			}
+		});
+		sd_itemlist.setOnDrawerCloseListener(new OnDrawerCloseListener() {
+			public void onDrawerClosed() {
+				handle.setBackgroundDrawable(getResources().getDrawable(R.drawable.cart_tab));
+			}
+		});
+	}
 	/**
 	 * CHECKOUT ALERT DIAOLOG
 	 */

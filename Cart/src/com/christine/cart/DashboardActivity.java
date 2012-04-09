@@ -50,7 +50,7 @@ public class DashboardActivity extends Activity {
 	    //check if the main person has been set on the account
 		adb = new AccountDatabaseHelper(DashboardActivity.this);
 		people= adb.getAllPeopleFor(username);
-		groceryCount = adb.getGroceryCount(username);
+		groceryCount = adb.getGroceryCountFor(username);
 		adb.close();
 		
 		if(people==null){
@@ -62,7 +62,13 @@ public class DashboardActivity extends Activity {
 			widgetTitle.setText("");
 			cartStatus.setText("Please add people before starting a cart!");
 			
-			if(groceryCount!=0){
+			if(groceryCount==1){
+				widgetTitle.setText("CURRENT CART HAS " + groceryCount + " ITEM");
+				cartStatus.setText("You're shopping for " + people.size() + " people, " + act.getDays() + " days.");
+				startCartActivity();
+				
+			} else if (groceryCount>1){
+				
 				widgetTitle.setText("CURRENT CART HAS " + groceryCount + " ITEMS");
 				cartStatus.setText("You're shopping for " + people.size() + " people, " + act.getDays() + " days.");
 				startCartActivity();

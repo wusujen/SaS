@@ -17,7 +17,6 @@ import android.util.Log;
 
 public class InputDatabaseSearchActivity extends Activity {
 	Context inputsContext;
-	//TextView outputText; //for debugging purposes
 	
 	String pluCode=null;
 	String barcodeItem=null;
@@ -31,7 +30,6 @@ public class InputDatabaseSearchActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    // setContentView(R.layout.search_barcode); //for debugging purposes
 	    
 	    Bundle itemInfo = getIntent().getExtras();
 	    if(itemInfo == null){

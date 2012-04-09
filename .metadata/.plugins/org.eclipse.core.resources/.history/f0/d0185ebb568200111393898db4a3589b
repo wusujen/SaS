@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent" >
+    
+    <com.markupartist.android.widget.ActionBar
+        android:id="@+id/actionbar"
+        style="@style/ActionBar" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/actionbar" >
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView1"
+            android:layout_width="515dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right" >
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+
+                <com.christine.cart.visual.GraphView
+                    android:id="@+id/graphview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="top"
+                    android:layout_marginBottom="10dp" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal" >
+
+            <com.christine.cart.visual.GraphLabelView
+                android:id="@+id/graphlabelview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_cart_peopledays"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_added"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <SlidingDrawer
+            android:id="@+id/sd_itemlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:content="@+id/sd_content"
+            android:handle="@+id/sd_handle" >
+
+            <RelativeLayout
+                android:id="@+id/sd_handle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left" >
+                
+				 <Button
+				     android:id="@+id/btn_handle"
+				     style="@style/ItemHandle"
+				     android:layout_width="wrap_content"
+				     android:layout_height="wrap_content"
+				     android:layout_marginLeft="10dp" />
+			 
+            </RelativeLayout>
+
+           
+
+            <LinearLayout
+                android:id="@+id/sd_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/colorbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:background="@drawable/background_green"
+                    android:orientation="vertical" >
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/sd_title"
+                    android:layout_width="203dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <ListView
+                    android:id="@+id/sd_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:cacheColorHint="#00000000"
+                    android:scrollbarFadeDuration="0" >
+                </ListView>
+            </LinearLayout>
+
+        </SlidingDrawer>
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center|right" >
+
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
+                android:padding="10dp"
+                android:text="@string/additem_btn_search" />
+
+            <Button
+                android:id="@+id/btn_scan"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
+                android:padding="10dp"
+                android:text="@string/additem_btn_scan" />
+        </TableRow>
+
+    </FrameLayout>
+
+</RelativeLayout>

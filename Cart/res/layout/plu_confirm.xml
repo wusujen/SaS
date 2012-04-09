@@ -19,8 +19,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
-
+
             <TableRow
                 android:id="@+id/tableRow1"
                 android:layout_width="match_parent"
@@ -28,27 +27,31 @@
                 android:layout_marginTop="20dp" >
 
                 <Button
-                    style="@style/GreenButton"
                     android:id="@+id/btn_yes"
+                    style="@style/GreenButton"
                     android:layout_width="100dp"
                     android:layout_height="45dp"
                     android:layout_marginRight="10dp"
+                    android:layout_weight="1"
                     android:text="@string/btn_sp_yes" />
 
                 <Button
-                    style="@style/GreyButton"
                     android:id="@+id/btn_no"
+                    style="@style/GreyButton"
                     android:layout_width="100dp"
                     android:layout_height="45dp"
                     android:layout_marginRight="10dp"
+                    android:layout_weight="1"
                     android:text="@string/btn_sp_no" />
 
                 <Button
-                    style="@style/GreyButton"
                     android:id="@+id/btn_cancel"
+                    style="@style/GreyButton"
                     android:layout_width="100dp"
                     android:layout_height="45dp"
                     android:layout_marginRight="10dp"
+                    android:layout_weight="1"
                     android:text="@string/btn_cancel" />
-		</TableRow>
+            </TableRow>
+
 </LinearLayout>

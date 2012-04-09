@@ -25,7 +25,7 @@ public class SetupDaysActivity extends Activity {
 
 	private static final int SAVE_PEOPLE = 2;
 	private static String username;
-	private static Integer days = 1;
+	private static Integer days;
 	private static Account act;
 	private static int fromCart;
 	
@@ -45,10 +45,11 @@ public class SetupDaysActivity extends Activity {
 	    if(act!=null){
 	    	username = act.getName();
 	    	days = Integer.valueOf(act.getDays());
-	    	if(days!=0 && days!=null){
+	    	if(days!=0 && days!=null && days!=-1){
 	    		printDays.setText("I'M SHOPPING FOR " + days + " DAYS.");
 	    	} else {
 	    		printDays.setText("I'M SHOPPING FOR 1 DAY.");
+	    		days = 1;
 	    	}
 	    } else{
 	    	throw new RuntimeException("SetupDaysActivity: Passed account is null");
@@ -58,10 +59,9 @@ public class SetupDaysActivity extends Activity {
   		actionBar = (ActionBar) findViewById(R.id.actionbar);
   		actionBar.setTitle("Days");
   		actionBar.setHomeAction(new backToDashboardAction());
-	
 		
 		daySetter = (SeekBar) findViewById(R.id.seekbar_days);
-		daySetter.setMax(8);
+		daySetter.setMax(7);
 		daySetter.setProgress(days);
 		daySetter.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 	
@@ -75,7 +75,7 @@ public class SetupDaysActivity extends Activity {
 			
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				if(fromUser){
-					days=progress;
+					days=progress + 1;
 					printDays.setText("I'M SHOPPING FOR " + days + " DAYS.");
 				}
 			}

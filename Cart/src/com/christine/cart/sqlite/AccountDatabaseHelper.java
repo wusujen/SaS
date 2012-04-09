@@ -450,14 +450,22 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	    return groceryList;
 	}
 	
-	public int getGroceryCount(String username){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_CCART, null , CCART_USER + "=? ", 
+	public int getGroceryCountFor(String username){
+		int num = 0;
+	    SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.query(TABLE_CCART, null , CCART_USER + "=? ", 
 				new String []{ String.valueOf(username)}, null, null, null);
-        int num = cursor.getCount();
-        cursor.close();
-        db.close();
-        // return count
+	 
+	    // looping through all rows and adding to list
+	    if (cursor.moveToFirst()) {
+	        do {
+	           num += cursor.getInt(6);
+	        } while (cursor.moveToNext());
+	    } 
+	    
+	    cursor.close();
+	    db.close();
+	    
         return num;
 	}
 	

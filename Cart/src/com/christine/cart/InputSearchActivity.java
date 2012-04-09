@@ -71,7 +71,7 @@ public class InputSearchActivity extends Activity {
 	    	throw new RuntimeException("InputSearchActivity, account is null");
 	    }
 	    
-	    desc = (TextView) findViewById(R.id.tv_sp_desc);
+	    desc = (TextView) findViewById(R.id.tv_sp_prompt);
 	    
 	    enterPLU = (EditText) findViewById(R.id.enterPLU);
 	    submitPLU = (Button) findViewById(R.id.submitPLU);
@@ -112,7 +112,7 @@ public class InputSearchActivity extends Activity {
 			outputText = (TextView) findViewById(R.id.tv_sp_pluoutput);
 			outputText.setText(returnedItemName);
 			
-			desc.setText("Make sure this is the item you wanted!");
+			desc.setText("Is this the item that you searched for?");
 			
 			btn_yes = (Button) findViewById(R.id.btn_yes);
 			btn_yes.setOnClickListener(new View.OnClickListener() {

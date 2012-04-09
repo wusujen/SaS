@@ -54,37 +54,18 @@
         <activity android:name="SetupDaysActivity"
            	 android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
              android:screenOrientation="landscape"></activity>
-        
-        
-        <activity android:name=".inputs.InputsActivity" 
-            android:screenOrientation="landscape"></activity>
-        
-        <activity android:name=".inputs.InputsBarcodeActivity" 
-            android:screenOrientation="landscape"></activity>
-        
-        <activity android:name=".inputs.InputsBarcodeSearchActivity" 
-            android:screenOrientation="landscape"></activity>
-        
-        <activity android:name=".inputs.InputsPLUActivity" 
-            android:theme="@android:style/Theme.Light.NoTitleBar"
-            android:screenOrientation="landscape"></activity>
-        
-        <activity android:name="FooterActivity" 
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
-            android:screenOrientation="landscape">
-            <intent-filter>
-            <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
+   
         
         <activity android:name="InputSearchActivity" 
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape"></activity>
         
         <activity android:name="InputScanActivity" 
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape"></activity>
         
         <activity android:name="InputDatabaseSearchActivity" 
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape" ></activity>
         
         <!-- For ZXING LIBRARY -->
@@ -119,17 +100,11 @@
 		    </activity>
 	    
 	    <!-- END ZXING LIBRARY -->
-	    
-	    
-	    <activity android:name="CheckoutActivity" 
-	        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
-	        android:screenOrientation="landscape"></activity>
+	   
 	    
 	    <activity android:name=".sqlite.AccountActivity" 
 	        android:screenOrientation="landscape"></activity>
-	    
-	    
-	    
+
 	    <activity android:name=".sqlite.DaysActivity" 
 	        android:theme="@android:style/Theme.Light.NoTitleBar"
 	        android:screenOrientation="landscape"></activity>

@@ -79,7 +79,7 @@ public class SetupPeopleActivity extends Activity {
 	    //set the text of next button depending on what the contents of
 	    //the current cart are!
 	    adb = new AccountDatabaseHelper(this);
-	    currentItemNumber = adb.getGroceryCount(username);
+	    currentItemNumber = adb.getGroceryCountFor(username);
 	    adb.close();
 	    
 	    if(currentItemNumber != 0) {
