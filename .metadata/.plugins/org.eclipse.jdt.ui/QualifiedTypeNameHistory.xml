@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.view.ViewGroup"/>
-<fullyQualifiedTypeName name="android.widget.LinearLayout.LayoutParams"/>
-<fullyQualifiedTypeName name="android.view.SurfaceView"/>
 <fullyQualifiedTypeName name="android.graphics.Canvas"/>
 <fullyQualifiedTypeName name="android.graphics.Color"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.GroceryItem"/>
@@ -34,7 +31,6 @@
 <fullyQualifiedTypeName name="android.R"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="com.markupartist.android.widget.ActionBar"/>
-<fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="android.accounts.Account"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Account"/>
@@ -45,7 +41,6 @@
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="com.christine.cart.R.layout"/>
 <fullyQualifiedTypeName name="android.widget.ScrollView"/>
-<fullyQualifiedTypeName name="com.christine.cart.R.id"/>
 <fullyQualifiedTypeName name="android.view.View.MeasureSpec"/>
 <fullyQualifiedTypeName name="android.text.SpannableString"/>
 <fullyQualifiedTypeName name="android.text.Spannable"/>
@@ -60,4 +55,9 @@
 <fullyQualifiedTypeName name="com.christine.cart.R"/>
 <fullyQualifiedTypeName name="com.christine.cart.R.color"/>
 <fullyQualifiedTypeName name="android.content.res.Resources"/>
+<fullyQualifiedTypeName name="android.view.MotionEvent"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="android.view.Gravity"/>
+<fullyQualifiedTypeName name="com.christine.cart.R.id"/>
+<fullyQualifiedTypeName name="android.view.View.OnTouchListener"/>
 </qualifiedTypeNameHistroy>

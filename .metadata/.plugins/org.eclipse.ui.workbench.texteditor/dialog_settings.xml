@@ -2,9 +2,9 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="312" key="DIALOG_WIDTH"/>
-		<item value="8" key="DIALOG_Y_ORIGIN"/>
+		<item value="157" key="DIALOG_Y_ORIGIN"/>
 		<item value="396" key="DIALOG_HEIGHT"/>
-		<item value="8" key="DIALOG_X_ORIGIN"/>
+		<item value="76" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
@@ -13,16 +13,16 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="" key="selection"/>
+		<item value="SelectedItems" key="selection"/>
 		<list key="findhistory">
-			<item value="setVisibility"/>
-			<item value="COMPARE"/>
-			<item value="added"/>
-			<item value="theme_orange"/>
-			<item value="theme_green"/>
-			<item value="color_green"/>
-			<item value="_cap"/>
-			<item value="blue"/>
+			<item value="selectedItems"/>
+			<item value="View"/>
+			<item value="cartTotals"/>
+			<item value="totalRDV"/>
+			<item value="totalRDV&apos;"/>
+			<item value="checkout"/>
+			<item value="ITEMS IN CART"/>
+			<item value="GOAL"/>
 		</list>
 		<list key="replacehistory">
 			<item value="green"/>

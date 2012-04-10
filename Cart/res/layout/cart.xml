@@ -15,6 +15,19 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:gravity="bottom" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <com.christine.cart.visual.GraphLabelView
+                android:id="@+id/graphlabelview"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:layout_gravity="bottom" />
+        </LinearLayout>
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView1"
@@ -41,22 +54,6 @@
 
             </LinearLayout>
         </HorizontalScrollView>
-
-        <LinearLayout
-            android:id="@+id/linearLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:orientation="horizontal" >
-
-            <com.christine.cart.visual.GraphLabelView
-                android:id="@+id/graphlabelview"
-                android:layout_width="match_parent"
-                android:layout_height="280dp"
-                android:layout_gravity="bottom" />
-
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout1"

@@ -113,14 +113,15 @@ containing a value of this type.
         public static final int ic_launcher=0x7f020032;
         public static final int icon=0x7f020033;
         public static final int launcher_icon=0x7f020034;
-        public static final int shape_green=0x7f020035;
-        public static final int shape_green_inverse=0x7f020036;
-        public static final int shape_grey=0x7f020037;
-        public static final int shape_grey_inverse=0x7f020038;
-        public static final int shape_white_transparent=0x7f020039;
-        public static final int share_via_barcode=0x7f02003a;
-        public static final int shopper_icon=0x7f02003b;
-        public static final int sliding_drawer_handle_bottom=0x7f02003c;
+        public static final int logo_hdpi=0x7f020035;
+        public static final int shape_green=0x7f020036;
+        public static final int shape_green_inverse=0x7f020037;
+        public static final int shape_grey=0x7f020038;
+        public static final int shape_grey_inverse=0x7f020039;
+        public static final int shape_white_transparent=0x7f02003a;
+        public static final int share_via_barcode=0x7f02003b;
+        public static final int shopper_icon=0x7f02003c;
+        public static final int sliding_drawer_handle_bottom=0x7f02003d;
     }
     public static final class id {
         public static final int LinearLayout1=0x7f0a004f;
@@ -180,10 +181,10 @@ containing a value of this type.
         public static final int et_quantity=0x7f0a0079;
         public static final int format_text_view=0x7f0a001b;
         public static final int format_text_view_label=0x7f0a001a;
-        public static final int graphlabelview=0x7f0a002e;
-        public static final int graphview=0x7f0a002c;
+        public static final int graphlabelview=0x7f0a002b;
+        public static final int graphview=0x7f0a002e;
         public static final int help_contents=0x7f0a004c;
-        public static final int horizontalScrollView1=0x7f0a002a;
+        public static final int horizontalScrollView1=0x7f0a002c;
         public static final int imageView1=0x7f0a0049;
         public static final int imageView2=0x7f0a0043;
         public static final int imageView3=0x7f0a0042;
@@ -191,8 +192,8 @@ containing a value of this type.
         public static final int image_view=0x7f0a004b;
         public static final int launch_product_query=0x7f0a0004;
         public static final int linearLayout1=0x7f0a002f;
-        public static final int linearLayout2=0x7f0a002b;
-        public static final int linearLayout3=0x7f0a002d;
+        public static final int linearLayout2=0x7f0a002d;
+        public static final int linearLayout3=0x7f0a002a;
         public static final int ll_container=0x7f0a007c;
         public static final int ll_define_person=0x7f0a0058;
         public static final int ll_form_01=0x7f0a0082;

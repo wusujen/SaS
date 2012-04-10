@@ -1,7 +1,10 @@
 package com.christine.cart.visual;
 
 
+import com.christine.cart.R;
+
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -11,18 +14,25 @@ import android.view.View;
 public class GraphLabelView extends View{
 	
 	private int days;
-	
+	private static int colorGreen;
 	
 	public GraphLabelView(Context context) {
 		super(context);
+		Resources res = getResources();
+		colorGreen = res.getColor(R.color.theme_green);
 	}
 	
 	public GraphLabelView(Context context, AttributeSet attrs) {
 		super(context, attrs);	
+		Resources res = getResources();
+		colorGreen = res.getColor(R.color.theme_green);
+		
 	}
 
 	public GraphLabelView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+		Resources res = getResources();
+		colorGreen = res.getColor(R.color.theme_green);
 	}
 	
 	@Override
@@ -63,7 +73,7 @@ public class GraphLabelView extends View{
 		textPaint .setColor(Color.GRAY);
 		textPaint .isAntiAlias();
 		textPaint .setTextAlign(Paint.Align.RIGHT);
-		textPaint .setTextSize(18);
+		textPaint .setTextSize(16);
 		textPaint .setAntiAlias(true);
 		textPaint .setSubpixelText(true);
 		
@@ -72,19 +82,25 @@ public class GraphLabelView extends View{
 				int mod = i%2;
 				if(mod==0){
 					int yPos = base - (Math.round((float) graphHeight / (float) days)*i); 
-					if(days==1){
-						c.drawText( i + " day", xPos, yPos+4, textPaint);
+					if(i==1){
+						c.drawText( i + " DAY", xPos, yPos+4, textPaint);
 					} else {
-						c.drawText( i + " days", xPos, yPos+4, textPaint);
+						c.drawText( i + " DAYS", xPos, yPos+4, textPaint);
 					}
 				}
 			} else {
 				int yPos = base - (Math.round((float) graphHeight / (float) days)*i); 
-				c.drawText( i + " days", xPos, yPos+4, textPaint);
+				if(i==1){
+					c.drawText( i + " DAY", xPos, yPos+4, textPaint);
+				} else {
+					c.drawText( i + " DAYS", xPos, yPos+4, textPaint);
+				}
 			}
 			invalidate();
 		}
 		
+		textPaint.setColor(colorGreen);
+		textPaint.setTextSize(20);
 		c.drawText("GOAL", xPos, topline+4, textPaint);
 	}
 	

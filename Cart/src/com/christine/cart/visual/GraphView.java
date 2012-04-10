@@ -16,10 +16,13 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
+import android.widget.Toast;
 
-public class GraphView extends View{
+public class GraphView extends View implements View.OnTouchListener{
 
 	public SurfaceHolder holder;
 	public int _days;
@@ -141,12 +144,17 @@ public class GraphView extends View{
 		} else if (MODE==SELECT_COMPARE){
 			drawCompareMode(c, _base, _graphHeight);
 		}
-		
-		
-		
+
 	}
 	
-	
+	public boolean onTouch(View v, MotionEvent event) {
+		// TODO Auto-generated method stub
+		int[] location = new int[2];
+		v.getLocationInWindow(location);
+		
+		Log.d("GraphView", "location x: " + location[0] + " location y: " + location[2]);
+		return true;
+	}
 	
 	public void setDays(int days) {
 		this._days = days;
@@ -198,11 +206,12 @@ public class GraphView extends View{
 		Float[] rdvTotals = currentRDV.getNutritionNeedsNoMono();
 		Float[] cartTotals = currentTotalCart.getNutritionPropertiesNoMono();
 		Float[] pcartTotals = pcart.getNutritionPropertiesNoMono();
+		float previousDays = pcart.getDays();
 		
 		for(int i=0; i<reduced.length; i++){
 			float need = rdvTotals[i] * (float) this._days;
 			float ratio = cartTotals[i] / need;
-			float goal = pcartTotals[i] / need;
+			float goal = pcartTotals[i] /(rdvTotals[i] * (float) previousDays);
 			
 			String n = reduced [i];
 			
@@ -301,6 +310,8 @@ public class GraphView extends View{
 		blackText.isAntiAlias();
 		blackText.setTextSize(18);
 		blackText.setTextAlign(Paint.Align.CENTER);
+		blackText.setAntiAlias(true);
+		blackText.setSubpixelText(true);
 		
 		// WIDTH
 		int startBar = 40;
@@ -437,7 +448,10 @@ public class GraphView extends View{
 			c.drawRect(compareRect, orange);
 		}
 	}
-
+	
+	/*
+	 * Draw the lines that form the goals (not including labels)
+	 */
 	private void drawGoalLines(Canvas c, int graphHeight, int base, int topline){
 		Paint incPaint = new Paint();
 		incPaint.setColor(Color.rgb(10, 207, 72));
@@ -463,5 +477,8 @@ public class GraphView extends View{
 			
 		}
 	}
+
+	
+	
 
 }

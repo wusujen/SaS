@@ -243,7 +243,11 @@ public class CartActivity extends Activity {
 		adb = new AccountDatabaseHelper(this);
 		ccart = adb.getAllGroceryItemsOf(currentUsername);
 		int groceryCount = adb.getGroceryCountFor(currentUsername);
-		added.setText(groceryCount + " ITEMS IN CART");
+		if(groceryCount==1){
+			added.setText(groceryCount + " ITEM IN CART");
+		} else if(groceryCount==0 || groceryCount>1){
+			added.setText(groceryCount + " ITEMS IN CART");
+		}
 		adb.close();
 		
 		if (ccart != null) {
@@ -520,7 +524,7 @@ public class CartActivity extends Activity {
 						+ (tempItem.getFatPoly() * quantity));
 				cartTotals.setCholesterol(cartTotals.getCholesterol()
 						+ (tempItem.getCholesterol() * quantity));
-				cartTotals.setDays(-1);
+				cartTotals.setDays(days);
 			}
 
 			// Log.d("Created: ", "Cart Total for : " + cartTotals.getUsername()
@@ -695,7 +699,11 @@ public class CartActivity extends Activity {
 				int groceryCount = adb.getGroceryCountFor(currentUsername);
 				adb.close();
 				
-				added.setText(groceryCount + " ITEMS IN CART");
+				if(groceryCount==1){
+					added.setText(groceryCount + " ITEM IN CART");
+				} else if(groceryCount==0 || groceryCount>1){
+					added.setText(groceryCount + " ITEMS IN CART");
+				}
 				
 				if (selectedItems != null || quantities != null) {
 					selectedItems.clear();
@@ -730,12 +738,14 @@ public class CartActivity extends Activity {
 				if(selectedItems.size()==1){
 					String one = "<font color='#7EAD1A'>" + selectedItems.get(0).getItemName() +"</font> SELECTED";
 					added.setText(Html.fromHtml(one));
-
+					graph.setMinimumWidth(3800);
+					graph.invalidate();
 				} else if(selectedItems.size()==2){
 					String two = "COMPARE <font color='#7EAD1A'>" + selectedItems.get(0).getItemName() +"</font>"
 							+ " VS <font color='#E57716'>" + selectedItems.get(1).getItemName() +"</font>";
 					added.setText(Html.fromHtml(two));
-					
+					graph.setMinimumWidth(4500);
+					graph.invalidate();
 				} else if (selectedItems.size() == 3) {
 					String tempItemName = ccartList.getItem(position);
 					int pos = tempItemName.indexOf(" ");
