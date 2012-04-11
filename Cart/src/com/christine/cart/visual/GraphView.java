@@ -49,6 +49,7 @@ public class GraphView extends View implements View.OnTouchListener{
 	
 	private static int colorGreen;
 	private static int colorOrange;
+	private static int colorBlue;
 
 	public GraphView(Context context) {
 		super(context);
@@ -59,6 +60,7 @@ public class GraphView extends View implements View.OnTouchListener{
 		Resources res = getResources();
 		colorGreen = res.getColor(R.color.theme_green);
 		colorOrange = res.getColor(R.color.theme_orange);
+		colorBlue = res.getColor(R.color.theme_lightblue);
 	}
 
 	public GraphView(Context context, AttributeSet attrs) {
@@ -70,6 +72,7 @@ public class GraphView extends View implements View.OnTouchListener{
 		Resources res = getResources();
 		colorGreen = res.getColor(R.color.theme_green);
 		colorOrange = res.getColor(R.color.theme_orange);
+		colorBlue = res.getColor(R.color.theme_lightblue);
 	}
 
 	public GraphView(Context context, AttributeSet attrs, int defStyle) {
@@ -81,6 +84,7 @@ public class GraphView extends View implements View.OnTouchListener{
 		Resources res = getResources();
 		colorGreen = res.getColor(R.color.theme_green);
 		colorOrange = res.getColor(R.color.theme_orange);
+		colorBlue = res.getColor(R.color.theme_lightblue);
 	}
 	
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
@@ -392,8 +396,8 @@ public class GraphView extends View implements View.OnTouchListener{
 	 */
 	public void drawCompareMode(Canvas c, int base, int graphHeight){
 		
-		Paint orange = new Paint();
-		orange.setColor(colorOrange);
+		Paint blue = new Paint();
+		blue.setColor(colorBlue);
 		
 		Paint green = new Paint();
 		green.setColor(colorGreen);
@@ -445,7 +449,7 @@ public class GraphView extends View implements View.OnTouchListener{
 			}
 			
 			c.drawRect(baseRect, green);
-			c.drawRect(compareRect, orange);
+			c.drawRect(compareRect, blue);
 		}
 	}
 	

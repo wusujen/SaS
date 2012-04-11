@@ -106,10 +106,7 @@ public class NutritionDatabaseHelper extends DatabaseHelper {
 				Item item = new Item(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getFloat(2),
 						cursor.getFloat(3), cursor.getFloat(4), cursor.getFloat(5), cursor.getFloat(6), 
 						cursor.getFloat(7), cursor.getFloat(8), cursor.getFloat(9), cursor.getFloat(10), 
-						//Potassium & Sodium unit conversion from (mg) to (g)
-						cursor.getFloat(11)/(float) 1000,
-						cursor.getFloat(12)/(float) 1000, 
-						cursor.getFloat(13), cursor.getFloat(14),
+						cursor.getFloat(11), cursor.getFloat(12), cursor.getFloat(13), cursor.getFloat(14),
 						cursor.getFloat(15), cursor.getFloat(16), cursor.getFloat(17), cursor.getFloat(18),  
 						cursor.getFloat(19), cursor.getFloat(20), cursor.getFloat(21), cursor.getFloat(22),
 						cursor.getFloat(23), cursor.getFloat(24), cursor.getFloat(25), cursor.getString(26));

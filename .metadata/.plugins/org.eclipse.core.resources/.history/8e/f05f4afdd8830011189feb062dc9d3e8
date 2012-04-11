@@ -59,7 +59,7 @@ public class DashboardActivity extends Activity {
 		
 		if(people==null){
 			widgetTitle.setText("YOU HAVEN'T STARTED A CART YET");
-			cartStatus.setText("Start by telling us about you.");
+			cartStatus.setText("Start by telling us who you are and who you shop for.");
 			
 			cartLauncher.setOnClickListener(new View.OnClickListener() {
 				

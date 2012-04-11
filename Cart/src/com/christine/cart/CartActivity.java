@@ -760,7 +760,7 @@ public class CartActivity extends Activity {
 					
 				} else if(selectedItems.size()==2){
 					String two = "COMPARE <font color='#7EAD1A'>" + selectedItems.get(0).getItemName() +"</font>"
-							+ " VS <font color='#E57716'>" + selectedItems.get(1).getItemName() +"</font>";
+							+ " VS <font color='#00CCFF'>" + selectedItems.get(1).getItemName() +"</font>";
 					added.setText(Html.fromHtml(two));
 					graph.setMinimumWidth(4500);
 					graph.invalidate();

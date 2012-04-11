@@ -38,14 +38,12 @@
 <fullyQualifiedTypeName name="android.text.SpannableString"/>
 <fullyQualifiedTypeName name="android.text.Spannable"/>
 <fullyQualifiedTypeName name="android.text.style.ForegroundColorSpan"/>
-<fullyQualifiedTypeName name="android.text.Html"/>
 <fullyQualifiedTypeName name="android.app.AlertDialog"/>
 <fullyQualifiedTypeName name="android.content.DialogInterface"/>
 <fullyQualifiedTypeName name="com.markupartist.android.widget.ActionBar.Action"/>
 <fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Item"/>
 <fullyQualifiedTypeName name="com.christine.cart.R"/>
-<fullyQualifiedTypeName name="com.christine.cart.R.color"/>
 <fullyQualifiedTypeName name="android.view.MotionEvent"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="android.view.Gravity"/>
@@ -60,4 +58,6 @@
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="android.widget.EditText"/>
 <fullyQualifiedTypeName name="android.text.InputType"/>
+<fullyQualifiedTypeName name="android.text.Html"/>
+<fullyQualifiedTypeName name="com.christine.cart.R.color"/>
 </qualifiedTypeNameHistroy>

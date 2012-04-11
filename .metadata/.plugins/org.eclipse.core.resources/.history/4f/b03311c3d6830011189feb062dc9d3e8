@@ -81,12 +81,12 @@ public class RecDailyValues implements Parcelable{
 				default: //in case 0
 					_calories = eer;
 			}
-			_totalfats = (_calories*0.35f)/9;
-			_fatPoly = (_calories*0.8f)/9;
-			_protein = (_calories*0.15f)/4; 				
-			_carbs = (_calories*0.50f)/4;
+			_totalfats = _calories*0.35f;
+			_fatPoly = _calories*0.8f;
+			_protein = _calories*0.15f; 				
+			_carbs = _calories*0.50f;
 			_fiber = 19;
-			_sugar = (_calories*0.25f)/4;
+			_sugar = _calories*0.25f;
 			_calcium = 500;
 			_iron = 3.0f;
 			_magnesium = 65;
@@ -117,12 +117,12 @@ public class RecDailyValues implements Parcelable{
 				default: //in case 0
 					_calories = eer;
 			}
-			_totalfats = (_calories*0.25f)/9;
-			_fatPoly = (_calories*0.8f)/9;
-			_protein = (_calories*0.15f)/4; 			
-			_carbs = (_calories*0.50f)/4;
+			_totalfats = _calories*0.25f;
+			_fatPoly = _calories*0.8f;
+			_protein = _calories*0.15f; 			
+			_carbs = _calories*0.50f;
 			_fiber = 25;
-			_sugar = (_calories*0.25f)/4;
+			_sugar = _calories*0.25f;
 			_calcium = 800;
 			_iron = 4.1f;
 			_magnesium = 110;
@@ -157,12 +157,12 @@ public class RecDailyValues implements Parcelable{
 						PA = 1.0f;
 				}
 				_calories =  (float) (88.5-(61.9*age) + PA*((26.7*weight)+ (903*height)))+20;
-				_totalfats = (_calories*0.35f)/9;
-				_fatPoly = (_calories*0.8f)/9;
-				_protein = (_calories*0.3f)/4; 			
-				_carbs = (_calories*0.65f)/4;
+				_totalfats = _calories*0.30f;
+				_fatPoly = _calories*0.8f;
+				_protein = _calories*0.30f; 		
+				_carbs = _calories*0.65f;
 				_fiber = 31;
-				_sugar =(_calories*0.25f)/4;
+				_sugar = _calories*0.25f;
 				_calcium = 1300;
 				_iron = 5.9f;
 				_magnesium = 200;
@@ -192,12 +192,12 @@ public class RecDailyValues implements Parcelable{
 						PA = 1.0f;
 				}
 				_calories = (float) (88.5-(61.9*age) + PA*((26.7*weight)+ (903*height)))+25;
-				_totalfats = (_calories*0.25f)/9;
-				_fatPoly = (_calories*0.8f)/9;
-				_protein = (_calories*0.3f)/4; 			
-				_carbs = (_calories*0.65f)/4;
+				_totalfats = _calories*0.30f;
+				_fatPoly = _calories*0.8f;
+				_protein = _calories*0.30f; 		
+				_carbs = _calories*0.65f;
 				_fiber = 38;
-				_sugar =(_calories*0.25f)/4;
+				_sugar = _calories*0.25f;
 				_calcium = 1300;
 				_iron = 7.7f;
 				_magnesium = 340;
@@ -227,12 +227,12 @@ public class RecDailyValues implements Parcelable{
 						PA = 1.0f;
 				}
 				_calories = (float) (662-(9.53*age) + PA*((15.91*weight) + (539.6*height)));
-				_totalfats = (_calories*0.25f)/9;
-				_fatPoly = (_calories*0.8f)/9;
-				_protein = (_calories*0.3f)/4; 			
-				_carbs = (_calories*0.65f)/4;
+				_totalfats = _calories*0.30f;
+				_fatPoly = _calories*0.8f;
+				_protein = _calories*0.35f; 			
+				_carbs = _calories*0.65f;
 				_fiber = 38;
-				_sugar =(_calories*0.25f)/4;
+				_sugar = _calories*0.25f;
 				_calcium = 1000;
 				_iron = 6.0f;
 				_magnesium = 330;
@@ -262,12 +262,12 @@ public class RecDailyValues implements Parcelable{
 						PA = 1.0f;
 				}
 				_calories = (float) (662-(9.53*age) + PA*((15.91*weight) + (539.6*height)));
-				_totalfats = (_calories*0.25f)/9;
-				_fatPoly = (_calories*0.8f)/9;
-				_protein = (_calories*0.3f)/4; 			
-				_carbs = (_calories*0.65f)/4;
+				_totalfats = _calories*0.30f;
+				_fatPoly = _calories*0.8f;
+				_protein = _calories*0.35f; 			
+				_carbs = _calories*0.65f;
 				_fiber = 30;
-				_sugar =(_calories*0.25f)/4;
+				_sugar = _calories*0.25f;
 				_calcium = 1200;
 				_iron = 6.0f;
 				_magnesium = 350;
@@ -301,12 +301,12 @@ public class RecDailyValues implements Parcelable{
 						PA = 1.0f;
 				}
 				_calories = (float) (135.3f-(30.8f*age)+PA*((10.0*weight)+(934*height)) + 20);
-				_totalfats = (_calories*0.25f)/9;
-				_fatPoly = (_calories*0.8f)/9;
-				_protein = (_calories*0.3f)/4; 			
-				_carbs = (_calories*0.65f)/4;
+				_totalfats = _calories*0.25f;
+				_fatPoly = _calories*0.8f;
+				_protein = _calories*0.30f; 		
+				_carbs = _calories*0.65f;
 				_fiber = 26;
-				_sugar =(_calories*0.25f)/4;
+				_sugar = _calories*0.25f;
 				_calcium = 1300;
 				_iron = 5.7f;
 				_magnesium = 200;
@@ -336,12 +336,12 @@ public class RecDailyValues implements Parcelable{
 						PA = 1.0f;
 				}
 				_calories = (float) (135.3f-(30.8f*age)+PA*((10.0*weight)+(934*height)) + 25);
-				_totalfats = (_calories*0.25f)/9;
-				_fatPoly = (_calories*0.8f)/9;
-				_protein = (_calories*0.3f)/4; 			
-				_carbs = (_calories*0.65f)/4;
+				_totalfats = _calories*0.25f;
+				_fatPoly = _calories*0.8f;
+				_protein = _calories*0.30f; 		
+				_carbs = _calories*0.65f;
 				_fiber = 26;
-				_sugar =(_calories*0.25f)/4;
+				_sugar = _calories*0.25f;
 				_calcium = 1300;
 				_iron = 7.7f;
 				_magnesium = 340;

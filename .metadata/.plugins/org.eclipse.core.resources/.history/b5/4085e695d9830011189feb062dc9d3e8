@@ -93,9 +93,9 @@ public class SummaryActivity extends Activity {
 								+ " Calories: " + thisHistory.getCalories());
 				
 				String summary = advisor.getNegativeAdvice() + " \n \n" + advisor.getPositiveAdvice();
-				String firstTime = "Great job finishing your first cart! \n \n" +
-						"The next time you come in you will see <font color='#E57716'>ORANGE LINES</font> that keep track of your " +
-						"previous shopping cart's nutritional content. \n \n " +
+				String firstTime = "Great job finishing your first cart!\n\n" +
+						"The next time you come in you will see <font color='#E57716'>ORANGE LINES</font> that keep track of your" +
+						"previous shopping cart's nutritional content. \n\n" +
 						"Try to keep track and improve each time!"; 
 				String cleaned = summary.replaceAll("\\s","");
 				if(cleaned.length() == 0) {
