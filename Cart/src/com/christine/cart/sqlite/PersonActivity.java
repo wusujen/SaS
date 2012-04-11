@@ -68,6 +68,8 @@ public class PersonActivity extends Activity {
     public static final int WOMAN = 1002;
     public static final int BOY = 1003;
     public static final int GIRL = 1004;
+    
+    public static boolean main;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -90,6 +92,10 @@ public class PersonActivity extends Activity {
 	    	addEventsToDefinePersonLayout(SetupPeopleActivity.EDIT_PERSON);
 	    } else {
 	    	addEventsToDefinePersonLayout(MAN);
+	    	main = false;
+	    	actionBar.setTitle("Add Someone You Shop For");
+    		tv_person_step.setText("ADD SOMEONE \nSTEP 1 OF 2");
+    		tv_person_desc.setText("Tell us about someone that you shop for so we can figure out their nutritional needs.");
 	    }
 	    
 	}
@@ -120,6 +126,9 @@ public class PersonActivity extends Activity {
 	    
 	    ll.addView(person_define);
 	    
+	    ScrollView pScroll = (ScrollView) findViewById(R.id.person_scrollview);
+	    pScroll.setScrollbarFadingEnabled(false);
+	    
 	    adb = new AccountDatabaseHelper(this);
 	    
 	    et_name = (EditText) findViewById(R.id.et_name);
@@ -143,15 +152,22 @@ public class PersonActivity extends Activity {
 	    		break;
 	    	case SetupPeopleActivity.EDIT_PERSON:
 	    		p = getIntent().getParcelableExtra("person");
-	    		et_name.setText(p.getName());
+	    		String n = p.getName();
+	    		main = p.getMain();
+	    		if(main){
+		    		actionBar.setTitle("Edit your profile");
+		    		tv_person_step.setText("EDIT YOUR PROFILE \nSTEP 1 OF 2");
+		    		tv_person_desc.setText("Edit your profile so we can better gauge what your nutritional needs are.");
+	    		} else {
+	    			actionBar.setTitle("Edit " + n + "'s profile");
+		    		tv_person_step.setText("EDIT " + n + "\nSTEP 1 OF 2");
+		    		tv_person_desc.setText("Edit " + n + "\'s profile");
+	    		}
+	    		et_name.setText(n);
 	    		break;
 	    	default:
 	    		throw new RuntimeException("Not implemented");
 	    }
-	    
-	    //setup the default values for each of the UI elements
-	    //based upon what was passed via the previous intent
-	    et_name.setHint(username);
 	    
 	    //to setup the age spinner
 	    List<String> year = new ArrayList<String>();
@@ -163,8 +179,9 @@ public class PersonActivity extends Activity {
     	
 	    ArrayAdapter<String> years = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, year);
 	    years.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    sp_age.setPrompt("Age (we'll keep it a secret)");
 	    sp_age.setAdapter(years);
-	    sp_age.setSelection(age-2);	//the starting selection
+	    sp_age.setSelection(34-2);	//the starting selection
 	    sp_age.setOnItemSelectedListener(new OnItemSelectedListener(){
 
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -189,6 +206,7 @@ public class PersonActivity extends Activity {
 	    } else {
 	    	sp_gender.setSelection(1);
 	    }
+	    sp_gender.setPrompt("Gender");
 	    sp_gender.setOnItemSelectedListener(new OnItemSelectedListener(){
 
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -224,7 +242,7 @@ public class PersonActivity extends Activity {
 				
 				newP.setGender(gender);
 				
-				addEventsToDefinePersonLayout2();
+				addEventsToDefinePersonLayout2(personType);
 			}
 		});
 
@@ -233,7 +251,7 @@ public class PersonActivity extends Activity {
 	/**
 	 * Inflate the rest of the layout form
 	 */
-	public void addEventsToDefinePersonLayout2(){
+	public void addEventsToDefinePersonLayout2(final int personType){
 	    View form02 = li.inflate(R.layout.person_define_02, null);
 	    
 	    ll.removeView(person_define);
@@ -245,8 +263,18 @@ public class PersonActivity extends Activity {
 	    sp_activity = (Spinner) findViewById(R.id.sp_activity);
 	    btn_submit = (Button) findViewById(R.id.btn_submit);
 	    
-	    tv_person_step.setText("STEP 2 OF 2");
-	    tv_person_desc.setText("Hi " + newP.getName() + ". \n Just a little bit more about yourself and we'll be done!");
+	    if(personType ==  SetupPeopleActivity.EDIT_PERSON){
+	    	if(newP.getMain()){
+	    		tv_person_step.setText("EDIT YOUR PROFILE" + "\nSTEP 2 OF 2");
+	    		tv_person_desc.setText("Edit your profile so we can gauge what your nutritional needs are.");
+	    	} else {
+		    	tv_person_step.setText("EDIT " + newP.getName() + "\nSTEP 2 OF 2");
+	    		tv_person_desc.setText("Edit " + newP.getName() + "\'s profile so we can figure out what their nutritional needs are.");
+	    	}
+	    } else {
+		    tv_person_step.setText("ADDING " + newP.getName() + "\nSTEP 2 OF 2");
+		    tv_person_desc.setText("Good to know a bit about " + newP.getName() + ".\n Just a little bit more about them and we'll be done!");
+	    }
 	    
 	    //setup weight spinner
 	    List<String> lb = new ArrayList<String>();
@@ -257,6 +285,7 @@ public class PersonActivity extends Activity {
 	    ArrayAdapter<String> lbs = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lb);
 	    lbs.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    sp_weight.setAdapter(lbs);
+	    sp_weight.setPrompt("Weight");
 	    sp_weight.setSelection(weight-35);	//the starting selection
 	    sp_weight.setOnItemSelectedListener(new OnItemSelectedListener(){
 
@@ -283,6 +312,7 @@ public class PersonActivity extends Activity {
 	    ArrayAdapter<String> feet = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ft);
 	    feet.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
 	    sp_feet.setAdapter(feet);
+	    sp_feet.setPrompt("Height");
 	    sp_feet.setSelection(ftHeight-2); 	//the starting selection
 	    sp_feet.setOnItemSelectedListener(new OnItemSelectedListener(){
 
@@ -308,6 +338,7 @@ public class PersonActivity extends Activity {
 	    ArrayAdapter<String> inch = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, in);
 	    inch.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    sp_inches.setAdapter(inch);
+	    sp_inches.setPrompt("Your height is " + ftHeight + " feet and");
 	    sp_inches.setSelection(inHeight);	//the starting selection
 	    sp_inches.setOnItemSelectedListener(new OnItemSelectedListener(){
 
@@ -326,6 +357,7 @@ public class PersonActivity extends Activity {
 	    		new String[]{"Sedentary", "Lightly Active", "Moderately Active", "Very Active"});
 	    aLevel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    sp_activity.setAdapter(aLevel);
+	    sp_activity.setPrompt("How active are you daily?");
 	    sp_activity.setSelection(0);
 	    sp_activity.setOnItemSelectedListener(new OnItemSelectedListener(){
 
@@ -357,20 +389,11 @@ public class PersonActivity extends Activity {
 					Toast.makeText(v.getContext(), "Please enter a valid weight!",  Toast.LENGTH_LONG);
 				}
 				newP.setActivity(activityLevel);
-				newP.setMain(true);
+				newP.setMain(main);
 				newP.setUsername(username);
 				
-				List<Person> people = adb.getAllPeopleFor(username);
-				
-				if(people!=null){
-					for(int i=0; i<people.size(); i++){
-						Person tempP = people.get(i);
-						if(tempP.getName().equals(newP.getName())){
-							adb.updatePerson(p, newP);
-						} else {
-							adb.addPerson(newP);
-						}
-					}
+				if(personType == SetupPeopleActivity.EDIT_PERSON){
+					adb.updatePerson(p, newP);
 				} else {
 					adb.addPerson(newP);
 				}

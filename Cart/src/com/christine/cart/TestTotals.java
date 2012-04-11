@@ -1,5 +1,10 @@
 package com.christine.cart;
 
+
+import com.christine.cart.sqlite.Account;
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,48 +14,56 @@ import android.widget.TextView;
 
 public class TestTotals extends Activity {
 
-	TextView outputText;
 	TextView tv_rdv;
 	TextView tv_peoplelist;
-	Button btn_goback;
+	
+	ActionBar actionBar;
 	
 	Intent passedIntent;
 	
-	private static String NAME;
+	private static Account act;
+	private static String username;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.test_totals);
 	    
-	    outputText = (TextView) findViewById(R.id.output_text);
-        passedIntent = getIntent();
-        if(passedIntent != null){
-	        NAME = passedIntent.getStringExtra("username");
-	        outputText.setText("Information for " + NAME);
-	    } else {
-	    	outputText.setText("No name passed.");
-	    }
+	    //ActionBar
+		actionBar = (ActionBar) findViewById(R.id.actionbar);
+		actionBar.setTitle("Total Nutritional Needs");
+		actionBar.setHomeAction(new backToPeopleAction());
+	  		
+        act = getIntent().getParcelableExtra("account");
+        if(act != null){
+	        username = act.getName();
+	    } 
         
         tv_rdv = (TextView) findViewById(R.id.tv_rdv);
         tv_peoplelist = (TextView) findViewById(R.id.tv_peoplelist);
-        if(NAME!=null){
-        	String rdvTotals = CartActivity.getStringRDVTotalsFor(NAME);
-        	String pTotals = CartActivity.getAllPeopleDescFor(NAME);
+        if(username!=null){
+        	String rdvTotals = CartActivity.getStringRDVTotalsFor(username);
+        	String pTotals = CartActivity.getAllPeopleDescFor(username);
         	tv_rdv.setText(rdvTotals);
         	tv_peoplelist.setText(pTotals);
         }
-        
-        btn_goback = (Button) findViewById(R.id.btn_goback);
-        btn_goback.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				Intent backToCart = new Intent();
-				setResult(RESULT_OK, backToCart);
-				finish();
-			}
-		});
 
     }
+	
+	/**
+	 * Set up actionbar home
+	 */
+	private class backToPeopleAction implements Action{
+		public int getDrawable(){
+			return R.drawable.ab_back;
+		}
+		
+		public void performAction(View view){
+			Intent backToPeople = new Intent(TestTotals.this, SetupPeopleActivity.class);
+			backToPeople.putExtra("account", act);
+			startActivity(backToPeople);
+		}
+	}
+
 
 }

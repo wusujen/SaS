@@ -2,6 +2,7 @@ package com.christine.cart;
 
 
 import java.util.List;
+import java.util.ArrayList;
 
 import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountDatabaseHelper;
@@ -11,8 +12,11 @@ import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,8 +33,9 @@ import android.widget.Toast;
 public class SetupPeopleActivity extends Activity {
 
 	Button next;
-	Button add;
-	Button edit;
+	ImageButton add;
+	ImageButton edit;
+	ImageButton delete;
 	ListView peopleList;
 	
 	ActionBar actionBar;
@@ -43,6 +49,7 @@ public class SetupPeopleActivity extends Activity {
     private static int currentItemNumber;
     
     List<Person> plist = null;
+    ArrayAdapter<String> peopleNames;
 	AccountDatabaseHelper adb;
 	
 	/** Called when the activity is first created. */
@@ -55,12 +62,13 @@ public class SetupPeopleActivity extends Activity {
   		actionBar = (ActionBar) findViewById(R.id.actionbar);
   		actionBar.setTitle("People");
   		actionBar.setHomeAction(new backToDashboardAction());
+  		actionBar.addAction(new toTestAction());
   		
 	    act = getIntent().getParcelableExtra("account");
 	    username = act.getName();
 	    
 	    
-	    add = (Button) findViewById(R.id.btn_add);
+	    add = (ImageButton) findViewById(R.id.btn_add);
 	    add.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
@@ -105,19 +113,10 @@ public class SetupPeopleActivity extends Activity {
 			}
 		});
 	    
-	    edit = (Button) findViewById(R.id.btn_edit);
-	    edit.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				if(selectedP!=null){
-					Intent editPerson = new Intent(SetupPeopleActivity.this, PersonActivity.class);
-					editPerson.putExtra("requestCode", EDIT_PERSON);
-					editPerson.putExtra("account", act);
-					editPerson.putExtra("person", selectedP);
-					startActivityForResult(editPerson, EDIT_PERSON);
-				}
-			}
-		});
+		peopleList = (ListView) findViewById(R.id.lv_people);
+	    edit = (ImageButton) findViewById(R.id.btn_edit);
+	    delete = (ImageButton) findViewById(R.id.btn_delete);
+	    //onclick listener is set only when someone is selected!
 	}
 	
 	/**
@@ -132,6 +131,21 @@ public class SetupPeopleActivity extends Activity {
 			Intent startAgain = new Intent(SetupPeopleActivity.this, DashboardActivity.class);
 			startAgain.putExtra("account", act);
 			startActivity(startAgain);
+		}
+	}
+	
+	/**
+	 * Set up actionbar test action
+	 */
+	private class toTestAction implements Action{
+		public int getDrawable(){
+			return R.drawable.person_nutrition;
+		}
+		
+		public void performAction(View view){
+			Intent toTest = new Intent(SetupPeopleActivity.this, TestTotals.class);
+			toTest.putExtra("account", act);
+			startActivity(toTest);
 		}
 	}
 	
@@ -191,7 +205,7 @@ public class SetupPeopleActivity extends Activity {
 	 */
 	private void setupPeopleList(Context context, final List<Person> persons){
 		
-		ArrayAdapter<String> peopleNames = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_single_choice);
+		peopleNames = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_single_choice);
 		for(int i=0; i<persons.size(); i++){
 			Person p = persons.get(i);
 			
@@ -202,19 +216,101 @@ public class SetupPeopleActivity extends Activity {
 			}
 		}
 		
-		peopleList = (ListView) findViewById(R.id.lv_people);
-		
 		peopleList.setAdapter(peopleNames);
-		peopleList.setBackgroundColor(Color.WHITE);
+		peopleList.setBackgroundColor(Color.TRANSPARENT);
 		peopleList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		
 		peopleList.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View v, int position,
 					long id) {
-				selectedP = persons.get(position);
+				if(selectedP!=null && selectedP.equals(persons.get(position))){
+					peopleList.setItemChecked(position, false);
+					selectedP = null;
+					
+					deleteAndEditDisabled();
+				} else {
+					selectedP = persons.get(position);
+					
+					//enable delete and edit buttons
+					deleteAndEditEnabled();
+				}
 			}
 			
 		});
+	}
+	
+	/*
+	 * Enable delete  & edit person
+	 */
+	private void deleteAndEditEnabled(){
+		Resources res = getResources();
+		if(!selectedP.getMain()){
+			delete.setBackgroundDrawable(res.getDrawable(R.drawable.btn_green));
+			delete.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					deletePersonConfirmation(selectedP.getName());
+				}
+			});
+		}
+		
+		edit.setBackgroundDrawable(res.getDrawable(R.drawable.btn_green));
+		edit.setOnClickListener(new View.OnClickListener() {	
+			public void onClick(View v) {
+				if(selectedP!=null){
+					Intent editPerson = new Intent(SetupPeopleActivity.this, PersonActivity.class);
+					editPerson.putExtra("requestCode", EDIT_PERSON);
+					editPerson.putExtra("account", act);
+					editPerson.putExtra("person", selectedP);
+					startActivityForResult(editPerson, EDIT_PERSON);
+				}
+			}
+		});
+	}
+	
+	/*
+	 * Disable delete & edit
+	 */
+	private void deleteAndEditDisabled(){
+		Resources res = getResources();
+		delete.setBackgroundDrawable(res.getDrawable(R.drawable.btn_grey));
+		delete.setOnClickListener(null);
+		edit.setBackgroundDrawable(res.getDrawable(R.drawable.btn_grey));
+		edit.setOnClickListener(null);
+	}
+	
+	/**
+	 * DELETE PERSON CONFIRMATION DIALOG
+	 */
+	private void deletePersonConfirmation(String nameToRemove){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Are you sure you want to remove " + nameToRemove + " from the people that you shop for?");
+		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		        		adb = new AccountDatabaseHelper(SetupPeopleActivity.this);
+		        		adb.deletePerson(selectedP);
+		    			plist = adb.getAllPeopleFor(username);
+		    			adb.close();
+		    			
+		    			if(plist!=null){
+		    				setupPeopleList(SetupPeopleActivity.this, plist);
+		    				peopleNames.notifyDataSetChanged();
+		    			} else {
+		    				plist = new ArrayList<Person>();
+		    				setupPeopleList(SetupPeopleActivity.this, plist);
+		    				peopleNames.notifyDataSetChanged();
+		    			}
+		    			
+		    			selectedP = null;
+		    			deleteAndEditDisabled();
+		           }
+		       });
+		builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		                dialog.cancel();
+		           }
+		       });
+		AlertDialog deletePerson = builder.create();
+		deletePerson.show();
 	}
 	
 }

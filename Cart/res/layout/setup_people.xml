@@ -8,15 +8,14 @@
     <com.markupartist.android.widget.ActionBar
         android:id="@+id/actionbar"
         style="@style/ActionBar" >
-
     </com.markupartist.android.widget.ActionBar>
-
+
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_below="@+id/actionbar" 
-         android:background="@drawable/background_gradient_lightgrey">
+        android:layout_below="@+id/actionbar"
+        android:background="@drawable/background_gradient_lightgrey" >
 
         <LinearLayout
             android:id="@+id/linearLayout1"
@@ -39,71 +38,88 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/tv_title"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical" 
-            >
-
-            <ListView
-                android:id="@+id/lv_people"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.98"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/listcontainer"
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:cacheColorHint="#000000"
                 android:background="@drawable/shape_white_transparent" >
+
+                <ListView
+                    android:id="@+id/lv_people"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:cacheColorHint="#00000000" >
 
-            </ListView>
-
+                </ListView>
+            </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/relativeLayout1"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
                 android:orientation="horizontal" >
-
-                <Button
-                    android:id="@+id/btn_edit"
-                    style="@style/GreyButton"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginBottom="5dp"
-                    android:text="@string/btn_edit" />
 
                 <Button
-                    style="@style/GreyButton"
-                    android:id="@+id/btn_add"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    android:layout_alignBaseline="@+id/btn_edit"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/btn_edit"
-                    android:text="@string/btn_add" />
-
-                <Button
-                    style="@style/GreyButton"
                     android:id="@+id/btn_next"
+                    style="@style/GreenButton"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
                     android:text="@string/btn_startcart" />
 
+                <ImageButton
+                    android:id="@+id/btn_delete"
+                    style="@style/GreyButton"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/person_delete" />
+
+                <ImageButton
+                    android:id="@+id/btn_edit"
+                    style="@style/GreyButton"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/btn_delete"
+                    android:src="@drawable/person_edit" />
+
+                <ImageButton
+                    android:id="@+id/btn_add"
+                    style="@style/GreenButton"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/btn_edit"
+                    android:src="@drawable/person_add" />
             </RelativeLayout>
+
         </LinearLayout>
     </LinearLayout>
 

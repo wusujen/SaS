@@ -105,16 +105,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
             android:background="@drawable/btn_history" />
-        
-          <Button
-              android:id="@+id/btn_logout"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentRight="true"
-              android:layout_alignParentTop="true"
-              android:layout_marginRight="5dp"
-              android:layout_marginTop="5dp"
-              android:background="@drawable/btn_logout" />
 
         <ImageView
             android:id="@+id/imageView1"
@@ -124,6 +114,16 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:src="@drawable/carrot_logo_large" />
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/btn_logout" />
 
     </RelativeLayout>
 

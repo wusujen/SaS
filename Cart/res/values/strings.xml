@@ -5,6 +5,8 @@
     <string name="btn_submit">Submit</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_next">Next</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_quantity">Change Quantity</string>
 
     <!-- START -->
     <string name="app_name">Balance</string>
@@ -21,12 +23,12 @@
 	
 	
 	<!-- Profile/Person -->
-	<string name="tv_stepCount1">STEP 1 OF 2</string>
+	<string name="tv_stepCount1">CREATE PROFILE \nSTEP 1 OF 2</string>
 	<string name="tv_profile">Tell us a bit about yourself.</string>
 	<string name="btn_later">Do It Later</string>
-	<string name="title_people">PEOPLE</string>
+	<string name="title_people">MANAGE PEOPLE</string>
 	<string name="title_person">ADD PERSON</string>
-	<string name="tv_title">Add the people that you shop for.</string>
+	<string name="tv_title">Add the people that you shop for so we can keep an accurate track of your nutritional needs.</string>
 	<string name="tv_name">NAME</string>
 	<string name="tv_age">AGE</string>
 	<string name="tv_height">HEIGHT</string>
@@ -76,7 +78,7 @@
 	
 	<!-- Checkout -->
 	<string name="tv_summary_title">YOUR PROGRESS</string>
-	<string name="btn_finish">I\'M DONE!</string>
+	<string name="btn_finish">I\'LL IMPROVE!</string>
 	<string name="tv_checkout">Checkout</string>
 	<string name="btn_logout">Logout</string>	
 	<string name ="btn_new_cart">New Cart</string>

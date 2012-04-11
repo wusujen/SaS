@@ -43,7 +43,7 @@
         </LinearLayout>
 
         <ScrollView
-            android:id="@+id/scrollView1"
+            android:id="@+id/person_scrollview"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="10dp"

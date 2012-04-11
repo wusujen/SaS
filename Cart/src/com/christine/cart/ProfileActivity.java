@@ -79,7 +79,7 @@ public class ProfileActivity extends Activity {
 	    
 		//ActionBar
 		actionBar = (ActionBar) findViewById(R.id.actionbar);
-		actionBar.setTitle("Add Person");
+		actionBar.setTitle("Create Profile");
 		actionBar.setHomeAction(new backToDashboardAction());
 		
 	    Bundle extras = getIntent().getExtras();
@@ -106,6 +106,7 @@ public class ProfileActivity extends Activity {
 	    ArrayAdapter<String> years = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, year);
 	    years.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    sp_age.setAdapter(years);
+	    sp_age.setPrompt("Age (we'll keep it a secret)");
 	    sp_age.setSelection(age-2);	//the starting selection
 	    sp_age.setOnItemSelectedListener(new OnItemSelectedListener(){
 
@@ -131,6 +132,7 @@ public class ProfileActivity extends Activity {
 	    } else {
 	    	sp_gender.setSelection(1);
 	    }
+	    sp_gender.setPrompt("Gender");
 	    sp_gender.setOnItemSelectedListener(new OnItemSelectedListener(){
 
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -199,6 +201,7 @@ public class ProfileActivity extends Activity {
 	    
 	    ll.removeView(form01);
 	    ll.addView(form02);
+	    ll.setScrollbarFadingEnabled(false);
 		
 	    sp_weight = (Spinner) findViewById(R.id.sp_weight);
 	    sp_feet = (Spinner) findViewById(R.id.sp_feet);
@@ -206,8 +209,8 @@ public class ProfileActivity extends Activity {
 	    sp_activity = (Spinner) findViewById(R.id.sp_activity);
 	    btn_submit = (Button) findViewById(R.id.btn_submit);
 	    
-	    tv_profile_step.setText("STEP 2 OF 2");
-	    tv_profile_desc.setText("Hi " + newP.getName() + ". \n Just a little bit more about yourself and we'll be done!");
+	    tv_profile_step.setText("CREATE PROFLE \nSTEP 2 OF 2");
+	    tv_profile_desc.setText("Hi " + newP.getName() + ".\n\n Just a little bit more about yourself and we'll be done!");
 	    
 	    //setup weight spinner
 	    List<String> lb = new ArrayList<String>();
@@ -218,6 +221,7 @@ public class ProfileActivity extends Activity {
 	    ArrayAdapter<String> lbs = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lb);
 	    lbs.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    sp_weight.setAdapter(lbs);
+	    sp_weight.setPrompt("Weight");
 	    sp_weight.setSelection(weight-35);	//the starting selection
 	    sp_weight.setOnItemSelectedListener(new OnItemSelectedListener(){
 
@@ -244,6 +248,7 @@ public class ProfileActivity extends Activity {
 	    ArrayAdapter<String> feet = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ft);
 	    feet.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
 	    sp_feet.setAdapter(feet);
+	    sp_feet.setPrompt("Height");
 	    sp_feet.setSelection(ftHeight-2); 	//the starting selection
 	    sp_feet.setOnItemSelectedListener(new OnItemSelectedListener(){
 
@@ -269,6 +274,7 @@ public class ProfileActivity extends Activity {
 	    ArrayAdapter<String> inch = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, in);
 	    inch.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    sp_inches.setAdapter(inch);
+	    sp_inches.setPrompt("Your height is " + ftHeight + " feet and");
 	    sp_inches.setSelection(inHeight);	//the starting selection
 	    sp_inches.setOnItemSelectedListener(new OnItemSelectedListener(){
 
@@ -287,6 +293,7 @@ public class ProfileActivity extends Activity {
 	    		new String[]{"Sedentary", "Lightly Active", "Moderately Active", "Very Active"});
 	    aLevel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    sp_activity.setAdapter(aLevel);
+	    sp_activity.setPrompt("How active are you daily?");
 	    sp_activity.setSelection(0);
 	    sp_activity.setOnItemSelectedListener(new OnItemSelectedListener(){
 

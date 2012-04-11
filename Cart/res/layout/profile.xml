@@ -58,29 +58,31 @@
                 android:id="@+id/ll_form_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
-
+
                 <LinearLayout
                     android:id="@+id/ll_form_01"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical" >
-
+
                     <TextView
                         android:id="@+id/tv_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="18dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginRight="15dp"
                         android:layout_marginTop="28dp"
                         android:text="@string/tv_name" />
-
+
                     <EditText
                         android:id="@+id/et_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
                         android:inputType="text" >
 
                         <requestFocus />
@@ -91,12 +93,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="15dp" >
-
+
                         <TextView
                             android:id="@+id/tv_age"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="18dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="10dp"
                             android:layout_weight="1"
                             android:text="@string/tv_age" />
@@ -110,18 +112,16 @@
                             android:layout_weight="1"
                             android:text="@string/tv_gender" />
                     </TableRow>
-
+
                     <TableRow
                         android:id="@+id/tableRow3"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp" >
-
+                        android:layout_height="wrap_content" >
+
                         <Spinner
                             android:id="@+id/sp_age"
                             android:layout_width="111dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
                             android:layout_weight="1" />
 
                         <Spinner
@@ -131,14 +131,13 @@
                             android:layout_marginLeft="15dp"
                             android:layout_weight="1" />
                     </TableRow>
-
+
                     <TableRow
                         android:id="@+id/tableRow2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginRight="15dp" >
+                        android:layout_marginBottom="20dp" >
 
                         <Button
                             android:id="@+id/btn_next"

@@ -10,6 +10,7 @@ import com.christine.cart.sqlite.GroceryItem;
 import com.christine.cart.sqlite.Item;
 import com.christine.cart.sqlite.NutritionDatabaseHelper;
 import com.christine.cart.sqlite.Person;
+import com.christine.cart.sqlite.PersonActivity;
 import com.christine.cart.sqlite.PreviousHistory;
 import com.christine.cart.sqlite.RecDailyValues;
 import com.christine.cart.visual.GraphLabelView;
@@ -24,10 +25,12 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -40,6 +43,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SlidingDrawer;
 import android.widget.TextView;
@@ -53,10 +57,11 @@ public class CartActivity extends Activity {
 	String results;
 	Button viewItemList;
 	Button checkout;
-	Button test;
 	Button searchItem;
 	Button scanItem;
 	Button handle;
+	Button quantityItem;
+	Button deleteItem;
 	TextView added;
 	TextView peopleDays;
 	SlidingDrawer sd_itemlist;
@@ -66,12 +71,6 @@ public class CartActivity extends Activity {
 
 	InputMethodManager manager;
 	Context inputsContext;
-
-	// for scan results
-	private static String upcResults;
-	private static String resultValue;
-	private static String resultSize;
-	private static String resultMessage;
 
 	private static Intent passedIntent;
 
@@ -90,7 +89,6 @@ public class CartActivity extends Activity {
 	private static Account act;
 	private static AccountDatabaseHelper adb;
 	private static NutritionDatabaseHelper ndb;
-	private boolean onUPCResult = false;
 
 	// information for graph settings
 	private static int days;
@@ -100,9 +98,12 @@ public class CartActivity extends Activity {
 	private static List<GroceryItem> ccart;
 	private static ArrayAdapter<String> ccartList;
 	private static PreviousHistory pcart; // => previous cart totals
+	private static PreviousHistory ccartTotals;
 	private static RecDailyValues totalRDV;
 
 	private static NutritionAdvisor advisor;
+	
+	private int newQuantity;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -173,6 +174,7 @@ public class CartActivity extends Activity {
 		// initiates the listview within the drawer
 		sd_list = (ListView) findViewById(R.id.sd_list);
 		sd_itemlist = (SlidingDrawer) findViewById(R.id.sd_itemlist);
+		handle = (Button) findViewById(R.id.btn_handle);
 		
 		pcart = adb.getPreviousHistoryFor(currentUsername);
 		adb.close();
@@ -189,6 +191,8 @@ public class CartActivity extends Activity {
 
 		// Handles the PLU code
 		searchItem = (Button) findViewById(R.id.btn_search);
+		deleteItem = (Button) findViewById(R.id.btn_delete_item);
+		quantityItem = (Button) findViewById(R.id.btn_quantity);
 
 		manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		inputsContext = getApplicationContext();
@@ -239,47 +243,17 @@ public class CartActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		
-		//get an updated version of the adb on resume each time
-		adb = new AccountDatabaseHelper(this);
-		ccart = adb.getAllGroceryItemsOf(currentUsername);
-		int groceryCount = adb.getGroceryCountFor(currentUsername);
-		if(groceryCount==1){
-			added.setText(groceryCount + " ITEM IN CART");
-		} else if(groceryCount==0 || groceryCount>1){
-			added.setText(groceryCount + " ITEMS IN CART");
-		}
-		adb.close();
+		updateBaseGraph();
 		
-		if (ccart != null) {
-			setupItemDrawer();
+		if(selectedItems!=null){
+			deleteAndQuantityButtonsEnabled();
+		} else {
+			deleteAndQuantityButtonsDisabled();
 		}
 		
-		passedIntent = getIntent();
-
-		results = passedIntent.getStringExtra("results");
-		int check = passedIntent.getIntExtra("check", 0);
-		if (check == 1) {
-			updateGraphWithSelected(results);
-			// setup the listview if current cart is not null
-		} 	
-		
-		PreviousHistory currentCart = getCartTotalsFor(currentUsername);
-		totalRDV = getRDVTotalsFor(currentUsername);
-		
-		advisor.setCurrCart(currentCart);
+		advisor.setCurrCart(ccartTotals);
 		advisor.setRecDailyValues(totalRDV);
 		advisor.setDays(days);
-		
-		if(pcart.getCalories()!=0.0f){
-			graph.getRatiosWithPCart(currentCart, totalRDV, pcart);
-		} else {
-			graph.getRatiosWithoutPCart(currentCart, totalRDV);
-		}
-		graph.postInvalidate();
-
-		graphLabels.setDays(days);
-		graphLabels.postInvalidate();
-		
 		advisor.giveAdvice(this.getApplicationContext());
 
 	}
@@ -607,17 +581,54 @@ public class CartActivity extends Activity {
 	}
 	
 	/**
-	 * UPDATE GRAPH
+	 * UPDATE BASE GRAPH
+	 * with new Cart totals
+	 */
+	private void updateBaseGraph(){
+		//get an updated version of the adb on resume each time
+		adb = new AccountDatabaseHelper(this);
+		ccart = adb.getAllGroceryItemsOf(currentUsername);
+		int groceryCount = adb.getGroceryCountFor(currentUsername);
+		if(groceryCount==1){
+			added.setText(groceryCount + " ITEM IN CART");
+		} else if(groceryCount==0 || groceryCount>1){
+			added.setText(groceryCount + " ITEMS IN CART");
+		}
+		adb.close();
+		
+		if (ccart != null) {
+			setupItemDrawer();
+		}
+		
+		passedIntent = getIntent();
+
+		results = passedIntent.getStringExtra("results");
+		int check = passedIntent.getIntExtra("check", 0);
+		if (check == 1) {
+			updateGraphWithSelected(results);
+			// setup the listview if current cart is not null
+		} 	
+		
+		ccartTotals = getCartTotalsFor(currentUsername);
+		totalRDV = getRDVTotalsFor(currentUsername);
+		
+		if(pcart.getCalories()!=0.0f){
+			graph.getRatiosWithPCart(ccartTotals, totalRDV, pcart);
+		} else {
+			graph.getRatiosWithoutPCart(ccartTotals, totalRDV);
+		}
+		graph.postInvalidate();
+
+		graphLabels.setDays(days);
+		graphLabels.postInvalidate();
+	}
+	
+	/**
+	 * UPDATE GRAPH WITH SELECTED
 	 * when results are returned
 	 */
-	void updateGraphWithSelected(String results){
-		if (results.equals(null) || results.equals("e")) {
-			Toast noMatch = Toast.makeText(inputsContext,
-					"We couldn't find that item! Please try again.",
-					Toast.LENGTH_LONG);
-			noMatch.setGravity(Gravity.TOP | Gravity.LEFT, 0, 150);
-			noMatch.show();
-		} else {
+	private void updateGraphWithSelected(String results){
+		if (!results.equals(null) || !results.equals("e")) {
 			ndb = new NutritionDatabaseHelper(this);
 	
 			if (selectedItems != null || quantities != null) {
@@ -648,7 +659,6 @@ public class CartActivity extends Activity {
 			selectedItems.add(selectedItem);
 			String one = "<font color='#7EAD1A'>" + selectedItem.getItemName() +"</font> SELECTED";
 			added.setText(Html.fromHtml(one));
-
 	
 			for (GroceryItem gItem : ccart) {
 				if (gItem.getItemName().equals(results)) {
@@ -668,6 +678,8 @@ public class CartActivity extends Activity {
 	
 			graphLabels.setDays(days);
 			graphLabels.postInvalidate();
+		} else {
+			
 		}
 	}
 	
@@ -708,9 +720,11 @@ public class CartActivity extends Activity {
 				if (selectedItems != null || quantities != null) {
 					selectedItems.clear();
 					quantities.clear();
+					deleteAndQuantityButtonsDisabled();
 				} else {
 					selectedItems = new ArrayList<Item>();
 					quantities = new ArrayList<Integer>();
+					deleteAndQuantityButtonsDisabled();
 				}
 				
 				boolean isSelected = false;
@@ -731,7 +745,9 @@ public class CartActivity extends Activity {
 									.equals(selectedItemName)) {
 								quantities.add(gItem.getQuantity());
 							}
-						}	
+						}
+						
+						ndb.close();
 					}
 				}
 				
@@ -740,12 +756,16 @@ public class CartActivity extends Activity {
 					added.setText(Html.fromHtml(one));
 					graph.setMinimumWidth(3800);
 					graph.invalidate();
+					deleteAndQuantityButtonsEnabled();
+					
 				} else if(selectedItems.size()==2){
 					String two = "COMPARE <font color='#7EAD1A'>" + selectedItems.get(0).getItemName() +"</font>"
 							+ " VS <font color='#E57716'>" + selectedItems.get(1).getItemName() +"</font>";
 					added.setText(Html.fromHtml(two));
 					graph.setMinimumWidth(4500);
 					graph.invalidate();
+					deleteAndQuantityButtonsDisabled();
+
 				} else if (selectedItems.size() == 3) {
 					String tempItemName = ccartList.getItem(position);
 					int pos = tempItemName.indexOf(" ");
@@ -762,6 +782,7 @@ public class CartActivity extends Activity {
 					Log.d("CartActivity",
 							"Removed: " + iToRemove.getItemName());
 					sd_list.setItemChecked(position, false);
+					deleteAndQuantityButtonsDisabled();
 				} 
 				
 				graph.passSelectedItems(selectedItems);
@@ -773,7 +794,6 @@ public class CartActivity extends Activity {
 		
 		// for the sliding drawer in footer activity
 		// populates controls the sliding drawer
-		handle = (Button) findViewById(R.id.btn_handle);
 		sd_itemlist.setOnDrawerOpenListener(new OnDrawerOpenListener() {
 			public void onDrawerOpened() {
 				handle.setBackgroundDrawable(getResources().getDrawable(R.drawable.cart_tab_down));
@@ -785,6 +805,135 @@ public class CartActivity extends Activity {
 			}
 		});
 	}
+	
+	/**
+	 * Enable Delete Item and Increase Item quantity
+	 */
+	public void deleteAndQuantityButtonsEnabled(){
+		Resources res = getResources();
+		deleteItem.setBackgroundDrawable(res.getDrawable(R.drawable.btn_green));
+		deleteItem.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Item selectedItem = selectedItems.get(0);
+				showDeleteItemConfirmation(selectedItem.getItemName());
+			}
+		});
+		
+		quantityItem.setBackgroundDrawable(res.getDrawable(R.drawable.btn_green));
+		quantityItem.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Item selectedItem = selectedItems.get(0);
+				int selectedItemQuantity = quantities.get(0);
+				
+				showQuantityAlertDialog(selectedItem.getItemName(), selectedItemQuantity);
+			}
+		});
+	}
+	
+	/*
+	 * Disable deleteItem & quantityItem
+	 */
+	private void deleteAndQuantityButtonsDisabled(){
+		Resources res = getResources();
+		deleteItem.setBackgroundDrawable(res.getDrawable(R.drawable.btn_grey));
+		deleteItem.setOnClickListener(null);
+		quantityItem.setBackgroundDrawable(res.getDrawable(R.drawable.btn_grey));
+		quantityItem.setOnClickListener(null);
+	}
+	
+	/**
+	 * Delete Alert Dialog
+	 */
+	private void showDeleteItemConfirmation(final String itemName){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Are you sure you want to remove " + itemName + " from your cart?");
+		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface dialog, int which) {
+				adb = new AccountDatabaseHelper(CartActivity.this);
+				GroceryItem selectedItem = adb.getGroceryItemOf(currentUsername, itemName);
+				adb.deleteGroceryItem(selectedItem);
+				adb.close();
+				
+				//update the list
+				ccart.clear();
+				ccart = adb.getAllGroceryItemsOf(currentUsername);
+				adb.close(); //close db
+				
+				//setup the item drawer again to clear the list
+				ccartList.notifyDataSetChanged();
+				setupItemDrawer();
+				updateBaseGraph();
+				
+				selectedItems.clear();
+				quantities.clear();
+				graph.passSelectedItems(selectedItems);
+				graph.passSelectedQuantities(quantities);
+				
+				deleteAndQuantityButtonsDisabled();
+			}	
+		});
+		
+		builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {
+	                dialog.cancel();
+	           }
+	       });
+		AlertDialog deleteItem = builder.create();
+		deleteItem.show();
+	}
+	
+	
+	/**
+	 * Quantity Alert Dialog
+	 */
+	public void showQuantityAlertDialog(final String itemName, int previousQuantity){
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		newQuantity = previousQuantity;
+		
+		alert.setTitle("Change Quantity");
+		alert.setMessage("Change quantity of " + itemName + "to");
+
+		// Set an EditText view to get user input 
+		final EditText input = new EditText(this);
+		input.setInputType(InputType.TYPE_CLASS_NUMBER);
+		input.setHint(String.valueOf(previousQuantity));
+		alert.setView(input);
+
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		public void onClick(DialogInterface dialog, int whichButton) {
+			newQuantity = Integer.valueOf(input.getText().toString());
+			
+			//update in the database;
+			adb = new AccountDatabaseHelper(CartActivity.this);
+			GroceryItem gItem = adb.getGroceryItemOf(currentUsername, itemName);
+			gItem.setQuantity(newQuantity);
+			quantities.set(0, newQuantity);
+			adb.updateGroceryItem(gItem);
+			
+			//update the list
+			ccart.clear();
+			ccart = adb.getAllGroceryItemsOf(currentUsername);
+			adb.close(); //close db
+			
+			//setup the item drawer again to clear the list
+			ccartList.notifyDataSetChanged();
+			setupItemDrawer();
+			updateBaseGraph();
+			updateGraphWithSelected(itemName);
+		  }
+		});
+
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		  public void onClick(DialogInterface dialog, int whichButton) {
+			  dialog.cancel();
+		  }
+		});
+
+		alert.show();
+	}
+	
+	
 	/**
 	 * CHECKOUT ALERT DIAOLOG
 	 */
@@ -813,5 +962,6 @@ public class CartActivity extends Activity {
 		AlertDialog endCart = builder.create();
 		endCart.show();
 	}
+	
 
 }

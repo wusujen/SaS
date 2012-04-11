@@ -13,3 +13,10 @@
 1333992531509	Delete element
 1333994641894	Rename method 'getGroceryCount'
 1334000080378	Change Layout
+1334064867146	Delete element
+1334066270887	Rename field 'NAME'
+1334112167974	Wrap in Container
+1334112216880	Change Layout
+1334117004554	Change Layout
+1334120787200	Rename method 'deleteItemAndQuantityDisabled'
+1334122207035	Rename field 'currentCartTotals'

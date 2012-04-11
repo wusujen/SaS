@@ -348,8 +348,8 @@ public class AccountDatabaseHelper extends DatabaseHelper{
 	
 	public void deletePerson(Person person){
 		SQLiteDatabase db = this.getWritableDatabase();
-	    db.delete(TABLE_PEOPLE, PEOPLE_USER + " = ?",
-	            new String[] { person.getUsername() });
+	    db.delete(TABLE_PEOPLE, PEOPLE_USER + " = ? AND " + PEOPLE_NAME + " =?",
+	            new String[] { person.getUsername(), person.getName()});
 	    Log.d("Delete Person: ",person.getName() + "deleted from database");
 	    db.close();
 	}

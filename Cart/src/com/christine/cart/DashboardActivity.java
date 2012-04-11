@@ -5,10 +5,14 @@ import java.util.List;
 import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountDatabaseHelper;
 import com.christine.cart.sqlite.Person;
+import com.christine.cart.sqlite.PreviousHistory;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -54,11 +58,18 @@ public class DashboardActivity extends Activity {
 		adb.close();
 		
 		if(people==null){
-			addPeople.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_people_highlighted));
-			widgetTitle.setText("NO CART YET");
-			cartStatus.setText("Please add people before starting a cart!");
+			widgetTitle.setText("YOU HAVEN'T STARTED A CART YET");
+			cartStatus.setText("Before you do, let's start with the people you shop for.");
+			
+			cartLauncher.setOnClickListener(new View.OnClickListener() {
+				
+				public void onClick(View v) {
+					Intent startSetupProfile = new Intent(DashboardActivity.this, ProfileActivity.class);
+					startSetupProfile.putExtra("account",act);
+					startActivity(startSetupProfile);
+				}
+			});
 		} else {
-			addPeople.setBackgroundResource(R.drawable.dashboard_people_normal);
 			widgetTitle.setText("");
 			cartStatus.setText("Please add people before starting a cart!");
 			
@@ -93,11 +104,13 @@ public class DashboardActivity extends Activity {
 							Intent startSetupPeople = new Intent(DashboardActivity.this, SetupPeopleActivity.class);
 							startSetupPeople.putExtra("account",act);
 							startActivity(startSetupPeople);
+						} else {
+							Intent startSetupProfile = new Intent(DashboardActivity.this, ProfileActivity.class);
+							startSetupProfile.putExtra("account",act);
+							startActivity(startSetupProfile);
 						}
 					}
-				}
-
-				if(!main){
+				} else {
 					Intent startSetupProfile = new Intent(DashboardActivity.this, ProfileActivity.class);
 					startSetupProfile.putExtra("account",act);
 					startActivity(startSetupProfile);
@@ -109,9 +122,7 @@ public class DashboardActivity extends Activity {
 	    logout.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				Intent logout = new Intent(DashboardActivity.this, StartActivity.class);
-				logout.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(logout);
+				showLogoutDialog();
 			}
 		});
 	    
@@ -139,5 +150,27 @@ public class DashboardActivity extends Activity {
 					startActivity(startCart);
 				}
 		});
+	}
+	
+	/**
+	 * CHECKOUT ALERT DIAOLOG
+	 */
+	private void showLogoutDialog(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Are you sure you really want to log out? We'll miss you!");
+		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		        		Intent logout = new Intent(DashboardActivity.this, StartActivity.class);
+						logout.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(logout);
+		           }
+		       });
+		builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		                dialog.cancel();
+		           }
+		       });
+		AlertDialog endLogin = builder.create();
+		endLogin.show();
 	}
 }

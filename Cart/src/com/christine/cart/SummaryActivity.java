@@ -61,6 +61,7 @@ public class SummaryActivity extends Activity {
 
 			PreviousHistory existingHistory = adb.getPreviousHistoryFor(pH
 					.getUsername());
+			Log.d("Summary Activity", "Existing History " + existingHistory.toString());
 			if (existingHistory.getCalories() != 0.0f) {
 				adb.updatePreviousHistoryFor(pH);
 
@@ -71,6 +72,15 @@ public class SummaryActivity extends Activity {
 								+ " Days: " + thisHistory.getDays()
 								+ " Calories: " + thisHistory.getCalories());
 				advisor.setPastCart(existingHistory);
+				
+				//give the advice!
+				String summary = advisor.getNegativeAdvice() + " \n \n" + advisor.getPositiveAdvice();
+				String cleaned = summary.replaceAll("\\s","");
+				if(cleaned.length() == 0) {
+					summary = "You didn't improve or digress this time! Staying level is pretty good--but remember, you can always be a better you!";
+				}
+				tv_summary.setText(summary);
+				
 			} else {
 				adb.addPreviousHistoryFor(pH);
 
@@ -80,6 +90,19 @@ public class SummaryActivity extends Activity {
 						"PH added, Name: " + thisHistory.getUsername()
 								+ " Days: " + thisHistory.getDays()
 								+ " Calories: " + thisHistory.getCalories());
+				
+				String summary = advisor.getNegativeAdvice() + " \n \n" + advisor.getPositiveAdvice();
+				String firstTime = "Great job finishing your first cart!\n\n" +
+						"The next time you come in you will see <font color='#E57716'>ORANGE LINES</font> that keep track of your" +
+						"previous shopping cart's nutritional content. \n\n" +
+						"Try to keep track and improve each time!"; 
+				String cleaned = summary.replaceAll("\\s","");
+				if(cleaned.length() == 0) {
+					summary = firstTime;
+				} else {
+					summary += "\n\n" + firstTime;
+				}
+				tv_summary.setText(summary);
 			}
 
 			// delete all of the current cart items based upon the username
@@ -93,14 +116,7 @@ public class SummaryActivity extends Activity {
 			}
 
 			adb.close();
-			
-			//give the advice!
-			String summary = advisor.getNegativeAdvice() + " \n \n" + advisor.getPositiveAdvice();
-			String cleaned = summary.replaceAll("\\s","");
-			if(cleaned.length() == 0) {
-				summary = "You didn't improve or digress this time! Staying level is pretty good--but remember, you can always be a better you!";
-			}
-			tv_summary.setText(summary);
+		
 			
 		} else {
 			tv_summary.setText("Dude, you didn't buy anything, so we can't tell you anything. Try again next time!");
