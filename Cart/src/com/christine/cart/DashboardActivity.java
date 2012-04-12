@@ -1,11 +1,13 @@
 package com.christine.cart;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountDatabaseHelper;
 import com.christine.cart.sqlite.Person;
 import com.christine.cart.sqlite.PreviousHistory;
+import com.christine.cart.sqlite.RecDailyValues;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class DashboardActivity extends Activity {
@@ -33,6 +36,8 @@ public class DashboardActivity extends Activity {
 	private static AccountDatabaseHelper adb;
 	private static List<Person> people;
 	private static int groceryCount;
+	private static PreviousHistory pcart;
+	private static RecDailyValues rdvTotals;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -55,6 +60,8 @@ public class DashboardActivity extends Activity {
 		adb = new AccountDatabaseHelper(DashboardActivity.this);
 		people= adb.getAllPeopleFor(username);
 		groceryCount = adb.getGroceryCountFor(username);
+		pcart = adb.getPreviousHistoryFor(username);
+		rdvTotals = getRDVTotalsFor(username);
 		adb.close();
 		
 		if(people==null){
@@ -91,6 +98,14 @@ public class DashboardActivity extends Activity {
 			}
 		}
 		
+		if(pcart.getCalories()!=0 && pcart!=null){
+			startHistoryActivity();
+		} else {
+			Toast noHistory = Toast.makeText(DashboardActivity.this, "You don't have any shopping history! " +
+					"Once you have finished a cart, come visit again.", Toast.LENGTH_LONG);
+			noHistory.show();
+		}
+		
 		addPeople.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
@@ -118,6 +133,7 @@ public class DashboardActivity extends Activity {
 				
 			}
 		});
+		
 	   
 	    logout.setOnClickListener(new View.OnClickListener() {
 			
@@ -152,6 +168,19 @@ public class DashboardActivity extends Activity {
 		});
 	}
 	
+	public void startHistoryActivity(){
+		history.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				Intent goToHistory = new Intent(DashboardActivity.this, HistoryActivity.class);
+				goToHistory.putExtra("pcart", pcart);
+				goToHistory.putExtra("account", act);
+				goToHistory.putExtra("rdvTotals", rdvTotals);
+				startActivity(goToHistory);
+			}
+		});
+	}
+	
 	/**
 	 * CHECKOUT ALERT DIAOLOG
 	 */
@@ -173,4 +202,70 @@ public class DashboardActivity extends Activity {
 		AlertDialog endLogin = builder.create();
 		endLogin.show();
 	}
+	
+	/**
+	 * TOTAL RDR Get the total values of all of the RecDailyValues
+	 * 
+	 */
+	public static RecDailyValues getRDVTotalsFor(String username) {
+		List<Person> p = adb.getAllPeopleFor(username);
+		List<RecDailyValues> rdvList = new ArrayList<RecDailyValues>();
+		if (p != null) {
+			for (int i = 0; i < p.size(); i++) {
+				RecDailyValues tempRDV = new RecDailyValues(p.get(i));
+				rdvList.add(tempRDV);
+			}
+		} else {
+			adb.close();
+			return null;
+		}
+
+		adb.close();
+		RecDailyValues total = getTotalRDVOf(rdvList);
+		return total;
+	}
+
+	/**
+	 * @param rdvList
+	 * @return RecDailyValue Contains all of the totaled values for the group of
+	 *         people the user has set
+	 */
+	public static RecDailyValues getTotalRDVOf(List<RecDailyValues> rdvList) {
+
+		RecDailyValues total = new RecDailyValues();
+
+		for (int i = 0; i < rdvList.size(); i++) {
+			// create a temporary RDV object
+			RecDailyValues temp = rdvList.get(i);
+
+			// set all of the properties based on the current and the sum of the
+			total.setCalories(total.getCalories() + temp.getCalories());
+			total.setProtein((total.getProtein() + temp.getProtein()));
+			total.setFat((total.getFat() + temp.getFat()));
+			total.setCarbohydrate((total.getCarbohydrate() + temp
+					.getCarbohydrate()));
+			total.setFiber((total.getFiber() + temp.getFiber()));
+			total.setSugar((total.getSugar() + temp.getSugar()));
+			total.setCalcium((total.getCalcium() + temp.getCalcium()));
+			total.setIron((total.getIron() + temp.getIron()));
+			total.setMagnesium((total.getMagnesium() + temp.getMagnesium()));
+			total.setPotassium((total.getPotassium() + temp.getPotassium()));
+			total.setSodium((total.getSodium() + temp.getSodium()));
+			total.setZinc((total.getZinc() + temp.getZinc()));
+			total.setVitC((total.getVitC() + temp.getVitC()));
+			total.setVitB6((total.getVitB6() + temp.getVitB6()));
+			total.setVitB12((total.getVitB12() + temp.getVitB12()));
+			total.setVitA((total.getVitA() + temp.getVitA()));
+			total.setVitE((total.getVitE() + temp.getVitE()));
+			total.setVitD((total.getVitD() + temp.getVitD()));
+			total.setVitK((total.getVitK() + temp.getVitK()));
+			total.setFatSat((total.getFatSat() + temp.getFatSat()));
+			total.setFatPoly((total.getFatPoly() + temp.getFatPoly()));
+			total.setCholesterol((total.getCholesterol() + temp
+					.getCholesterol()));
+		}
+		
+		return total;
+	}
+	
 }

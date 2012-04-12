@@ -122,6 +122,10 @@
 	    <activity android:name="SummaryActivity"
 	        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
 	        android:screenOrientation="landscape"></activity>
+	    
+	    <activity android:name="HistoryActivity"
+	        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+	        android:screenOrientation="landscape"></activity>
 
     </application>
 
