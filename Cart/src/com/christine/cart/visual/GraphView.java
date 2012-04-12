@@ -45,9 +45,10 @@ public class GraphView extends View implements View.OnTouchListener{
 	private final static int SELECT_COMPARE = 2;
 	private final static String[] reduced = new String[]{
 		"calories", "protein", "totalfats", "carbs", "fiber", 
-		"sugar", "calcium", "iron", "magnesium", "potassium", "sodium", "zinc", "vitamin C",
-		"vitamin D", "vitamin B6", "vitamin B12", "vitamin A", "vitamin E", "vitamin K",
-		"saturated fat", "cholesterol"};
+		"sugar", "calcium", "iron", "magnesium", "potassium",
+		"sodium", "zinc", "vitamin C", "vitamin D", "vitamin B6",
+		"vitamin B12", "vitamin A", "vitamin E", "vitamin K", "saturated fat",
+		"cholesterol"};
 	
 	private static int colorGreen;
 	private static int colorOrange;
@@ -374,7 +375,7 @@ public class GraphView extends View implements View.OnTouchListener{
 			int addHeight = Math.round(selectedNutrition.get(i) * (float) graphHeight);
 			
 			//cap the heights of the bars 
-			if(addHeight > this._graphHeight){
+			if(barHeight > this._graphHeight){
 				barHeight = _cap;
 				addHeight = _cap;
 			}
@@ -473,19 +474,55 @@ public class GraphView extends View implements View.OnTouchListener{
 		int bitmapXSpacing = 4;
 		int bitmapYA = 2;
 		int bitmapYB = 18;
+		int minHeight = base - _cap;
+		
 		for(int i=0; i<reduced.length; i++){
 			int spacing = 180*i;
 			
 			int yPos = base - Math.round(goals.get(reduced[i]) * (float) graphHeight); 
+			int barHeight = base - (Math.round(ratios.get(reduced[i]) * (float) graphHeight));
+		
 			
-			if(yPos < topline) {
-				c.drawLine(startLineX + spacing, yPos, endLineX + spacing, yPos, decPaint);
-				c.drawBitmap(decArrow, startLineX + bitmapXSpacing + spacing, yPos - bitmapYA, null);
-			} else if ( yPos > topline && yPos < (base - 2)){
-				c.drawLine(startLineX + spacing, yPos, endLineX + spacing, yPos, incPaint);
-				c.drawBitmap(incArrow, startLineX + bitmapXSpacing +spacing, yPos + bitmapYB, null);
+			//special case numbers for the bad stuff, always set to neg
+			//sugar=>5 || sodium=>10 || saturated fat=>19 || cholesterol=>20
+			if(i!=5 && i!=10 && i!=19 && i!=20){
+				if(yPos < minHeight ) {
+					//don't draw an arrow for these, because they are exceeding already
+					yPos = minHeight;
+					c.drawLine(startLineX + spacing, yPos, endLineX + spacing, yPos, incPaint);
+				} else if ( yPos > minHeight && yPos < (base - 2)){
+					//otherwise, draw an arrow and the line		
+					c.drawLine(startLineX + spacing, yPos, endLineX + spacing, yPos, incPaint);
+					if(yPos < barHeight) {
+						Log.d("GraphView", "Line 496: Increase arrow at: " + i);
+						c.drawBitmap(incArrow, startLineX + bitmapXSpacing +spacing, yPos - bitmapYB, null);
+					} else {
+						// draw the arrow on top of the bar to encourage increase only if the
+						// bar is below the cap height
+						Log.d("GraphView", "Line 500: Increase arrow at: " + i);
+						c.drawBitmap(incArrow, startLineX + bitmapXSpacing + spacing, barHeight - bitmapYB, null);
+					}
+				}
+			} else {
+				if(yPos < minHeight ) {
+					yPos = minHeight;
+					c.drawLine(startLineX + spacing, yPos, endLineX + spacing, yPos, decPaint);
+					c.drawBitmap(decArrow, startLineX + bitmapXSpacing +spacing, yPos + bitmapYA, null);
+				}  else if ( yPos > minHeight && yPos < (base - 2)){
+					//otherwise, draw an arrow and the line
+					c.drawLine(startLineX + spacing, yPos, endLineX + spacing, yPos, decPaint);
+					
+					if(yPos < barHeight) {
+						Log.d("GraphView", "Line 512: Decrease arrow at: " + i);
+						c.drawBitmap(decArrow, startLineX + bitmapXSpacing +spacing, yPos - bitmapYB, null);
+					} else {
+						// draw the arrow on top of the bar to encourage increase only if the
+						// bar is below the cap height
+						Log.d("GraphView", "Line 515: Decrease arrow at: " + i);
+						c.drawBitmap(decArrow, startLineX + bitmapXSpacing + spacing, barHeight - bitmapYB, null);
+					}
+				}  	
 			}
-			
 		}
 	}
 
