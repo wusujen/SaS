@@ -6,9 +6,7 @@
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.RecDailyValues"/>
 <fullyQualifiedTypeName name="android.graphics.PixelFormat"/>
 <fullyQualifiedTypeName name="android.view.WindowManager"/>
-<fullyQualifiedTypeName name="android.view.WindowManager.LayoutParams"/>
 <fullyQualifiedTypeName name="android.graphics.Paint.Align"/>
-<fullyQualifiedTypeName name="android.widget.LinearLayout"/>
 <fullyQualifiedTypeName name="android.view.LayoutInflater"/>
 <fullyQualifiedTypeName name="com.christine.cart.InputSearchActivity"/>
 <fullyQualifiedTypeName name="android.widget.SeekBar"/>
@@ -60,4 +58,6 @@
 <fullyQualifiedTypeName name="com.christine.cart.R.id"/>
 <fullyQualifiedTypeName name="com.christine.cart.R.drawable"/>
 <fullyQualifiedTypeName name="android.graphics.BitmapFactory"/>
+<fullyQualifiedTypeName name="android.widget.LinearLayout"/>
+<fullyQualifiedTypeName name="android.view.WindowManager.LayoutParams"/>
 </qualifiedTypeNameHistroy>

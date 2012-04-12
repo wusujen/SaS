@@ -15,12 +15,17 @@ import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class SummaryActivity extends Activity {
 
-	TextView tv_summary;
+	TextView tv_positive_summary;
+	TextView tv_negative_summary;
+	LinearLayout ll_positive_container;
+	LinearLayout ll_negative_container;
 	Button btn_goals;
 
 	AccountDatabaseHelper adb;
@@ -28,9 +33,6 @@ public class SummaryActivity extends Activity {
 	int days;
 	String username;
 	NutritionAdvisor advisor;
-	
-	private static String[] finalAdviceWithP;
-	private static String[] finalAdviceWithoutP;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -39,7 +41,10 @@ public class SummaryActivity extends Activity {
 
 		setContentView(R.layout.summary);
 
-		tv_summary = (TextView) findViewById(R.id.tv_summary);
+		tv_positive_summary = (TextView) findViewById(R.id.tv_positive_summary);
+		tv_negative_summary = (TextView) findViewById(R.id.tv_negative_summary);
+		ll_negative_container = (LinearLayout) findViewById(R.id.ll_negative_container);
+		ll_positive_container = (LinearLayout) findViewById(R.id.ll_positive_container);
 		btn_goals = (Button) findViewById(R.id.btn_goals);
 
 		Intent cartContents = getIntent();
@@ -53,7 +58,7 @@ public class SummaryActivity extends Activity {
 		advisor.setCurrCart(pH);
 		advisor.setRecDailyValues(rdv);
 		advisor.setDays(days);
-	
+		advisor.clearPreviouslyShownToasts();
 
 		if (pH != null && act != null) {
 			pH.setId(null);
@@ -73,40 +78,54 @@ public class SummaryActivity extends Activity {
 						.getPreviousHistoryFor(username);
 				advisor.setPastCart(existingHistory);
 				
-				finalAdviceWithP = advisor.getFinalAdviceWithPrevious();
-				finalAdviceWithoutP = advisor.getFinalAdvice();
-				Log.d("SummaryActivity", "finalAdviceWithout" + finalAdviceWithoutP[0]);
 				//give the advice!
-				advisor.clearPreviouslyShownToasts();
-				String summary = advisor.getNegativeAdvice() + advisor.getPositiveAdviceAboutPrevious();
-				String cleaned = summary.replaceAll("\\s","");
-				if(cleaned.length() == 0) {
-					summary = "You didn't improve or digress this time! Staying level is pretty good--but remember, you can always be a better you!";
+				String posSummary = advisor.givePosStringAdvice();
+				String negSummary = advisor.giveNegStringAdvice();
+				String cleaned = new String();
+				if(posSummary!=null && posSummary.length()!=0){
+					cleaned += posSummary.replaceAll("\\s","");
 				}
-				tv_summary.setText(summary);
+				if(negSummary!=null && negSummary.length()!=0){
+					cleaned += negSummary.replaceAll("\\s","");
+				} else {
+					ll_negative_container.setVisibility(View.GONE);
+				}
 				
+				if(cleaned.length() == 0) {
+					posSummary = "You didn't improve or digress this time! Staying level is pretty good--but remember, you can always be a better you!";
+					tv_positive_summary.setText(posSummary);
+				} else {
+					tv_positive_summary.setText(posSummary);
+					tv_negative_summary.setText(negSummary);
+				}
 			} else {
 				adb.addPreviousHistoryFor(pH);
 
 				PreviousHistory thisHistory = adb
 						.getPreviousHistoryFor(username);
 				
-				
-				finalAdviceWithoutP = advisor.getFinalAdvice();
-				Log.d("SummaryActivity", "finalAdviceWithout" + String.valueOf(finalAdviceWithoutP[0]));
-				advisor.clearPreviouslyShownToasts();
-				String summary = advisor.getNegativeAdvice() + " \n \n" + advisor.getPositiveAdviceAboutPrevious();
 				String firstTime = "Great job finishing your first cart! \n \n" +
 						"The next time you come in you will see <font color='#E57716'>ORANGE LINES</font> that keep track of your " +
 						"previous shopping cart's nutritional content. \n \n " +
 						"Try to keep track and improve each time!"; 
-				String cleaned = summary.replaceAll("\\s","");
-				if(cleaned.length() == 0) {
-					summary = firstTime;
-				} else {
-					summary += "\n\n" + firstTime;
+				//give the advice!
+				String posSummary = advisor.givePosStringAdvice();
+				String negSummary = advisor.giveNegStringAdvice();
+				String cleaned = new String();
+				if(posSummary!=null && posSummary.length()!=0){
+					cleaned += posSummary.replaceAll("\\s","");
 				}
-				tv_summary.setText(Html.fromHtml(summary));
+				if(negSummary!=null && negSummary.length()!=0){
+					cleaned += negSummary.replaceAll("\\s","");
+				} else {
+					ll_negative_container.setVisibility(View.GONE);
+				}
+				if(cleaned.length() == 0) {
+					tv_positive_summary.setText(firstTime);
+				} else {
+					tv_positive_summary.setText(posSummary);
+					tv_negative_summary.setText(negSummary);
+				}
 			}
 
 			// delete all of the current cart items based upon the username
@@ -120,11 +139,8 @@ public class SummaryActivity extends Activity {
 			}
 
 			adb.close();
-		
-			
-		} else {
-			tv_summary.setText("Dude, you didn't buy anything, so we can't tell you anything. Try again next time!");
-		}
+
+		} 
 		
 		btn_goals.setOnClickListener( new View.OnClickListener(){
 			public void onClick(View v){

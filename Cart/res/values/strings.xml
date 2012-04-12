@@ -77,11 +77,13 @@
 
 	
 	<!-- Checkout -->
-	<string name="tv_summary_title">GROCERY NUTRITION RESULTS</string>
+	<string name="tv_summary_title">GROCERY NUTRITION SUMMARY</string>
 	<string name="btn_finish">I\'LL IMPROVE!</string>
 	<string name="tv_checkout">Checkout</string>
 	<string name="btn_logout">Logout</string>	
 	<string name ="btn_new_cart">New Cart</string>
-
+	<string name="tv_nexttime_title">TO IMPROVE</string>
+	<string name="tv_negative_title">IMPROVEMENTS FOR NEXT TIME</string>
+	<string name="tv_positive_title">THE GOOD</string>
 	
 </resources>

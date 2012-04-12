@@ -30,8 +30,8 @@ public class NutritionAdvisor {
 	private static ArrayList<String> announcedPrev = new ArrayList<String>();
 	private static ArrayList<String> announcedRec = new ArrayList<String>();
 	
-	String positive = new String();
-	String negative = new String();
+	String[] positive;
+	String[] negative;
 	
 
 	private final static String[] nutrients = new String[] { "calories",
@@ -195,11 +195,13 @@ public class NutritionAdvisor {
 	}
 	
 	/*
-	 * Accepts a context displays a toast with the positive aspects of the
-	 * current state of the cart;
+	 * Generates a string array describing the
+	 * current nutritional state of the cart;
+	 * 0=> previous
+	 * 1=> recommended
 	 */
-	public String getPositiveAdviceAboutPrevious(){
-		positive = new String();
+	public String[] getPositiveAdvice(){
+		positive = new String[2];
 		String prevPos = new String();
 		String recPos = new String();
 		
@@ -214,13 +216,10 @@ public class NutritionAdvisor {
 					if(announcedPrev.indexOf(prev)==-1){
 						if(i<goodPrev.size()-1){
 							prevPos += prev + ", ";
-							Log.d("NutritionAdvisor", "Previous Positive is: " + prev);
 						} else if(i==goodPrev.size() && prevPos!=null && prevPos.length()!=0){
 							prevPos += " and " + prev;
-							Log.d("NutritionAdvisor", "Previous Positive is: " + prev);
 						} else {
 							prevPos += prev;
-							Log.d("NutritionAdvisor", "Previous Positive is: " + prev);
 						}
 						
 						announcedPrev.add(prev);
@@ -228,7 +227,7 @@ public class NutritionAdvisor {
 					}
 				
 				if(prevPos!=null && prevPos.length()>0){
-					positive = "Great job! Compared to your previous shopping trip, you've increased the amount of " + prevPos + " in your cart.";
+					positive[0] = "Compared to your previous shopping trip, you've increased the amount of " + prevPos + " in your cart.";
 				}
 			}
 			
@@ -243,25 +242,22 @@ public class NutritionAdvisor {
 			if(announcedRec.indexOf(rec)==-1){
 				if(i<goodRec.size()-1){
 					recPos += rec + " ,";
-					Log.d("NutritionAdvisor", "Rec Positive is: " + rec);
 				} else if(i==goodRec.size() && recPos!=null && recPos.length()!=0){
 					recPos += " and " + rec;
-					Log.d("NutritionAdvisor", "Rec Positive is: " + rec);
 				} else {
 					recPos += rec;
-					Log.d("NutritionAdvisor", "Rec Positive is: " + rec);
 				}
 				
 				announcedRec.add(rec);
 			}
 		}
 		
-		if(prevPos!=null && prevPos.length()>0){
-			positive += " \n \n";
-		}
 		
 		if(recPos!=null && recPos.length()>0){
-			positive += "You've met the nutritional requirements of " + recPos + " for " + _days + " days.";
+			if(prevPos!=null && prevPos.length()>0){
+				positive[0] += " \n \n";
+			}
+			positive[1] += "You've met the nutritional requirements of " + recPos + " for " + _days + " days.";
 		}
 		
 		return positive;
@@ -269,11 +265,13 @@ public class NutritionAdvisor {
 	}
 	
 	/*
-	 * Accepts a context displays a toast with the negative aspects of the
-	 * current state of the cart;
+	 * Generates a string array describing the
+	 * current nutritional state of the cart;
+	 * 0=> previous
+	 * 1=> recommended
 	 */
-	public String getNegativeAdvice(){
-		negative = new String();
+	public String[] getNegativeAdvice(){
+		negative = new String[2];
 		String prevNeg = new String();
 		String recNeg = new String();
 		
@@ -288,10 +286,8 @@ public class NutritionAdvisor {
 					if(announcedPrev.indexOf(prev)==-1){
 						if(i<badPrev.size()-1){
 							prevNeg += prev + ", ";
-							Log.d("NutritionAdvisor", "Previous Negative is: " + prev);
 						} else {
 							prevNeg += prev;
-							Log.d("NutritionAdvisor", "Previous Negative is: " + prev);
 						}
 						
 						announcedPrev.add(prev);
@@ -299,7 +295,7 @@ public class NutritionAdvisor {
 					}
 				
 				if(prevNeg!=null && prevNeg.length()>0){
-					negative = "In your previous shopping trip, your cart contained less " + prevNeg + ". Try to reduce if you can.";
+					negative[0] = "In your previous shopping trip, your cart contained less " + prevNeg + ". Try to reduce if you can.";
 				}
 				
 			}
@@ -315,21 +311,20 @@ public class NutritionAdvisor {
 			if(announcedRec.indexOf(rec)==-1){
 				if(i<badRec.size()-1){
 					recNeg += rec + " ,";
-					Log.d("NutritionAdvisor", "Rec Negative is: " + rec);
 				} else {
 					recNeg += rec;
-					Log.d("NutritionAdvisor", "Rec Negative is: " + rec);
 				}
 				
 				announcedRec.add(rec);
 			}
 		}
 		
-		if(prevNeg!=null && prevNeg.length()>0){
-			negative += " \n \n";
-		}
+		
 		if(recNeg!=null && recNeg.length()>0){
-			negative += "Careful. You have exceeded the recommended amounts of " + recNeg + ". Try to decrease the amounts of these nutrients in your cart.";
+			if(prevNeg!=null && prevNeg.length()>0){
+				negative[0] += " \n \n";
+			}
+			negative[1] += "You have exceeded the recommended amounts of " + recNeg + ". Try to decrease the amounts of these nutrients in your cart.";
 		}
 		
 		return negative;
@@ -340,15 +335,24 @@ public class NutritionAdvisor {
 		String bad = null;
 		String good = null;
 		
-		for(int i=0; i<badRec.size(); i++){
-			bad += badRec.get(i) + " \n";
+		if(badRec!=null && badRec.size()!=0){
+			for(int i=0; i<badRec.size(); i++){
+				bad += badRec.get(i) + " \n";
+			}
+		} else {
+			bad = "";
 		}
 		
-		for(int i=0; i<goodRec.size(); i++){
-			good += goodRec.get(i) + " \n";
+		if(goodRec!=null && goodRec.size()!=0){
+			for(int i=0; i<goodRec.size(); i++){
+				good += goodRec.get(i) + " \n";
+			}
+		} else {
+			good = "";
 		}
 		
-		String[] finalAdviceWithoutPCart = new String[]{bad, good};
+		String[] finalAdviceWithoutPCart = new String[]{bad.replaceAll("null", ""), good.replaceAll("null", "")};
+		
 		return finalAdviceWithoutPCart;
 	}
 	
@@ -357,32 +361,98 @@ public class NutritionAdvisor {
 		String bad = null;
 		String good = null;
 		
-		for(int i=0; i<badPrev.size(); i++){
-			bad += badPrev.get(i) + " \n";
+		if(badPrev!=null && badPrev.size()!=0){
+			for(int i=0; i<badPrev.size(); i++){
+				bad += badPrev.get(i) + " \n";
+			}
+		} else {
+			bad = "";
 		}
 		
-		for(int i=0; i<goodPrev.size(); i++){
-			good += goodPrev.get(i) + " \n";
+		if(goodPrev!=null && goodRec.size()!=0){
+			for(int i=0; i<goodPrev.size(); i++){
+				good += goodPrev.get(i) + " \n";
+			}
+		} else {
+			good = "";
 		}
 		
-		String[] finalAdviceWithPCart = new String[]{bad, good};
+		String[] finalAdviceWithPCart = new String[]{bad.replaceAll("null", ""), good.replaceAll("null", "")};
+		
 		return finalAdviceWithPCart;
 	}
 
 	
-	public void giveAdvice(Context context){
+	public void giveToastAdvice(Context context){
 		
-		String posA = getPositiveAdviceAboutPrevious();
-		String negA = getNegativeAdvice();
+		String[] pos = getPositiveAdvice();
+		String[] neg = getNegativeAdvice();
+		String totalPos = null;
+		String totalNeg = null;
 		
-		if(posA!=null && negA!=null && posA.length()!=0 && negA.length()!=0) {
-			Toast neg = Toast.makeText(context, negA, Toast.LENGTH_LONG);
-			neg.show();
-			
-			Toast pos = Toast.makeText(context, posA, Toast.LENGTH_LONG);
-			pos.show();
+		if(pos[0]!=null){
+			totalPos = pos[0];
+		}
+		if(pos[1]!=null){
+			totalPos += pos[1];
+		}
+		if(neg[0]!=null){
+			totalNeg = neg[0];
+		}
+		if(neg[1]!=null){
+			totalNeg = neg[1];
 		}
 		
+		if(totalNeg!=null && totalNeg.length()!=0) {
+			totalNeg = totalNeg.replaceAll("null", "");
+			Toast negAdvice = Toast.makeText(context, "IMPROVE ON \n\n" + totalNeg, Toast.LENGTH_LONG);
+			negAdvice.show();
+		}
+		
+		if(totalPos!=null && totalPos.length()!=0) {
+			totalPos = totalPos.replaceAll("null", "");
+			Toast posAdvice = Toast.makeText(context, "GREAT JOB \n\n" + totalPos, Toast.LENGTH_LONG);
+			posAdvice.show();
+		}
+		
+	}
+	
+	public String giveNegStringAdvice(){
+		String[] neg = getNegativeAdvice();
+		String totalNeg = null;
+		
+		if(neg[0]!=null){
+			totalNeg = neg[0];
+		}
+		if(neg[1]!=null){
+			totalNeg = neg[1];
+		}
+		
+		String finalNeg = null;
+		if(totalNeg!=null && totalNeg.length()!=0) {
+			finalNeg = totalNeg.replaceAll("null", "");
+		}
+		
+		return finalNeg;
+	}
+	
+	public String givePosStringAdvice(){
+		String[] pos = getPositiveAdvice();
+		String totalPos = null;
+		
+		if(pos[0]!=null){
+			totalPos = pos[0];
+		}
+		if(pos[1]!=null){
+			totalPos += pos[1];
+		}
+		
+		String finalPos = null;
+		if(totalPos!=null && totalPos.length()!=0) {
+			finalPos = totalPos.replaceAll("null", "");
+		}
+		
+		return finalPos;
 	}
 	
 	public void clearPreviouslyShownToasts(){

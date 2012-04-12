@@ -251,7 +251,7 @@ public class CartActivity extends Activity {
 		advisor.setCurrCart(ccartTotals);
 		advisor.setRecDailyValues(totalRDV);
 		advisor.setDays(days);
-		advisor.giveAdvice(this.getApplicationContext());
+		advisor.giveToastAdvice(this.getApplicationContext());
 
 	}
 	
