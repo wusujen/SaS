@@ -180,15 +180,6 @@ public class CartActivity extends Activity {
 		adb.close();
 		
 
-		// Get the previous history for the user
-		// if it exists, then pass it to Graph labels to draw goals
-		if (pcart.getCalories() != 0.0f) {
-			advisor.setPastCart(pcart);
-		} else {
-			Log.d("CartActivity",
-					"There is no previous history yet for this cart. Username is: " + pcart.getUsername());
-		}
-
 		// Handles the PLU code
 		searchItem = (Button) findViewById(R.id.btn_search);
 		deleteItem = (Button) findViewById(R.id.btn_delete_item);
@@ -251,6 +242,12 @@ public class CartActivity extends Activity {
 			deleteAndQuantityButtonsDisabled();
 		}
 		
+		
+		// Get the previous history for the user
+		// if it exists, then pass it to Graph labels to draw goals
+		if (pcart.getCalories() != 0.0f) {
+			advisor.setPastCart(pcart);
+		}
 		advisor.setCurrCart(ccartTotals);
 		advisor.setRecDailyValues(totalRDV);
 		advisor.setDays(days);
@@ -657,7 +654,15 @@ public class CartActivity extends Activity {
 			ndb.close();
 			
 			selectedItems.add(selectedItem);
-			String one = "<font color='#7EAD1A'>" + selectedItem.getItemName() +"</font> SELECTED";
+			String itemOne;
+			
+			if(selectedItems.get(0).getItemName().length()>20){
+				itemOne = selectedItems.get(0).getItemName().substring(0,20) + "...";
+			} else {
+				itemOne = selectedItems.get(0).getItemName();
+			}
+			
+			String one = "<font color='#7EAD1A'>" + itemOne +"</font> SELECTED";
 			added.setText(Html.fromHtml(one));
 	
 			for (GroceryItem gItem : ccart) {

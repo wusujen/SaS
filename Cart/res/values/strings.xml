@@ -77,7 +77,7 @@
 
 	
 	<!-- Checkout -->
-	<string name="tv_summary_title">YOUR PROGRESS</string>
+	<string name="tv_summary_title">GROCERY NUTRITION RESULTS</string>
 	<string name="btn_finish">I\'LL IMPROVE!</string>
 	<string name="tv_checkout">Checkout</string>
 	<string name="btn_logout">Logout</string>	

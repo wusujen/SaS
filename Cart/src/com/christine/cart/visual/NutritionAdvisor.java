@@ -35,11 +35,11 @@ public class NutritionAdvisor {
 	
 
 	private final static String[] nutrients = new String[] { "calories",
-			"protein", "totalfats", "carbs", "fiber", "sugar", "calcium",
+			"protein", "total fats", "carbs", "fiber", "sugar", "calcium",
 			"iron", "magnesium", "potassium", "sodium", "zinc", "vitamin C",
 			"vitamin D", "vitamin B6", "vitamin B12", "vitamin A", "vitamin E",
-			"vitamin K", "Saturated Fat", "Monunsaturated Fat",
-			"Polyunsaturated Fat", "cholesterol" };
+			"vitamin K", "saturated fat", "monunsaturated fat",
+			"polyunsaturated fat", "cholesterol" };
 
 	public NutritionAdvisor() {
 		_rdv = new RecDailyValues();
@@ -74,8 +74,8 @@ public class NutritionAdvisor {
 	public void getNutritionFocus() {
 		nutritionFocus = new HashMap<String, Integer>();
 
-		String[] decreaseOn = new String[] { "totalfats", "sugar", "sodium",
-				"cholesterol" };
+		String[] decreaseOn = new String[] { "total fats", "sugar", "sodium",
+				"saturated fat", "cholesterol" };
 		
 		for (int i = 0; i < nutrients.length; i++) {
 			nutritionFocus.put(nutrients[i], 0);
@@ -99,10 +99,13 @@ public class NutritionAdvisor {
 		Float[] ccart = _ccart.getNutritionProperties();
 		Float[] pcart = _pcart.getNutritionProperties();
 		
-		goodPrev = new ArrayList<String>();
-		badPrev = new ArrayList<String>();
-		goodRec = new ArrayList<String>();
-		badRec = new ArrayList<String>();
+		// arrays keep track of what alerts have been sent!
+		// there seem to be two states, a FINAL state and a CURRENT ACTIVE state.
+		// [] means no recommendation will be shown, because it is apparent via viz
+		goodPrev = new ArrayList<String>();		// user exceeded their previous amount on a good item, or they stayed below their previous amount on a bad item
+		badPrev = new ArrayList<String>();		// user exceeded their previous amount on a bad item, or they didn't meet their previous amount on a good item
+		goodRec = new ArrayList<String>();		// user exceeded recommended amount of a good item, or stayed below the recommended amount on a bad item
+		badRec = new ArrayList<String>();		// user exceeded recommended amount of bad item, or [stayed below the recommended amount of a good item]
 		
 		for (int i = 0; i < nutrients.length; i++) {
 			float r = rdv[i] * _days;
@@ -118,33 +121,35 @@ public class NutritionAdvisor {
 				int gPrev = goodPrev.indexOf(nutrient);
 				int bPrev = badPrev.indexOf(nutrient);
 				
-				switch (focus) {
-				case -1:
-					if (c >= r && c < p && bRec==-1) {
-						badRec.add(nutrient);
-					} else if (c < r && c >= p && bPrev==-1) {
-						badPrev.add(nutrient);
-					} else if (r == p && c >= r
-							&& bPrev != -1
-							&& bRec != -1) {
-						badRec.add(nutrient);
-						badPrev.add(nutrient);
-					}
-					break;
-				default: // =>0
-					if (c >= r && c < p && gRec== -1) {
-						goodRec.add(nutrient);
-					} else if (c < r && c >= p && gPrev == -1) {
-						goodPrev.add(nutrient);
-					} else if (r == p && c >= r
-							&& gPrev == -1
-							&& gRec == -1) {
-						goodPrev.add(nutrient);
-						goodRec.add(nutrient);
-					}
-					
-					break;
+
+				// if current cart amount is greater than recommended amount,
+				// and it is a bad item and has not been shown yet
+				if(c > r && focus == -1 && bRec == -1) {
+					badRec.add(nutrient);
+					Log.d("NutritionAdvisor", "Bad Rec: " + nutrient);
+				} 
+				// if current cart amount is greater than recommended amount,
+				// and it is a good item and has not been shown yet
+				else if (c > r && focus !=-1 && gRec == -1) {
+					goodRec.add(nutrient);
+					Log.d("NutritionAdvisor", "Good Rec: " + nutrient);
 				}
+				
+				
+				// if current cart amount is greater than previous amount,
+				// and it is a bad item and it has not been shown yet
+				if(c > p && focus == -1 && bPrev == -1){
+					badPrev.add(nutrient);
+					Log.d("NutritionAdvisor", "Bad Prev: " + nutrient);
+				}
+				
+				// if current cart amount is greater than previous amount,
+				// and it is a good item and has not been shown yet 
+				if(c > p && focus != -1 && gPrev == -1){
+					goodPrev.add(nutrient);
+					Log.d("NutritionAdvisor", "Good Prev: " + nutrient);
+				}
+			
 			}
 		}
 	}
@@ -173,19 +178,17 @@ public class NutritionAdvisor {
 				int bRec = badRec.indexOf(nutrient);
 				int gRec = goodRec.indexOf(nutrient);
 	
-				if (bRec==-1 || gRec==-1) {
-					switch (focus) {
-					case -1:
-						if (c >= r) {
-							badRec.add(nutrient);
-						}
-						break;
-					default: // =>0
-						if (c >= r) {
-							goodRec.add(nutrient);
-						}
-						break;
-					}
+				// if current cart amount is greater than recommended amount,
+				// and it is a bad item and has not been shown yet
+				if(c > r && focus == -1 && bRec == -1) {
+					badRec.add(nutrient);
+					Log.d("NutritionAdvisor", "Bad Rec: " + nutrient);
+				} 
+				// if current cart amount is greater than recommended amount,
+				// and it is a good item and has not been shown yet
+				else if (c > r && focus !=-1 && gRec == -1) {
+					goodRec.add(nutrient);
+					Log.d("NutritionAdvisor", "Good Rec: " + nutrient);
 				}
 			}
 		}
@@ -195,7 +198,7 @@ public class NutritionAdvisor {
 	 * Accepts a context displays a toast with the positive aspects of the
 	 * current state of the cart;
 	 */
-	public String getPositiveAdvice(){
+	public String getPositiveAdviceAboutPrevious(){
 		positive = new String();
 		String prevPos = new String();
 		String recPos = new String();
@@ -212,8 +215,11 @@ public class NutritionAdvisor {
 						if(i<goodPrev.size()-1){
 							prevPos += prev + ", ";
 							Log.d("NutritionAdvisor", "Previous Positive is: " + prev);
+						} else if(i==goodPrev.size() && prevPos!=null && prevPos.length()!=0){
+							prevPos += " and " + prev;
+							Log.d("NutritionAdvisor", "Previous Positive is: " + prev);
 						} else {
-							prevPos += prev + ".";
+							prevPos += prev;
 							Log.d("NutritionAdvisor", "Previous Positive is: " + prev);
 						}
 						
@@ -222,16 +228,15 @@ public class NutritionAdvisor {
 					}
 				
 				if(prevPos!=null && prevPos.length()>0){
-					positive = "You've improved on " + prevPos;
+					positive = "Great job! Compared to your previous shopping trip, you've increased the amount of " + prevPos + " in your cart.";
 				}
-				
 			}
 			
 		} else{
 			getCurrentStateWithoutPastCart();
 		}
 		
-		
+
 		for(int i=0; i<goodRec.size(); i++){
 			String rec = goodRec.get(i);
 			
@@ -239,8 +244,11 @@ public class NutritionAdvisor {
 				if(i<goodRec.size()-1){
 					recPos += rec + " ,";
 					Log.d("NutritionAdvisor", "Rec Positive is: " + rec);
+				} else if(i==goodRec.size() && recPos!=null && recPos.length()!=0){
+					recPos += " and " + rec;
+					Log.d("NutritionAdvisor", "Rec Positive is: " + rec);
 				} else {
-					recPos += rec + "!";
+					recPos += rec;
 					Log.d("NutritionAdvisor", "Rec Positive is: " + rec);
 				}
 				
@@ -248,8 +256,12 @@ public class NutritionAdvisor {
 			}
 		}
 		
+		if(prevPos!=null && prevPos.length()>0){
+			positive += " \n \n";
+		}
+		
 		if(recPos!=null && recPos.length()>0){
-			positive += "\nGreat job! You've met the requirements on " + recPos;
+			positive += "You've met the nutritional requirements of " + recPos + " for " + _days + " days.";
 		}
 		
 		return positive;
@@ -278,7 +290,7 @@ public class NutritionAdvisor {
 							prevNeg += prev + ", ";
 							Log.d("NutritionAdvisor", "Previous Negative is: " + prev);
 						} else {
-							prevNeg += prev + ".";
+							prevNeg += prev;
 							Log.d("NutritionAdvisor", "Previous Negative is: " + prev);
 						}
 						
@@ -287,7 +299,7 @@ public class NutritionAdvisor {
 					}
 				
 				if(prevNeg!=null && prevNeg.length()>0){
-					negative = " You did better last time on " + prevNeg;
+					negative = "In your previous shopping trip, your cart contained less " + prevNeg + ". Try to reduce if you can.";
 				}
 				
 			}
@@ -305,7 +317,7 @@ public class NutritionAdvisor {
 					recNeg += rec + " ,";
 					Log.d("NutritionAdvisor", "Rec Negative is: " + rec);
 				} else {
-					recNeg += rec + "!";
+					recNeg += rec;
 					Log.d("NutritionAdvisor", "Rec Negative is: " + rec);
 				}
 				
@@ -313,16 +325,54 @@ public class NutritionAdvisor {
 			}
 		}
 		
+		if(prevNeg!=null && prevNeg.length()>0){
+			negative += " \n \n";
+		}
 		if(recNeg!=null && recNeg.length()>0){
-			negative += "\nTry to reduce the amounts of " + recNeg;
+			negative += "Careful. You have exceeded the recommended amounts of " + recNeg + ". Try to decrease the amounts of these nutrients in your cart.";
 		}
 		
 		return negative;
 	}
 	
+	
+	public String[] getFinalAdvice(){
+		String bad = null;
+		String good = null;
+		
+		for(int i=0; i<badRec.size(); i++){
+			bad += badRec.get(i) + " \n";
+		}
+		
+		for(int i=0; i<goodRec.size(); i++){
+			good += goodRec.get(i) + " \n";
+		}
+		
+		String[] finalAdviceWithoutPCart = new String[]{bad, good};
+		return finalAdviceWithoutPCart;
+	}
+	
+	
+	public String[] getFinalAdviceWithPrevious(){
+		String bad = null;
+		String good = null;
+		
+		for(int i=0; i<badPrev.size(); i++){
+			bad += badPrev.get(i) + " \n";
+		}
+		
+		for(int i=0; i<goodPrev.size(); i++){
+			good += goodPrev.get(i) + " \n";
+		}
+		
+		String[] finalAdviceWithPCart = new String[]{bad, good};
+		return finalAdviceWithPCart;
+	}
+
+	
 	public void giveAdvice(Context context){
 		
-		String posA = getPositiveAdvice();
+		String posA = getPositiveAdviceAboutPrevious();
 		String negA = getNegativeAdvice();
 		
 		if(posA!=null && negA!=null && posA.length()!=0 && negA.length()!=0) {

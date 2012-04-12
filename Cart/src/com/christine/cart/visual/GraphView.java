@@ -494,12 +494,10 @@ public class GraphView extends View implements View.OnTouchListener{
 					//otherwise, draw an arrow and the line		
 					c.drawLine(startLineX + spacing, yPos, endLineX + spacing, yPos, incPaint);
 					if(yPos < barHeight) {
-						Log.d("GraphView", "Line 496: Increase arrow at: " + i);
 						c.drawBitmap(incArrow, startLineX + bitmapXSpacing +spacing, yPos - bitmapYB, null);
 					} else {
 						// draw the arrow on top of the bar to encourage increase only if the
 						// bar is below the cap height
-						Log.d("GraphView", "Line 500: Increase arrow at: " + i);
 						c.drawBitmap(incArrow, startLineX + bitmapXSpacing + spacing, barHeight - bitmapYB, null);
 					}
 				}
@@ -513,12 +511,10 @@ public class GraphView extends View implements View.OnTouchListener{
 					c.drawLine(startLineX + spacing, yPos, endLineX + spacing, yPos, decPaint);
 					
 					if(yPos < barHeight) {
-						Log.d("GraphView", "Line 512: Decrease arrow at: " + i);
 						c.drawBitmap(decArrow, startLineX + bitmapXSpacing +spacing, yPos - bitmapYB, null);
 					} else {
 						// draw the arrow on top of the bar to encourage increase only if the
 						// bar is below the cap height
-						Log.d("GraphView", "Line 515: Decrease arrow at: " + i);
 						c.drawBitmap(decArrow, startLineX + bitmapXSpacing + spacing, barHeight - bitmapYB, null);
 					}
 				}  	

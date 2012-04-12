@@ -131,6 +131,7 @@ containing a value of this type.
     }
     public static final class id {
         public static final int LinearLayout1=0x7f0a0053;
+        public static final int LinearLayout2=0x7f0a00a3;
         public static final int RelativeLayout1=0x7f0a0027;
         public static final int RelativeLayout2=0x7f0a0029;
         public static final int actionbar=0x7f0a0028;
@@ -141,7 +142,7 @@ containing a value of this type.
         public static final int actionbar_home_is_back=0x7f0a000f;
         public static final int actionbar_home_logo=0x7f0a000c;
         public static final int actionbar_item=0x7f0a0013;
-        public static final int actionbar_item_home=0x7f0a00ab;
+        public static final int actionbar_item_home=0x7f0a00ac;
         public static final int actionbar_progress=0x7f0a0011;
         public static final int actionbar_title=0x7f0a0012;
         public static final int activity=0x7f0a006e;
@@ -158,7 +159,7 @@ containing a value of this type.
         public static final int btn_delete=0x7f0a009a;
         public static final int btn_delete_item=0x7f0a003a;
         public static final int btn_edit=0x7f0a009b;
-        public static final int btn_goals=0x7f0a00a3;
+        public static final int btn_goals=0x7f0a00a5;
         public static final int btn_handle=0x7f0a0035;
         public static final int btn_help=0x7f0a004b;
         public static final int btn_history=0x7f0a004c;
@@ -222,7 +223,7 @@ containing a value of this type.
         public static final int person_define=0x7f0a005d;
         public static final int person_define_02=0x7f0a0068;
         public static final int person_scrollview=0x7f0a005b;
-        public static final int pl_header=0x7f0a00a8;
+        public static final int pl_header=0x7f0a00a9;
         public static final int plu_confirm=0x7f0a0071;
         public static final int plu_quantity=0x7f0a007a;
         public static final int preview_view=0x7f0a0016;
@@ -230,7 +231,7 @@ containing a value of this type.
         public static final int query_button=0x7f0a008a;
         public static final int query_text_view=0x7f0a0089;
         public static final int quit=0x7f0a0005;
-        public static final int rdv_header=0x7f0a00a5;
+        public static final int rdv_header=0x7f0a00a6;
         public static final int relativeLayout1=0x7f0a0049;
         public static final int restart_preview=0x7f0a0006;
         public static final int result_button_view=0x7f0a0024;
@@ -240,7 +241,7 @@ containing a value of this type.
         public static final int rl_search_plu=0x7f0a008e;
         public static final int screen=0x7f0a000a;
         public static final int scrollView1=0x7f0a0092;
-        public static final int scrollView2=0x7f0a00a7;
+        public static final int scrollView2=0x7f0a00a8;
         public static final int sd_content=0x7f0a0033;
         public static final int sd_handle=0x7f0a0034;
         public static final int sd_itemlist=0x7f0a0032;
@@ -281,18 +282,18 @@ containing a value of this type.
         public static final int tv_cart_peopledays=0x7f0a0031;
         public static final int tv_cart_status=0x7f0a0048;
         public static final int tv_cart_widget_title=0x7f0a0045;
-        public static final int tv_days=0x7f0a00aa;
+        public static final int tv_days=0x7f0a00ab;
         public static final int tv_days_desc=0x7f0a0094;
         public static final int tv_gender=0x7f0a0062;
         public static final int tv_height=0x7f0a0069;
         public static final int tv_name=0x7f0a005e;
-        public static final int tv_peoplelist=0x7f0a00a9;
+        public static final int tv_peoplelist=0x7f0a00aa;
         public static final int tv_person_desc=0x7f0a005a;
         public static final int tv_person_step=0x7f0a0059;
         public static final int tv_printdays=0x7f0a0095;
         public static final int tv_profile_desc=0x7f0a0083;
         public static final int tv_profile_step=0x7f0a0082;
-        public static final int tv_rdv=0x7f0a00a6;
+        public static final int tv_rdv=0x7f0a00a7;
         public static final int tv_sp_itemname=0x7f0a007c;
         public static final int tv_sp_pluoutput=0x7f0a0073;
         public static final int tv_sp_prompt=0x7f0a0091;

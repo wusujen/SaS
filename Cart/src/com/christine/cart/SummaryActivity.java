@@ -28,6 +28,9 @@ public class SummaryActivity extends Activity {
 	int days;
 	String username;
 	NutritionAdvisor advisor;
+	
+	private static String[] finalAdviceWithP;
+	private static String[] finalAdviceWithoutP;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -50,7 +53,7 @@ public class SummaryActivity extends Activity {
 		advisor.setCurrCart(pH);
 		advisor.setRecDailyValues(rdv);
 		advisor.setDays(days);
-		advisor.clearPreviouslyShownToasts();
+	
 
 		if (pH != null && act != null) {
 			pH.setId(null);
@@ -62,20 +65,20 @@ public class SummaryActivity extends Activity {
 
 			PreviousHistory existingHistory = adb.getPreviousHistoryFor(pH
 					.getUsername());
-			Log.d("Summary Activity", "Existing History " + existingHistory.toString());
+
 			if (existingHistory.getCalories() != 0.0f) {
 				adb.updatePreviousHistoryFor(pH);
 
 				PreviousHistory thisHistory = adb
 						.getPreviousHistoryFor(username);
-				Log.d("SummaryActivity",
-						"PH updated, Name: " + thisHistory.getUsername()
-								+ " Days: " + thisHistory.getDays()
-								+ " Calories: " + thisHistory.getCalories());
 				advisor.setPastCart(existingHistory);
 				
+				finalAdviceWithP = advisor.getFinalAdviceWithPrevious();
+				finalAdviceWithoutP = advisor.getFinalAdvice();
+				Log.d("SummaryActivity", "finalAdviceWithout" + finalAdviceWithoutP[0]);
 				//give the advice!
-				String summary = advisor.getNegativeAdvice() + " \n \n" + advisor.getPositiveAdvice();
+				advisor.clearPreviouslyShownToasts();
+				String summary = advisor.getNegativeAdvice() + advisor.getPositiveAdviceAboutPrevious();
 				String cleaned = summary.replaceAll("\\s","");
 				if(cleaned.length() == 0) {
 					summary = "You didn't improve or digress this time! Staying level is pretty good--but remember, you can always be a better you!";
@@ -87,12 +90,12 @@ public class SummaryActivity extends Activity {
 
 				PreviousHistory thisHistory = adb
 						.getPreviousHistoryFor(username);
-				Log.d("CheckoutActivity",
-						"PH added, Name: " + thisHistory.getUsername()
-								+ " Days: " + thisHistory.getDays()
-								+ " Calories: " + thisHistory.getCalories());
 				
-				String summary = advisor.getNegativeAdvice() + " \n \n" + advisor.getPositiveAdvice();
+				
+				finalAdviceWithoutP = advisor.getFinalAdvice();
+				Log.d("SummaryActivity", "finalAdviceWithout" + String.valueOf(finalAdviceWithoutP[0]));
+				advisor.clearPreviouslyShownToasts();
+				String summary = advisor.getNegativeAdvice() + " \n \n" + advisor.getPositiveAdviceAboutPrevious();
 				String firstTime = "Great job finishing your first cart! \n \n" +
 						"The next time you come in you will see <font color='#E57716'>ORANGE LINES</font> that keep track of your " +
 						"previous shopping cart's nutritional content. \n \n " +
