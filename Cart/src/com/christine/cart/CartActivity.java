@@ -752,17 +752,40 @@ public class CartActivity extends Activity {
 				}
 				
 				if(selectedItems.size()==1){
-					String one = "<font color='#7EAD1A'>" + selectedItems.get(0).getItemName() +"</font> SELECTED";
+					String itemOne;
+					
+					if(selectedItems.get(0).getItemName().length()>20){
+						itemOne = selectedItems.get(0).getItemName().substring(0,20) + "...";
+					} else {
+						itemOne = selectedItems.get(0).getItemName();
+					}
+					
+					String one = "<font color='#7EAD1A'>" + itemOne +"</font> SELECTED";
 					added.setText(Html.fromHtml(one));
-					graph.setMinimumWidth(3800);
+
 					graph.invalidate();
 					deleteAndQuantityButtonsEnabled();
 					
 				} else if(selectedItems.size()==2){
-					String two = "COMPARE <font color='#7EAD1A'>" + selectedItems.get(0).getItemName() +"</font>"
-							+ " VS <font color='#00CCFF'>" + selectedItems.get(1).getItemName() +"</font>";
+					String itemOne;
+					String itemTwo;
+					
+					if(selectedItems.get(0).getItemName().length()>16){
+						itemOne = selectedItems.get(0).getItemName().substring(0,16) + "...";
+					} else {
+						itemOne = selectedItems.get(0).getItemName();
+					}
+					
+					if(selectedItems.get(1).getItemName().length()>16){
+						itemTwo = selectedItems.get(1).getItemName().substring(0,16) + "...";
+					} else {
+						itemTwo = selectedItems.get(1).getItemName();
+					}
+
+					String two = "COMPARE <font color='#7EAD1A'>" + itemOne +"</font>"
+							+ " VS <font color='#00CCFF'>" + itemTwo +"</font>";
 					added.setText(Html.fromHtml(two));
-					graph.setMinimumWidth(4500);
+
 					graph.invalidate();
 					deleteAndQuantityButtonsDisabled();
 

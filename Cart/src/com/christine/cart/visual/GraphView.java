@@ -10,6 +10,8 @@ import com.christine.cart.sqlite.RecDailyValues;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -89,11 +91,7 @@ public class GraphView extends View implements View.OnTouchListener{
 	
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
 		heightMeasureSpec = MeasureSpec.getSize(heightMeasureSpec);
-		if( MODE == 0 || MODE == 1){
-			widthMeasureSpec = 3800;
-		} else if (MODE == 2){
-			widthMeasureSpec = 4500; 
-		}
+		widthMeasureSpec = 3800;
 		setMeasuredDimension( widthMeasureSpec, heightMeasureSpec);
 	}
 
@@ -118,7 +116,7 @@ public class GraphView extends View implements View.OnTouchListener{
 		_base = h - 90;
 		_topline = 100;
 		_graphHeight = _base - _topline;
-		_cap = _topline - 20;
+		_cap = _graphHeight + 10;
 		float interpolate = (float) _graphHeight / (float) _days;
 		
 		
@@ -333,15 +331,15 @@ public class GraphView extends View implements View.OnTouchListener{
 			
 			// BAR
 			int barHeight = Math.round(ratios.get(o) * (float) graphHeight);
-			int bh = base - barHeight;
-			
-			if(bh < (base-_cap)){
-				Rect smallerRect = new Rect((startBar+spacing), _cap, (endBar+spacing), base);
-				c.drawRect(smallerRect, orange);
-			} else {
-				Rect baseRect = new Rect((startBar + spacing), base - barHeight, (endBar+spacing), base);
-				c.drawRect(baseRect, grey);
+
+			//cap the heights of the bars 
+			if(barHeight > this._graphHeight){
+				barHeight = _cap;
 			}
+
+			Rect baseRect = new Rect((startBar + spacing), base - barHeight, (endBar+spacing), base);
+			c.drawRect(baseRect, grey);
+
 		}
 		
 	}
@@ -375,12 +373,15 @@ public class GraphView extends View implements View.OnTouchListener{
 			int barHeight = Math.round(ratios.get(reduced[i]) * (float) graphHeight);
 			int addHeight = Math.round(selectedNutrition.get(i) * (float) graphHeight);
 			
-			int bh = base - barHeight;
-			if(bh > (base-_cap)){
-				Rect addRect = new Rect((startBar+spacing), base - barHeight, (endBar+spacing), base - barHeight
-						+ addHeight);
-				c.drawRect(addRect, green);
+			//cap the heights of the bars 
+			if(addHeight > this._graphHeight){
+				barHeight = _cap;
+				addHeight = _cap;
 			}
+			
+			Rect addRect = new Rect((startBar+spacing), base - barHeight, (endBar+spacing), base - barHeight
+					+ addHeight);
+			c.drawRect(addRect, green);
 		}
 	}
 	
@@ -432,21 +433,20 @@ public class GraphView extends View implements View.OnTouchListener{
 			int barHeightB = Math.round(NutrientB.get(i) * (float) graphHeight);
 			int barHeightO = Math.round(NutrientO.get(i) * (float) graphHeight);
 			
-			int top = base - _cap;
+			//cap the heights of the bars 
+			if(barHeightB > this._graphHeight){
+				barHeightB = _cap;
+			}
+			if(barHeightO > this._graphHeight){
+				barHeightO = _cap;
+			}
+			
 			Rect baseRect = new Rect();
 			Rect compareRect = new Rect();
 			
-			if(base - barHeightB < top){
-				baseRect = new Rect((startBarB+spacing), _cap, (endBarB+spacing), base);
-			} else {
-				baseRect = new Rect((startBarB+spacing), base - barHeightB, (endBarB+spacing), base);
-			}
-			
-			if(base - barHeightO < top){
-				compareRect = new Rect((startBarO+spacing), _cap, (endBarO+spacing), base);			
-			} else {
-				compareRect = new Rect((startBarO+spacing), base - barHeightO, (endBarO+spacing), base);
-			}
+			baseRect = new Rect((startBarB+spacing), base - barHeightB, (endBarB+spacing), base);
+		
+			compareRect = new Rect((startBarO+spacing), base - barHeightO, (endBarO+spacing), base);
 			
 			c.drawRect(baseRect, green);
 			c.drawRect(compareRect, blue);
@@ -458,25 +458,32 @@ public class GraphView extends View implements View.OnTouchListener{
 	 */
 	private void drawGoalLines(Canvas c, int graphHeight, int base, int topline){
 		Paint incPaint = new Paint();
-		incPaint.setColor(Color.rgb(10, 207, 72));
+		incPaint.setColor(colorGreen);
 		incPaint.setStrokeWidth(2);
 		
 		Paint decPaint = new Paint();
-		decPaint.setColor(Color.rgb(250, 94, 10));
+		decPaint.setColor(colorOrange);
 		decPaint.setStrokeWidth(2);
 		
 		int startLineX = 40;
 		int endLineX = 100;
 		
+		Bitmap incArrow = BitmapFactory.decodeResource(getResources(), R.drawable.cart_increase);
+		Bitmap decArrow = BitmapFactory.decodeResource(getResources(), R.drawable.cart_decrease);
+		int bitmapXSpacing = 4;
+		int bitmapYA = 2;
+		int bitmapYB = 18;
 		for(int i=0; i<reduced.length; i++){
 			int spacing = 180*i;
 			
 			int yPos = base - Math.round(goals.get(reduced[i]) * (float) graphHeight); 
 			
 			if(yPos < topline) {
-				c.drawLine(startLineX + spacing, yPos, endLineX + spacing, yPos, incPaint);
-			} else if ( yPos > topline &  yPos < (base - 2)){
 				c.drawLine(startLineX + spacing, yPos, endLineX + spacing, yPos, decPaint);
+				c.drawBitmap(decArrow, startLineX + bitmapXSpacing + spacing, yPos - bitmapYA, null);
+			} else if ( yPos > topline && yPos < (base - 2)){
+				c.drawLine(startLineX + spacing, yPos, endLineX + spacing, yPos, incPaint);
+				c.drawBitmap(incArrow, startLineX + bitmapXSpacing +spacing, yPos + bitmapYB, null);
 			}
 			
 		}

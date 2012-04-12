@@ -229,7 +229,7 @@ public class RecDailyValues implements Parcelable{
 				_calories = (float) (662-(9.53*age) + PA*((15.91*weight) + (539.6*height)));
 				_totalfats = (_calories*0.25f)/9;
 				_fatPoly = (_calories*0.8f)/9;
-				_protein = (_calories*0.3f)/4; 			
+				_protein = (_calories*0.30f)/4; 			
 				_carbs = (_calories*0.65f)/4;
 				_fiber = 38;
 				_sugar =(_calories*0.25f)/4;
@@ -264,7 +264,7 @@ public class RecDailyValues implements Parcelable{
 				_calories = (float) (662-(9.53*age) + PA*((15.91*weight) + (539.6*height)));
 				_totalfats = (_calories*0.25f)/9;
 				_fatPoly = (_calories*0.8f)/9;
-				_protein = (_calories*0.3f)/4; 			
+				_protein = (_calories*0.35f)/4; 			
 				_carbs = (_calories*0.65f)/4;
 				_fiber = 30;
 				_sugar =(_calories*0.25f)/4;
@@ -281,7 +281,6 @@ public class RecDailyValues implements Parcelable{
 				_vitD = 10;
 				_vitE = 12;				
 				_vitK = 120;
-
 				_cholesterol = 300;
 			}
 		} else if(gender.equals("f")){

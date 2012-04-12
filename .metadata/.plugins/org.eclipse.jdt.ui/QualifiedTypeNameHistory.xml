@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.christine.cart.visual.GraphLabelView"/>
-<fullyQualifiedTypeName name="com.christine.cart.sqlite.PreviousHistory"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="android.view.View"/>
 <fullyQualifiedTypeName name="com.christine.cart.visual.NutritionAdvisor"/>
@@ -47,12 +45,10 @@
 <fullyQualifiedTypeName name="android.view.MotionEvent"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="android.view.Gravity"/>
-<fullyQualifiedTypeName name="com.christine.cart.R.id"/>
 <fullyQualifiedTypeName name="android.view.View.OnTouchListener"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Account"/>
 <fullyQualifiedTypeName name="android.widget.ImageButton"/>
 <fullyQualifiedTypeName name="android.content.res.Resources"/>
-<fullyQualifiedTypeName name="com.christine.cart.R.drawable"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.christine.cart.SetupPeopleActivity"/>
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
@@ -60,4 +56,8 @@
 <fullyQualifiedTypeName name="android.text.InputType"/>
 <fullyQualifiedTypeName name="android.text.Html"/>
 <fullyQualifiedTypeName name="com.christine.cart.R.color"/>
+<fullyQualifiedTypeName name="android.graphics.Bitmap"/>
+<fullyQualifiedTypeName name="com.christine.cart.R.id"/>
+<fullyQualifiedTypeName name="com.christine.cart.R.drawable"/>
+<fullyQualifiedTypeName name="android.graphics.BitmapFactory"/>
 </qualifiedTypeNameHistroy>
