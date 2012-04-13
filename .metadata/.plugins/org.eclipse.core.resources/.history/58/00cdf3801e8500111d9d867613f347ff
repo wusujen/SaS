@@ -98,6 +98,7 @@ public class DashboardActivity extends Activity {
 			}
 		}
 		
+
 		startNutrientActivity();
 		
 		addPeople.setOnClickListener(new View.OnClickListener() {
@@ -167,12 +168,9 @@ public class DashboardActivity extends Activity {
 			
 			public void onClick(View v) {
 				Intent goToNutrient = new Intent(DashboardActivity.this, NutrientActivity.class);
-				if (pcart != null && pcart.getCalories() != 0.0f && rdvTotals != null
-						&& rdvTotals.getCalories() != 0.0f) {
-					goToNutrient.putExtra("pcart", pcart);
-					goToNutrient.putExtra("rdvTotals", rdvTotals);
-				}
+				goToNutrient.putExtra("pcart", pcart);
 				goToNutrient.putExtra("account", act);
+				goToNutrient.putExtra("rdvTotals", rdvTotals);
 				startActivity(goToNutrient);
 			}
 		});
