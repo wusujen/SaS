@@ -25,7 +25,7 @@ public class DashboardActivity extends Activity {
 	
 	Button addPeople;
 	Button help;
-	Button history;
+	Button nutrient;
 	Button logout;
 	Button cartLauncher;
 	TextView widgetTitle;
@@ -50,7 +50,7 @@ public class DashboardActivity extends Activity {
 	    
 	    addPeople = (Button) findViewById(R.id.btn_people);
 	    help = (Button) findViewById(R.id.btn_help);
-	    history = (Button) findViewById(R.id.btn_history);
+	    nutrient = (Button) findViewById(R.id.btn_nutrient);
 	    logout = (Button) findViewById(R.id.btn_logout);
 	    cartLauncher = (Button) findViewById(R.id.btn_cartlauncher);
 	    widgetTitle = (TextView) findViewById(R.id.tv_cart_widget_title);
@@ -99,11 +99,7 @@ public class DashboardActivity extends Activity {
 		}
 		
 		if(pcart.getCalories()!=0 && pcart!=null){
-			startHistoryActivity();
-		} else {
-			Toast noHistory = Toast.makeText(DashboardActivity.this, "You don't have any shopping history! " +
-					"Once you have finished a cart, come visit again.", Toast.LENGTH_LONG);
-			noHistory.show();
+			startNutrientActivity();
 		}
 		
 		addPeople.setOnClickListener(new View.OnClickListener() {
@@ -168,15 +164,15 @@ public class DashboardActivity extends Activity {
 		});
 	}
 	
-	public void startHistoryActivity(){
-		history.setOnClickListener(new View.OnClickListener() {
+	public void startNutrientActivity(){
+		nutrient.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				Intent goToHistory = new Intent(DashboardActivity.this, HistoryActivity.class);
-				goToHistory.putExtra("pcart", pcart);
-				goToHistory.putExtra("account", act);
-				goToHistory.putExtra("rdvTotals", rdvTotals);
-				startActivity(goToHistory);
+				Intent goToNutrient = new Intent(DashboardActivity.this, NutrientActivity.class);
+				goToNutrient.putExtra("pcart", pcart);
+				goToNutrient.putExtra("account", act);
+				goToNutrient.putExtra("rdvTotals", rdvTotals);
+				startActivity(goToNutrient);
 			}
 		});
 	}

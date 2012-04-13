@@ -123,7 +123,7 @@
 	        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
 	        android:screenOrientation="landscape"></activity>
 	    
-	    <activity android:name="HistoryActivity"
+	    <activity android:name=".NutrientActivity"
 	        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
 	        android:screenOrientation="landscape"></activity>
 

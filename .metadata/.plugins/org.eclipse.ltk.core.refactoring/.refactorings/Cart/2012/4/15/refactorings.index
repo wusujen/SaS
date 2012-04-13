@@ -30,3 +30,8 @@
 1334213268999	Change Layout
 1334237322168	Rename method 'giveAdvice'
 1334245757663	Delete element
+1334275477928	Change Layout
+1334276868762	Rename resource 'history_list.xml'
+1334289600179	Rename type 'HistoryActivity'
+1334289663220	Rename method 'startHistoryActivity'
+1334289674603	Rename field 'history'

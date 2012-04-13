@@ -98,13 +98,13 @@
             android:background="@drawable/btn_help" />
 
         <Button
-            android:id="@+id/btn_history"
+            android:id="@+id/btn_nutrient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/btn_history" />
+            android:background="@drawable/btn_nutrient" />
 
         <ImageView
             android:id="@+id/imageView1"

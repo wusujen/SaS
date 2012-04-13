@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.graphics.PixelFormat"/>
-<fullyQualifiedTypeName name="android.view.WindowManager"/>
 <fullyQualifiedTypeName name="android.graphics.Paint.Align"/>
 <fullyQualifiedTypeName name="android.view.LayoutInflater"/>
 <fullyQualifiedTypeName name="com.christine.cart.InputSearchActivity"/>
@@ -18,7 +16,6 @@
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.AccountDatabaseHelper"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Person"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
-<fullyQualifiedTypeName name="com.christine.cart.R.layout"/>
 <fullyQualifiedTypeName name="android.widget.ScrollView"/>
 <fullyQualifiedTypeName name="android.view.View.MeasureSpec"/>
 <fullyQualifiedTypeName name="android.text.SpannableString"/>
@@ -37,7 +34,6 @@
 <fullyQualifiedTypeName name="com.christine.cart.SetupPeopleActivity"/>
 <fullyQualifiedTypeName name="android.widget.EditText"/>
 <fullyQualifiedTypeName name="android.text.InputType"/>
-<fullyQualifiedTypeName name="android.text.Html"/>
 <fullyQualifiedTypeName name="com.christine.cart.R.color"/>
 <fullyQualifiedTypeName name="android.graphics.Bitmap"/>
 <fullyQualifiedTypeName name="com.christine.cart.R.drawable"/>
@@ -60,4 +56,8 @@
 <fullyQualifiedTypeName name="android.graphics.Color"/>
 <fullyQualifiedTypeName name="android.widget.AdapterView.OnItemClickListener"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.widget.SimpleAdapter"/>
+<fullyQualifiedTypeName name="com.christine.cart.R.layout"/>
+<fullyQualifiedTypeName name="android.text.Html"/>
+<fullyQualifiedTypeName name="android.text.method.LinkMovementMethod"/>
 </qualifiedTypeNameHistroy>

@@ -105,7 +105,7 @@ public class SummaryActivity extends Activity {
 						.getPreviousHistoryFor(username);
 				
 				String firstTime = "Great job finishing your first cart! \n \n" +
-						"The next time you come in you will see <font color='#E57716'>ORANGE LINES</font> that keep track of your " +
+						"The next time you come in you will see <font color='#E57716'>LINES</font> that keep track of your " +
 						"previous shopping cart's nutritional content. \n \n " +
 						"Try to keep track and improve each time!"; 
 				//give the advice!
@@ -121,7 +121,7 @@ public class SummaryActivity extends Activity {
 					ll_negative_container.setVisibility(View.GONE);
 				}
 				if(cleaned.length() == 0) {
-					tv_positive_summary.setText(firstTime);
+					tv_positive_summary.setText(Html.fromHtml(firstTime));
 				} else {
 					tv_positive_summary.setText(posSummary);
 					tv_negative_summary.setText(negSummary);
