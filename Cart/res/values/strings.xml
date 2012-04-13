@@ -83,8 +83,8 @@
 	<string name="btn_logout">Logout</string>	
 	<string name ="btn_new_cart">New Cart</string>
 	<string name="tv_nexttime_title">TO IMPROVE</string>
-	<string name="tv_negative_title">IMPROVEMENTS FOR NEXT TIME</string>
-	<string name="tv_positive_title">THE GOOD</string>
+	<string name="tv_negative_title">PAY ATTENTION</string>
+	<string name="tv_positive_title">GREAT JOB</string>
 	<string name="btn_learn">LEARN ABOUT NUTRIENTS</string>
 	
 	<!-- History -->

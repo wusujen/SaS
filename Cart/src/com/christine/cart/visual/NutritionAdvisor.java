@@ -5,8 +5,14 @@ import java.util.HashMap;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.christine.cart.R;
 import com.christine.cart.sqlite.PreviousHistory;
 import com.christine.cart.sqlite.RecDailyValues;
 
@@ -383,12 +389,10 @@ public class NutritionAdvisor {
 	}
 
 	
-	public void giveToastAdvice(Context context){
+	public void givePositiveToastAdvice(Context context, View layout){
 		
 		String[] pos = getPositiveAdvice();
-		String[] neg = getNegativeAdvice();
 		String totalPos = null;
-		String totalNeg = null;
 		
 		if(pos[0]!=null){
 			totalPos = pos[0];
@@ -396,6 +400,29 @@ public class NutritionAdvisor {
 		if(pos[1]!=null){
 			totalPos += pos[1];
 		}
+		
+		if(totalPos!=null && totalPos.length()!=0) {
+			totalPos = totalPos.replaceAll("null", "");
+			
+			ImageView image = (ImageView) layout.findViewById(R.id.image);
+			image.setImageResource(R.drawable.cart_notification_improved);
+			TextView text = (TextView) layout.findViewById(R.id.text);
+			text.setText("GREAT JOB \n\n" + totalPos);
+
+			Toast posToast = new Toast(context);
+			posToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+			posToast.setDuration(Toast.LENGTH_LONG); //Default of LENGTH_LONG is 3500 or 3.5 seconds
+			posToast.setView(layout);
+			posToast.show();
+			posToast.show();
+		}
+	}
+		
+	public void giveNegativeToastAdvice(Context context, View layout){
+	
+		String[] neg = getNegativeAdvice();
+		String totalNeg = null;
+		
 		if(neg[0]!=null){
 			totalNeg = neg[0];
 		}
@@ -405,16 +432,19 @@ public class NutritionAdvisor {
 		
 		if(totalNeg!=null && totalNeg.length()!=0) {
 			totalNeg = totalNeg.replaceAll("null", "");
-			Toast negAdvice = Toast.makeText(context, "IMPROVE ON \n\n" + totalNeg, Toast.LENGTH_LONG);
-			negAdvice.show();
+			
+			ImageView image = (ImageView) layout.findViewById(R.id.image);
+			image.setImageResource(R.drawable.cart_notification_decrease);
+			TextView text = (TextView) layout.findViewById(R.id.text);
+			text.setText("IMPROVE ON \n\n" + totalNeg);
+
+			Toast negToast = new Toast(context);
+			negToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+			negToast.setDuration(Toast.LENGTH_LONG); //Default of LENGTH_LONG is 3500 or 3.5 seconds
+			negToast.setView(layout);
+			negToast.show();
+			negToast.show();
 		}
-		
-		if(totalPos!=null && totalPos.length()!=0) {
-			totalPos = totalPos.replaceAll("null", "");
-			Toast posAdvice = Toast.makeText(context, "GREAT JOB \n\n" + totalPos, Toast.LENGTH_LONG);
-			posAdvice.show();
-		}
-		
 	}
 	
 	public String giveNegStringAdvice(){

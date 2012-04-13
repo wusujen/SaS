@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.graphics.Paint.Align"/>
-<fullyQualifiedTypeName name="android.view.LayoutInflater"/>
-<fullyQualifiedTypeName name="com.christine.cart.InputSearchActivity"/>
-<fullyQualifiedTypeName name="android.widget.SeekBar"/>
 <fullyQualifiedTypeName name="android.widget.Spinner"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.PersonActivity"/>
 <fullyQualifiedTypeName name="android.provider.Contacts.People"/>
@@ -25,9 +21,7 @@
 <fullyQualifiedTypeName name="android.content.DialogInterface"/>
 <fullyQualifiedTypeName name="com.markupartist.android.widget.ActionBar.Action"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Item"/>
-<fullyQualifiedTypeName name="com.christine.cart.R"/>
 <fullyQualifiedTypeName name="android.view.MotionEvent"/>
-<fullyQualifiedTypeName name="android.view.Gravity"/>
 <fullyQualifiedTypeName name="android.view.View.OnTouchListener"/>
 <fullyQualifiedTypeName name="android.widget.ImageButton"/>
 <fullyQualifiedTypeName name="android.content.res.Resources"/>
@@ -36,14 +30,11 @@
 <fullyQualifiedTypeName name="android.text.InputType"/>
 <fullyQualifiedTypeName name="com.christine.cart.R.color"/>
 <fullyQualifiedTypeName name="android.graphics.Bitmap"/>
-<fullyQualifiedTypeName name="com.christine.cart.R.drawable"/>
 <fullyQualifiedTypeName name="android.graphics.BitmapFactory"/>
-<fullyQualifiedTypeName name="android.widget.LinearLayout"/>
 <fullyQualifiedTypeName name="android.view.WindowManager.LayoutParams"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Account"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.PreviousHistory"/>
-<fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="android.widget.ListView"/>
 <fullyQualifiedTypeName name="com.christine.cart.R.id"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.RecDailyValues"/>
@@ -60,4 +51,13 @@
 <fullyQualifiedTypeName name="android.text.Html"/>
 <fullyQualifiedTypeName name="android.text.method.LinkMovementMethod"/>
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="android.view.View"/>
+<fullyQualifiedTypeName name="com.christine.cart.R"/>
+<fullyQualifiedTypeName name="android.widget.ImageView"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="android.view.Gravity"/>
+<fullyQualifiedTypeName name="com.christine.cart.R.drawable"/>
+<fullyQualifiedTypeName name="android.view.ViewGroup"/>
+<fullyQualifiedTypeName name="android.view.LayoutInflater"/>
+<fullyQualifiedTypeName name="android.widget.LinearLayout"/>
 </qualifiedTypeNameHistroy>

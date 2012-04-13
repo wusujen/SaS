@@ -37,7 +37,9 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -251,8 +253,16 @@ public class CartActivity extends Activity {
 		advisor.setCurrCart(ccartTotals);
 		advisor.setRecDailyValues(totalRDV);
 		advisor.setDays(days);
-		advisor.giveToastAdvice(this.getApplicationContext());
+		
 
+		LayoutInflater inflater = getLayoutInflater();
+		ViewGroup toastRoot =  (ViewGroup) findViewById(R.id.toast_layout_root);
+		ViewGroup toastRoot2 = (ViewGroup) findViewById(R.id.toast_layout_root2);
+		View layout = inflater.inflate(R.layout.toast_layout, toastRoot);
+		View layout2 = inflater.inflate(R.layout.toast_layout2, toastRoot2);
+
+		advisor.giveNegativeToastAdvice(this.getApplicationContext(), layout);
+		advisor.givePositiveToastAdvice(this.getApplicationContext(), layout2);
 	}
 	
 	@Override
