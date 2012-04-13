@@ -85,6 +85,7 @@
 	<string name="tv_nexttime_title">TO IMPROVE</string>
 	<string name="tv_negative_title">IMPROVEMENTS FOR NEXT TIME</string>
 	<string name="tv_positive_title">THE GOOD</string>
+	<string name="btn_learn">LEARN ABOUT NUTRIENTS</string>
 	
 	<!-- History -->
 	<string name="history_nutrient_list">NUTRIENTS</string>

@@ -171,6 +171,9 @@ public class DashboardActivity extends Activity {
 						&& rdvTotals.getCalories() != 0.0f) {
 					goToNutrient.putExtra("pcart", pcart);
 					goToNutrient.putExtra("rdvTotals", rdvTotals);
+				} else {
+					pcart = new PreviousHistory();
+					rdvTotals = new RecDailyValues();
 				}
 				goToNutrient.putExtra("account", act);
 				startActivity(goToNutrient);

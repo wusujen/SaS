@@ -27,12 +27,16 @@ public class SummaryActivity extends Activity {
 	LinearLayout ll_positive_container;
 	LinearLayout ll_negative_container;
 	Button btn_goals;
+	Button btn_learn;
 
 	AccountDatabaseHelper adb;
 	Account act;
 	int days;
 	String username;
 	NutritionAdvisor advisor;
+	PreviousHistory pcart;
+	RecDailyValues rdvTotals;
+	
 
 	/** Called when the activity is first created. */
 	@Override
@@ -46,33 +50,34 @@ public class SummaryActivity extends Activity {
 		ll_negative_container = (LinearLayout) findViewById(R.id.ll_negative_container);
 		ll_positive_container = (LinearLayout) findViewById(R.id.ll_positive_container);
 		btn_goals = (Button) findViewById(R.id.btn_goals);
+		btn_learn = (Button) findViewById(R.id.btn_learn);
 
 		Intent cartContents = getIntent();
 		act = cartContents.getParcelableExtra("account");
-		PreviousHistory pH = cartContents.getParcelableExtra("cartTotals");
-		RecDailyValues rdv = cartContents.getParcelableExtra("rdv");
+		pcart = cartContents.getParcelableExtra("cartTotals");
+		rdvTotals = cartContents.getParcelableExtra("rdv");
 		days = cartContents.getIntExtra("days", 1);
 		username = act.getName();
 		
 		advisor = new NutritionAdvisor();
-		advisor.setCurrCart(pH);
-		advisor.setRecDailyValues(rdv);
+		advisor.setCurrCart(pcart);
+		advisor.setRecDailyValues(rdvTotals);
 		advisor.setDays(days);
 		advisor.clearPreviouslyShownToasts();
 
-		if (pH != null && act != null) {
-			pH.setId(null);
-			pH.setDays(days);
+		if (pcart != null && act != null) {
+			pcart.setId(null);
+			pcart.setDays(days);
 
 			// write to the previous history database, if the user doesn't
 			// already exist in the db
 			adb = new AccountDatabaseHelper(this);
 
-			PreviousHistory existingHistory = adb.getPreviousHistoryFor(pH
+			PreviousHistory existingHistory = adb.getPreviousHistoryFor(pcart
 					.getUsername());
 
 			if (existingHistory.getCalories() != 0.0f) {
-				adb.updatePreviousHistoryFor(pH);
+				adb.updatePreviousHistoryFor(pcart);
 
 				PreviousHistory thisHistory = adb
 						.getPreviousHistoryFor(username);
@@ -98,8 +103,10 @@ public class SummaryActivity extends Activity {
 					tv_positive_summary.setText(posSummary);
 					tv_negative_summary.setText(negSummary);
 				}
+				
+				pcart = adb.getPreviousHistoryFor(username);
 			} else {
-				adb.addPreviousHistoryFor(pH);
+				adb.addPreviousHistoryFor(pcart);
 
 				PreviousHistory thisHistory = adb
 						.getPreviousHistoryFor(username);
@@ -126,6 +133,8 @@ public class SummaryActivity extends Activity {
 					tv_positive_summary.setText(posSummary);
 					tv_negative_summary.setText(negSummary);
 				}
+				
+				pcart = adb.getPreviousHistoryFor(username);
 			}
 
 			// delete all of the current cart items based upon the username
@@ -139,7 +148,8 @@ public class SummaryActivity extends Activity {
 			}
 
 			adb.close();
-
+			
+			
 		} 
 		
 		btn_goals.setOnClickListener( new View.OnClickListener(){
@@ -151,6 +161,18 @@ public class SummaryActivity extends Activity {
 				startActivity(goToDashboard);
 			}
 			
+		});
+		
+		btn_learn.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				advisor.clearPreviouslyShownToasts();
+				Intent goToNutrient = new Intent(SummaryActivity.this, NutrientActivity.class);
+				goToNutrient.putExtra("pcart", pcart);
+				goToNutrient.putExtra("rdvTotals", rdvTotals);
+				goToNutrient.putExtra("account", act);
+				startActivity(goToNutrient);
+			}
 		});
 	
 	}

@@ -59,9 +59,7 @@ public class NutrientActivity extends Activity {
 
 		Intent dashboard = getIntent();
 		act = dashboard.getParcelableExtra("account");
-		pcart = new PreviousHistory();
 		pcart = dashboard.getParcelableExtra("pcart");
-		rdvTotals = new RecDailyValues();
 		rdvTotals = dashboard.getParcelableExtra("rdvTotals");
 
 		nutrientTitle = (TextView) findViewById(R.id.tv_nutrient_title);

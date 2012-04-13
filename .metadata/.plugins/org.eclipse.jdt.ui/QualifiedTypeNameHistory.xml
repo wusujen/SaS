@@ -40,7 +40,6 @@
 <fullyQualifiedTypeName name="android.graphics.BitmapFactory"/>
 <fullyQualifiedTypeName name="android.widget.LinearLayout"/>
 <fullyQualifiedTypeName name="android.view.WindowManager.LayoutParams"/>
-<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.Account"/>
 <fullyQualifiedTypeName name="com.christine.cart.sqlite.PreviousHistory"/>
@@ -60,4 +59,5 @@
 <fullyQualifiedTypeName name="com.christine.cart.R.layout"/>
 <fullyQualifiedTypeName name="android.text.Html"/>
 <fullyQualifiedTypeName name="android.text.method.LinkMovementMethod"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 </qualifiedTypeNameHistroy>
