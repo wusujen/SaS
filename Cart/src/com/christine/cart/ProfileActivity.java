@@ -294,7 +294,7 @@ public class ProfileActivity extends Activity {
 	    aLevel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    sp_activity.setAdapter(aLevel);
 	    sp_activity.setPrompt("How active are you daily?");
-	    sp_activity.setSelection(0);
+	    sp_activity.setSelection(p.getActivity());
 	    sp_activity.setOnItemSelectedListener(new OnItemSelectedListener(){
 
 			public void onItemSelected(AdapterView<?> arg0, View arg1,

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="grey_btn_font" parent="@android:style/">
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">
-        </item>
-    </style>
-</resources>

@@ -261,8 +261,8 @@ public class CartActivity extends Activity {
 		View layout = inflater.inflate(R.layout.toast_layout, toastRoot);
 		View layout2 = inflater.inflate(R.layout.toast_layout2, toastRoot2);
 
-		advisor.giveNegativeToastAdvice(this.getApplicationContext(), layout);
-		advisor.givePositiveToastAdvice(this.getApplicationContext(), layout2);
+		advisor.giveNegativeDialogAdvice(CartActivity.this, layout);
+		advisor.givePositiveDialogAdvice(CartActivity.this, layout2);
 	}
 	
 	@Override
@@ -612,8 +612,13 @@ public class CartActivity extends Activity {
 		results = passedIntent.getStringExtra("results");
 		int check = passedIntent.getIntExtra("check", 0);
 		if (check == 1) {
-			updateGraphWithSelected(results);
-			// setup the listview if current cart is not null
+			Log.d("CartActivity", "This is results " + results);
+			if (results!=null && !results.equals("e")) {
+				updateGraphWithSelected(results);
+			} else {
+				Toast noData = Toast.makeText(CartActivity.this, "Sorry, we couldn't find the nutrition data for this item", Toast.LENGTH_LONG);
+				noData.show();
+			}
 		} 	
 		
 		ccartTotals = getCartTotalsFor(currentUsername);
@@ -635,7 +640,7 @@ public class CartActivity extends Activity {
 	 * when results are returned
 	 */
 	private void updateGraphWithSelected(String results){
-		if (!results.equals(null) || !results.equals("e")) {
+	
 			ndb = new NutritionDatabaseHelper(this);
 	
 			if (selectedItems != null || quantities != null) {
@@ -693,9 +698,6 @@ public class CartActivity extends Activity {
 	
 			graphLabels.setDays(days);
 			graphLabels.postInvalidate();
-		} else {
-			
-		}
 	}
 	
 	/**

@@ -63,7 +63,7 @@ public class SummaryActivity extends Activity {
 		advisor.setCurrCart(pcart);
 		advisor.setRecDailyValues(rdvTotals);
 		advisor.setDays(days);
-		advisor.clearPreviouslyShownToasts();
+		advisor.clearPreviouslyShownDialogs();
 
 		if (pcart != null && act != null) {
 			pcart.setId(null);
@@ -154,7 +154,7 @@ public class SummaryActivity extends Activity {
 		
 		btn_goals.setOnClickListener( new View.OnClickListener(){
 			public void onClick(View v){
-				advisor.clearPreviouslyShownToasts();
+				advisor.clearPreviouslyShownDialogs();
 				Intent goToDashboard = new Intent(SummaryActivity.this,
 						DashboardActivity.class);
 				goToDashboard.putExtra("account", act);
@@ -166,7 +166,7 @@ public class SummaryActivity extends Activity {
 		btn_learn.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				advisor.clearPreviouslyShownToasts();
+				advisor.clearPreviouslyShownDialogs();
 				Intent goToNutrient = new Intent(SummaryActivity.this, NutrientActivity.class);
 				goToNutrient.putExtra("pcart", pcart);
 				goToNutrient.putExtra("rdvTotals", rdvTotals);

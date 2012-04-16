@@ -3,14 +3,12 @@ package com.christine.cart.visual;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.christine.cart.R;
 import com.christine.cart.sqlite.PreviousHistory;
@@ -389,7 +387,7 @@ public class NutritionAdvisor {
 	}
 
 	
-	public void givePositiveToastAdvice(Context context, View layout){
+	public void givePositiveDialogAdvice(Context context, View layout){
 		
 		String[] pos = getPositiveAdvice();
 		String totalPos = null;
@@ -404,21 +402,22 @@ public class NutritionAdvisor {
 		if(totalPos!=null && totalPos.length()!=0) {
 			totalPos = totalPos.replaceAll("null", "");
 			
-			ImageView image = (ImageView) layout.findViewById(R.id.image);
-			image.setImageResource(R.drawable.cart_notification_improved);
-			TextView text = (TextView) layout.findViewById(R.id.text);
-			text.setText("GREAT JOB \n\n" + totalPos);
+			Dialog dialog = new Dialog(context);
 
-			Toast posToast = new Toast(context);
-			posToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-			posToast.setDuration(Toast.LENGTH_LONG); //Default of LENGTH_LONG is 3500 or 3.5 seconds
-			posToast.setView(layout);
-			posToast.show();
-			posToast.show();
+			dialog.setContentView(layout);
+			dialog.setTitle("GREAT JOB!");
+			
+			ImageView image = (ImageView) layout.findViewById(R.id.image);
+			image.setImageResource(R.drawable.cart_notification_complete);
+			TextView text = (TextView) layout.findViewById(R.id.text);
+			text.setText(totalPos);
+			
+			dialog.setCanceledOnTouchOutside(true);
+			dialog.show();
 		}
 	}
 		
-	public void giveNegativeToastAdvice(Context context, View layout){
+	public void giveNegativeDialogAdvice(Context context, View layout){
 	
 		String[] neg = getNegativeAdvice();
 		String totalNeg = null;
@@ -430,20 +429,22 @@ public class NutritionAdvisor {
 			totalNeg = neg[1];
 		}
 		
+		
 		if(totalNeg!=null && totalNeg.length()!=0) {
 			totalNeg = totalNeg.replaceAll("null", "");
+
+			Dialog dialog = new Dialog(context);
+
+			dialog.setContentView(layout);
+			dialog.setTitle("IMPROVE ON");
 			
 			ImageView image = (ImageView) layout.findViewById(R.id.image);
 			image.setImageResource(R.drawable.cart_notification_decrease);
 			TextView text = (TextView) layout.findViewById(R.id.text);
-			text.setText("IMPROVE ON \n\n" + totalNeg);
-
-			Toast negToast = new Toast(context);
-			negToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-			negToast.setDuration(Toast.LENGTH_LONG); //Default of LENGTH_LONG is 3500 or 3.5 seconds
-			negToast.setView(layout);
-			negToast.show();
-			negToast.show();
+			text.setText(totalNeg);
+			
+			dialog.setCanceledOnTouchOutside(true);
+			dialog.show();
 		}
 	}
 	
@@ -485,7 +486,7 @@ public class NutritionAdvisor {
 		return finalPos;
 	}
 	
-	public void clearPreviouslyShownToasts(){
+	public void clearPreviouslyShownDialogs(){
 		announcedPrev = new ArrayList<String>();
 		announcedRec = new ArrayList<String>();
 	}

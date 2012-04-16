@@ -3,18 +3,19 @@
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="312" key="DIALOG_WIDTH"/>
 		<item value="726" key="DIALOG_Y_ORIGIN"/>
-		<item value="395" key="DIALOG_HEIGHT"/>
 		<item value="1372" key="DIALOG_X_ORIGIN"/>
+		<item value="395" key="DIALOG_HEIGHT"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="isRegEx"/>
 		<item value="true" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="posToast" key="selection"/>
+		<item value="Toast" key="selection"/>
 		<list key="findhistory">
+			<item value="Toast"/>
 			<item value="toast"/>
 			<item value="cartTotals"/>
 			<item value="History"/>
@@ -22,9 +23,9 @@
 			<item value="&#x09;&quot;Calcium, the most abundant mineral in the body, is found in some foods, added to others, available as a dietary supplement, and present in some medicines (such as antacids). Calcium is required for vascular contraction and vasodilation, muscle function, nerve transmission, intracellular signaling and hormonal secretion, though less than 1% of total body calcium is needed to support these critical metabolic functions [1]. Serum calcium is very tightly regulated and does not fluctuate with changes in dietary intakes; the body uses bone tissue as a reservoir for, and source of calcium, to maintain constant concentrations of calcium in blood, muscle, and intercellular fluids [1]."/>
 			<item value="history"/>
 			<item value="Log"/>
-			<item value="giveToast"/>
 		</list>
 		<list key="replacehistory">
+			<item value="Dialog"/>
 			<item value="posToast"/>
 			<item value="negToast"/>
 			<item value="Nutrient"/>
@@ -32,7 +33,6 @@
 			<item value="blue"/>
 			<item value="quantityItem"/>
 			<item value=""/>
-			<item value="deleteItem"/>
 		</list>
 	</section>
 </section>

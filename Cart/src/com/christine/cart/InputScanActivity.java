@@ -79,7 +79,12 @@ public class InputScanActivity extends Activity {
 	private static XMLRPCClient client= new XMLRPCClient(uri);
 	
 	public static String[] ndbNames = new String[] { "CHEESE,COTTAGE,LOWFAT,2% MILKFAT", "EGG,WHL,RAW,FRSH", 
-			"SNACKS,GRANOLA BAR,KASHI TLC BAR,CHEWY,MXD FLAVORS", "MILK,RED FAT,FLUID,2% MILKFAT,W/ ADDED VIT A & VITAMIN D"};
+			"SNACKS,GRANOLA BAR,KASHI TLC BAR,CHEWY,MXD FLAVORS", "MILK,RED FAT,FLUID,2% MILKFAT,W/ ADDED VIT A & VITAMIN D",
+			"CEREALS RTE,KASHI HONEY SUNSHINE", "CEREALS RTE,KELLOGG'S FRSTD MINI-WHTS TOUCH FRT MDL MXD BER",
+			"BREAD,WHEAT", "TURKEY BREAST,LO SALT,PREPACKAGED OR DELI,LUNCHEON MEAT", "BEEF,GROUND,80% LN MEAT / 20% FAT,RAW", 
+			"TOFU,SOFT,PREP W/CA SULFATE&MAGNESIUM CHLORIDE (NIGARI)", "CANDIES,TWIZZLERS STRAWBERRY TWISTS CANDY",
+			"CANDIES,MARS SNACKFOOD US,M&M'S PNUT CHOC CANDIES"
+			};
 	
 	Account act;
 	AccountDatabaseHelper adb;
@@ -381,8 +386,11 @@ public class InputScanActivity extends Activity {
 	 */
 	public String translateItemNameFromString(String upcName){
 		String ndbName = null;
-		String[] upcNames = new String[] { "BRKSTONE M/F C/CHSE", "FARMHOUSE GRDE A LRG BRWN", 
-				"Kashi 7 whole grains & Sesame Granola Bar (6 count)", "Lactaid Milk" };
+		String[] upcNames = new String[] { "BRKSTONE M/F C/CHSE", "Trader Joe's Brown Eggs 12 count", 
+				"Kashi 7 whole grains & Sesame Granola Bar (6 count)", "Lactaid Milk", "Kashi Honey Sunshine Cereal",
+				"Kellog's Frosted Mini-Wheats with Raspberry Jam center", "Nature's Own Extra Fiber Whole Wheat bread",
+				"Oscar Meyer Fresh Selects Turkey Breast", "GROUND BEEF 80/20", "Mori-Nu Silken Soft Tofu", 
+				"Twizzlers Strawberry Twists Candy", "M&M PEANUT CHOC 19.2OZ"};
 
 		for(int i=0; i<upcNames.length; i++){
 			if(upcName.equals(upcNames[i])){
@@ -402,7 +410,11 @@ public class InputScanActivity extends Activity {
 	public String translateItemNameFromUPC(String upcScan){
 		String ndbName = null;
 		String[] upcCodes = new String[] { "021000123544" /*Breakstones*/, "028621123588" /*eggs*/, 
-				"018627030003" /*kashi bar*/, "041383090721" /*lactaid*/, };
+				"018627030003" /*kashi bar*/, "041383090721" /*lactaid*/,"018627536871" /*Kashi h2h*/,
+				"038000597039" /*kellogs frstd mini*/, "072250915717" /*wheat bread*/, "044700061459" /*turkey breast*/, 
+				"0000002016597" /*ground beef*/, "085696608303"/*tofu*/, "034000560028" /*twizzlers*/, 
+				"040000249290" /*M&M's*/
+				};
 		
 		for(int i=0; i<upcCodes.length; i++){
 			if(upcScan.equals(upcCodes[i])){

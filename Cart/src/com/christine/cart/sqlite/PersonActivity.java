@@ -181,7 +181,7 @@ public class PersonActivity extends Activity {
 	    years.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    sp_age.setPrompt("Age (we'll keep it a secret)");
 	    sp_age.setAdapter(years);
-	    sp_age.setSelection(34-2);	//the starting selection
+	    sp_age.setSelection(p.getAge()-2);	//the starting selection
 	    sp_age.setOnItemSelectedListener(new OnItemSelectedListener(){
 
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -358,7 +358,7 @@ public class PersonActivity extends Activity {
 	    aLevel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    sp_activity.setAdapter(aLevel);
 	    sp_activity.setPrompt("How active are you daily?");
-	    sp_activity.setSelection(0);
+	    sp_activity.setSelection(p.getActivity());
 	    sp_activity.setOnItemSelectedListener(new OnItemSelectedListener(){
 
 			public void onItemSelected(AdapterView<?> arg0, View arg1,

@@ -30,6 +30,7 @@ public class DashboardActivity extends Activity {
 	Button cartLauncher;
 	TextView widgetTitle;
 	TextView cartStatus;
+	TextView welcome;
 	
 	private static Account act;
 	private static String username;
@@ -55,6 +56,11 @@ public class DashboardActivity extends Activity {
 	    cartLauncher = (Button) findViewById(R.id.btn_cartlauncher);
 	    widgetTitle = (TextView) findViewById(R.id.tv_cart_widget_title);
 	    cartStatus = (TextView) findViewById(R.id.tv_cart_status);
+	    welcome = (TextView) findViewById(R.id.tv_welcome);
+	    
+	    //set the welcome text
+	    String welcomeText = "welcome " + username;
+	    welcome.setText(welcomeText.toUpperCase());
 	    
 	    //check if the main person has been set on the account
 		adb = new AccountDatabaseHelper(DashboardActivity.this);

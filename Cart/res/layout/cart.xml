@@ -112,12 +112,12 @@
                     android:background="@drawable/background_green"
                     android:orientation="vertical" >
                 </LinearLayout>
-
+
                 <ListView
                     android:id="@+id/sd_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/drawer_buttons"
+                    android:layout_above="@+id/linearLayout4"
                     android:layout_below="@+id/colorbar"
                     android:cacheColorHint="#00000000"
                     android:scrollbarFadeDuration="0" >
