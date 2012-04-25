@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="theme_green">#7EAD1A</color>
-    <color name="theme_darkgreen">#578000</color>
-    <color name="theme_orange">#E57716</color>
-    <color name="theme_lightblue">#00CCFF</color>
-    <color name="theme_lightgrey">#999999</color>
-    <color name="theme_transparent">#00000000</color>
-</resources>

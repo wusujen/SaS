@@ -83,7 +83,7 @@ public class NutrientActivity extends Activity {
 			// get the percentages of nutrients fulfilled
 			for (int i = 0; i < pcartNums.length; i++) {
 				if (rdvNums[i] != 0.0f) {
-					percent[i] = Math.round((pcartNums[i] / rdvNums[i]) * (float) 100);
+					percent[i] = Math.round((pcartNums[i] / (rdvNums[i]* (float) pcart.getDays()) * (float) 100));
 				} else {
 					percent[i] = 0;
 				}

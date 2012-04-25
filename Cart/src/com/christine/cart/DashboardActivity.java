@@ -1,10 +1,12 @@
 package com.christine.cart;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.christine.cart.sqlite.Account;
 import com.christine.cart.sqlite.AccountDatabaseHelper;
+import com.christine.cart.sqlite.NutritionDatabaseHelper;
 import com.christine.cart.sqlite.Person;
 import com.christine.cart.sqlite.PreviousHistory;
 import com.christine.cart.sqlite.RecDailyValues;
@@ -13,6 +15,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -63,7 +66,7 @@ public class DashboardActivity extends Activity {
 	    welcome.setText(welcomeText.toUpperCase());
 	    
 	    //check if the main person has been set on the account
-		adb = new AccountDatabaseHelper(DashboardActivity.this);
+		adb = startAccountDB();
 		people= adb.getAllPeopleFor(username);
 		groceryCount = adb.getGroceryCountFor(username);
 		pcart = adb.getPreviousHistoryFor(username);
@@ -272,6 +275,32 @@ public class DashboardActivity extends Activity {
 		}
 		
 		return total;
+	}
+	
+	
+	/**
+	 * Convenience method for creating a database helper
+	 * or initializing the database
+	 * 
+	 * @return AccountDatabaseHelper
+	 */
+	public AccountDatabaseHelper startAccountDB(){
+		AccountDatabaseHelper db = new AccountDatabaseHelper(this);
+		
+		try {
+			db.createDataBase();
+		} catch (IOException ioe) {
+			throw new Error(
+					"Unable to create database, or db has been created already");
+		}
+		// OPEN THE DATABASE
+		try {
+			db.openDataBase();
+		} catch (SQLException sqle) {
+			throw sqle;
+		}
+		
+		return db;
 	}
 	
 }
